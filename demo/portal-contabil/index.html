@@ -72,9 +72,10 @@ h1,h2,h3{font-family:Archivo,"Helvetica Neue",Arial,sans-serif;letter-spacing:-.
 .seg button{background:transparent;border:0;color:#A3AEB8;font-size:13.5px;font-weight:600;padding:6px 13px;border-radius:var(--r-sm);cursor:pointer}
 .seg button[aria-pressed="true"]{background:#E6EAEE;color:#0E1318}
 .demobar select{background:#1C242C;border:1px solid #2E3944;color:#E6EAEE;border-radius:var(--r-md);padding:6px 9px;font-size:13.5px;max-width:210px}
+.demobar .feito{font-size:12.5px;color:#A3AEB8;line-height:1.35;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .demobar .reset{margin-left:auto;background:transparent;border:1px solid #2E3944;color:#A3AEB8;font-size:12.5px;padding:6px 11px;border-radius:var(--r-md);cursor:pointer}
 .demobar .reset:hover{color:#E6EAEE;border-color:#4E5A66}
-@media(max-width:680px){.demobar .tag{display:none}.demobar .reset{margin-left:0}}
+@media(max-width:680px){.demobar .tag{display:none}.demobar .reset{margin-left:0}.demobar .feito{flex-basis:100%;order:9;white-space:normal}}
 
 /* ── cabeçalho do escritório ────────────────────────────────────── */
 .top{border-bottom:1px solid var(--line);background:var(--bg)}
@@ -241,6 +242,7 @@ main{max-width:1240px;margin:0 auto;padding:26px 20px 72px}
 <div class="demobar">
   <div class="in">
     <span class="tag">Demonstração</span>
+    <span class="feito" id="feito" hidden></span>
     <div class="seg" role="group" aria-label="Alternar visão">
       <button id="v-esc" aria-pressed="true">Escritório</button>
       <button id="v-cli" aria-pressed="false">Cliente</button>
@@ -368,14 +370,67 @@ main{max-width:1240px;margin:0 auto;padding:26px 20px 72px}
 <script>
 "use strict";
 
-/* dados do escritório exibido nesta demonstração */
-var ESCRITORIO = {
-  nome:    "Contabilidade Meireles",
-  sigla:   "CM",
-  cidade:  "São José dos Campos/SP",
-  cor:     "#16457A"           // cor da marca
-};
-/* ═══════════════════════════════════════════════════════════════ */
+/* -- o escritorio que aparece na tela -----------------------------
+   Sem nada na URL, roda com um escritorio ficticio. Para montar a
+   mesma tela com o nome de um escritorio de verdade, use a URL:
+
+     ?e=Contabilidade+Meireles&c=Sao+Jose+dos+Campos/SP&k=16457A
+
+     e  nome do escritorio   (ate 48 caracteres)
+     c  cidade/UF            (opcional)
+     k  cor da marca em hex  (opcional, com ou sem #)
+     s  sigla de 2-3 letras  (opcional; sai do nome sozinha)
+
+   So entra texto: nada aqui vira HTML, e a cor so passa se for hex
+   valido. Nome com aspas ou sinal nao quebra a pagina.
+   ----------------------------------------------------------------- */
+var ESCRITORIO = (function(){
+  var pad = {
+    nome:    "Contabilidade Meireles",
+    sigla:   "CM",
+    cidade:  "S\u00e3o Jos\u00e9 dos Campos/SP",
+    cor:     "#16457A",
+    proprio: false          // true = montado para um escritorio real
+  };
+
+  /* sigla a partir do nome: iniciais das palavras que contam.
+     "Contabilidade Meireles" -> CM ; "IAPCONT" -> IA */
+  function siglaDe(nome){
+    var fora = {"de":1,"da":1,"do":1,"das":1,"dos":1,"e":1,"em":1,
+                "ltda":1,"me":1,"epp":1,"eireli":1,"sa":1,"s":1};
+    var ps = nome.toLowerCase()
+                 .replace(/[^0-9a-z\u00c0-\u017f\s]/g, " ")
+                 .split(/\s+/)
+                 .filter(function(p){ return p && !fora[p]; });
+    if (!ps.length)      return "ES";
+    if (ps.length === 1) return ps[0].slice(0, 2).toUpperCase();
+    return (ps[0].charAt(0) + ps[1].charAt(0)).toUpperCase();
+  }
+
+  function hexDe(v){
+    if (!v) return null;
+    v = String(v).trim().replace(/^#/, "");
+    return /^[0-9a-fA-F]{6}$/.test(v) ? "#" + v : null;
+  }
+
+  try {
+    var q = new URLSearchParams(location.search);
+    var nome = (q.get("e") || "").trim().replace(/\s+/g, " ").slice(0, 48);
+    if (nome){
+      pad.nome    = nome;
+      pad.sigla   = siglaDe(nome);
+      pad.proprio = true;
+      var cid = (q.get("c") || "").trim().slice(0, 40);
+      if (cid) pad.cidade = cid;
+      var cor = hexDe(q.get("k"));
+      if (cor) pad.cor = cor;
+      var sg = (q.get("s") || "").trim().replace(/[^0-9a-zA-Z\u00c0-\u017f]/g, "").slice(0, 3);
+      if (sg) pad.sigla = sg.toUpperCase();
+    }
+  } catch (e){ /* URL estranha: fica no padrao */ }
+
+  return pad;
+})();
 
 /* ── datas: competência = mês anterior, prazo = dia 10 ─────────── */
 var MESES = ["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
@@ -553,6 +608,13 @@ function toast(msg){
 
 /* ── cabeçalhos ────────────────────────────────────────────────── */
 document.documentElement.style.setProperty("--org", ESCRITORIO.cor);
+if (ESCRITORIO.proprio){
+  var elFeito = $("#feito");
+  elFeito.textContent = "Montado para " + ESCRITORIO.nome +
+    " · os clientes desta tela são fictícios";
+  elFeito.hidden = false;
+  document.title = "Portal de documentos — " + ESCRITORIO.nome;
+}
 $("#logo-e").textContent = ESCRITORIO.sigla;
 $("#logo-c").textContent = ESCRITORIO.sigla;
 $("#org-e").textContent  = ESCRITORIO.nome;

@@ -9,161 +9,108 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=Zilla+Slab:wght@500;600;700&display=swap">
+
+<link rel="stylesheet" href="sistema/tokens.css">
+<link rel="stylesheet" href="sistema/motion.css">
+<link rel="stylesheet" href="sistema/componentes.css">
 
 <style>
-/* ── tokens: Bloco 3 do plano ───────────────────────────────────── */
-:root{
-  --ink-900:#0E1318; --ink-700:#2A333D; --ink-500:#4E5A66;
-  --ink-300:#8C97A1; --ink-100:#DDE2E7; --ink-050:#F2F4F6;
-  --brand-700:#0F3560; --brand-600:#16457A; --brand-100:#E3EBF4;
-  --signal-800:#9A4F02; --signal-600:#D97005; --signal-100:#FBEBD6;
-  --success:#11703F; --warning:#8F5F09; --danger:#B0281F;
+/* Só o que é próprio desta página. Token, base tipográfica,
+   botão, revelação e layout de faixa vêm de sistema/. */
 
-  --bg:#FFFFFF; --surface:var(--ink-050); --text:var(--ink-900);
-  --text-2:var(--ink-500); --line:var(--ink-100); --line-2:var(--ink-300);
-  --accent:var(--brand-600); --accent-hover:var(--brand-700);
-  --sig:var(--signal-600); --sig-text:var(--signal-800); --sig-bg:var(--signal-100);
-  --on-accent:#FFFFFF;
-
-  --sh-sm:0 1px 2px rgba(14,19,24,.06);
-  --sh-md:0 2px 4px rgba(14,19,24,.06), 0 4px 12px -4px rgba(14,19,24,.10);
-  --sh-focus:0 0 0 3px rgba(22,69,122,.28);
-  --r-sm:2px; --r-md:4px; --r-lg:6px; --r-xl:10px;
-  --e-out:cubic-bezier(.22,.61,.36,1);
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#0E1318; --surface:#161C23; --text:#E6EAEE; --text-2:#A3AEB8;
-    --line:#242D36; --line-2:#38434E;
-    --accent:#6BA6F5; --accent-hover:#8FBDF8;
-    --sig:#F2A03D; --sig-text:#F2A03D; --sig-bg:#3A2A12;
-    --on-accent:#0E1318;
-    --sh-focus:0 0 0 3px rgba(107,166,245,.30);
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#0E1318; --surface:#161C23; --text:#E6EAEE; --text-2:#A3AEB8;
-  --line:#242D36; --line-2:#38434E;
-  --accent:#6BA6F5; --accent-hover:#8FBDF8;
-  --sig:#F2A03D; --sig-text:#F2A03D; --sig-bg:#3A2A12;
-  --on-accent:#0E1318;
-  --sh-focus:0 0 0 3px rgba(107,166,245,.30);
-}
-
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
-  background:var(--bg); color:var(--text);
-  font-family:"Public Sans",system-ui,"Segoe UI",Roboto,sans-serif;
-  font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;
-}
-img{max-width:100%;display:block}
-a{color:var(--accent);text-underline-offset:2px}
-:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:var(--r-sm)}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
-
-.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
-@media(max-width:600px){.wrap{padding:0 16px}}
 
 /* ── marca ──────────────────────────────────────────────────────── */
-.mark{display:inline-flex;align-items:baseline;gap:10px;text-decoration:none;color:var(--text)}
-.mark svg{flex:none}
-.mark .wordmark{font-family:Archivo,"Helvetica Neue",Arial,sans-serif;font-weight:600;font-size:19px;letter-spacing:-.01em}
-.mark .sub{font-family:"JetBrains Mono",ui-monospace,Consolas,monospace;font-size:10px;text-transform:uppercase;letter-spacing:.18em;color:var(--text-2)}
 
-header{border-bottom:1px solid var(--line)}
-header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:18px;padding-bottom:18px}
+.marca svg{flex:none}
+
+
+header{border-bottom:var(--borda-fina) solid var(--linha)}
+.acoes-cabecalho{display:flex;align-items:center;gap:var(--esp-3)}
+header .faixa{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:18px;padding-bottom:18px}
 
 /* ── tipografia ─────────────────────────────────────────────────── */
-.eyebrow{font-family:"JetBrains Mono",monospace;font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--text-2)}
-h1{font-family:Archivo,"Helvetica Neue",Arial,sans-serif;font-weight:600;font-size:clamp(34px,5.4vw,58px);line-height:1.04;letter-spacing:-.025em;text-wrap:balance;max-width:17ch}
-h2{font-family:Archivo,"Helvetica Neue",Arial,sans-serif;font-weight:600;font-size:clamp(25px,3.2vw,33px);line-height:1.18;letter-spacing:-.018em;text-wrap:balance}
+.eyebrow{font-size:16px;color:var(--texto-2);max-width:56ch}
+h1{max-width:17ch}
+
 h3{font-size:19px;font-weight:600;letter-spacing:-.005em;line-height:1.35}
-.lede{font-size:clamp(17px,2vw,19px);line-height:1.55;color:var(--text-2);max-width:56ch}
+
 p{max-width:64ch}
-.mono{font-family:"JetBrains Mono",monospace;font-variant-numeric:tabular-nums}
+
 
 /* ── seções ─────────────────────────────────────────────────────── */
-section{padding:clamp(56px,8vw,96px) 0;border-bottom:1px solid var(--line)}
-section.alt{background:var(--surface)}
-.sec-head{display:flex;flex-direction:column;gap:12px;margin-bottom:40px;max-width:62ch}
+section{padding:clamp(56px,8vw,96px) 0;border-bottom:1px solid var(--linha)}
+section.alt{background:var(--fundo-2)}
+
 
 /* ── hero ───────────────────────────────────────────────────────── */
 .hero{padding-top:clamp(48px,7vw,88px);padding-bottom:clamp(48px,7vw,80px)}
 .hero-grid{display:grid;gap:44px}
 .hero-copy{display:flex;flex-direction:column;gap:22px;align-items:flex-start}
-.hl{color:var(--sig-text);box-shadow:inset 0 -.34em 0 var(--sig-bg)}
+.hl{color:var(--texto);box-shadow:inset 0 -.1em 0 var(--acento)}
 
 /* ── botões ─────────────────────────────────────────────────────── */
-.btn{display:inline-flex;align-items:center;gap:9px;font-family:"Public Sans",sans-serif;font-size:16px;font-weight:600;line-height:1;padding:15px 22px;border-radius:var(--r-md);text-decoration:none;border:1px solid transparent;cursor:pointer;transition:background .16s var(--e-out),border-color .16s var(--e-out)}
-.btn-primary{background:var(--accent);color:var(--on-accent)}
-.btn-primary:hover{background:var(--accent-hover)}
-.btn-primary:focus-visible{box-shadow:var(--sh-focus);outline:none}
-.btn-ghost{border-color:var(--line-2);color:var(--text);background:transparent}
-.btn-ghost:hover{background:var(--surface)}
+
+
 .btn-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
-.btn-note{font-size:14px;color:var(--text-2)}
+.btn-note{font-size:14px;color:var(--texto-2)}
 
 /* ── cartões de prova ───────────────────────────────────────────── */
 .proofs{display:grid;grid-template-columns:repeat(auto-fit,minmax(266px,1fr));gap:18px}
-.proof{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-lg);padding:22px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--sh-sm)}
-.proof .kind{font-family:"JetBrains Mono",monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--text-2)}
-.proof .stat{font-family:Archivo,sans-serif;font-weight:700;font-size:34px;line-height:1;letter-spacing:-.02em}
-.proof p{font-size:14.5px;color:var(--text-2);margin:0}
-.proof .meta{margin-top:auto;padding-top:12px;border-top:1px solid var(--line);font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--text-2);display:flex;gap:14px;flex-wrap:wrap}
+.proof{background:var(--fundo);border:1px solid var(--linha);border-radius:var(--raio-3);padding:22px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--elev-1)}
+.proof .kind{font-size:13.5px;color:var(--texto-2)}
+.proof .stat{font-family:"Zilla Slab",Georgia,serif;font-weight:700;font-size:34px;line-height:1;letter-spacing:-.02em}
+.proof p{font-size:14.5px;color:var(--texto-2);margin:0}
+.proof .meta{margin-top:auto;padding-top:12px;border-top:1px solid var(--linha);font-size:13px;color:var(--texto-2);display:flex;gap:14px;flex-wrap:wrap}
 
 /* placeholder visível — some quando você preencher */
-.todo{border-style:dashed;border-color:var(--sig);background:var(--sig-bg)}
-.todo .kind{color:var(--sig-text)}
-.todo-tag{font-family:"JetBrains Mono",monospace;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.1em;color:var(--sig-text);border:1px solid var(--sig);border-radius:var(--r-sm);padding:2px 6px;display:inline-block;align-self:flex-start}
+.todo{border-style:dashed;border-color:var(--acento);background:var(--acento-suave)}
+.todo .kind{color:var(--texto)}
+.todo-tag{font-size:12.5px;font-weight:600;color:var(--texto);border:1px solid var(--acento);border-radius:var(--raio-1);padding:2px 6px;display:inline-block;align-self:flex-start}
 
 /* cartão largo — demonstração, categoria diferente de trabalho entregue */
 .proof.wide{grid-column:1/-1}
 .proof.wide p{max-width:72ch}
 
 /* ── preços ─────────────────────────────────────────────────────── */
-.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:0;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:var(--bg)}
-.tier{padding:24px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:10px}
+.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:0;border:1px solid var(--linha);border-radius:var(--raio-3);overflow:hidden;background:var(--fundo)}
+.tier{padding:24px;border-right:1px solid var(--linha);display:flex;flex-direction:column;gap:10px}
 .tier:last-child{border-right:0}
-@media(max-width:800px){.tier{border-right:0;border-bottom:1px solid var(--line)}.tier:last-child{border-bottom:0}}
-.tier .name{font-family:Archivo,sans-serif;font-weight:600;font-size:18px}
-.tier .price{font-family:Archivo,sans-serif;font-weight:700;font-size:26px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-.tier .term{font-family:"JetBrains Mono",monospace;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-2)}
-.tier ul{list-style:none;display:flex;flex-direction:column;gap:6px;font-size:14.5px;color:var(--text-2);margin-top:4px}
+@media(max-width:800px){.tier{border-right:0;border-bottom:1px solid var(--linha)}.tier:last-child{border-bottom:0}}
+.tier .name{font-family:"Zilla Slab",Georgia,serif;font-weight:600;font-size:18px}
+.tier .price{font-family:"Zilla Slab",Georgia,serif;font-weight:700;font-size:26px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.tier .term{font-size:14px;color:var(--texto-2)}
+.tier ul{list-style:none;display:flex;flex-direction:column;gap:6px;font-size:14.5px;color:var(--texto-2);margin-top:4px}
 .tier li{padding-left:16px;position:relative}
-.tier li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:1px;background:var(--line-2)}
+.tier li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:1px;background:var(--linha-forte)}
 
 /* ── faq ────────────────────────────────────────────────────────── */
-.faq{display:flex;flex-direction:column;gap:0;max-width:72ch;border-top:1px solid var(--line)}
-.faq details{border-bottom:1px solid var(--line)}
-.faq summary{cursor:pointer;padding:16px 0;font-weight:600;font-size:16.5px;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:baseline}
-.faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";font-family:"JetBrains Mono",monospace;color:var(--text-2);font-weight:400;flex:none}
-.faq details[open] summary::after{content:"–"}
-.faq .a{padding:0 0 18px;color:var(--text-2);font-size:15.5px}
+
 
 /* ── cta final ──────────────────────────────────────────────────── */
 .cta{display:flex;flex-direction:column;gap:20px;align-items:flex-start}
 
 /* ── rodapé ─────────────────────────────────────────────────────── */
-footer{padding:36px 0 48px;font-size:13.5px;color:var(--text-2)}
-footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:baseline}
-footer a{color:var(--text-2)}
+footer{padding:36px 0 48px;font-size:13.5px;color:var(--texto-2)}
+footer .faixa{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:baseline}
+footer a{color:var(--texto-2)}
 
 /* ── banner de consentimento (LGPD) ─────────────────────────────── */
-#consent{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--bg);border-top:1px solid var(--line-2);box-shadow:var(--sh-md);padding:16px 0}
-#consent .wrap{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
-#consent p{font-size:14px;color:var(--text-2);max-width:58ch;margin:0}
+#consent{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--fundo);border-top:1px solid var(--linha-forte);box-shadow:var(--elev-2);padding:16px 0}
+#consent .faixa{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
+#consent p{font-size:14px;color:var(--texto-2);max-width:58ch;margin:0}
 #consent .acts{display:flex;gap:10px;flex-wrap:wrap}
 #consent .btn{padding:11px 18px;font-size:14.5px}
+
+/* ── FAQ: a revelação vem do sistema; o contêiner é desta página ── */
+.faq{max-width:72ch;border-top:var(--borda-fina) solid var(--linha)}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="wrap">
-    <a class="mark" href="#top" aria-label="Fantin Sistemas, início">
+  <div class="faixa">
+    <a class="marca" href="#top" aria-label="Fantin Sistemas, início">
       <!-- marca: colchetes + bloco deslocado 1u à direita (Bloco 3) -->
       <svg width="22" height="26" viewBox="0 0 22 26" role="img" aria-hidden="true">
         <g fill="currentColor">
@@ -172,27 +119,32 @@ footer a{color:var(--text-2)}
           <rect x="11" y="15" width="8" height="8"/>
         </g>
       </svg>
-      <span class="wordmark">FANTIN</span>
-      <span class="sub">Sistemas</span>
+      <span class="nome">FANTIN</span>
+      <span class="qualificador">Sistemas</span>
     </a>
-    <a class="btn btn-ghost" href="#contato">Conversar</a>
+    <div class="acoes-cabecalho">
+      <button class="btn btn--fantasma btn--sm" data-alterna-tema aria-pressed="false" title="Alternar entre papel e tinta">
+        <span data-rotulo-tema>Tema escuro</span>
+      </button>
+      <a class="btn btn--secundario btn--lg" href="#contato">Conversar</a>
+    </div>
   </div>
 </header>
 
 <main id="top">
 
 <section class="hero">
-  <div class="wrap hero-grid">
+  <div class="faixa hero-grid">
     <div class="hero-copy">
-      <p class="eyebrow">Escritórios de contabilidade &middot; distribuidoras &middot; Vale do Paraíba</p>
-      <h1>Seu processo vive em planilha e WhatsApp. Eu tiro ele de lá.</h1>
-      <p class="lede">
+      <p class="eyebrow mov-folha">Para escritório de contabilidade e distribuidora no Vale do Paraíba.</p>
+      <h1 class="mov-folha" style="--i:1">Seu processo vive em planilha e WhatsApp. Eu tiro ele de lá.</h1>
+      <p class="lede mov-folha" style="--i:2">
         Catálogo B2B, portal do cliente e automação sob medida — para a parte do processo que
         o seu ERP não cobre. E eu <span class="hl">mostro funcionando com o seu caso</span>
         antes de você decidir se compra.
       </p>
-      <div class="btn-row">
-        <a class="btn btn-primary" href="#contato" data-evt="cta-hero">Ver um protótipo do meu caso</a>
+      <div class="btn-row mov-folha" style="--i:3">
+        <a class="btn btn--primario btn--lg" href="#contato" data-evt="cta-hero">Ver um protótipo do meu caso</a>
         <span class="btn-note">Resposta em até 4h úteis. Sem apresentação de slides.</span>
       </div>
     </div>
@@ -200,9 +152,8 @@ footer a{color:var(--text-2)}
 </section>
 
 <section class="alt">
-  <div class="wrap">
-    <div class="sec-head">
-      <p class="eyebrow">O problema, em uma frase</p>
+  <div class="faixa">
+    <div class="cabeca" data-revelar>
       <h2>Sistema pronto cobre uns 60% do processo. Os outros 40% viraram digitação repetida.</h2>
       <p class="lede">
         O pedido chega pelo WhatsApp e alguém digita de novo no sistema. O catálogo é um PDF
@@ -215,9 +166,8 @@ footer a{color:var(--text-2)}
 </section>
 
 <section>
-  <div class="wrap">
-    <div class="sec-head">
-      <p class="eyebrow">Trabalhos</p>
+  <div class="faixa">
+    <div class="cabeca" data-revelar>
       <h2>O que já está no ar.</h2>
       <p class="lede">
         Dois projetos entregues e pagos, com link ao vivo — clique e veja. Mais um sistema
@@ -227,16 +177,16 @@ footer a{color:var(--text-2)}
     </div>
     <div class="proofs">
 
-      <article class="proof">
-        <span class="kind">Cliente · página de captação</span>
+      <article class="proof" data-revelar>
+        <span class="kind">Página de captação, para cliente</span>
         <h3>Pedro Design</h3>
         <p>Site de um só rolo para um designer: o problema que ele resolve, três planos de
         assinatura com escopo escrito, projetos em destaque e conversa direta no WhatsApp.</p>
         <div class="meta"><a href="https://pdrdesign.com.br" target="_blank" rel="noopener">pdrdesign.com.br</a><span>no ar</span></div>
       </article>
 
-      <article class="proof">
-        <span class="kind">Cliente · página de vendas</span>
+      <article class="proof" data-revelar>
+        <span class="kind">Página de vendas, para cliente</span>
         <h3>ListaJota</h3>
         <p>Página de resposta direta para produto digital: oferta, bônus, prova social,
         perguntas frequentes e checkout, tudo em uma página só.</p>
@@ -258,9 +208,8 @@ footer a{color:var(--text-2)}
 </section>
 
 <section class="alt">
-  <div class="wrap">
-    <div class="sec-head">
-      <p class="eyebrow">Escopo e preço</p>
+  <div class="faixa">
+    <div class="cabeca" data-revelar>
       <h2>Prazo e faixa de preço aqui, sem “consulte-nos”.</h2>
       <p class="lede">
         Quem não mostra prazo nem preço está guardando espaço para improvisar depois.
@@ -268,7 +217,7 @@ footer a{color:var(--text-2)}
       </p>
     </div>
     <div class="tiers">
-      <div class="tier">
+      <div class="tier" data-revelar>
         <span class="name">Página de Captação</span>
         <span class="price">R$ 1.500–2.500</span>
         <span class="term">14 dias</span>
@@ -279,7 +228,7 @@ footer a{color:var(--text-2)}
           <li>1 rodada de revisão</li>
         </ul>
       </div>
-      <div class="tier">
+      <div class="tier" data-revelar>
         <span class="name">Catálogo B2B</span>
         <span class="price">R$ 6–12 mil</span>
         <span class="term">9 semanas</span>
@@ -290,7 +239,7 @@ footer a{color:var(--text-2)}
           <li>Painel do representante</li>
         </ul>
       </div>
-      <div class="tier">
+      <div class="tier" data-revelar>
         <span class="name">Portal do Cliente</span>
         <span class="price">R$ 8–18 mil</span>
         <span class="term">13 semanas</span>
@@ -301,7 +250,7 @@ footer a{color:var(--text-2)}
           <li>Painel administrativo</li>
         </ul>
       </div>
-      <div class="tier">
+      <div class="tier" data-revelar>
         <span class="name">Operação Contínua</span>
         <span class="price">R$ 400–900<span style="font-size:15px;font-weight:500">/mês</span></span>
         <span class="term">mensal, opcional</span>
@@ -317,61 +266,59 @@ footer a{color:var(--text-2)}
 </section>
 
 <section>
-  <div class="wrap">
-    <div class="sec-head">
-      <p class="eyebrow">Antes de você perguntar</p>
+  <div class="faixa">
+    <div class="cabeca" data-revelar>
       <h2>As dúvidas que ninguém faz em voz alta.</h2>
     </div>
     <div class="faq">
-      <details open>
+      <details class="revelacao" open>
         <summary>E se você sumir?</summary>
-        <div class="a">O código é seu e fica no seu repositório. A hospedagem é registrada no
+        <div class="corpo"><div><p>O código é seu e fica no seu repositório. A hospedagem é registrada no
         seu nome, não no meu. Existe documentação de como subir tudo de novo. E está escrito
         no contrato, não é promessa de conversa. Faça essa mesma pergunta para o seu
-        fornecedor atual e compare a resposta.</div>
+        fornecedor atual e compare a resposta.</p></div></div>
       </details>
-      <details>
+      <details class="revelacao">
         <summary>De quem é o código que você entrega?</summary>
-        <div class="a">Seu, em caráter definitivo, a partir da quitação. Componentes e
+        <div class="corpo"><div><p>Seu, em caráter definitivo, a partir da quitação. Componentes e
         bibliotecas de uso geral que eu já tinha antes continuam meus, e você recebe licença
         perpétua e gratuita para usar e modificar dentro do projeto. Tudo em cláusula
-        expressa.</div>
+        expressa.</p></div></div>
       </details>
-      <details>
+      <details class="revelacao">
         <summary>Preciso trocar o meu sistema atual?</summary>
-        <div class="a">Quase nunca. Eu construo em volta do que já existe e integro por onde
+        <div class="corpo"><div><p>Quase nunca. Eu construo em volta do que já existe e integro por onde
         houver API ou exportação. Se o seu sistema não tiver nem uma coisa nem outra, eu digo
-        isso na primeira conversa em vez de descobrir no meio do projeto.</div>
+        isso na primeira conversa em vez de descobrir no meio do projeto.</p></div></div>
       </details>
-      <details>
+      <details class="revelacao">
         <summary>Quanto tempo leva de verdade?</summary>
-        <div class="a">Os prazos da tabela acima já são os reais, contados a partir do dia em
-        que eu recebo todos os acessos e conteúdos. Não são prazos comerciais otimistas.</div>
+        <div class="corpo"><div><p>Os prazos da tabela acima já são os reais, contados a partir do dia em
+        que eu recebo todos os acessos e conteúdos. Não são prazos comerciais otimistas.</p></div></div>
       </details>
-      <details>
+      <details class="revelacao">
         <summary>Como funciona o pagamento?</summary>
-        <div class="a">50% na assinatura, 50% na homologação. Pix ou boleto. Os acessos e o
-        código são entregues depois da quitação.</div>
+        <div class="corpo"><div><p>50% na assinatura, 50% na homologação. Pix ou boleto. Os acessos e o
+        código são entregues depois da quitação.</p></div></div>
       </details>
-      <details>
+      <details class="revelacao">
         <summary>Você emite nota fiscal?</summary>
         
-        <div class="a">Sim. Se para você isso for condição, me diga logo na primeira mensagem
-        que eu já confirmo antes de a gente marcar conversa.</div>
+        <div class="corpo"><div><p>Sim. Se para você isso for condição, me diga logo na primeira mensagem
+        que eu já confirmo antes de a gente marcar conversa.</p></div></div>
       </details>
-      <details>
+      <details class="revelacao">
         <summary>Você faz aplicativo?</summary>
-        <div class="a">App nativo, não. Na maioria dos casos que me procuram, um sistema que
+        <div class="corpo"><div><p>App nativo, não. Na maioria dos casos que me procuram, um sistema que
         funciona bem no celular resolve o mesmo problema por um terço do custo — e eu falo
-        isso mesmo quando significa um orçamento menor para mim.</div>
+        isso mesmo quando significa um orçamento menor para mim.</p></div></div>
       </details>
     </div>
   </div>
 </section>
 
 <section class="alt" id="contato">
-  <div class="wrap cta">
-    <p class="eyebrow">Próximo passo</p>
+  <div class="faixa cta">
     <h2>Me conta como o pedido entra hoje. Eu te digo se dá para resolver.</h2>
     <p class="lede">
       Duas perguntas por mensagem, sem compromisso: hoje o pedido chega por WhatsApp e alguém
@@ -379,7 +326,7 @@ footer a{color:var(--text-2)}
       protótipo com os seus dados antes de qualquer orçamento.
     </p>
     <div class="btn-row">
-      <a class="btn btn-primary" id="wa"
+      <a class="btn btn--primario btn--lg" id="wa"
          href="https://wa.me/5527992864820?text=Oi%20Gabriel%2C%20vi%20seu%20site.%20Sou%20de%20%5Bempresa%5D%20e%20queria%20entender%20sobre%20%5Bassunto%5D."
          target="_blank" rel="noopener" data-evt="whatsapp">
         Chamar no WhatsApp
@@ -392,7 +339,7 @@ footer a{color:var(--text-2)}
 </main>
 
 <footer>
-  <div class="wrap">
+  <div class="faixa">
     <span>Fantin Sistemas &middot; Jacare&iacute;/SP &middot; atendo presencialmente S&atilde;o Jos&eacute; dos Campos e o Vale do Para&iacute;ba, e remotamente o Brasil todo</span>
     <span><a href="privacidade.html">Política de privacidade</a> &middot; <a href="#" id="reconsent">Preferências de cookies</a></span>
   </div>
@@ -400,13 +347,13 @@ footer a{color:var(--text-2)}
 
 <!-- ── Consentimento LGPD: pixel só dispara depois do aceite ──────── -->
 <div id="consent" hidden>
-  <div class="wrap">
+  <div class="faixa">
     <p>Uso cookies de medição para entender quantas pessoas chegam aqui e por onde.
        Nada é coletado se você recusar, e o site funciona igual.
        <a href="privacidade.html">Como trato seus dados</a>.</p>
     <div class="acts">
-      <button class="btn btn-ghost" id="deny" type="button">Recusar</button>
-      <button class="btn btn-primary" id="allow" type="button">Aceitar</button>
+      <button class="btn btn--secundario btn--lg" id="deny" type="button">Recusar</button>
+      <button class="btn btn--primario btn--lg" id="allow" type="button">Aceitar</button>
     </div>
   </div>
 </div>
@@ -524,5 +471,6 @@ footer a{color:var(--text-2)}
 })();
 </script>
 
+<script src="sistema/sistema.js" defer></script>
 </body>
 </html>

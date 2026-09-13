@@ -10,87 +10,63 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=Zilla+Slab:wght@500;600;700&display=swap">
+
+<link rel="stylesheet" href="sistema/tokens.css">
+<link rel="stylesheet" href="sistema/motion.css">
 
 <style>
-:root{
-  --ink-900:#0E1318; --ink-700:#2A333D; --ink-500:#4E5A66;
-  --ink-300:#8C97A1; --ink-100:#DDE2E7; --ink-050:#F2F4F6;
-  --brand-600:#16457A; --brand-700:#0F3560;
-  --signal-800:#9A4F02; --signal-600:#D97005; --signal-100:#FBEBD6;
-  --bg:#FFFFFF; --surface:var(--ink-050); --text:var(--ink-900);
-  --text-2:var(--ink-500); --line:var(--ink-100); --line-2:var(--ink-300);
-  --accent:var(--brand-600); --accent-hover:var(--brand-700);
-  --sig-text:var(--signal-800); --sig:var(--signal-600); --sig-bg:var(--signal-100);
-  --on-accent:#FFFFFF;
-  --r-sm:2px; --r-md:4px; --r-lg:6px;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#0E1318; --surface:#161C23; --text:#E6EAEE; --text-2:#A3AEB8;
-    --line:#242D36; --line-2:#38434E;
-    --accent:#6BA6F5; --accent-hover:#8FBDF8;
-    --sig-text:#F2A03D; --sig:#F2A03D; --sig-bg:#3A2A12;
-    --on-accent:#0E1318;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#0E1318; --surface:#161C23; --text:#E6EAEE; --text-2:#A3AEB8;
-  --line:#242D36; --line-2:#38434E;
-  --accent:#6BA6F5; --accent-hover:#8FBDF8;
-  --sig-text:#F2A03D; --sig:#F2A03D; --sig-bg:#3A2A12;
-  --on-accent:#0E1318;
-}
+/* Paleta e movimento vêm de sistema/. Aqui só o que é desta página. */
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:"Public Sans",system-ui,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
-a{color:var(--accent);text-underline-offset:2px}
-:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:var(--r-sm)}
+body{background:var(--fundo);color:var(--texto);font-family:"Public Sans",system-ui,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--acento);text-underline-offset:2px}
+:focus-visible{outline:2px solid var(--acento);outline-offset:3px;border-radius:var(--raio-1)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
 .wrap{max-width:760px;margin:0 auto;padding:0 24px}
 @media(max-width:600px){.wrap{padding:0 16px}}
 
-header{border-bottom:1px solid var(--line)}
+header{border-bottom:1px solid var(--linha)}
 header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 24px}
-.mark{display:inline-flex;align-items:baseline;gap:10px;text-decoration:none;color:var(--text)}
-.mark .wordmark{font-family:Archivo,"Helvetica Neue",Arial,sans-serif;font-weight:600;font-size:19px;letter-spacing:-.01em}
-.mark .sub{font-family:"JetBrains Mono",ui-monospace,Consolas,monospace;font-size:10px;text-transform:uppercase;letter-spacing:.18em;color:var(--text-2)}
-.back{font-size:14px;color:var(--text-2);text-decoration:none}
-.back:hover{color:var(--text)}
+.mark{display:inline-flex;align-items:baseline;gap:10px;text-decoration:none;color:var(--texto)}
+.mark .wordmark{font-weight:600;font-size:18px;letter-spacing:.07em}
+.mark .sub{font-size:15px;color:var(--texto-2)}
+.back{font-size:14px;color:var(--texto-2);text-decoration:none}
+.back:hover{color:var(--texto)}
 
 main{padding:clamp(40px,6vw,72px) 0 80px}
-.eyebrow{font-family:"JetBrains Mono",monospace;font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--text-2);margin-bottom:12px}
-h1{font-family:Archivo,"Helvetica Neue",Arial,sans-serif;font-weight:600;font-size:clamp(30px,4.4vw,42px);line-height:1.1;letter-spacing:-.022em;margin-bottom:14px;text-wrap:balance}
-.lede{font-size:17.5px;color:var(--text-2);line-height:1.55;margin-bottom:34px}
-h2{font-family:Archivo,sans-serif;font-weight:600;font-size:21px;letter-spacing:-.012em;margin:42px 0 12px;padding-top:22px;border-top:1px solid var(--line)}
+.eyebrow{font-size:15.5px;color:var(--texto-2);margin-bottom:12px}
+h1{font-family:"Zilla Slab",Georgia,serif;font-weight:600;font-size:clamp(30px,4.4vw,42px);line-height:1.1;letter-spacing:-.022em;margin-bottom:14px;text-wrap:balance}
+.lede{font-size:17.5px;color:var(--texto-2);line-height:1.55;margin-bottom:34px}
+h2{font-family:"Zilla Slab",Georgia,serif;font-weight:600;font-size:21px;letter-spacing:-.012em;margin:42px 0 12px;padding-top:22px;border-top:1px solid var(--linha)}
 h3{font-size:16px;font-weight:600;margin:22px 0 8px}
 p{margin-bottom:13px}
 ul,ol{margin:0 0 14px;padding-left:20px}
 li{margin-bottom:7px}
-li::marker{color:var(--text-2)}
+li::marker{color:var(--texto-2)}
 strong{font-weight:600}
-.mono{font-family:"JetBrains Mono",monospace}
+.mono{}
 
-.tw{overflow-x:auto;margin:0 0 18px;border:1px solid var(--line);border-radius:var(--r-lg)}
+.tw{overflow-x:auto;margin:0 0 18px;border:1px solid var(--linha);border-radius:var(--raio-3)}
 table{border-collapse:collapse;width:100%;font-size:14px;min-width:520px}
-th{text-align:left;font-family:"JetBrains Mono",monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-2);font-weight:600;padding:11px 14px;border-bottom:1px solid var(--line-2);vertical-align:bottom}
-td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.5}
+th{text-align:left;font-size:10.5px;letter-spacing:.08em;color:var(--texto-2);font-weight:600;padding:11px 14px;border-bottom:1px solid var(--linha-forte);vertical-align:bottom}
+td{padding:10px 14px;border-bottom:1px solid var(--linha);vertical-align:top;line-height:1.5}
 tbody tr:last-child td{border-bottom:0}
 
-.note{border-left:3px solid var(--sig);background:var(--sig-bg);padding:14px 16px;border-radius:0 var(--r-md) var(--r-md) 0;margin:20px 0;font-size:14.5px}
-.note b{color:var(--sig-text)}
+.note{border-left:3px solid var(--acento);background:var(--acento-suave);padding:14px 16px;border-radius:0 var(--raio-2) var(--raio-2) 0;margin:20px 0;font-size:14.5px}
+.note b{color:var(--texto)}
 .note p:last-child{margin-bottom:0}
 
-.box{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:18px 20px;margin:20px 0}
+.box{background:var(--fundo-2);border:1px solid var(--linha);border-radius:var(--raio-3);padding:18px 20px;margin:20px 0}
 .box p:last-child{margin-bottom:0}
 
-.btn{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:600;line-height:1;padding:12px 18px;border-radius:var(--r-md);border:1px solid var(--line-2);background:transparent;color:var(--text);cursor:pointer;text-decoration:none;font-family:inherit}
-.btn:hover{background:var(--surface)}
+.btn{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:600;line-height:1;padding:12px 18px;border-radius:var(--raio-2);border:1px solid var(--linha-forte);background:transparent;color:var(--texto);cursor:pointer;text-decoration:none;font-family:inherit}
+.btn:hover{background:var(--fundo-2)}
 
-footer{border-top:1px solid var(--line);padding:28px 0 44px;font-size:13.5px;color:var(--text-2)}
+footer{border-top:1px solid var(--linha);padding:28px 0 44px;font-size:13.5px;color:var(--texto-2)}
 footer .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between}
-footer a{color:var(--text-2)}
-.upd{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--text-2);margin-top:30px;padding-top:16px;border-top:1px solid var(--line)}
+footer a{color:var(--texto-2)}
+.upd{font-size:12px;color:var(--texto-2);margin-top:30px;padding-top:16px;border-top:1px solid var(--linha)}
 </style>
 </head>
 <body>
@@ -112,7 +88,7 @@ footer a{color:var(--text-2)}
 <main>
 <div class="wrap">
 
-<p class="eyebrow">LGPD &middot; Lei 13.709/2018</p>
+<p class="eyebrow">Conforme a LGPD, Lei 13.709/2018.</p>
 <h1>Política de privacidade</h1>
 <p class="lede">
   O que eu coleto, por que coleto, por quanto tempo guardo e como você apaga.
