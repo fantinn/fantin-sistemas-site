@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-tema="papel">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,7 +10,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=Zilla+Slab:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 
 <link rel="stylesheet" href="sistema/tokens.css">
 <link rel="stylesheet" href="sistema/motion.css">
@@ -67,6 +67,30 @@ footer{border-top:1px solid var(--linha);padding:28px 0 44px;font-size:13.5px;co
 footer .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between}
 footer a{color:var(--texto-2)}
 .upd{font-size:12px;color:var(--texto-2);margin-top:30px;padding-top:16px;border-top:1px solid var(--linha)}
+
+/* paleta e tipografia da pagina de venda, para o site falar uma lingua so */
+:root{
+  --fundo:#EDF0F4; --fundo-2:#E5EAF1; --fundo-3:#DBE2EA; --fundo-alto:#FFFFFF;
+  --texto:#0E1B2E; --texto-2:#55647C; --texto-3:#8291A7;
+  --linha:#DBE2EA; --linha-forte:#C3CDDA;
+  --acento:#1B43A8; --acento-hover:#2450C4; --acento-suave:#E7ECF8;
+  --raio-1:3px; --raio-2:6px; --raio-3:10px;
+  color-scheme:light;
+}
+body{font-family:"IBM Plex Sans",system-ui,"Segoe UI",Roboto,sans-serif;font-size:17px}
+h1,h2,h3,.mark .wordmark{font-family:"Archivo",system-ui,sans-serif;font-variation-settings:"wdth" 108;letter-spacing:-.025em}
+h1{font-weight:800}
+h2{font-weight:700;font-size:23px}
+h3{font-weight:700;letter-spacing:-.015em}
+header{background:#fff;border-bottom:1px solid var(--linha)}
+.mark .wordmark{letter-spacing:.1em}
+.mark svg{color:var(--acento)}
+.mark{align-items:center;gap:10px}
+.btn{border-radius:6px;min-height:44px;border-color:var(--linha-forte)}
+.btn:hover{background:#fff;border-color:var(--texto-3)}
+.note{border-left:3px solid var(--acento);background:var(--acento-suave);border-radius:0 6px 6px 0}
+.box{background:#fff;border-radius:10px}
+.tw{background:#fff}
 </style>
 </head>
 <body>

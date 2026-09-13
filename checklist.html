@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-tema="papel">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,7 +9,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=Zilla+Slab:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 
 <link rel="stylesheet" href="sistema/tokens.css">
 <link rel="stylesheet" href="sistema/motion.css">
@@ -120,6 +120,44 @@ footer a{color:var(--texto-2)}
 #consent p{font-size:14px;color:var(--texto-2);max-width:58ch;margin:0}
 #consent .acts{display:flex;gap:10px;flex-wrap:wrap}
 #consent .btn{padding:11px 18px;font-size:14.5px}
+
+/* paleta e tipografia da pagina de venda, para o site falar uma lingua so.
+   Fica no fim do bloco de propósito: vence por ordem, sem !important. */
+:root{
+  --fundo:#EDF0F4; --fundo-2:#E5EAF1; --fundo-3:#DBE2EA; --fundo-alto:#FFFFFF;
+  --texto:#0E1B2E; --texto-2:#55647C; --texto-3:#8291A7;
+  --texto-sobre-acento:#FFFFFF;
+  --linha:#DBE2EA; --linha-forte:#C3CDDA;
+  --acento:#1B43A8; --acento-hover:#2450C4; --acento-suave:#E7ECF8;
+  --etiqueta:#FFC531; --verde:#12934F; --verde-hover:#0E7C42;
+  --raio-1:3px; --raio-2:6px; --raio-3:10px;
+  --elev-1:0 2px 0 #DBE2EA;
+  --elev-2:0 18px 40px -22px rgba(14,27,46,.38),0 2px 0 rgba(14,27,46,.05);
+  --anel-foco:0 0 0 3px rgba(27,67,168,.30);
+  color-scheme:light;
+}
+body{font-family:"IBM Plex Sans",system-ui,"Segoe UI",Roboto,sans-serif}
+h1,h2,h3{font-family:"Archivo",system-ui,sans-serif;font-variation-settings:"wdth" 108;letter-spacing:-.025em;line-height:1.1}
+h1{font-weight:800}
+h2,h3{font-weight:700}
+h3{letter-spacing:-.015em;line-height:1.25}
+.mark svg{color:var(--acento)}
+.mark{align-items:center;gap:10px}
+.mark .wordmark{font-family:"Archivo",system-ui,sans-serif;font-variation-settings:"wdth" 112;font-weight:700;letter-spacing:.1em}
+header{background:#fff}
+
+body{font-size:17px}
+.hl{color:var(--texto);box-shadow:none;font-weight:600}
+.btn{border-radius:6px;min-height:50px;padding:0 24px;font-family:inherit}
+.btn-primary{background:var(--acento);color:#fff}
+.btn-primary:hover{background:var(--acento-hover)}
+.btn-ghost{border-color:var(--linha-forte)}
+.btn-ghost:hover{background:#fff;border-color:var(--texto-3)}
+.previa{background:#fff;border-radius:10px}
+.previa .barra strong{font-family:"Archivo",system-ui,sans-serif;font-variation-settings:"wdth" 108;font-weight:700}
+.previa .cx.on{background:var(--verde);border-color:var(--verde)}
+.leva .n{border-radius:4px;font-weight:600}
+#consent{background:#fff;border-top:2px solid var(--texto)}
 </style>
 </head>
 <body>
