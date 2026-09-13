@@ -1,0 +1,208 @@
+/* ═══════════════════════════════════════════════════════════════════
+   FANTIN SISTEMAS · MOVIMENTO
+   ═══════════════════════════════════════════════════════════════════
+   Camada 2 de 3. Depende de tokens.css.
+
+   O vocabulário de movimento sai do mesmo lugar que o visual: o
+   documento. Nada aqui é "fade-and-slide-up em toda seção" — isso é
+   o movimento genérico que denuncia página gerada. Aqui as coisas se
+   movem como papel se move.
+
+     RÉGUA     uma linha se desenha da margem para fora
+     FOLHA     uma folha assenta: sobe pouco e ganha opacidade
+     TINTA     a tinta aparece: só opacidade, mais devagar
+     CARIMBO   o carimbo bate: entra grande e torto, assenta reto
+     PREENCHE  um campo se preenche da esquerda para a direita
+     PAUTA     as pautas aparecem uma depois da outra
+
+   AS TRÊS REGRAS
+
+   1. Um momento orquestrado por tela. Um. O resto é reação ao que a
+      pessoa fez.
+   2. Movimento que ninguém pediu só existe na primeira vez que o
+      elemento aparece. Nunca em rolagem repetida, nunca em laço.
+   3. `prefers-reduced-motion` não é acessório: no fim deste arquivo
+      tudo vira opacidade ou nada. Teste nesse modo antes de subir.
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root{
+
+  /* ── duração ──────────────────────────────────────────────────────
+     Passar de 700ms em interface é fazer a pessoa esperar. O único
+     que chega lá é a cena de abertura, que roda uma vez. */
+
+  --mov-instantaneo:90ms;   /* cor de hover, foco */
+  --mov-rapido:140ms;       /* botão, caixa de seleção */
+  --mov-padrao:200ms;       /* a maioria das transições de estado */
+  --mov-calmo:300ms;        /* abrir e fechar, acordeão */
+  --mov-entrada:440ms;      /* elemento entrando em cena */
+  --mov-cena:700ms;         /* a cena de abertura, uma vez por tela */
+
+  /* ── curva ────────────────────────────────────────────────────────
+     Entrando desacelera; saindo acelera. Quem entra é observado, quem
+     sai é dispensado. */
+
+  --curva-saida:cubic-bezier(.22,.61,.36,1);      /* desacelera: entra */
+  --curva-entrada:cubic-bezier(.55,.06,.68,.19);  /* acelera: sai */
+  --curva-suave:cubic-bezier(.4,0,.2,1);          /* dois sentidos */
+  --curva-carimbo:cubic-bezier(.34,1.26,.64,1);   /* leve ultrapassagem */
+  --curva-regua:cubic-bezier(.16,.84,.3,1);       /* saída firme */
+
+  /* ── escalonamento ────────────────────────────────────────────────
+     Elementos irmãos entram em cascata. Passo curto: 70ms × índice,
+     e o índice para de contar em 6 — ninguém espera a oitava linha. */
+
+  --passo:70ms;
+
+  /* ── distância ────────────────────────────────────────────────────
+     Deslocamento de entrada. Curto de propósito: papel assenta, não voa. */
+
+  --desloca:10px;
+  --desloca-curto:5px;
+}
+
+
+/* ═══ quadros-chave ═══════════════════════════════════════════════ */
+
+@keyframes mov-regua{
+  from{ transform:scaleX(0) }
+  to  { transform:scaleX(1) }
+}
+
+@keyframes mov-folha{
+  from{ opacity:0; transform:translateY(var(--desloca)) }
+  to  { opacity:1; transform:none }
+}
+
+@keyframes mov-folha-lado{
+  from{ opacity:0; transform:translateX(calc(var(--desloca) * -1)) }
+  to  { opacity:1; transform:none }
+}
+
+@keyframes mov-tinta{
+  from{ opacity:0 }
+  to  { opacity:1 }
+}
+
+@keyframes mov-carimbo{
+  from{ opacity:0; transform:scale(1.09) rotate(-1.6deg) }
+  60% { opacity:1 }
+  to  { opacity:1; transform:scale(1) rotate(0) }
+}
+
+@keyframes mov-preenche{
+  from{ transform:scaleX(0) }
+  to  { transform:scaleX(1) }
+}
+
+@keyframes mov-respira{           /* carregando: nunca em conteúdo pronto */
+  0%,100%{ opacity:.45 }
+  50%    { opacity:.9 }
+}
+
+@keyframes mov-gira{
+  to{ transform:rotate(360deg) }
+}
+
+
+/* ═══ utilitários de entrada ═══════════════════════════════════════
+   Aplique a classe e o elemento entra sozinho no carregamento.
+   Para entrada por rolagem, use [data-revelar] (ver sistema.js). */
+
+.mov-folha,
+.mov-regua,
+.mov-tinta,
+.mov-carimbo,
+.mov-folha-lado{
+  animation-duration:var(--mov-entrada);
+  animation-timing-function:var(--curva-saida);
+  animation-fill-mode:both;
+  animation-delay:calc(var(--passo) * var(--i, 0));
+}
+
+.mov-folha     { animation-name:mov-folha }
+.mov-folha-lado{ animation-name:mov-folha-lado }
+.mov-tinta     { animation-name:mov-tinta; animation-duration:var(--mov-cena) }
+.mov-carimbo   { animation-name:mov-carimbo; animation-timing-function:var(--curva-carimbo) }
+.mov-regua     { animation-name:mov-regua; animation-timing-function:var(--curva-regua);
+                 transform-origin:left center }
+
+/* régua vertical: a margem do documento se desenha de cima para baixo */
+@keyframes mov-regua-v{
+  from{ transform:scaleY(0) }
+  to  { transform:scaleY(1) }
+}
+.mov-regua-v{
+  animation:mov-regua-v var(--mov-cena) var(--curva-regua) both;
+  animation-delay:calc(var(--passo) * var(--i, 0));
+  transform-origin:center top;
+}
+
+
+/* ═══ revelação por rolagem ════════════════════════════════════════
+   sistema.js marca [data-revelar] com data-visivel quando o elemento
+   entra em cena, UMA vez. Sem observador, o conteúdo aparece normal —
+   é por isso que o estado inicial só é aplicado com .js-ligado no html. */
+
+.js-ligado [data-revelar]{
+  opacity:0;
+  transform:translateY(var(--desloca));
+  transition:opacity var(--mov-entrada) var(--curva-saida),
+             transform var(--mov-entrada) var(--curva-saida);
+  transition-delay:calc(var(--passo) * var(--i, 0));
+}
+.js-ligado [data-revelar][data-visivel]{
+  opacity:1;
+  transform:none;
+}
+
+/* variante régua: para o traço de margem de uma seção */
+.js-ligado [data-revelar="regua"]{
+  opacity:1;
+  transform:scaleY(0);
+  transform-origin:center top;
+  transition:transform var(--mov-cena) var(--curva-regua);
+}
+.js-ligado [data-revelar="regua"][data-visivel]{ transform:scaleY(1) }
+
+/* variante tinta: texto longo não deve deslizar, só aparecer */
+.js-ligado [data-revelar="tinta"]{ transform:none }
+
+
+/* ═══ transições de estado ═════════════════════════════════════════
+   Declaradas aqui, consumidas por componentes.css. Transição de
+   estado é o movimento que sempre vale a pena: responde a uma ação. */
+
+:root{
+  --t-cor:color var(--mov-instantaneo) var(--curva-suave),
+          background-color var(--mov-rapido) var(--curva-suave),
+          border-color var(--mov-rapido) var(--curva-suave);
+  --t-sombra:box-shadow var(--mov-rapido) var(--curva-suave);
+  --t-transforma:transform var(--mov-rapido) var(--curva-saida);
+  --t-tudo:var(--t-cor), var(--t-sombra), var(--t-transforma);
+}
+
+
+/* ═══ MOVIMENTO REDUZIDO ═══════════════════════════════════════════
+   Quem pediu menos movimento recebe menos movimento. Isso não é
+   degradação: o conteúdo chega inteiro, e chega antes. */
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:1ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:1ms !important;
+    scroll-behavior:auto !important;
+  }
+  .js-ligado [data-revelar],
+  .js-ligado [data-revelar="regua"]{
+    opacity:1 !important;
+    transform:none !important;
+  }
+  .mov-folha,.mov-folha-lado,.mov-tinta,.mov-carimbo,
+  .mov-regua,.mov-regua-v{
+    animation:none !important;
+    opacity:1 !important;
+    transform:none !important;
+  }
+}

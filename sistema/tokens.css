@@ -1,0 +1,267 @@
+/* ═══════════════════════════════════════════════════════════════════
+   FANTIN SISTEMAS · TOKENS
+   ═══════════════════════════════════════════════════════════════════
+   Camada 1 de 3. As outras são motion.css e componentes.css.
+   O raciocínio de cada decisão está em ../../marca/DESIGN-SYSTEM.md.
+
+   Três camadas, nesta ordem de dependência:
+
+     PRIMITIVO   --c-tinta-700, --esp-4, --txt-lg
+                 valor bruto. Nunca use direto num componente.
+     SEMÂNTICO   --fundo, --texto-2, --acento, --linha
+                 o que a coisa significa. É isto que muda no tema escuro.
+     COMPONENTE  --btn-alt, --campo-borda
+                 definido em componentes.css, aponta para o semântico.
+
+   Regra: componente nunca fala com primitivo. Se você precisou de um
+   primitivo dentro de um componente, falta um token semântico.
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root{
+
+  /* ── PRIMITIVO · cor ──────────────────────────────────────────────
+     Papel sobe do mais claro ao mais escuro. Tinta desce do mais
+     escuro ao mais claro. Óxido é o único acento, e a escala existe
+     só para estado (hover, pressionado, superfície). */
+
+  --c-papel-0:#F2F3EE;   /* folha destacada, acima do fundo */
+  --c-papel-1:#E8EAE3;   /* o papel */
+  --c-papel-2:#DFE2D9;   /* segunda folha */
+  --c-papel-3:#D2D6CA;   /* borda forte sobre papel */
+
+  --c-tinta-900:#171A16; /* texto */
+  --c-tinta-700:#2E332C;
+  --c-tinta-500:#565C54; /* texto secundário */
+  --c-tinta-300:#7C8278;
+  --c-tinta-100:#CBCEC3; /* régua, borda */
+  --c-tinta-050:#DCDFD6;
+
+  --c-oxido-700:#6E221B; /* pressionado */
+  --c-oxido-600:#8A2B22; /* o acento */
+  --c-oxido-500:#A33A2E;
+  --c-oxido-300:#C2564A; /* o acento no escuro */
+  --c-oxido-100:#E7D8D4; /* superfície de acento */
+
+  --c-ok-600:#2C5E3A;    --c-ok-100:#D6E1D4;
+  --c-aviso-600:#7A5A16; --c-aviso-100:#E8E0C7;
+  --c-erro-600:#7A1F16;  --c-erro-100:#E9D6D2;
+
+  --c-branco:#FFFFFF;
+
+  /* ── PRIMITIVO · espaço ───────────────────────────────────────────
+     Base 4. O número no nome é o múltiplo: --esp-6 = 6 × 4 = 24px.
+     Não invente valor fora da escala. */
+
+  --esp-0:0;      --esp-1:4px;   --esp-2:8px;   --esp-3:12px;
+  --esp-4:16px;   --esp-5:20px;  --esp-6:24px;  --esp-8:32px;
+  --esp-10:40px;  --esp-12:48px; --esp-16:64px; --esp-20:80px;
+  --esp-24:96px;  --esp-32:128px;
+
+  /* ── PRIMITIVO · tipografia ───────────────────────────────────────
+     Duas famílias. Escala modular de 1,25 até o corpo; daí para cima
+     é fluida, porque título grande precisa responder à largura. */
+
+  --fonte-titulo:"Zilla Slab",Georgia,"Times New Roman",serif;
+  --fonte-texto:"Public Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+
+  --txt-2xs:12px;
+  --txt-xs:13px;
+  --txt-sm:14.5px;
+  --txt-md:16px;                          /* base */
+  --txt-lg:18px;
+  --txt-xl:21px;
+  --txt-2xl:26px;
+  --txt-3xl:clamp(27px,3.2vw,33px);
+  --txt-4xl:clamp(34px,5.4vw,58px);
+  --txt-5xl:clamp(42px,7vw,76px);
+
+  --peso-normal:400;
+  --peso-medio:500;
+  --peso-forte:600;
+  --peso-negrito:700;
+
+  --lh-apertada:1.06;   /* título display */
+  --lh-titulo:1.18;
+  --lh-media:1.4;
+  --lh-corpo:1.55;
+  --lh-solta:1.7;
+
+  --letra-titulo:-.008em;
+  --letra-display:-.018em;
+  --letra-marca:.07em;
+
+  /* ── PRIMITIVO · forma ────────────────────────────────────────────
+     Papel tem canto vivo. O raio existe só para a interface não
+     parecer hostil ao toque, e nunca passa de 6px fora de pílula. */
+
+  --raio-0:0;  --raio-1:2px;  --raio-2:3px;  --raio-3:4px;
+  --raio-4:6px; --raio-pilula:999px;
+
+  --borda-fina:1px;
+  --borda:1.5px;
+  --borda-forte:2px;
+  --borda-margem:3px;      /* a régua de margem — a assinatura da marca */
+
+  /* ── PRIMITIVO · elevação ─────────────────────────────────────────
+     Papel não flutua. Três níveis, deliberadamente tímidos. */
+
+  --elev-0:none;
+  --elev-1:0 1px 2px rgba(23,26,22,.07);
+  --elev-2:0 2px 4px rgba(23,26,22,.07), 0 4px 12px -4px rgba(23,26,22,.12);
+  --elev-3:0 2px 6px rgba(23,26,22,.08), 0 12px 32px -10px rgba(23,26,22,.20);
+
+  /* ── PRIMITIVO · camada ───────────────────────────────────────────
+     Nunca escreva z-index literal. */
+
+  --z-base:0; --z-elevado:10; --z-fixo:100;
+  --z-sobreposicao:200; --z-dialogo:300; --z-aviso:400;
+
+  /* ── PRIMITIVO · medida ───────────────────────────────────────────*/
+
+  --larg-texto:62ch;       /* medida de leitura confortável */
+  --larg-lede:56ch;
+  --larg-conteudo:1080px;
+  --larg-larga:1280px;
+
+
+  /* ══ SEMÂNTICO · tema papel (padrão) ══════════════════════════════
+     Daqui para baixo é o que os componentes consomem. */
+
+  --fundo:var(--c-papel-1);
+  --fundo-2:var(--c-papel-2);      /* seção alternada, campo */
+  --fundo-3:var(--c-papel-3);
+  --fundo-alto:var(--c-papel-0);   /* cartão acima do fundo */
+  --fundo-inverso:var(--c-tinta-900);
+
+  --texto:var(--c-tinta-900);
+  --texto-2:var(--c-tinta-500);
+  --texto-3:var(--c-tinta-300);
+  --texto-inverso:var(--c-papel-1);
+  --texto-sobre-acento:var(--c-branco);
+
+  --linha:var(--c-tinta-100);
+  --linha-forte:var(--c-tinta-300);
+  --linha-inversa:var(--c-tinta-900);
+  --pauta:#D7DAD0;                 /* a pauta da arte, quase invisível */
+
+  --acento:var(--c-oxido-600);
+  --acento-hover:var(--c-oxido-500);
+  --acento-ativo:var(--c-oxido-700);
+  --acento-suave:var(--c-oxido-100);
+
+  --ok:var(--c-ok-600);       --ok-suave:var(--c-ok-100);
+  --aviso:var(--c-aviso-600); --aviso-suave:var(--c-aviso-100);
+  --erro:var(--c-erro-600);   --erro-suave:var(--c-erro-100);
+
+  --anel-foco:0 0 0 3px rgba(138,43,34,.32);
+
+  color-scheme:light;
+}
+
+
+/* ══ SEMÂNTICO · tema tinta ═════════════════════════════════════════
+   Só o semântico muda. Nenhum primitivo é redefinido, e nenhum
+   componente sabe que existe tema. */
+
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema="papel"]), [data-tema="tinta"]{
+    --fundo:var(--c-tinta-900);
+    --fundo-2:#1F231D;
+    --fundo-3:#2B302A;
+    --fundo-alto:#22271F;
+    --fundo-inverso:var(--c-papel-1);
+
+    --texto:var(--c-papel-1);
+    --texto-2:#9AA294;
+    --texto-3:#6F776B;
+    --texto-inverso:var(--c-tinta-900);
+    --texto-sobre-acento:var(--c-tinta-900);
+
+    --linha:#2B302A;
+    --linha-forte:#6A7267;
+    --linha-inversa:var(--c-papel-1);
+    --pauta:#23271F;
+
+    --acento:#D4695D;
+    --acento-hover:#E58275;
+    --acento-ativo:var(--c-oxido-300);
+    --acento-suave:#2E241F;
+
+    --ok:#6FA97D;       --ok-suave:#1E2B21;
+    --aviso:#C9A75A;    --aviso-suave:#2B2617;
+    --erro:#EFA093;     --erro-suave:#2E241F;
+
+    --anel-foco:0 0 0 3px rgba(212,105,93,.40);
+
+    color-scheme:dark;
+  }
+}
+
+[data-tema="tinta"]{
+  --fundo:var(--c-tinta-900);
+  --fundo-2:#1F231D;
+  --fundo-3:#2B302A;
+  --fundo-alto:#22271F;
+  --fundo-inverso:var(--c-papel-1);
+
+  --texto:var(--c-papel-1);
+  --texto-2:#9AA294;
+  --texto-3:#6F776B;
+  --texto-inverso:var(--c-tinta-900);
+  --texto-sobre-acento:var(--c-tinta-900);
+
+  --linha:#2B302A;
+  --linha-forte:#6A7267;
+  --linha-inversa:var(--c-papel-1);
+  --pauta:#23271F;
+
+  --acento:#D4695D;
+  --acento-hover:#E58275;
+  --acento-ativo:var(--c-oxido-300);
+  --acento-suave:#2E241F;
+
+  --ok:#6FA97D;       --ok-suave:#1E2B21;
+  --aviso:#C9A75A;    --aviso-suave:#2B2617;
+  --erro:#EFA093;     --erro-suave:#2E241F;
+
+  --anel-foco:0 0 0 3px rgba(212,105,93,.40);
+
+  color-scheme:dark;
+}
+
+/* Tema papel explícito. Existe para dois casos: forçar o claro numa
+   página que o sistema operacional quer escurecer, e escopar uma
+   subárvore clara dentro de uma página escura. Mesmos valores do
+   :root — repetidos de propósito, porque herança não reverte tema. */
+
+[data-tema="papel"]{
+  --fundo:var(--c-papel-1);
+  --fundo-2:var(--c-papel-2);
+  --fundo-3:var(--c-papel-3);
+  --fundo-alto:var(--c-papel-0);
+  --fundo-inverso:var(--c-tinta-900);
+
+  --texto:var(--c-tinta-900);
+  --texto-2:var(--c-tinta-500);
+  --texto-3:var(--c-tinta-300);
+  --texto-inverso:var(--c-papel-1);
+  --texto-sobre-acento:var(--c-branco);
+
+  --linha:var(--c-tinta-100);
+  --linha-forte:var(--c-tinta-300);
+  --linha-inversa:var(--c-tinta-900);
+  --pauta:#D7DAD0;
+
+  --acento:var(--c-oxido-600);
+  --acento-hover:var(--c-oxido-500);
+  --acento-ativo:var(--c-oxido-700);
+  --acento-suave:var(--c-oxido-100);
+
+  --ok:var(--c-ok-600);       --ok-suave:var(--c-ok-100);
+  --aviso:var(--c-aviso-600); --aviso-suave:var(--c-aviso-100);
+  --erro:var(--c-erro-600);   --erro-suave:var(--c-erro-100);
+
+  --anel-foco:0 0 0 3px rgba(138,43,34,.32);
+
+  color-scheme:light;
+}
