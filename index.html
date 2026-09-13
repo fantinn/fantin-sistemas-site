@@ -213,10 +213,11 @@ header .btn{margin-left:auto}
 .doc em{font-style:normal;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .marca-ok{
   width:20px;height:20px;flex:none;border-radius:50%;border:1.5px solid var(--linha-2);
-  display:grid;place-items:center;color:transparent;font-size:12px;font-weight:700;
-  transition:background .3s ease,border-color .3s ease,color .3s ease;
+  display:grid;place-items:center;font-size:12px;font-weight:700;line-height:1;
+  transition:background .3s ease,border-color .3s ease;
 }
 .doc[data-ok="1"] .marca-ok{background:var(--verde);border-color:var(--verde);color:#fff}
+.doc[data-ok="1"] .marca-ok::after{content:"✓"}
 .doc .estado{font-size:12.5px;color:var(--texto-3);flex:none}
 .doc[data-ok="1"] .estado{color:var(--verde);font-weight:600}
 
@@ -477,6 +478,20 @@ footer{position:relative}
 }
 @media (prefers-reduced-motion:reduce){.barra-zap{transition:none}}
 
+/* ═══ Modo de Alto Contraste do Windows ══════════════════
+   Nele o sistema reescreve as cores e apaga background-image e box-shadow.
+   O que era decoracao pode sumir; o que carrega informacao, nao pode.
+   O publico aqui e dono de empresa em Windows — tem gente que usa. */
+@media (forced-colors: active){
+  .barra{border:1px solid CanvasText}
+  .barra i{background:Highlight;forced-color-adjust:none}
+  .btn{border-color:currentColor}
+  .marca-ok{border-color:CanvasText}
+  .doc[data-ok="1"] .marca-ok{background:Highlight;forced-color-adjust:none;color:HighlightText}
+  .janela,.servico,.proof,.tier,.painel{border:1px solid CanvasText}
+  .hero-onde{border:1px solid CanvasText}
+}
+
 /* ═══ acabamento ════════════════════════════════════ */
 ::selection{background:var(--etiqueta);color:var(--tinta)}
 html{scrollbar-color:var(--linha-2) transparent}
@@ -565,12 +580,12 @@ p,li{text-wrap:pretty}
           <p class="app-conta" id="jconta">3 de 6 enviados</p>
 
           <ul class="docs" id="jdocs">
-            <li class="doc" data-ok="1"><span class="marca-ok">&#10003;</span><em>Extrato bancário</em><span class="estado">enviado</span></li>
-            <li class="doc" data-ok="1"><span class="marca-ok">&#10003;</span><em>Notas de entrada</em><span class="estado">enviado</span></li>
-            <li class="doc" data-ok="1"><span class="marca-ok">&#10003;</span><em>Notas de saída</em><span class="estado">enviado</span></li>
-            <li class="doc" data-ok="0"><span class="marca-ok">&#10003;</span><em>Folha de pagamento</em><span class="estado">falta</span></li>
-            <li class="doc" data-ok="0"><span class="marca-ok">&#10003;</span><em>Comprovante do DAS</em><span class="estado">falta</span></li>
-            <li class="doc" data-ok="0"><span class="marca-ok">&#10003;</span><em>Conciliação do caixa</em><span class="estado">falta</span></li>
+            <li class="doc" data-ok="1"><span class="marca-ok"></span><em>Extrato bancário</em><span class="estado">enviado</span></li>
+            <li class="doc" data-ok="1"><span class="marca-ok"></span><em>Notas de entrada</em><span class="estado">enviado</span></li>
+            <li class="doc" data-ok="1"><span class="marca-ok"></span><em>Notas de saída</em><span class="estado">enviado</span></li>
+            <li class="doc" data-ok="0"><span class="marca-ok"></span><em>Folha de pagamento</em><span class="estado">falta</span></li>
+            <li class="doc" data-ok="0"><span class="marca-ok"></span><em>Comprovante do DAS</em><span class="estado">falta</span></li>
+            <li class="doc" data-ok="0"><span class="marca-ok"></span><em>Conciliação do caixa</em><span class="estado">falta</span></li>
           </ul>
 
           <div class="carimbo" id="jcarimbo">
