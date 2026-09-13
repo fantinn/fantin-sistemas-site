@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Fantin Sistemas — página que vende e loja online para quem vende no Instagram</title>
-<meta name="description" content="Landing page por R$ 700 em 7 dias e loja completa por R$ 1.200. Preço fechado antes de começar, e a loja fica no seu nome. Jacareí e Vale do Paraíba.">
+<meta name="description" content="Landing page por R$ 700 em 7 dias e loja completa na Nuvemshop por R$ 1.200. Preço fechado antes de começar, e a loja fica no seu nome. Jacareí e Vale do Paraíba.">
 <meta name="theme-color" content="#0E1B2E">
 
 
@@ -15,8 +15,8 @@
 <meta property="og:site_name" content="Fantin Sistemas">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:url" content="https://fantinn.github.io/fantin-sistemas-site/">
-<meta property="og:title" content="Página que vende e loja online — Fantin Sistemas">
-<meta property="og:description" content="Landing page por R$ 700 em 7 dias e loja completa por R$ 1.200. Preço fechado antes de começar, e a loja fica no seu nome.">
+<meta property="og:title" content="Seu cliente te acha no Instagram e não tem onde comprar.">
+<meta property="og:description" content="Eu monto a página que vende e a loja que recebe o pagamento — no seu nome, com data de entrega marcada. Jacareí e Vale do Paraíba.">
 <meta property="og:image" content="https://fantinn.github.io/fantin-sistemas-site/og.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
@@ -97,6 +97,56 @@ section{padding-block:clamp(64px,8vw,104px)}
 .cabeca h2{margin-bottom:16px}
 .cabeca p{font-size:18px;color:var(--texto-2);max-width:60ch}
 
+/* ═══ movimento ════════════════════════════════════════════════════
+   Duas famílias, e só duas:
+
+   1. entrada do herói, uma vez, no carregamento (.sobe)
+   2. revelação presa à rolagem (.ent / .ent-g / .ent-l), que só existe
+      onde o navegador entende animation-timeline. Onde não entende,
+      nada é escondido — o conteúdo simplesmente já está lá.
+
+   O estado invisível mora DENTRO do @supports e DENTRO do
+   prefers-reduced-motion de propósito: navegador que não anima nunca
+   pode esconder texto para sempre. E o H1 nunca entra animado, porque
+   ele é o elemento de LCP.                                          */
+
+@keyframes sobe{to{opacity:1;transform:none}}
+@keyframes ent{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes ent-lado{from{opacity:0;transform:translateX(-16px)}to{opacity:1;transform:none}}
+@keyframes desenha-traco{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes pop-marca{0%{transform:scale(.3);opacity:0}60%{transform:scale(1.18)}100%{transform:scale(1);opacity:1}}
+@keyframes revela-malha{to{opacity:1}}
+
+@media (prefers-reduced-motion:no-preference){
+  .sobe{opacity:0;transform:translateY(14px);animation:sobe .7s cubic-bezier(.2,.7,.2,1) forwards;
+    animation-delay:calc(var(--i,0) * 90ms)}
+}
+
+@supports (animation-timeline:view()){
+  @media (prefers-reduced-motion:no-preference){
+    .ent{animation:ent .9s cubic-bezier(.2,.7,.2,1) both;animation-timeline:view();animation-range:entry 2% cover 24%}
+    .ent-g>*{animation:ent .8s cubic-bezier(.2,.7,.2,1) both;animation-timeline:view();animation-range:entry 2% cover 22%}
+    .ent-g>*:nth-child(2){animation-range:entry 7% cover 27%}
+    .ent-g>*:nth-child(3){animation-range:entry 12% cover 32%}
+    .ent-g>*:nth-child(4){animation-range:entry 17% cover 37%}
+    .ent-g>*:nth-child(5){animation-range:entry 21% cover 41%}
+    .ent-g>*:nth-child(6){animation-range:entry 25% cover 45%}
+    /* a lista que se preenche sozinha, item por item */
+    .ent-l>*{animation:ent-lado .6s cubic-bezier(.2,.8,.2,1) both;animation-timeline:view();animation-range:entry 6% cover 26%}
+    .ent-l>*:nth-child(2){animation-range:entry 10% cover 29%}
+    .ent-l>*:nth-child(3){animation-range:entry 14% cover 32%}
+    .ent-l>*:nth-child(4){animation-range:entry 18% cover 35%}
+    .ent-l>*:nth-child(5){animation-range:entry 22% cover 38%}
+    .ent-l>*:nth-child(6){animation-range:entry 26% cover 41%}
+    .ent-l>*:nth-child(7){animation-range:entry 30% cover 44%}
+    .ent-l>*:nth-child(8){animation-range:entry 34% cover 47%}
+    .ent-l>*:nth-child(9){animation-range:entry 38% cover 50%}
+    .ent-l>*:nth-child(10){animation-range:entry 42% cover 53%}
+    .ent-l>*:nth-child(11){animation-range:entry 46% cover 56%}
+    .ent-l>*:nth-child(12){animation-range:entry 50% cover 59%}
+  }
+}
+
 /* ═══ cabeçalho ════════════════════════════════════════════════════ */
 
 header{position:sticky;top:0;z-index:40;background:var(--folha);border-bottom:1px solid var(--linha)}
@@ -105,12 +155,12 @@ header .faixa{display:flex;align-items:center;gap:18px;height:68px}
 .marca svg{flex:none;color:var(--caneta)}
 .marca b{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 112;font-weight:700;font-size:17px;letter-spacing:.1em}
 .marca span{font-size:14px;color:var(--texto-2)}
-nav{margin-left:auto;display:flex;gap:26px}
+nav{margin-left:auto;display:flex;gap:24px}
 nav a{color:var(--texto-2);text-decoration:none;font-size:15px;font-weight:500}
 nav a:hover{color:var(--tinta)}
-@media(max-width:900px){nav{display:none}}
+@media(max-width:960px){nav{display:none}}
 header .btn{margin-left:auto}
-@media(min-width:901px){header .btn{margin-left:26px}}
+@media(min-width:961px){header .btn{margin-left:24px}}
 
 /* ═══ botões ═══════════════════════════════════════════════════════ */
 
@@ -119,14 +169,14 @@ header .btn{margin-left:auto}
   min-height:50px;padding-inline:24px;border:1.5px solid transparent;
   border-radius:var(--r-btn);font-weight:600;font-size:16px;line-height:1.1;
   text-decoration:none;cursor:pointer;white-space:nowrap;
-  transition:background .15s ease,border-color .15s ease,transform .08s ease;
+  transition:background .15s ease,border-color .15s ease,transform .08s ease,box-shadow .18s ease;
 }
 .btn:active{transform:translateY(1px)}
 .btn--azul{background:var(--caneta);color:#fff}
-.btn--azul:hover{background:var(--caneta-h);color:#fff}
+.btn--azul:hover{background:var(--caneta-h);color:#fff;box-shadow:0 12px 24px -14px rgba(27,67,168,.9)}
 .btn--azul:active{background:var(--caneta-f)}
 .btn--verde{background:var(--verde);color:#fff}
-.btn--verde:hover{background:var(--verde-h);color:#fff}
+.btn--verde:hover{background:var(--verde-h);color:#fff;box-shadow:0 12px 24px -14px rgba(14,124,66,.9)}
 .btn--linha{background:transparent;color:var(--tinta);border-color:var(--linha-2)}
 .btn--linha:hover{background:#fff;border-color:var(--texto-3);color:var(--tinta)}
 .btn--claro{background:#fff;color:var(--tinta)}
@@ -134,11 +184,14 @@ header .btn{margin-left:auto}
 .btn--sm{min-height:40px;padding-inline:16px;font-size:15px}
 .btn-linha{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 .nota{font-size:15px;color:var(--texto-2);max-width:46ch}
+@media (prefers-reduced-motion:reduce){.btn{transition:none}}
 
-/* ═══ herói ════════════════════════════════════════════════════════ */
+/* ═══ herói ════════════════════════════════════════════════════════
+   Sem preço aqui, de propósito. Preço antes de valor vira comparação
+   de tabela, e comparação de tabela a gente não ganha. O número só
+   aparece depois que a página disse o que entrega. */
 
-.hero{padding-top:clamp(40px,5vw,64px);padding-bottom:clamp(48px,6vw,76px);overflow:hidden;position:relative;isolation:isolate}
-/* a malha é o papel quadriculado do caderno de pedidos, quase apagada */
+.hero{padding-top:clamp(40px,5vw,64px);padding-bottom:clamp(48px,6vw,76px);overflow:clip;position:relative;isolation:isolate}
 .hero::before{
   content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
   background-image:
@@ -151,7 +204,6 @@ header .btn{margin-left:auto}
 @media (prefers-reduced-motion:no-preference){
   .hero::before{opacity:0;animation:revela-malha 1.1s ease-out .3s forwards}
 }
-@keyframes revela-malha{to{opacity:1}}
 
 .hero-grid{display:grid;gap:clamp(36px,5vw,56px);align-items:center}
 @media(min-width:1000px){.hero-grid{grid-template-columns:1.05fr .95fr}}
@@ -162,12 +214,7 @@ header .btn{margin-left:auto}
 }
 .hero-onde i{width:8px;height:8px;border-radius:2px;background:var(--etiqueta);flex:none;align-self:flex-start;margin-top:.52em}
 .hero p.lede{font-size:19px;color:var(--texto-2);max-width:52ch;line-height:1.55}
-.preco-linha{
-  display:flex;flex-wrap:wrap;gap:12px 30px;align-items:baseline;
-  font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 106;
-  font-weight:800;font-size:22px;letter-spacing:-.025em;
-}
-.preco-linha span{font-family:"IBM Plex Sans",sans-serif;font-weight:400;font-size:15.5px;color:var(--texto-2);letter-spacing:0}
+.hero p.lede b{color:var(--tinta);font-weight:600}
 
 .garantias{display:flex;flex-direction:column;gap:10px;margin-top:2px}
 .garantias li{position:relative;padding-left:28px;font-size:15.5px;color:var(--texto-2);line-height:1.45}
@@ -180,7 +227,14 @@ header .btn{margin-left:auto}
 
 /* ═══ o telefone — o elemento que carrega a página ═════════════════
    Não é a tela do sistema: é a tela onde o dinheiro entra. Para quem
-   vende, essa é a única imagem que importa. */
+   vende, essa é a única imagem que importa.
+
+   A lista de pedidos é uma JANELA de altura fixa com um rolo dentro.
+   Pedido novo NÃO é inserido no DOM: o rolo sobe uma linha, e a linha
+   de cima já estava lá, escondida pelo recorte. Assim a altura do
+   telefone nunca muda e nada empurra a página — era esse o defeito da
+   versão anterior, que criava <li> no meio do carregamento e fazia o
+   herói inteiro pular. */
 
 .palco{display:flex;justify-content:center;position:relative;padding-bottom:26px}
 .fone{
@@ -214,22 +268,22 @@ header .btn{margin-left:auto}
 }
 .caixa .sub{font-size:13.5px;color:var(--texto-2);margin-top:2px;font-variant-numeric:tabular-nums}
 
-.pedidos{margin-top:16px;border-top:1px solid var(--linha)}
+.janela{--h-ped:43px;height:calc(var(--h-ped) * 3);margin-top:16px;border-top:1px solid var(--linha);overflow:hidden}
+.rolo{transform:translateY(calc(var(--h-ped) * var(--n,2) * -1));transition:transform .62s cubic-bezier(.22,.8,.2,1)}
 .pedido{
-  display:flex;align-items:center;gap:11px;padding:11px 0;
+  display:flex;align-items:center;gap:11px;height:var(--h-ped);
   border-bottom:1px solid var(--linha);font-size:14px;
 }
-.pedido:last-child{border-bottom:0}
 .pedido .sinal{
   width:19px;height:19px;flex:none;border-radius:50%;border:1.5px solid var(--linha-2);
   display:grid;place-items:center;font-size:11px;font-weight:700;line-height:1;
+  transition:background .3s ease,border-color .3s ease,color .3s ease;
 }
 .pedido[data-ok="1"] .sinal{background:var(--verde);border-color:var(--verde);color:#fff}
 .pedido[data-ok="1"] .sinal::after{content:"\2713"}
+.pedido[data-pop] .sinal{animation:pop-marca .5s cubic-bezier(.2,1.5,.4,1)}
 .pedido em{font-style:normal;flex:1;min-width:0;color:var(--texto-2);font-variant-numeric:tabular-nums}
 .pedido b{font-weight:600;font-variant-numeric:tabular-nums}
-.pedido[data-novo]{animation:entra-pedido .5s cubic-bezier(.2,.8,.2,1) both}
-@keyframes entra-pedido{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
 
 .aviso-venda{
   position:absolute;left:50%;bottom:0;translate:-50% 0;z-index:2;
@@ -239,22 +293,21 @@ header .btn{margin-left:auto}
   box-shadow:0 18px 40px -20px rgba(14,27,46,.5);
   font-size:14.5px;white-space:nowrap;
   opacity:0;transform:translateY(10px) scale(.97);
+  transition:opacity .45s ease,transform .45s cubic-bezier(.2,1.3,.4,1);
 }
-.aviso-venda[data-on]{
-  opacity:1;transform:none;
-  transition:opacity .4s ease,transform .4s cubic-bezier(.2,1.3,.4,1);
-}
+.aviso-venda[data-on]{opacity:1;transform:none}
 .aviso-venda b{font-weight:600}
 .aviso-venda span{color:var(--texto-2);font-variant-numeric:tabular-nums}
 @media (prefers-reduced-motion:reduce){
-  .aviso-venda{opacity:1;transform:none;transition:none}
-  .pedido[data-novo]{animation:none}
+  .rolo{transition:none}
+  .aviso-venda{transition:none}
+  .pedido[data-pop] .sinal{animation:none}
 }
 .fone-pe{text-align:center;font-size:12.5px;color:var(--texto-2);margin-top:28px;max-width:none}
 
 /* ═══ hoje / depois ════════════════════════════════════════════════ */
 
-.secao-escura{background:var(--tinta);color:#E6ECF5;position:relative;isolation:isolate;overflow:hidden}
+.secao-escura{background:var(--tinta);color:#E6ECF5;position:relative;isolation:isolate;overflow:clip}
 .secao-escura::before{
   content:"";position:absolute;inset:0;z-index:-2;pointer-events:none;
   background-image:
@@ -283,7 +336,7 @@ footer{position:relative}
 .painel--hoje{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12)}
 .painel--hoje h3{color:#9FB0C8}
 .painel--hoje li{border-color:rgba(255,255,255,.09);color:#AFBDD2}
-.painel--hoje li i{background:rgba(255,255,255,.09);color:#8698B3}
+.painel--hoje li i{background:rgba(255,255,255,.09);color:#9FAFC6}
 .painel--depois{background:#fff;color:var(--texto)}
 .painel--depois h3{color:var(--tinta)}
 .painel--depois li{border-color:var(--linha)}
@@ -296,19 +349,78 @@ footer{position:relative}
 .servico{
   background:var(--folha);border:1px solid var(--linha);border-radius:var(--r-cart);
   padding:26px;display:flex;flex-direction:column;gap:14px;box-shadow:0 2px 0 var(--linha);
+  transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;
 }
+.servico:hover{transform:translateY(-3px);border-color:var(--linha-2);
+  box-shadow:0 18px 34px -24px rgba(14,27,46,.55),0 2px 0 var(--linha-2)}
 .servico h3{padding-bottom:14px;border-bottom:3px solid var(--etiqueta);align-self:flex-start}
 .servico p{font-size:16px;color:var(--texto-2)}
 .servico ul{display:flex;flex-direction:column;gap:8px;padding-top:4px}
 .servico li{position:relative;padding-left:20px;font-size:15px;color:var(--texto-2)}
 .servico li::before{content:"";position:absolute;left:0;top:.55em;width:9px;height:2px;background:var(--caneta)}
-.servico .valor{
-  margin-top:auto;padding-top:16px;border-top:1px solid var(--linha);
-  font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 106;
-  font-weight:800;font-size:27px;letter-spacing:-.035em;font-variant-numeric:tabular-nums;
+.servico .fecho{margin-top:auto;padding-top:16px;border-top:1px solid var(--linha);font-size:15px;color:var(--texto-2)}
+.servico .fecho b{color:var(--tinta);font-weight:600}
+@media (prefers-reduced-motion:reduce){.servico{transition:none}.servico:hover{transform:none}}
+
+/* ═══ a conta ══════════════════════════════════════════════════════
+   O único jeito honesto de falar de ganho é divisão, feita com o
+   número que o próprio visitante colocou. Nada aqui prevê faturamento,
+   e o rodapé da seção diz isso com todas as letras. */
+
+.conta{display:grid;gap:22px;align-items:stretch}
+@media(min-width:920px){.conta{grid-template-columns:.92fr 1.08fr;gap:32px}}
+.conta-entrada{
+  background:var(--folha);border:1px solid var(--linha);border-radius:var(--r-cart);
+  padding:28px;box-shadow:0 2px 0 var(--linha);display:flex;flex-direction:column;gap:28px;
 }
-.servico .valor small{display:block;font-family:"IBM Plex Sans",sans-serif;font-weight:400;
-  font-size:14.5px;letter-spacing:0;color:var(--texto-2);margin-top:4px}
+.medida label{display:block;font-size:15.5px;font-weight:600;color:var(--tinta);margin-bottom:10px}
+.medida .leitura{
+  font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 106;font-weight:800;
+  font-size:30px;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.1;
+  display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;
+}
+.medida .leitura small{font-family:"IBM Plex Sans",sans-serif;font-weight:400;font-size:15px;
+  letter-spacing:0;color:var(--texto-2)}
+.medida input[type=range]{
+  width:100%;margin:14px 0 0;accent-color:var(--caneta);height:26px;cursor:pointer;display:block;
+}
+.medida .reguas{display:flex;justify-content:space-between;font-size:13px;color:var(--texto-3)}
+.conta-dica{margin-top:auto;padding-top:20px;border-top:1px solid var(--linha);font-size:14.5px;color:var(--texto-3)}
+
+.conta-saida{
+  background:var(--tinta);color:#E6ECF5;border-radius:var(--r-cart);padding:30px;
+  display:flex;flex-direction:column;gap:16px;position:relative;isolation:isolate;overflow:clip;
+}
+.conta-saida::before{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background-image:
+    linear-gradient(to right,rgba(255,255,255,.055) 1px,transparent 1px),
+    linear-gradient(to bottom,rgba(255,255,255,.055) 1px,transparent 1px);
+  background-size:30px 30px;
+  -webkit-mask-image:radial-gradient(90% 80% at 100% 0%,#000 0%,transparent 72%);
+  mask-image:radial-gradient(90% 80% at 100% 0%,#000 0%,transparent 72%);
+}
+.conta-topo{font-size:15px;color:#9FB0C8}
+.conta-num{
+  font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 106;font-weight:800;
+  font-size:clamp(56px,8.5vw,92px);letter-spacing:-.045em;line-height:.95;color:var(--etiqueta);
+  font-variant-numeric:tabular-nums;display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
+}
+.conta-num span{font-family:"IBM Plex Sans",sans-serif;font-weight:400;font-size:20px;
+  letter-spacing:0;color:#E6ECF5}
+.conta-exp{font-size:17px;color:#C3D0E2;max-width:44ch}
+.conta-exp b{color:#fff;font-weight:600}
+.conta-mais{display:flex;flex-direction:column;gap:11px;margin-top:auto;padding-top:20px;
+  border-top:1px solid rgba(255,255,255,.14)}
+.conta-mais li{position:relative;padding-left:26px;font-size:15.5px;color:#C3D0E2;line-height:1.45}
+.conta-mais li::before{
+  content:"\2713";position:absolute;left:0;top:.1em;width:18px;height:18px;border-radius:50%;
+  background:rgba(255,197,49,.16);color:var(--etiqueta);font-size:10px;font-weight:700;
+  display:grid;place-items:center;
+}
+.conta-mais b{color:#fff;font-weight:600;font-variant-numeric:tabular-nums}
+.conta-pe{margin-top:22px;font-size:15.5px;color:var(--texto-2);max-width:76ch}
+.conta-pe b{color:var(--tinta);font-weight:600}
 
 /* ═══ trabalhos (estrutura consumida pelo publicar.py) ═════════════ */
 
@@ -335,27 +447,42 @@ footer{position:relative}
 
 /* ═══ preços ═══════════════════════════════════════════════════════ */
 
-.tiers{display:grid;gap:18px}
-@media(min-width:880px){.tiers{grid-template-columns:repeat(3,1fr)}}
+.tiers{display:grid;gap:18px;align-items:start}
+@media(min-width:940px){.tiers{grid-template-columns:repeat(3,1fr)}}
 .tier{
   background:var(--folha);border:1px solid var(--linha);border-radius:var(--r-cart);
   padding:26px;display:flex;flex-direction:column;gap:4px;box-shadow:0 2px 0 var(--linha);
+}
+.tier--destaque{border-color:var(--tinta);border-width:2px;
+  box-shadow:0 2px 0 var(--tinta),0 26px 50px -34px rgba(14,27,46,.7)}
+.tier-selo{
+  align-self:flex-start;background:var(--etiqueta);color:var(--tinta);
+  font-size:12.5px;font-weight:700;border-radius:4px;padding:4px 9px;margin-bottom:10px;
 }
 .tier .nome{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 108;font-weight:700;font-size:18px}
 .tier .preco{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 106;font-weight:800;
   font-size:34px;letter-spacing:-.035em;font-variant-numeric:tabular-nums;line-height:1.1;margin-top:8px}
 .tier .parcela{font-size:15px;color:var(--verde);font-weight:600;font-variant-numeric:tabular-nums}
-.tier .prazo{font-size:14.5px;color:var(--texto-2);margin-bottom:10px}
-.tier ul{display:flex;flex-direction:column;gap:9px;padding-top:16px;border-top:1px solid var(--linha)}
-.tier li{position:relative;padding-left:20px;font-size:15px;color:var(--texto-2)}
-.tier li::before{content:"";position:absolute;left:0;top:.55em;width:9px;height:2px;background:var(--linha-2)}
+.tier .prazo{font-size:14.5px;color:var(--texto-2);margin-bottom:12px}
+.tier .rot-lista{font-size:12.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--texto-3);padding-top:18px;border-top:1px solid var(--linha)}
+.tier ul{display:flex;flex-direction:column;gap:9px;padding-top:14px}
+.tier li{position:relative;padding-left:25px;font-size:15px;color:var(--texto-2);line-height:1.45}
+.tier li::before{
+  content:"\2713";position:absolute;left:0;top:.16em;width:17px;height:17px;border-radius:50%;
+  background:#E2F3E9;color:var(--verde);font-size:10px;font-weight:700;display:grid;place-items:center;
+}
+.tier li b{color:var(--tinta);font-weight:600}
+.tier .herda{font-size:15px;color:var(--tinta);font-weight:600;margin-top:14px;padding:12px 14px;
+  background:var(--papel-2);border-radius:6px}
 .sob-medida{
   margin-top:18px;background:var(--folha);border:1px solid var(--linha);border-left:4px solid var(--etiqueta);
   border-radius:var(--r-cart);padding:22px 26px;display:flex;flex-wrap:wrap;gap:12px 28px;align-items:baseline;
 }
 .sob-medida b{font-family:"Archivo",sans-serif;font-weight:700;font-size:18px}
 .sob-medida p{font-size:15.5px;color:var(--texto-2);flex:1;min-width:280px}
-.preco-nota{margin-top:18px;font-size:15px;color:var(--texto-2)}
+.preco-nota{margin-top:18px;font-size:15px;color:var(--texto-2);max-width:78ch}
+.preco-nota b{color:var(--tinta);font-weight:600}
 
 /* ═══ como funciona — sequência de verdade, por isso numerada ══════ */
 
@@ -382,7 +509,21 @@ footer{position:relative}
     .passos::after{animation:desenha-traco linear both;animation-timeline:view();animation-range:entry 12% cover 42%}
   }
 }
-@keyframes desenha-traco{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+.entrega{
+  margin-top:46px;background:var(--folha);border:1px solid var(--linha);border-radius:var(--r-cart);
+  padding:clamp(24px,3vw,34px);box-shadow:0 2px 0 var(--linha);
+}
+.entrega h3{margin-bottom:6px}
+.entrega>p{font-size:15.5px;color:var(--texto-2);margin-bottom:22px;max-width:66ch}
+.entrega ul{display:grid;gap:13px}
+@media(min-width:760px){.entrega ul{grid-template-columns:1fr 1fr;gap:13px 36px}}
+.entrega li{position:relative;padding-left:30px;font-size:16px;color:var(--texto-2);line-height:1.45}
+.entrega li::before{
+  content:"\2713";position:absolute;left:0;top:.1em;width:20px;height:20px;border-radius:50%;
+  background:var(--verde);color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center;
+}
+.entrega li b{color:var(--tinta);font-weight:600}
 
 /* ═══ perguntas ════════════════════════════════════════════════════ */
 
@@ -401,7 +542,11 @@ footer{position:relative}
 }
 .faq details[open] summary::after{transform:rotate(-135deg) translate(-3px,-3px)}
 .faq details p{padding-bottom:22px;color:var(--texto-2);font-size:16.5px}
-@media (prefers-reduced-motion:reduce){.faq summary::after{transition:none}}
+.faq details[open] p{animation:ent .34s cubic-bezier(.2,.7,.2,1)}
+@media (prefers-reduced-motion:reduce){
+  .faq summary::after{transition:none}
+  .faq details[open] p{animation:none}
+}
 
 /* ═══ quem faz ═════════════════════════════════════════════════════ */
 
@@ -470,17 +615,11 @@ footer .links a{display:inline-block;padding-block:4px}
   .pedido .sinal{border-color:CanvasText}
   .pedido[data-ok="1"] .sinal{background:Highlight;forced-color-adjust:none;color:HighlightText}
   .fone,.fone-tela,.servico,.proof,.tier,.painel,.aviso-venda{border:1px solid CanvasText}
+  .conta-entrada,.conta-saida,.entrega{border:1px solid CanvasText}
   .hero-onde{border:1px solid CanvasText}
-  .garantias li::before{forced-color-adjust:none}
+  .garantias li::before,.tier li::before,.entrega li::before,.conta-mais li::before{forced-color-adjust:none}
+  .tier-selo{forced-color-adjust:none}
 }
-
-/* entrada do herói — um único momento, e só no carregamento.
-   O H1 nunca entra animado: ele é o elemento de LCP. */
-@media (prefers-reduced-motion:no-preference){
-  .sobe{opacity:0;transform:translateY(14px);animation:sobe .7s cubic-bezier(.2,.7,.2,1) forwards;
-    animation-delay:calc(var(--i,0) * 90ms)}
-}
-@keyframes sobe{to{opacity:1;transform:none}}
 </style>
 </head>
 <body>
@@ -500,6 +639,7 @@ footer .links a{display:inline-block;padding-block:4px}
     </a>
     <nav>
       <a href="#problema">O problema</a>
+      <a href="#servicos">O que entra</a>
       <a href="#trabalhos">Trabalhos</a>
       <a href="#precos">Preços</a>
       <a href="#perguntas">Perguntas</a>
@@ -510,7 +650,9 @@ footer .links a{display:inline-block;padding-block:4px}
 
 <main id="top">
 
-<!-- ═══ herói ═══════════════════════════════════════════════════════ -->
+<!-- ═══ herói ═══════════════════════════════════════════════════════
+     Sem preço. O número entra em #precos, depois de a página ter dito
+     o que entrega — antes disso ele é só uma despesa sem contexto. -->
 <section class="hero">
   <div class="faixa">
     <div class="hero-grid">
@@ -519,28 +661,28 @@ footer .links a{display:inline-block;padding-block:4px}
         <span class="hero-onde"><i></i>Jacareí, São José dos Campos e o Vale do Paraíba</span>
         <h1>Seu cliente te acha no Instagram e não tem onde comprar.</h1>
         <p class="lede sobe">
-          Eu faço a página que vende e a loja que recebe o pagamento. Preço fechado antes
-          de começar, entrega com data marcada, e tudo fica no seu nome.
+          Eu monto a página que vende e a loja que recebe o pagamento. <b>O cliente escolhe,
+          paga no Pix e o pedido cai pronto para você separar</b> — às onze da noite, no
+          domingo, no feriado, sem você responder nada.
         </p>
-        <div class="preco-linha sobe" style="--i:1">
-          <div>R$&nbsp;700 <span>landing page, em 7 dias</span></div>
-          <div>R$&nbsp;1.200 <span>loja completa, ou 10x de R$&nbsp;120</span></div>
-        </div>
-        <div class="btn-linha sobe" style="--i:2">
-          <a class="btn btn--azul" href="#contato" data-evt="cta-hero">Quero começar</a>
+        <div class="btn-linha sobe" style="--i:1">
+          <a class="btn btn--azul" href="#contato" data-evt="cta-hero">Quero vender pela loja</a>
           <a class="btn btn--linha" href="#trabalhos" data-evt="trabalhos">Ver trabalhos no ar</a>
         </div>
-        <p class="nota sobe" style="--i:3">Resposta em até 4 horas úteis, de segunda a sexta.</p>
-        <ul class="garantias sobe" style="--i:4">
-          <li><b>Preço fechado antes de começar</b>, não por hora e não &ldquo;depende&rdquo;.</li>
-          <li><b>A loja e o domínio ficam no seu nome</b>, não no meu.</li>
-          <li><b>Dois trabalhos no ar</b>, com link aqui embaixo para você conferir.</li>
+        <p class="nota sobe" style="--i:2">Resposta em até 4 horas úteis, de segunda a sexta.</p>
+        <ul class="garantias sobe" style="--i:3">
+          <li><b>Preço fechado antes de começar</b>, não por hora e não &ldquo;depende do escopo&rdquo;.</li>
+          <li><b>A loja e o domínio ficam no seu nome</b>, na sua conta, não na minha.</li>
+          <li><b>Dois trabalhos no ar agora</b>, com link aqui embaixo para você clicar e conferir.</li>
         </ul>
       </div>
 
-      <!-- o telefone: a tela onde o dinheiro entra -->
-      <div class="palco sobe" style="--i:1">
-        <div class="fone" aria-label="Exemplo de tela: as vendas do dia de uma loja">
+      <!-- o telefone: a tela onde o dinheiro entra.
+           role="img" de propósito — para um leitor de tela isto é uma
+           ilustração só, e não uma lista de números soltos. -->
+      <div class="palco sobe" style="--i:1" role="img"
+           aria-label="Ilustração: a tela do painel de uma loja mostrando as vendas do dia, com pedidos chegando e um aviso de venda aprovada no Pix.">
+        <div class="fone">
           <div class="fone-tela">
             <div class="fone-topo"><i></i>sualoja.com.br</div>
             <div class="fone-corpo">
@@ -556,17 +698,23 @@ footer .links a{display:inline-block;padding-block:4px}
                 <div class="sub" id="jconta">8 pedidos, 3 ainda em separação</div>
               </div>
 
-              <ul class="pedidos" id="jpedidos">
-                <li class="pedido" data-ok="1"><span class="sinal"></span><em>#1042</em><b>R$ 189,90</b></li>
-                <li class="pedido" data-ok="1"><span class="sinal"></span><em>#1041</em><b>R$ 320,00</b></li>
-                <li class="pedido" data-ok="1"><span class="sinal"></span><em>#1040</em><b>R$ 94,90</b></li>
-              </ul>
+              <!-- janela de altura fixa: o rolo desliza, o DOM não muda,
+                   e por isso nada empurra a página. -->
+              <div class="janela">
+                <ul class="rolo" id="jrolo" style="--n:2">
+                  <li class="pedido" id="jp2"><span class="sinal"></span><em>#1044</em><b>R$ 178,00</b></li>
+                  <li class="pedido" id="jp1"><span class="sinal"></span><em>#1043</em><b>R$ 246,00</b></li>
+                  <li class="pedido" data-ok="1"><span class="sinal"></span><em>#1042</em><b>R$ 189,90</b></li>
+                  <li class="pedido" data-ok="1"><span class="sinal"></span><em>#1041</em><b>R$ 320,00</b></li>
+                  <li class="pedido" data-ok="1"><span class="sinal"></span><em>#1040</em><b>R$ 94,90</b></li>
+                </ul>
+              </div>
 
             </div>
           </div>
         </div>
         <div class="aviso-venda" id="javiso">
-          <b>Venda aprovada</b> <span>R$ 246,00 no Pix</span>
+          <b>Venda aprovada</b> <span id="javisov">R$ 246,00 no Pix</span>
         </div>
       </div>
 
@@ -578,7 +726,7 @@ footer .links a{display:inline-block;padding-block:4px}
 <!-- ═══ hoje / depois ═══════════════════════════════════════════════ -->
 <section class="secao-escura" id="problema">
   <div class="faixa">
-    <div class="cabeca">
+    <div class="cabeca ent">
       <h2>Você não tem problema de divulgação. Tem problema de lugar para vender.</h2>
       <p>
         O anúncio traz gente, o Instagram traz gente, a indicação traz gente. E todo mundo
@@ -587,13 +735,14 @@ footer .links a{display:inline-block;padding-block:4px}
       </p>
     </div>
 
-    <div class="comparacao">
+    <div class="comparacao ent-g">
       <div class="painel painel--hoje">
         <h3>Como é hoje</h3>
         <ul>
           <li><i>&times;</i>Cada cliente pergunta o preço no direct, e você responde um por um.</li>
           <li><i>&times;</i>A tabela vai como print, e desatualiza no mesmo dia.</li>
           <li><i>&times;</i>Quem chega às 23h espera até amanhã para saber se ainda tem.</li>
+          <li><i>&times;</i>Quem não quer conversar para comprar, simplesmente não compra.</li>
           <li><i>&times;</i>No fim do mês você não sabe qual anúncio trouxe venda de verdade.</li>
         </ul>
       </div>
@@ -603,6 +752,7 @@ footer .links a{display:inline-block;padding-block:4px}
           <li><i>&#10003;</i>O cliente vê preço e estoque sozinho e fecha na hora.</li>
           <li><i>&#10003;</i>Você muda o preço num lugar só, e muda em todo lugar.</li>
           <li><i>&#10003;</i>A loja vende de madrugada, no domingo e no feriado.</li>
+          <li><i>&#10003;</i>Quem tem vergonha de perguntar preço compra sem falar com ninguém.</li>
           <li><i>&#10003;</i>Cada venda mostra de onde veio, e você para de queimar verba.</li>
         </ul>
       </div>
@@ -613,34 +763,37 @@ footer .links a{display:inline-block;padding-block:4px}
 <!-- ═══ o que eu faço ═══════════════════════════════════════════════ -->
 <section id="servicos">
   <div class="faixa">
-    <div class="cabeca">
+    <div class="cabeca ent">
       <h2>Duas coisas principais. E uma terceira, quando sobra trabalho repetido.</h2>
-      <p>Não é pacote de agência com reunião de alinhamento. É você me contar o que vende, e eu entregar na data combinada.</p>
+      <p>Não é pacote de agência com reunião de alinhamento. É você me contar o que vende, e eu
+      entregar funcionando, na data combinada, com tudo já ligado e testado.</p>
     </div>
-    <div class="servicos">
+    <div class="servicos ent-g">
 
       <div class="servico">
         <h3>Landing page</h3>
         <p>Uma página só, escrita para vender uma coisa: um produto, um serviço, um lançamento.</p>
         <ul>
-          <li>Texto escrito, não &ldquo;preencha aqui&rdquo;</li>
-          <li>Botão direto para o seu WhatsApp</li>
-          <li>Rápida no celular, que é onde te abrem</li>
-          <li>Rastreamento, para saber o que deu retorno</li>
+          <li>O texto é escrito por mim, não é &ldquo;preencha aqui&rdquo;</li>
+          <li>Layout próprio, não é modelo com a cor trocada</li>
+          <li>Botão direto para o seu WhatsApp, com a mensagem pronta</li>
+          <li>Abre rápido no celular, que é onde te abrem</li>
+          <li>Medição ligada, para você saber o que deu retorno</li>
         </ul>
-        <div class="valor">R$ 700<small>pronta em 7 dias</small></div>
+        <p class="fecho">Para quem vende <b>um serviço ou um produto só</b> e precisa de um lugar para mandar o link.</p>
       </div>
 
       <div class="servico">
         <h3>Loja completa</h3>
         <p>Loja de verdade na Nuvemshop: o cliente escolhe, paga no Pix ou no cartão, e o pedido cai pronto para você separar.</p>
         <ul>
-          <li>Pix, cartão e boleto ligados</li>
-          <li>Frete calculado no carrinho</li>
-          <li>Seus produtos cadastrados, com foto</li>
+          <li>Pix, cartão e boleto ligados e testados</li>
+          <li>Frete calculado sozinho no carrinho</li>
+          <li>Seus produtos cadastrados, com foto e variação</li>
+          <li>Sacolinha do Instagram ligada na loja</li>
           <li>Domínio próprio e a cara da sua marca</li>
         </ul>
-        <div class="valor">R$ 1.200<small>ou 10x de R$ 120, pronta em 14 dias</small></div>
+        <p class="fecho">Para quem vende <b>vários produtos</b> e já perde venda por não conseguir responder todo mundo.</p>
       </div>
 
       <div class="servico">
@@ -651,8 +804,9 @@ footer .links a{display:inline-block;padding-block:4px}
           <li>Pedido que entra sozinho na planilha</li>
           <li>Aviso quando o estoque acaba</li>
           <li>Relatório que chega pronto</li>
+          <li>Integração entre o que você já usa</li>
         </ul>
-        <div class="valor">R$ 120<small>por hora, com o total fechado antes de começar</small></div>
+        <p class="fecho">Para quando o gargalo <b>não é mais a venda</b>, é dar conta do que já está vendendo.</p>
       </div>
 
     </div>
@@ -662,7 +816,7 @@ footer .links a{display:inline-block;padding-block:4px}
 <!-- ═══ trabalhos ═══════════════════════════════════════════════════ -->
 <section id="trabalhos" class="secao-clara">
   <div class="faixa">
-    <div class="cabeca">
+    <div class="cabeca ent">
       <h2>O que já está no ar.</h2>
       <p>
         Dois trabalhos entregues e pagos, com link ao vivo para você clicar e ver. Mais um
@@ -670,7 +824,7 @@ footer .links a{display:inline-block;padding-block:4px}
         cliente, de propósito.
       </p>
     </div>
-    <div class="proofs">
+    <div class="proofs ent-g">
 
       <article class="proof">
         <span class="kind">Página de captação, para cliente</span>
@@ -706,50 +860,73 @@ footer .links a{display:inline-block;padding-block:4px}
 <!-- ═══ preços ══════════════════════════════════════════════════════ -->
 <section id="precos">
   <div class="faixa">
-    <div class="cabeca">
+    <div class="cabeca ent">
       <h2>O preço está aqui. Não tem &ldquo;consulte-nos&rdquo;.</h2>
       <p>
         Quem esconde o preço está guardando espaço para improvisar depois de te conhecer.
-        Estes valores são fechados: se o escopo for o que está escrito, é isso que você paga.
+        Estes valores são fechados, e a lista embaixo de cada um é tudo o que entra —
+        sem item à parte, sem taxa de setup, sem surpresa na entrega.
       </p>
     </div>
 
-    <div class="tiers">
+    <div class="tiers ent-g">
       <div class="tier">
         <span class="nome">Landing page</span>
         <span class="preco">R$ 700</span>
         <span class="prazo">pronta em 7 dias</span>
+        <span class="rot-lista">O que entra</span>
         <ul>
-          <li>Uma página, com o texto escrito</li>
-          <li>Botão direto para o WhatsApp</li>
-          <li>Rastreamento e consentimento</li>
-          <li>Domínio e publicação</li>
-          <li>1 rodada de ajuste</li>
+          <li><b>O texto escrito por mim</b>, do título ao botão</li>
+          <li>Layout desenhado para o seu caso, não é modelo pronto</li>
+          <li>Botão de WhatsApp com a mensagem já preenchida</li>
+          <li>Leve, para abrir rápido no 4G do seu cliente</li>
+          <li>Pixel da Meta e Google Analytics instalados e testados</li>
+          <li>Aviso de cookies e política de privacidade (LGPD)</li>
+          <li><b>Cartão de link do WhatsApp</b>: a imagem que aparece quando mandam o seu link</li>
+          <li>Título e descrição escritos para o Google</li>
+          <li>Domínio ligado, certificado de segurança e publicação</li>
+          <li>1 rodada de ajuste depois de pronta</li>
+          <li>30 dias para eu corrigir o que eu errei</li>
         </ul>
       </div>
-      <div class="tier">
+
+      <div class="tier tier--destaque">
+        <span class="tier-selo">Para quem vende produto</span>
         <span class="nome">Loja completa</span>
         <span class="preco">R$ 1.200</span>
-        <span class="parcela">ou 10x de R$ 120</span>
+        <span class="parcela">ou 10x de R$ 120 no cartão</span>
         <span class="prazo">pronta em 14 dias</span>
+        <span class="rot-lista">O que entra</span>
         <ul>
-          <li>Loja na Nuvemshop, no seu nome</li>
-          <li>Pix, cartão e boleto ligados</li>
-          <li>Frete calculado no carrinho</li>
-          <li>Até 60 produtos cadastrados</li>
-          <li>1 hora de treino para você mexer</li>
+          <li>Loja na Nuvemshop criada <b>na sua conta</b>, não na minha</li>
+          <li>Pix, cartão e boleto ligados e <b>testados com uma compra de verdade</b></li>
+          <li>Frete calculado sozinho no carrinho, Correios e transportadora</li>
+          <li>Regra de frete grátis a partir do valor que você escolher</li>
+          <li><b>Até 60 produtos cadastrados</b>, com foto, descrição e variação de tamanho e cor</li>
+          <li><b>Sacolinha do Instagram</b> conectada: quem vê o story vai direto ao produto</li>
+          <li>E-mail automático para quem deixou o carrinho pela metade</li>
+          <li>Cupom de primeira compra, pronto para você divulgar</li>
+          <li>Páginas de troca, devolução, frete e privacidade escritas</li>
+          <li>Domínio próprio e certificado de segurança</li>
+          <li><b>1 hora de treino gravada</b>, para você rever quando esquecer</li>
+          <li>30 dias de ajuste depois de no ar</li>
         </ul>
+        <p class="herda">Tem página de captação junto: a loja já vai com uma página de entrada escrita para vender.</p>
       </div>
+
       <div class="tier">
         <span class="nome">Automação</span>
         <span class="preco">R$ 120<span style="font-size:16px;font-weight:500">/hora</span></span>
         <span class="prazo">total fechado antes de começar</span>
+        <span class="rot-lista">O que entra</span>
         <ul>
           <li>Resposta automática no WhatsApp</li>
-          <li>Pedido que entra sozinho</li>
-          <li>Aviso de estoque</li>
-          <li>Relatório que chega pronto</li>
-          <li>Integração entre o que você já usa</li>
+          <li>Pedido que entra sozinho na planilha</li>
+          <li>Aviso quando o estoque está acabando</li>
+          <li>Relatório que chega pronto no seu e-mail</li>
+          <li>Integração entre as ferramentas que você já usa</li>
+          <li><b>Você aprova o total em reais</b> antes de eu escrever a primeira linha</li>
+          <li>Se passar das horas por culpa minha, a diferença é minha</li>
         </ul>
       </div>
     </div>
@@ -761,14 +938,67 @@ footer .links a{display:inline-block;padding-block:4px}
       se o seu caso é isso ou não é.</p>
     </div>
 
-    <p class="preco-nota">A mensalidade da plataforma é paga por você, direto para a Nuvemshop, e não passa por mim. O meu trabalho: metade para começar, metade quando vai ao ar.</p>
+    <p class="preco-nota"><b>A mensalidade da plataforma é sua e vai direto para a Nuvemshop</b>, não passa por
+    mim e eu não ganho comissão nela. A Nuvemshop tem plano gratuito: dá para começar
+    pagando só o meu trabalho e o domínio, uns R$ 40 por ano. Você sobe de plano quando a
+    loja já estiver vendendo o suficiente para justificar. O meu trabalho é metade para
+    começar e metade quando vai ao ar.</p>
+  </div>
+</section>
+
+<!-- ═══ a conta ═════════════════════════════════════════════════════
+     A única forma honesta de falar de ganho: dividir, com o número que
+     o próprio visitante colocou. Não existe aqui nenhuma projeção de
+     faturamento, e o rodapé da seção diz isso em voz alta. -->
+<section id="conta" class="secao-clara">
+  <div class="faixa">
+    <div class="cabeca ent">
+      <h2>Em quantas vendas isso se paga?</h2>
+      <p>Eu não vou te prometer faturamento: quem promete está chutando o que o seu cliente
+      vai fazer. O que dá para fazer é dividir. Arraste e veja a conta com o seu número.</p>
+    </div>
+
+    <div class="conta ent-g">
+      <div class="conta-entrada">
+        <div class="medida">
+          <label for="cticket">Quanto custa, em média, o que você vende?</label>
+          <div class="leitura"><span id="cticketv">R$ 150</span><small>por venda</small></div>
+          <input id="cticket" type="range" min="20" max="600" step="10" value="150">
+          <div class="reguas"><span>R$ 20</span><span>R$ 600</span></div>
+        </div>
+        <div class="medida">
+          <label for="cmsg">Quantas vezes por dia você responde &ldquo;quanto custa?&rdquo; no direct?</label>
+          <div class="leitura"><span id="cmsgv">8</span><small>mensagens por dia</small></div>
+          <input id="cmsg" type="range" min="1" max="40" step="1" value="8">
+          <div class="reguas"><span>1</span><span>40</span></div>
+        </div>
+        <p class="conta-dica">Arraste as duas barras. A conta do lado muda junto, na hora.</p>
+      </div>
+
+      <div class="conta-saida">
+        <p class="conta-topo">Com esse preço, a loja completa se paga em</p>
+        <p class="conta-num"><b id="cvendas">8</b> <span id="cvendasr">vendas</span></p>
+        <p class="conta-exp">Depois dessas, <b>a loja é sua e continua vendendo</b> — todo dia, de madrugada,
+        no domingo, sem mensalidade minha e sem você responder nada.</p>
+        <ul class="conta-mais">
+          <li>A <b>landing page</b> se paga em <b id="cvendasp">5 vendas</b>.</li>
+          <li>Você deixa de gastar <b id="choras">12 horas</b> por mês repetindo o mesmo preço.</li>
+          <li>E quem tem vergonha de perguntar o preço passa a comprar sem falar com ninguém.</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="conta-pe">É divisão, não previsão. Não existe aqui nenhuma promessa de
+    faturamento, porque eu não sei quanto você vai vender e quem te diz um número redondo
+    também não sabe. <b>O que eu prometo é a entrega:</b> no ar, no seu nome, na data
+    combinada, com tudo ligado e testado.</p>
   </div>
 </section>
 
 <!-- ═══ como funciona ═══════════════════════════════════════════════ -->
-<section id="como" class="secao-clara">
+<section id="como">
   <div class="faixa">
-    <div class="cabeca">
+    <div class="cabeca ent">
       <h2>Da primeira mensagem até vender.</h2>
       <p>Sem reunião de apresentação e sem proposta de vinte páginas.</p>
     </div>
@@ -779,39 +1009,56 @@ footer .links a{display:inline-block;padding-block:4px}
       </div>
       <div class="passo">
         <h3>Você me manda o material</h3>
-        <p>Fotos, preços e o que você quer dizer. Se não tiver texto pronto, o texto é comigo.</p>
+        <p>Fotos, preços e o que você quer dizer. Se não tiver texto pronto, o texto é comigo. A primeira metade do pagamento entra aqui.</p>
       </div>
       <div class="passo">
         <h3>Eu monto e te mostro</h3>
-        <p>Você vê antes de ir ao ar e pede o ajuste. A primeira metade do pagamento entra aqui.</p>
+        <p>Você vê funcionando antes de ir ao ar, testa no seu celular e pede o ajuste.</p>
       </div>
       <div class="passo">
         <h3>Vai ao ar no seu nome</h3>
-        <p>Domínio, loja e acessos ficam com você. Te ensino a mexer numa chamada de uma hora.</p>
+        <p>Domínio, loja e acessos ficam com você. Te ensino a mexer numa chamada de uma hora, gravada.</p>
       </div>
+    </div>
+
+    <div class="entrega">
+      <h3>No dia da entrega, você recebe isto aqui</h3>
+      <p>Não é uma senha e boa sorte. É a chave de tudo, no seu e-mail e no seu nome — e é
+      por isso que nada aqui depende de eu continuar existindo.</p>
+      <ul class="ent-l">
+        <li>O endereço <b>no ar e funcionando</b>, aberto no seu celular junto comigo</li>
+        <li><b>Usuário e senha de tudo</b>, mandados para o seu e-mail</li>
+        <li>O domínio registrado <b>no seu nome</b>, com o seu documento</li>
+        <li>A loja criada <b>na sua conta</b> da Nuvemshop</li>
+        <li>A gravação da hora de treino, para rever quando esquecer</li>
+        <li>Uma folha com o que fazer quando cair o primeiro pedido</li>
+        <li>30 dias para me chamar se algo que eu entreguei estiver errado</li>
+        <li>E o meu WhatsApp, <b>que continua o mesmo depois de você pagar</b></li>
+      </ul>
     </div>
   </div>
 </section>
 
 <!-- ═══ perguntas ═══════════════════════════════════════════════════ -->
-<section id="perguntas">
+<section id="perguntas" class="secao-clara">
   <div class="faixa">
-    <div class="cabeca">
+    <div class="cabeca ent">
       <h2>As dúvidas que ninguém faz em voz alta.</h2>
     </div>
-    <div class="faq">
+    <div class="faq ent-l">
       <details open>
         <summary>Depois de pronto, eu consigo mexer sozinho?</summary>
         <p>Consegue, e é de propósito. A loja da Nuvemshop você mexe pelo painel, sem
         programador: trocar preço, subir produto, mudar foto, criar cupom. Na entrega eu te
-        ensino numa chamada de uma hora, e você grava se quiser rever depois.</p>
+        ensino numa chamada de uma hora, e ela vai gravada para você rever quando esquecer.</p>
       </details>
       <details>
         <summary>Tem mensalidade? Quanto custa manter no ar?</summary>
-        <p>O meu trabalho é pago uma vez só. Depois sobram duas contas, e nenhuma delas
-        passa por mim: o plano da Nuvemshop, pago direto para eles, e o domínio, em torno de
-        R$ 40 por ano. Se você quiser que eu cuide da loja depois, a gente combina à parte —
-        mas não é obrigatório e eu não te amarro nisso.</p>
+        <p>O meu trabalho é pago uma vez só. Depois sobram duas contas, e nenhuma delas passa
+        por mim: o plano da Nuvemshop, pago direto para eles — e eles têm <b>plano
+        gratuito</b>, então dá para começar sem essa conta — e o domínio, em torno de R$ 40
+        por ano. Se um dia você quiser que eu cuide da loja, a gente combina à parte, mas não
+        é obrigatório e eu não te amarro nisso.</p>
       </details>
       <details>
         <summary>E se você sumir?</summary>
@@ -832,6 +1079,13 @@ footer .links a{display:inline-block;padding-block:4px}
         <p>Não trava, mas vende menos — foto ruim é o motivo número um de loja pequena não
         converter. Se for o seu caso, eu te mando um guia de como fotografar no celular com
         luz de janela. Resolve a maioria dos casos sem você gastar nada.</p>
+      </details>
+      <details>
+        <summary>Eu tenho mais de 60 produtos. E aí?</summary>
+        <p>Os 60 primeiros entram no preço. Acima disso a gente combina antes: ou eu cadastro
+        o resto por hora, ou eu te ensino a cadastrar e você faz no seu tempo — muita gente
+        prefere a segunda, porque aprende a mexer de verdade. Em nenhum dos dois casos o
+        valor muda depois de começado.</p>
       </details>
       <details>
         <summary>Quanto tempo leva de verdade?</summary>
@@ -862,9 +1116,9 @@ footer .links a{display:inline-block;padding-block:4px}
 
 <!-- ═══ quem faz ════════════════════════════════════════════════════ -->
 
-<section id="quem" class="secao-clara">
+<section id="quem">
   <div class="faixa">
-    <div class="quem">
+    <div class="quem ent">
       <span class="quem-sigla" aria-hidden="true">GF</span>
       <div class="quem-txt">
         <h2>Quem vai te atender sou eu.</h2>
@@ -887,8 +1141,8 @@ footer .links a{display:inline-block;padding-block:4px}
     <h2>Me diz o que você vende. Eu te digo o preço na mesma conversa.</h2>
     <p>
       Duas perguntas por mensagem, sem compromisso: o que você vende, e hoje o cliente
-      compra por onde? Com isso eu já te digo se o seu caso é uma landing page de R$ 700 ou
-      uma loja de R$ 1.200, e em quanto tempo fica pronta.
+      compra por onde? Com isso eu já te digo se o seu caso é uma landing page ou uma loja,
+      quanto custa e em quanto tempo fica pronta.
     </p>
     <div class="btn-linha">
       <a class="btn btn--verde" id="wa"
@@ -936,32 +1190,182 @@ footer .links a{display:inline-block;padding-block:4px}
 </div>
 
 <script>
-/* Uma venda entra na tela, uma vez, no carregamento. É o gesto central
-   do que ele vende — dinheiro entrando sem ninguém atender — e é o único
-   movimento não pedido da página. */
+/* ═══ o telefone ══════════════════════════════════════════════════
+   Duas vendas entram, e só duas. Movimento perpétuo ao lado do botão
+   principal rouba atenção do que importa e cansa em dez segundos.
+
+   Nada é inserido no DOM: as cinco linhas já existem, três aparecem, e
+   o rolo sobe uma altura de linha por vez. A janela tem altura fixa,
+   então o herói não muda de tamanho no meio do carregamento — era esse
+   o defeito que fazia a página dar um pulo.                        */
 (function () {
   "use strict";
-  var lento = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var lista = document.getElementById("jpedidos");
-  var valor = document.getElementById("jvalor");
-  var conta = document.getElementById("jconta");
-  var aviso = document.getElementById("javiso");
-  if (!lista || !valor || !conta || !aviso) return;
+  var lento  = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var rolo   = document.getElementById("jrolo");
+  var valor  = document.getElementById("jvalor");
+  var conta  = document.getElementById("jconta");
+  var aviso  = document.getElementById("javiso");
+  var avisov = document.getElementById("javisov");
+  if (!rolo || !valor || !conta || !aviso) return;
 
-  function chegaPedido() {
-    var li = document.createElement("li");
-    li.className = "pedido";
-    li.setAttribute("data-ok", "1");
-    li.setAttribute("data-novo", "");
-    li.innerHTML = '<span class="sinal"></span><em>#1043</em><b>R$ 246,00</b>';
-    lista.insertBefore(li, lista.firstChild);
-    valor.textContent = "R$ 1.530,50";
-    conta.textContent = "9 pedidos, 3 ainda em separação";
-    aviso.setAttribute("data-on", "");
+  var INICIO = 1284.50;
+  var ATOS = [
+    { li: "jp1", n: "1", total: 1530.50, pedidos: 9,  venda: "R$ 246,00" },
+    { li: "jp2", n: "0", total: 1708.50, pedidos: 10, venda: "R$ 178,00" }
+  ];
+
+  function moeda(v) {
+    try {
+      return "R$ " + v.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    } catch (e) {
+      return "R$ " + v.toFixed(2);
+    }
   }
 
-  if (lento) { chegaPedido(); return; }
-  setTimeout(chegaPedido, 1800);
+  /* o total sobe contando, em vez de trocar de valor num piscar */
+  function contarAte(el, de, ate, ms) {
+    if (lento || !window.requestAnimationFrame) { el.textContent = moeda(ate); return; }
+    var t0 = 0;
+    (function passo(t) {
+      if (!t0) t0 = t;
+      var p = Math.min(1, (t - t0) / ms);
+      el.textContent = moeda(de + (ate - de) * (1 - Math.pow(1 - p, 3)));
+      if (p < 1) requestAnimationFrame(passo);
+    })(performance.now ? performance.now() : 0);
+  }
+
+  var atual = INICIO;
+  var sumir = 0;
+
+  function ato(a) {
+    rolo.style.setProperty("--n", a.n);
+    var li = document.getElementById(a.li);
+    setTimeout(function () {
+      if (li) { li.setAttribute("data-ok", "1"); li.setAttribute("data-pop", ""); }
+      contarAte(valor, atual, a.total, 900);
+      atual = a.total;
+      conta.textContent = a.pedidos + " pedidos, 3 ainda em separação";
+      if (avisov) avisov.textContent = a.venda + " no Pix";
+      aviso.setAttribute("data-on", "");
+      clearTimeout(sumir);
+      sumir = setTimeout(function () { aviso.removeAttribute("data-on"); }, 3600);
+    }, 520);
+  }
+
+  /* sem animação: a tela já nasce no estado final */
+  if (lento) {
+    rolo.style.setProperty("--n", "0");
+    var ult = ATOS[ATOS.length - 1];
+    ATOS.forEach(function (a) {
+      var e = document.getElementById(a.li);
+      if (e) e.setAttribute("data-ok", "1");
+    });
+    valor.textContent = moeda(ult.total);
+    conta.textContent = ult.pedidos + " pedidos, 3 ainda em separação";
+    if (avisov) avisov.textContent = ult.venda + " no Pix";
+    aviso.setAttribute("data-on", "");
+    return;
+  }
+
+  function tocar() {
+    setTimeout(function () { ato(ATOS[0]); }, 1500);
+    setTimeout(function () { ato(ATOS[1]); }, 6300);
+  }
+
+  /* aba escondida no carregamento gasta a animação à toa */
+  if (document.visibilityState === "hidden") {
+    document.addEventListener("visibilitychange", function uma() {
+      if (document.visibilityState !== "hidden") {
+        document.removeEventListener("visibilitychange", uma);
+        tocar();
+      }
+    });
+  } else {
+    tocar();
+  }
+})();
+
+/* ═══ a conta ═════════════════════════════════════════════════════
+   Divisão pura, com o número que o visitante mesmo colocou. O HTML já
+   nasce com o resultado dos valores padrão, então sem JavaScript a
+   seção continua fazendo sentido — só para de mexer.              */
+(function () {
+  "use strict";
+  var lento   = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var LOJA    = 1200;
+  var PAGINA  = 700;
+  var MIN_MSG = 3;    /* três minutos por conversa de "quanto custa?" */
+
+  var ticket = document.getElementById("cticket");
+  var msg    = document.getElementById("cmsg");
+  if (!ticket || !msg) return;
+
+  var vTicket = document.getElementById("cticketv");
+  var vMsg    = document.getElementById("cmsgv");
+  var nVendas = document.getElementById("cvendas");
+  var rVendas = document.getElementById("cvendasr");
+  var pVendas = document.getElementById("cvendasp");
+  var nHoras  = document.getElementById("choras");
+
+  var mostrado = 0, quadro = 0;
+
+  function plural(n, um, varios) { return n === 1 ? um : varios; }
+
+  function animarInteiro(el, de, ate, ms) {
+    if (quadro) cancelAnimationFrame(quadro);
+    if (lento || !window.requestAnimationFrame || de === ate) {
+      el.textContent = ate; mostrado = ate; return;
+    }
+    var t0 = 0;
+    quadro = requestAnimationFrame(function passo(t) {
+      if (!t0) t0 = t;
+      var p = Math.min(1, (t - t0) / ms);
+      el.textContent = Math.round(de + (ate - de) * (1 - Math.pow(1 - p, 3)));
+      if (p < 1) quadro = requestAnimationFrame(passo);
+      else { el.textContent = ate; mostrado = ate; }
+    });
+  }
+
+  function recalcular(animar) {
+    var t = Number(ticket.value) || 20;
+    var m = Number(msg.value) || 1;
+
+    vTicket.textContent = "R$ " + t.toLocaleString("pt-BR");
+    vMsg.textContent = m;
+    ticket.setAttribute("aria-valuetext", "R$ " + t + " por venda");
+    msg.setAttribute("aria-valuetext", m + " " + plural(m, "mensagem", "mensagens") + " por dia");
+
+    var vLoja = Math.ceil(LOJA / t);
+    var vPag  = Math.ceil(PAGINA / t);
+    var horas = m * MIN_MSG * 30 / 60;
+
+    rVendas.textContent = plural(vLoja, "venda", "vendas");
+    pVendas.textContent = vPag + " " + plural(vPag, "venda", "vendas");
+    nHoras.textContent  = horas.toLocaleString("pt-BR", { maximumFractionDigits: 1 }) +
+                          " " + plural(horas, "hora", "horas");
+
+    if (animar) animarInteiro(nVendas, mostrado, vLoja, 480);
+    else { nVendas.textContent = vLoja; mostrado = vLoja; }
+  }
+
+  ticket.addEventListener("input", function () { recalcular(true); });
+  msg.addEventListener("input", function () { recalcular(true); });
+  recalcular(false);
+
+  /* na primeira vez que a seção aparece, o número grande conta do zero */
+  if ("IntersectionObserver" in window && !lento) {
+    var alvo = document.getElementById("conta");
+    if (alvo) {
+      var obs = new IntersectionObserver(function (e) {
+        if (!e[0].isIntersecting) return;
+        obs.disconnect();
+        var fim = mostrado;
+        mostrado = 0;
+        animarInteiro(nVendas, 0, fim, 900);
+      }, { threshold: .35 });
+      obs.observe(alvo);
+    }
+  }
 })();
 
 /* A barra de contato do celular aparece depois que o herói sai da tela e
