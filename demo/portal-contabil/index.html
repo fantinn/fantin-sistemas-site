@@ -9,230 +9,304 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=Zilla+Slab:wght@500;600;700&display=swap">
 
 <style>
-/* ── tokens: Bloco 3 do plano ───────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════════
+   TOKENS — cópia do sistema (../../site/sistema/tokens.css)
+   ═══════════════════════════════════════════════════════════════════
+   Esta demonstração é UM arquivo só de propósito: abre local, vai por
+   link, hospeda em qualquer lugar. Por isso os tokens moram aqui em
+   vez de virem por <link>. É a quarta duplicação aceita do sistema —
+   as outras são arte.js e story.js. Mudou lá, muda aqui.
+
+   O ACENTO É DO CLIENTE, não meu: --acento vem de --org, que o JS
+   injeta a partir de ?k=hex. A cor do texto em cima do acento é
+   calculada por luminância, para não existir botão ilegível seja qual
+   for a cor que o escritório usa.
+   ═══════════════════════════════════════════════════════════════════ */
 :root{
-  --ink-900:#0E1318; --ink-700:#2A333D; --ink-500:#4E5A66;
-  --ink-300:#8C97A1; --ink-100:#DDE2E7; --ink-050:#F2F4F6;
-  --brand-700:#0F3560; --brand-600:#16457A; --brand-100:#E3EBF4;
-  --signal-800:#9A4F02; --signal-600:#D97005; --signal-100:#FBEBD6;
-  --success:#11703F; --success-bg:#DFF0E7; --warning:#8F5F09; --danger:#B0281F; --danger-bg:#FAE4E2;
+  --c-papel-0:#F2F3EE; --c-papel-1:#E8EAE3; --c-papel-2:#DFE2D9; --c-papel-3:#D2D6CA;
+  --c-tinta-900:#171A16; --c-tinta-700:#2E332C; --c-tinta-500:#565C54;
+  --c-tinta-300:#7C8278; --c-tinta-100:#CBCEC3;
+  --c-oxido-600:#8A2B22; --c-oxido-500:#A33A2E; --c-oxido-300:#C2564A; --c-oxido-100:#E7D8D4;
+  --c-ok-600:#2C5E3A; --c-ok-100:#D6E1D4;
+  --c-aviso-600:#7A5A16; --c-aviso-100:#E8E0C7;
+  --c-erro-600:#7A1F16; --c-erro-100:#E9D6D2;
 
-  --bg:#FFFFFF; --surface:var(--ink-050); --text:var(--ink-900);
-  --text-2:var(--ink-500); --line:var(--ink-100); --line-2:var(--ink-300);
-  --accent:var(--brand-600); --accent-hover:var(--brand-700); --accent-soft:var(--brand-100);
-  --sig:var(--signal-600); --sig-text:var(--signal-800); --sig-bg:var(--signal-100);
-  --on-accent:#FFFFFF;
+  --fonte-titulo:"Zilla Slab",Georgia,"Times New Roman",serif;
+  --fonte-texto:"Public Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
 
-  --sh-sm:0 1px 2px rgba(14,19,24,.06);
-  --sh-md:0 2px 4px rgba(14,19,24,.06), 0 4px 12px -4px rgba(14,19,24,.10);
-  --sh-lg:0 12px 32px -8px rgba(14,19,24,.22);
-  --sh-focus:0 0 0 3px rgba(22,69,122,.28);
-  --r-sm:2px; --r-md:4px; --r-lg:6px; --r-xl:10px;
-  --e-out:cubic-bezier(.22,.61,.36,1);
+  --esp-1:4px; --esp-2:8px; --esp-3:12px; --esp-4:16px; --esp-5:20px;
+  --esp-6:24px; --esp-8:32px; --esp-10:40px; --esp-12:48px;
+
+  --raio-1:2px; --raio-2:3px; --raio-3:4px; --raio-4:6px; --raio-pilula:999px;
+  --borda-fina:1px; --borda-forte:2px; --borda-margem:3px;
+
+  --elev-1:0 1px 2px rgba(23,26,22,.07);
+  --elev-2:0 2px 4px rgba(23,26,22,.07), 0 4px 12px -4px rgba(23,26,22,.12);
+  --elev-3:0 2px 6px rgba(23,26,22,.08), 0 12px 32px -10px rgba(23,26,22,.20);
+
+  /* movimento — mesmos valores de sistema/motion.css */
+  --mov-instantaneo:90ms; --mov-rapido:140ms; --mov-padrao:200ms;
+  --mov-calmo:300ms; --mov-entrada:440ms;
+  --curva-saida:cubic-bezier(.22,.61,.36,1);
+  --curva-suave:cubic-bezier(.4,0,.2,1);
+  --curva-carimbo:cubic-bezier(.34,1.26,.64,1);
+
+  /* semântico — tema papel */
+  --org:#8A2B22;                    /* o JS troca por ?k=hex */
+  --org-texto:#FFFFFF;              /* calculado por luminância */
+  --fundo:var(--c-papel-1); --fundo-2:var(--c-papel-2); --fundo-3:var(--c-papel-3);
+  --fundo-alto:var(--c-papel-0);  --fundo-inverso:var(--c-tinta-900);
+  --texto:var(--c-tinta-900); --texto-2:var(--c-tinta-500); --texto-3:var(--c-tinta-300);
+  --texto-inverso:var(--c-papel-1);
+  --linha:var(--c-tinta-100); --linha-forte:var(--c-tinta-300);
+  --acento:var(--org-legivel,var(--org)); --acento-hover:var(--org-legivel,var(--org)); --acento-suave:var(--c-oxido-100);
+  --texto-sobre-acento:var(--org-texto);
+  --ok:var(--c-ok-600); --ok-suave:var(--c-ok-100);
+  --aviso:var(--c-aviso-600); --aviso-suave:var(--c-aviso-100);
+  --erro:var(--c-erro-600); --erro-suave:var(--c-erro-100);
+  --anel-foco:0 0 0 3px rgba(23,26,22,.22);
+  color-scheme:light;
 }
 @media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#0E1318; --surface:#161C23; --text:#E6EAEE; --text-2:#A3AEB8;
-    --line:#242D36; --line-2:#38434E;
-    --accent:#6BA6F5; --accent-hover:#8FBDF8; --accent-soft:#17283C;
-    --sig:#F2A03D; --sig-text:#F2A03D; --sig-bg:#3A2A12;
-    --success:#4FBF86; --success-bg:#123326; --danger:#F08379; --danger-bg:#3A1D1A; --warning:#E0A83C;
-    --on-accent:#0E1318;
-    --sh-lg:0 12px 32px -8px rgba(0,0,0,.6);
-    --sh-focus:0 0 0 3px rgba(107,166,245,.30);
+  :root:not([data-tema="papel"]){
+    --fundo:var(--c-tinta-900); --fundo-2:#1F231D; --fundo-3:#2B302A;
+    --fundo-alto:#22271F; --fundo-inverso:var(--c-papel-1);
+    --texto:var(--c-papel-1); --texto-2:#9AA294; --texto-3:#6F776B;
+    --texto-inverso:var(--c-tinta-900);
+    --linha:#2B302A; --linha-forte:#6A7267;
+    --acento-suave:#2E241F;
+    --ok:#6FA97D; --ok-suave:#1E2B21;
+    --aviso:#C9A75A; --aviso-suave:#2B2617;
+    --erro:#EFA093; --erro-suave:#2E241F;
+    --elev-3:0 12px 32px -8px rgba(0,0,0,.6);
+    --anel-foco:0 0 0 3px rgba(232,234,227,.28);
+    color-scheme:dark;
   }
 }
-:root[data-theme="dark"]{
-  --bg:#0E1318; --surface:#161C23; --text:#E6EAEE; --text-2:#A3AEB8;
-  --line:#242D36; --line-2:#38434E;
-  --accent:#6BA6F5; --accent-hover:#8FBDF8; --accent-soft:#17283C;
-  --sig:#F2A03D; --sig-text:#F2A03D; --sig-bg:#3A2A12;
-  --success:#4FBF86; --success-bg:#123326; --danger:#F08379; --danger-bg:#3A1D1A; --warning:#E0A83C;
-  --on-accent:#0E1318;
-  --sh-lg:0 12px 32px -8px rgba(0,0,0,.6);
-  --sh-focus:0 0 0 3px rgba(107,166,245,.30);
+[data-tema="tinta"]{
+  --fundo:var(--c-tinta-900); --fundo-2:#1F231D; --fundo-3:#2B302A;
+  --fundo-alto:#22271F; --fundo-inverso:var(--c-papel-1);
+  --texto:var(--c-papel-1); --texto-2:#9AA294; --texto-3:#6F776B;
+  --texto-inverso:var(--c-tinta-900);
+  --linha:#2B302A; --linha-forte:#6A7267;
+  --acento-suave:#2E241F;
+  --ok:#6FA97D; --ok-suave:#1E2B21;
+  --aviso:#C9A75A; --aviso-suave:#2B2617;
+  --erro:#EFA093; --erro-suave:#2E241F;
+  --elev-3:0 12px 32px -8px rgba(0,0,0,.6);
+  --anel-foco:0 0 0 3px rgba(232,234,227,.28);
+  color-scheme:dark;
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:"Public Sans",system-ui,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+body{background:var(--fundo);color:var(--texto);font-family:"Public Sans",system-ui,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
 button,input,select{font:inherit;color:inherit}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:var(--r-sm)}
+:focus-visible{outline:2px solid var(--acento);outline-offset:2px;border-radius:var(--raio-1)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-.mono{font-family:"JetBrains Mono",ui-monospace,Consolas,monospace;font-variant-numeric:tabular-nums}
-h1,h2,h3{font-family:Archivo,"Helvetica Neue",Arial,sans-serif;letter-spacing:-.015em;text-wrap:balance}
+.mono{font-variant-numeric:tabular-nums}
+h1,h2,h3{font-family:var(--fonte-titulo);letter-spacing:-.015em;text-wrap:balance}
 
 /* ── barra de demonstração (não faz parte do produto) ───────────── */
-.demobar{position:sticky;top:0;z-index:60;background:var(--ink-900);color:#E6EAEE;border-bottom:1px solid #242D36}
+.demobar{position:sticky;top:0;z-index:60;background:var(--texto);color:#E6EAEE;border-bottom:1px solid #242D36}
 .demobar .in{max-width:1240px;margin:0 auto;padding:8px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.demobar .tag{font-family:"JetBrains Mono",monospace;font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:#8C97A1;white-space:nowrap}
-.seg{display:inline-flex;background:#1C242C;border:1px solid #2E3944;border-radius:var(--r-md);padding:2px}
-.seg button{background:transparent;border:0;color:#A3AEB8;font-size:13.5px;font-weight:600;padding:6px 13px;border-radius:var(--r-sm);cursor:pointer}
+.demobar .tag{font-size:10px;color:#8C97A1;white-space:nowrap}
+.seg{display:inline-flex;background:#1C242C;border:1px solid #2E3944;border-radius:var(--raio-2);padding:2px}
+.seg button{background:transparent;border:0;color:#A3AEB8;font-size:13.5px;font-weight:600;padding:6px 13px;border-radius:var(--raio-1);cursor:pointer}
 .seg button[aria-pressed="true"]{background:#E6EAEE;color:#0E1318}
-.demobar select{background:#1C242C;border:1px solid #2E3944;color:#E6EAEE;border-radius:var(--r-md);padding:6px 9px;font-size:13.5px;max-width:210px}
+.demobar select{background:#1C242C;border:1px solid #2E3944;color:#E6EAEE;border-radius:var(--raio-2);padding:6px 9px;font-size:13.5px;max-width:210px}
 .demobar .feito{font-size:12.5px;color:#A3AEB8;line-height:1.35;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.demobar .reset{margin-left:auto;background:transparent;border:1px solid #2E3944;color:#A3AEB8;font-size:12.5px;padding:6px 11px;border-radius:var(--r-md);cursor:pointer}
+.demobar .reset{margin-left:auto;background:transparent;border:1px solid #2E3944;color:#A3AEB8;font-size:12.5px;padding:6px 11px;border-radius:var(--raio-2);cursor:pointer}
 .demobar .reset:hover{color:#E6EAEE;border-color:#4E5A66}
 @media(max-width:680px){.demobar .tag{display:none}.demobar .reset{margin-left:0}.demobar .feito{flex-basis:100%;order:9;white-space:normal}}
 
 /* ── cabeçalho do escritório ────────────────────────────────────── */
-.top{border-bottom:1px solid var(--line);background:var(--bg)}
+.top{border-bottom:1px solid var(--linha);background:var(--fundo)}
 .top .in{max-width:1240px;margin:0 auto;padding:18px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.logo{width:34px;height:34px;border-radius:var(--r-md);background:var(--org);color:#fff;display:grid;place-items:center;font-family:Archivo,sans-serif;font-weight:700;font-size:14px;letter-spacing:.02em;flex:none}
-.org-nome{font-family:Archivo,sans-serif;font-weight:600;font-size:17px;line-height:1.2}
-.org-sub{font-size:12.5px;color:var(--text-2)}
+.logo{width:34px;height:34px;border-radius:var(--raio-2);background:var(--org);color:var(--org-texto-cru,#fff);display:grid;place-items:center;font-family:var(--fonte-titulo);font-weight:700;font-size:14px;letter-spacing:.02em;flex:none}
+.org-nome{font-family:var(--fonte-titulo);font-weight:600;font-size:17px;line-height:1.2}
+.org-sub{font-size:12.5px;color:var(--texto-2)}
 .comp{margin-left:auto;text-align:right}
-.comp .k{font-family:"JetBrains Mono",monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--text-2)}
-.comp .v{font-family:Archivo,sans-serif;font-weight:600;font-size:17px}
+.comp .k{font-size:10px;color:var(--texto-2)}
+.comp .v{font-family:var(--fonte-titulo);font-weight:600;font-size:17px}
 @media(max-width:680px){.comp{margin-left:0;text-align:left;width:100%}}
 
 main{max-width:1240px;margin:0 auto;padding:26px 20px 72px}
 
 /* ── tiles de resumo ────────────────────────────────────────────── */
-.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;margin-bottom:22px}
-.tile{background:var(--bg);padding:15px 17px;display:flex;flex-direction:column;gap:3px}
-.tile .k{font-family:"JetBrains Mono",monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--text-2)}
-.tile .n{font-family:Archivo,sans-serif;font-weight:700;font-size:30px;line-height:1.05;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-.tile .s{font-size:12.5px;color:var(--text-2)}
-.tile.alerta{background:var(--danger-bg)}
-.tile.alerta .n,.tile.alerta .k{color:var(--danger)}
-.tile.ok .n{color:var(--success)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--linha);border:1px solid var(--linha);border-radius:var(--raio-3);overflow:hidden;margin-bottom:22px}
+.tile{background:var(--fundo);padding:15px 17px;display:flex;flex-direction:column;gap:3px}
+.tile .k{font-size:10px;color:var(--texto-2)}
+.tile .n{font-family:var(--fonte-titulo);font-weight:700;font-size:30px;line-height:1.05;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.tile .s{font-size:12.5px;color:var(--texto-2)}
+.tile.alerta{background:var(--erro-suave)}
+.tile.alerta .n,.tile.alerta .k{color:var(--erro)}
+.tile.ok .n{color:var(--ok)}
 
 /* ── layout painel ──────────────────────────────────────────────── */
 .painel{display:grid;grid-template-columns:minmax(320px,400px) 1fr;gap:20px;align-items:start}
 @media(max-width:900px){.painel{grid-template-columns:1fr}}
 
-.card{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--bg);box-shadow:var(--sh-sm)}
-.card-h{padding:14px 17px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.card{border:1px solid var(--linha);border-radius:var(--raio-3);background:var(--fundo);box-shadow:var(--elev-1)}
+.card-h{padding:14px 17px;border-bottom:1px solid var(--linha);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .card-h h2{font-size:15px;font-weight:600;letter-spacing:0}
 .card-b{padding:17px}
 
-.chips{display:flex;gap:6px;flex-wrap:wrap;padding:11px 17px;border-bottom:1px solid var(--line)}
-.chip{background:transparent;border:1px solid var(--line-2);color:var(--text-2);font-size:12.5px;font-weight:500;padding:5px 11px;border-radius:100px;cursor:pointer;white-space:nowrap;transition:all .14s var(--e-out)}
-.chip:hover{border-color:var(--text-2);color:var(--text)}
-.chip[aria-pressed="true"]{background:var(--text);border-color:var(--text);color:var(--bg)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:11px 17px;border-bottom:1px solid var(--linha)}
+.chip{background:transparent;border:1px solid var(--linha-forte);color:var(--texto-2);font-size:12.5px;font-weight:500;padding:5px 11px;border-radius:100px;cursor:pointer;white-space:nowrap;transition:all .14s var(--curva-saida)}
+.chip:hover{border-color:var(--texto-2);color:var(--texto)}
+.chip[aria-pressed="true"]{background:var(--texto);border-color:var(--texto);color:var(--fundo)}
 
 /* ── lista de clientes ──────────────────────────────────────────── */
 .lista{list-style:none;max-height:min(64vh,620px);overflow:auto}
-.lista li+li{border-top:1px solid var(--line)}
-.row{width:100%;text-align:left;background:transparent;border:0;padding:13px 17px;display:flex;gap:12px;align-items:flex-start;cursor:pointer;border-left:3px solid transparent;transition:background .12s var(--e-out)}
-.row:hover{background:var(--surface)}
-.row[aria-current="true"]{background:var(--accent-soft);border-left-color:var(--accent)}
+.lista li+li{border-top:1px solid var(--linha)}
+.row{width:100%;text-align:left;background:transparent;border:0;padding:13px 17px;display:flex;gap:12px;align-items:flex-start;cursor:pointer;border-left:3px solid transparent;transition:background .12s var(--curva-saida)}
+.row:hover{background:var(--fundo-2)}
+.row[aria-current="true"]{background:var(--acento-suave);border-left-color:var(--acento)}
 .row .nm{font-weight:600;font-size:14.5px;line-height:1.3}
-.row .mt{font-size:12px;color:var(--text-2);margin-top:3px;display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.row .mt{font-size:12px;color:var(--texto-2);margin-top:3px;display:flex;gap:9px;flex-wrap:wrap;align-items:center}
 .row .rt{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex:none}
-.prog{width:54px;height:4px;border-radius:100px;background:var(--line);overflow:hidden}
-.prog i{display:block;height:100%;background:var(--accent);border-radius:100px}
-.prog.full i{background:var(--success)}
-.empty{padding:34px 17px;text-align:center;color:var(--text-2);font-size:14px}
+.prog{width:54px;height:4px;border-radius:100px;background:var(--linha);overflow:hidden}
+.prog i{display:block;height:100%;background:var(--acento);border-radius:100px}
+.prog.full i{background:var(--ok)}
+.empty{padding:34px 17px;text-align:center;color:var(--texto-2);font-size:14px}
 
 /* ── pills de estado ────────────────────────────────────────────── */
-.pill{font-family:"JetBrains Mono",monospace;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.09em;padding:3px 7px;border-radius:var(--r-sm);border:1px solid;white-space:nowrap;display:inline-block}
-.p-vazio{color:var(--text-2);border-color:var(--line-2)}
-.p-parcial{color:var(--sig-text);border-color:var(--sig);background:var(--sig-bg)}
-.p-completo{color:var(--accent);border-color:var(--accent);background:var(--accent-soft)}
-.p-ok{color:var(--success);border-color:var(--success);background:var(--success-bg)}
-.p-erro{color:var(--danger);border-color:var(--danger);background:var(--danger-bg)}
-.atraso{color:var(--danger);font-weight:600}
+.pill{font-size:10px;font-weight:500;padding:3px 7px;border-radius:var(--raio-1);border:1px solid;white-space:nowrap;display:inline-block}
+.p-vazio{color:var(--texto-2);border-color:var(--linha-forte)}
+.p-parcial{color:var(--aviso);border-color:var(--aviso);background:var(--aviso-suave)}
+.p-completo{color:var(--acento);border-color:var(--acento);background:var(--acento-suave)}
+.p-ok{color:var(--ok);border-color:var(--ok);background:var(--ok-suave)}
+.p-erro{color:var(--erro);border-color:var(--erro);background:var(--erro-suave)}
+.atraso{color:var(--erro);font-weight:600}
 
 /* ── detalhe ────────────────────────────────────────────────────── */
-.det-h{padding:17px;border-bottom:1px solid var(--line);display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}
+.det-h{padding:17px;border-bottom:1px solid var(--linha);display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}
 .det-h h2{font-size:20px;font-weight:600}
-.det-h .sub{font-size:13px;color:var(--text-2);margin-top:4px;display:flex;gap:8px;flex-wrap:wrap}
+.det-h .sub{font-size:13px;color:var(--texto-2);margin-top:4px;display:flex;gap:8px;flex-wrap:wrap}
 .det-acoes{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
 .btn.fechar{display:none}
 @media(max-width:900px){
-  .det{position:fixed;inset:0;z-index:70;background:var(--bg);overflow:auto;border-radius:0;border:0}
+  .det{position:fixed;inset:0;z-index:70;background:var(--fundo);overflow:auto;border-radius:0;border:0}
   .det[hidden]{display:none}
   .btn.fechar{display:inline-flex}
 }
 
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:14px;font-weight:600;line-height:1;padding:10px 15px;border-radius:var(--r-md);border:1px solid transparent;cursor:pointer;text-decoration:none;transition:background .14s var(--e-out),border-color .14s var(--e-out)}
-.btn-primary{background:var(--accent);color:var(--on-accent)}
-.btn-primary:hover{background:var(--accent-hover)}
-.btn-ghost{border-color:var(--line-2);background:transparent;color:var(--text)}
-.btn-ghost:hover{background:var(--surface)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:14px;font-weight:600;line-height:1;padding:10px 15px;border-radius:var(--raio-2);border:1px solid transparent;cursor:pointer;text-decoration:none;transition:background .14s var(--curva-saida),border-color .14s var(--curva-saida)}
+.btn-primary{background:var(--acento);color:var(--texto-sobre-acento)}
+.btn-primary:hover{background:var(--acento-hover)}
+.btn-ghost{border-color:var(--linha-forte);background:transparent;color:var(--texto)}
+.btn-ghost:hover{background:var(--fundo-2)}
 .btn-sm{font-size:12.5px;padding:7px 11px}
 .btn-lg{font-size:16px;padding:14px 22px;width:100%}
 .btn:disabled{opacity:.45;cursor:not-allowed}
 
 /* ── checklist de documentos ────────────────────────────────────── */
 .docs{list-style:none}
-.docs>li{border-bottom:1px solid var(--line);padding:14px 17px;display:flex;gap:13px;align-items:flex-start}
+.docs>li{border-bottom:1px solid var(--linha);padding:14px 17px;display:flex;gap:13px;align-items:flex-start}
 .docs>li:last-child{border-bottom:0}
-.dot{width:9px;height:9px;border-radius:100px;flex:none;margin-top:7px;border:1.5px solid var(--line-2)}
-.dot.recebido{background:var(--accent);border-color:var(--accent)}
-.dot.aprovado{background:var(--success);border-color:var(--success)}
-.dot.pendencia{background:var(--danger);border-color:var(--danger)}
+.dot{width:9px;height:9px;border-radius:100px;flex:none;margin-top:7px;border:1.5px solid var(--linha-forte)}
+.dot.recebido{background:var(--acento);border-color:var(--acento)}
+.dot.aprovado{background:var(--ok);border-color:var(--ok)}
+.dot.pendencia{background:var(--erro);border-color:var(--erro)}
 .doc-nm{font-weight:600;font-size:14.5px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.doc-dica{font-size:12.5px;color:var(--text-2);margin-top:2px;max-width:60ch}
+.doc-dica{font-size:12.5px;color:var(--texto-2);margin-top:2px;max-width:60ch}
 .doc-rt{margin-left:auto;display:flex;gap:7px;align-items:center;flex:none}
 .arqs{list-style:none;margin-top:9px;display:flex;flex-direction:column;gap:4px}
-.arq{display:flex;gap:9px;align-items:center;font-size:12.5px;color:var(--text-2);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);padding:5px 9px}
-.arq .fn{color:var(--text);font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.arq{display:flex;gap:9px;align-items:center;font-size:12.5px;color:var(--texto-2);background:var(--fundo-2);border:1px solid var(--linha);border-radius:var(--raio-1);padding:5px 9px}
+.arq .fn{color:var(--texto);font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .arq .sz{margin-left:auto;flex:none}
-.nota-pend{margin-top:9px;font-size:13px;color:var(--danger);background:var(--danger-bg);border:1px solid var(--danger);border-radius:var(--r-sm);padding:7px 10px;max-width:62ch}
+.nota-pend{margin-top:9px;font-size:13px;color:var(--erro);background:var(--erro-suave);border:1px solid var(--erro);border-radius:var(--raio-1);padding:7px 10px;max-width:62ch}
 
 /* ── trilha ─────────────────────────────────────────────────────── */
 .trilha{list-style:none;padding:4px 17px 17px}
-.trilha li{display:flex;gap:12px;padding:8px 0;font-size:13px;border-left:2px solid var(--line);margin-left:5px;padding-left:15px;position:relative}
-.trilha li::before{content:"";position:absolute;left:-5px;top:14px;width:8px;height:8px;border-radius:100px;background:var(--line-2)}
-.trilha li.on::before{background:var(--accent)}
-.trilha .q{color:var(--text-2);flex:none;width:112px}
+.trilha li{display:flex;gap:12px;padding:8px 0;font-size:13px;border-left:2px solid var(--linha);margin-left:5px;padding-left:15px;position:relative}
+.trilha li::before{content:"";position:absolute;left:-5px;top:14px;width:8px;height:8px;border-radius:100px;background:var(--linha-forte)}
+.trilha li.on::before{background:var(--acento)}
+.trilha .q{color:var(--texto-2);flex:none;width:112px}
 @media(max-width:520px){.trilha .q{width:auto;display:block}.trilha li{flex-direction:column;gap:2px}}
 
 /* ── régua de cobrança ──────────────────────────────────────────── */
 .regua{list-style:none}
-.regua li{display:flex;gap:12px;align-items:center;padding:11px 17px;border-bottom:1px solid var(--line)}
+.regua li{display:flex;gap:12px;align-items:center;padding:11px 17px;border-bottom:1px solid var(--linha)}
 .regua li:last-child{border-bottom:0}
-.regua .d{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--text-2);width:58px;flex:none}
+.regua .d{font-size:12px;color:var(--texto-2);width:58px;flex:none}
 .regua .t{font-size:13.5px}
-.sw{margin-left:auto;flex:none;width:40px;height:22px;border-radius:100px;border:1px solid var(--line-2);background:var(--surface);position:relative;cursor:pointer;transition:background .16s var(--e-out),border-color .16s var(--e-out)}
-.sw::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:100px;background:var(--text-2);transition:transform .16s var(--e-out),background .16s var(--e-out)}
-.sw[aria-checked="true"]{background:var(--accent);border-color:var(--accent)}
-.sw[aria-checked="true"]::after{transform:translateX(18px);background:var(--on-accent)}
+.sw{margin-left:auto;flex:none;width:40px;height:22px;border-radius:100px;border:1px solid var(--linha-forte);background:var(--fundo-2);position:relative;cursor:pointer;transition:background .16s var(--curva-saida),border-color .16s var(--curva-saida)}
+.sw::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:100px;background:var(--texto-2);transition:transform .16s var(--curva-saida),background .16s var(--curva-saida)}
+.sw[aria-checked="true"]{background:var(--acento);border-color:var(--acento)}
+.sw[aria-checked="true"]::after{transform:translateX(18px);background:var(--texto-sobre-acento)}
 
 /* ── modal ──────────────────────────────────────────────────────── */
 .mask{position:fixed;inset:0;z-index:80;background:rgba(14,19,24,.5);display:grid;place-items:center;padding:20px}
 .mask[hidden]{display:none}
-.modal{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh-lg);width:min(560px,100%);max-height:90vh;overflow:auto}
-.msg{font-family:"JetBrains Mono",monospace;font-size:13px;line-height:1.65;white-space:pre-wrap;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:14px;color:var(--text)}
+.modal{background:var(--fundo);border:1px solid var(--linha);border-radius:var(--raio-3);box-shadow:var(--elev-3);width:min(560px,100%);max-height:90vh;overflow:auto}
+.msg{font-size:13px;line-height:1.65;white-space:pre-wrap;background:var(--fundo-2);border:1px solid var(--linha);border-radius:var(--raio-2);padding:14px;color:var(--texto)}
 
 /* ── portal do cliente ──────────────────────────────────────────── */
 .cli{max-width:720px;margin:0 auto;padding:26px 20px 90px}
 .cli-head{display:flex;flex-direction:column;gap:9px;margin-bottom:20px}
 .cli-head h1{font-size:clamp(24px,4.2vw,32px);font-weight:600;line-height:1.12}
-.barra{height:7px;border-radius:100px;background:var(--line);overflow:hidden;margin-top:5px}
-.barra i{display:block;height:100%;background:var(--accent);border-radius:100px;transition:width .3s var(--e-out)}
-.barra.full i{background:var(--success)}
-.aviso{border:1px solid var(--sig);background:var(--sig-bg);color:var(--sig-text);border-radius:var(--r-md);padding:12px 14px;font-size:13.5px;display:flex;gap:10px;align-items:flex-start}
-.aviso.grave{border-color:var(--danger);background:var(--danger-bg);color:var(--danger)}
+.barra{height:7px;border-radius:100px;background:var(--linha);overflow:hidden;margin-top:5px}
+.barra i{display:block;height:100%;background:var(--acento);border-radius:100px;transition:width .3s var(--curva-saida)}
+.barra.full i{background:var(--ok)}
+.aviso{border:1px solid var(--aviso);background:var(--aviso-suave);color:var(--aviso);border-radius:var(--raio-2);padding:12px 14px;font-size:13.5px;display:flex;gap:10px;align-items:flex-start}
+.aviso.grave{border-color:var(--erro);background:var(--erro-suave);color:var(--erro)}
 
-.up{border:1px solid var(--line);border-radius:var(--r-lg);margin-bottom:12px;background:var(--bg);overflow:hidden}
-.up.done{border-color:var(--success)}
-.up.pend{border-color:var(--danger)}
+.up{border:1px solid var(--linha);border-radius:var(--raio-3);margin-bottom:12px;background:var(--fundo);overflow:hidden}
+.up.done{border-color:var(--ok)}
+.up.pend{border-color:var(--erro)}
 .up-h{padding:14px 16px;display:flex;gap:12px;align-items:flex-start}
-.zona{margin:0 16px 16px;border:1.5px dashed var(--line-2);border-radius:var(--r-md);padding:18px;text-align:center;cursor:pointer;color:var(--text-2);font-size:13.5px;transition:all .14s var(--e-out)}
-.zona:hover,.zona.over{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
-.zona b{display:block;color:var(--text);font-size:14.5px;font-weight:600;margin-bottom:3px}
-.zona.over b{color:var(--accent)}
-.enviar{position:sticky;bottom:0;background:var(--bg);border-top:1px solid var(--line);padding:14px 0 0;margin-top:20px}
+.zona{margin:0 16px 16px;border:1.5px dashed var(--linha-forte);border-radius:var(--raio-2);padding:18px;text-align:center;cursor:pointer;color:var(--texto-2);font-size:13.5px;transition:all .14s var(--curva-saida)}
+.zona:hover,.zona.over{border-color:var(--acento);background:var(--acento-suave);color:var(--acento)}
+.zona b{display:block;color:var(--texto);font-size:14.5px;font-weight:600;margin-bottom:3px}
+.zona.over b{color:var(--acento)}
+.enviar{position:sticky;bottom:0;background:var(--fundo);border-top:1px solid var(--linha);padding:14px 0 0;margin-top:20px}
 
-.recibo{border:1px solid var(--success);background:var(--success-bg);border-radius:var(--r-lg);padding:20px;text-align:center;display:flex;flex-direction:column;gap:7px;align-items:center}
-.recibo .prot{font-family:"JetBrains Mono",monospace;font-size:20px;font-weight:500;color:var(--success);letter-spacing:.02em}
+.recibo{border:1px solid var(--ok);background:var(--ok-suave);border-radius:var(--raio-3);padding:20px;text-align:center;display:flex;flex-direction:column;gap:7px;align-items:center}
+.recibo .prot{font-size:20px;font-weight:500;color:var(--ok);letter-spacing:.02em}
 
 /* ── rodapé ─────────────────────────────────────────────────────── */
-.rod{border-top:1px solid var(--line);margin-top:44px;padding:20px;text-align:center}
-.rod .mk{display:inline-flex;align-items:baseline;gap:8px;color:var(--text-2);text-decoration:none}
-.rod .wordmark{font-family:Archivo,sans-serif;font-weight:600;font-size:13px;letter-spacing:-.01em;color:var(--text)}
-.rod .sub{font-family:"JetBrains Mono",monospace;font-size:9.5px;text-transform:uppercase;letter-spacing:.16em}
-.rod p{font-size:12px;color:var(--text-2);margin-top:7px}
+.rod{border-top:1px solid var(--linha);margin-top:44px;padding:20px;text-align:center}
+.rod .mk{display:inline-flex;align-items:baseline;gap:8px;color:var(--texto-2);text-decoration:none}
+.rod .wordmark{font-family:var(--fonte-titulo);font-weight:600;font-size:13px;letter-spacing:-.01em;color:var(--texto)}
+.rod .sub{font-size:9.5px;}
+.rod p{font-size:12px;color:var(--texto-2);margin-top:7px}
 
 /* ── toast ──────────────────────────────────────────────────────── */
-.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:90;background:var(--ink-900);color:#E6EAEE;border-radius:var(--r-md);padding:11px 17px;font-size:13.5px;box-shadow:var(--sh-lg);max-width:min(420px,92vw)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:90;background:var(--texto);color:#E6EAEE;border-radius:var(--raio-2);padding:11px 17px;font-size:13.5px;box-shadow:var(--elev-3);max-width:min(420px,92vw)}
 .toast[hidden]{display:none}
+
+/* ── movimento do produto ────────────────────────────────────────
+   Três momentos, todos resposta a uma ação: a barra que preenche
+   enquanto envia, o carimbo do protocolo, e o número do painel que
+   muda sozinho quando o documento chega. Nada entra animado por
+   entrar — ver ../../marca/DESIGN-SYSTEM.md §4. */
+@keyframes p-carimbo{
+  from{ opacity:0; transform:translateX(-50%) scale(1.09) rotate(-1.6deg) }
+  60% { opacity:1 }
+  to  { opacity:1; transform:translateX(-50%) scale(1) rotate(0) }
+}
+@keyframes p-troca{
+  0%  { transform:translateY(0);    opacity:1 }
+  45% { transform:translateY(-7px); opacity:0 }
+  55% { transform:translateY(7px);  opacity:0 }
+  100%{ transform:translateY(0);    opacity:1 }
+}
+.toast{animation:p-carimbo var(--mov-padrao) var(--curva-carimbo) both}
+.toast .hora{opacity:.68;font-variant-numeric:tabular-nums;margin-left:10px}
+.tile .n{transition:color var(--mov-padrao) var(--curva-suave)}
+.tile .n[data-mudou]{animation:p-troca var(--mov-calmo) var(--curva-suave)}
+.envio{height:6px;background:var(--fundo-3);border-radius:var(--raio-pilula);overflow:hidden;margin-top:var(--esp-3)}
+.envio[hidden]{display:none}
+.envio > i{display:block;height:100%;background:var(--acento);transform:scaleX(0);
+           transform-origin:left center;transition:transform var(--mov-calmo) var(--curva-suave)}
+@media (prefers-reduced-motion:reduce){
+  .toast,.tile .n[data-mudou]{animation:none!important}
+  .envio > i{transition:none!important}
+}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -283,7 +357,7 @@ main{max-width:1240px;margin:0 auto;padding:26px 20px 72px}
         <div class="card" style="margin-top:20px">
           <div class="card-h"><h2>Régua de cobrança</h2></div>
           <ul class="regua" id="regua"></ul>
-          <div class="card-b" style="border-top:1px solid var(--line);font-size:12.5px;color:var(--text-2)">
+          <div class="card-b" style="border-top:1px solid var(--linha);font-size:12.5px;color:var(--texto-2)">
             Dispara sozinho pelo WhatsApp que o escritório já usa. Cada mensagem nomeia só o que falta naquele cliente.
           </div>
         </div>
@@ -319,10 +393,10 @@ main{max-width:1240px;margin:0 auto;padding:26px 20px 72px}
     <div class="cli-head">
       <span class="pill p-vazio mono" id="cli-cnpj"></span>
       <h1 id="cli-titulo"></h1>
-      <p style="color:var(--text-2);font-size:14.5px" id="cli-prazo"></p>
+      <p style="color:var(--texto-2);font-size:14.5px" id="cli-prazo"></p>
       <div>
         <div class="barra" id="cli-barra"><i style="width:0"></i></div>
-        <p class="mono" style="font-size:12px;color:var(--text-2);margin-top:6px" id="cli-cont"></p>
+        <p class="mono" style="font-size:12px;color:var(--texto-2);margin-top:6px" id="cli-cont"></p>
       </div>
     </div>
 
@@ -331,7 +405,8 @@ main{max-width:1240px;margin:0 auto;padding:26px 20px 72px}
 
     <div class="enviar">
       <button class="btn btn-primary btn-lg" id="cli-enviar">Enviar para o escritório</button>
-      <p style="font-size:12.5px;color:var(--text-2);text-align:center;margin-top:9px">
+      <div class="envio" id="envio-barra" hidden aria-hidden="true"><i></i></div>
+      <p style="font-size:12.5px;color:var(--texto-2);text-align:center;margin-top:9px">
         Sem senha e sem instalar nada. O escritório vê a hora exata de cada arquivo.
       </p>
     </div>
@@ -353,13 +428,13 @@ main{max-width:1240px;margin:0 auto;padding:26px 20px 72px}
       <button class="btn btn-ghost btn-sm" id="m-fechar" style="margin-left:auto">Fechar</button>
     </div>
     <div class="card-b" style="display:flex;flex-direction:column;gap:14px">
-      <p style="font-size:13.5px;color:var(--text-2)" id="m-para"></p>
+      <p style="font-size:13.5px;color:var(--texto-2)" id="m-para"></p>
       <div class="msg" id="m-texto"></div>
       <div style="display:flex;gap:9px;flex-wrap:wrap">
         <button class="btn btn-primary" id="m-copiar">Copiar mensagem</button>
         <a class="btn btn-ghost" id="m-wa" target="_blank" rel="noopener">Abrir no WhatsApp</a>
       </div>
-      <p style="font-size:12px;color:var(--text-2)">No sistema real isso sai sozinho pela régua. O botão existe para quando o escritório quiser cobrar antes da hora.</p>
+      <p style="font-size:12px;color:var(--texto-2)">No sistema real isso sai sozinho pela régua. O botão existe para quando o escritório quiser cobrar antes da hora.</p>
     </div>
   </div>
 </div>
@@ -601,13 +676,97 @@ function atrasado(c){ var k = estado(c).k; return ATRASO > 0 && (k === "vazio" |
 function $(s){ return document.querySelector(s); }
 function esc(s){ return String(s).replace(/[&<>"]/g, function(m){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]; }); }
 var tToast;
+/* O protocolo do sistema: o que aconteceu, e quando. "Aconteceu" sem
+   "quando" não é protocolo — e é o protocolo que o cliente cobra
+   depois, no dia em que perguntar "eu mandei ou não mandei?". */
 function toast(msg){
-  var el = $("#toast"); el.textContent = msg; el.hidden = false;
-  clearTimeout(tToast); tToast = setTimeout(function(){ el.hidden = true; }, 3200);
+  var el = $("#toast"), agora = new Date();
+  el.innerHTML = "";
+  el.appendChild(document.createTextNode(msg));
+  var h = document.createElement("span");
+  h.className = "hora";
+  h.textContent = d2(agora.getHours()) + ":" + d2(agora.getMinutes());
+  el.appendChild(h);
+  el.hidden = false;
+  el.style.animation = "none"; void el.offsetWidth; el.style.animation = "";
+  clearTimeout(tToast); tToast = setTimeout(function(){ el.hidden = true; }, 3600);
+}
+
+/* ── a cor do escritório vira o acento da interface ─────────────
+   A cor vem de fora (?k=hex) e pode ser qualquer coisa: azul escuro,
+   verde claro, amarelo. Então nada de chutar a cor do texto em cima
+   dela — calcula-se por luminância, do mesmo jeito que a WCAG faz.
+   É esse cuidado que separa "trocou a cor" de "montou pra mim". */
+/* aceita "#8A2B22" e "rgb(232, 234, 227)" — o segundo é o que o
+   navegador devolve quando se lê uma cor já computada */
+function canais(cor){
+  var m = String(cor).match(/rgba?\(([^)]+)\)/);
+  if (m) return m[1].split(",").slice(0,3).map(Number);
+  var v = String(cor).trim().replace("#","");
+  if (v.length === 3) v = v.split("").map(function(x){ return x+x; }).join("");
+  return [0,2,4].map(function(i){ return parseInt(v.substr(i,2),16); });
+}
+function luminancia(cor){
+  var c = canais(cor).map(function(n){
+    var x = n / 255;
+    return x <= 0.03928 ? x/12.92 : Math.pow((x+0.055)/1.055, 2.4);
+  });
+  return 0.2126*c[0] + 0.7152*c[1] + 0.0722*c[2];
+}
+function contraste(a, b){
+  var la = luminancia(a), lb = luminancia(b);
+  return (Math.max(la,lb) + 0.05) / (Math.min(la,lb) + 0.05);
+}
+/* Aproxima a cor do escritório do contraste mínimo contra o fundo.
+   Escurecer sempre estaria errado: no tema escuro, escurecer um azul
+   marinho leva ao preto e o contraste PIORA. A direção sai da
+   luminância do fundo. */
+function ajustarParaContraste(cor, fundo, alvo){
+  var claro = luminancia(fundo) > 0.4;     /* fundo claro → escurecer a cor */
+  var rgb = canais(cor), hex = cor, t = 0;
+  while (contraste(hex, fundo) < alvo && t < 40){
+    rgb = rgb.map(claro
+      ? function(x){ return Math.max(0, Math.round(x * 0.86)); }
+      : function(x){ return Math.min(255, Math.round(x * 1.12) + 6); });
+    hex = "#" + rgb.map(function(x){ return ("0"+x.toString(16)).slice(-2); }).join("");
+    t++;
+  }
+  return hex;
 }
 
 /* ── cabeçalhos ────────────────────────────────────────────────── */
-document.documentElement.style.setProperty("--org", ESCRITORIO.cor);
+function aplicarCorDoEscritorio(){
+  var raiz = document.documentElement;
+  var cor  = ESCRITORIO.cor;
+  var fundo = getComputedStyle(document.body).backgroundColor || "#E8EAE3";
+
+  /* --org: a cor crua. Só o quadrado da sigla usa, que é onde a
+     fidelidade de marca importa e o contraste é resolvido à parte. */
+  raiz.style.setProperty("--org", cor);
+
+  /* --acento: a mesma cor, puxada até dar 4,5:1 contra o fundo atual.
+     É ela que vira botão, link e barra. */
+  var acento = ajustarParaContraste(cor, fundo, 4.5);
+  raiz.style.setProperty("--org-legivel", acento);
+
+  /* o texto em cima do preenchido, medido contra a cor JÁ ajustada */
+  raiz.style.setProperty("--org-texto",
+    contraste(acento, "#FFFFFF") >= contraste(acento, "#171A16") ? "#FFFFFF" : "#171A16");
+
+  /* O quadrado da sigla é o único que usa a cor CRUA, e por isso
+     precisa do próprio texto: medir contra o acento ajustado dava
+     branco sobre amarelo (1,4:1, ilegível) quando a marca é clara. */
+  raiz.style.setProperty("--org-texto-cru",
+    contraste(cor, "#FFFFFF") >= contraste(cor, "#171A16") ? "#FFFFFF" : "#171A16");
+}
+aplicarCorDoEscritorio();
+
+/* se a pessoa trocar o tema do sistema operacional com a demo aberta,
+   a cor tem que ser recalculada — senão o botão some no escuro */
+if (window.matchMedia){
+  var mq = window.matchMedia("(prefers-color-scheme: dark)");
+  if (mq.addEventListener) mq.addEventListener("change", aplicarCorDoEscritorio);
+}
 if (ESCRITORIO.proprio){
   var elFeito = $("#feito");
   elFeito.textContent = "Montado para " + ESCRITORIO.nome +
@@ -639,9 +798,21 @@ function pintarTiles(){
     { k:"Pendências",    n:pend,      s:"arquivo recusado" },
     { k:"Atrasados",     n:atras,     s: ATRASO > 0 ? ("prazo venceu há " + ATRASO + (ATRASO === 1 ? " dia" : " dias")) : ("prazo: " + dataCurta(PRAZO)), cls: atras ? "alerta" : "" }
   ];
+  /* Guardamos o valor anterior de cada tile para marcar só o que
+     MUDOU. É o momento que o post 7 grava: o cliente envia e o número
+     do painel muda sozinho, sem ninguém digitar nada. Animar tudo a
+     cada repintura destruiria justamente esse sinal. */
+  var antes = $("#tiles").__valores || {};
+  var agora = {};
+  t.forEach(function(x){ agora[x.k] = x.n; });
+
   $("#tiles").innerHTML = t.map(function(x){
-    return '<div class="tile ' + (x.cls||"") + '"><span class="k">' + x.k + '</span><span class="n">' + x.n + '</span><span class="s">' + esc(x.s) + '</span></div>';
+    var mudou = antes.hasOwnProperty(x.k) && antes[x.k] !== x.n;
+    return '<div class="tile ' + (x.cls||"") + '"><span class="k">' + x.k +
+           '</span><span class="n"' + (mudou ? " data-mudou" : "") + '>' + x.n +
+           '</span><span class="s">' + esc(x.s) + '</span></div>';
   }).join("");
+  $("#tiles").__valores = agora;
 }
 
 /* ── lista ─────────────────────────────────────────────────────── */
@@ -682,7 +853,7 @@ function pintarLista(){
         '</span></span>' +
       '<span class="rt"><span class="pill ' + e.cls + '">' + e.rot + '</span>' +
         '<span class="prog' + (env === tot ? ' full' : '') + '"><i style="width:' + pct + '%"></i></span>' +
-        '<span class="mono" style="font-size:10.5px;color:var(--text-2)">' + env + '/' + tot + '</span>' +
+        '<span class="mono" style="font-size:10.5px;color:var(--texto-2)">' + env + '/' + tot + '</span>' +
       '</span></button></li>';
   }).join("");
 }
@@ -731,7 +902,7 @@ function pintarDetalhe(){
       '</div>' +
     '</div>' +
     '<div class="card-h" style="border-top:0"><h2>Documentos de ' + COMP_LONGA + '</h2>' +
-      '<span class="mono" style="margin-left:auto;font-size:12px;color:var(--text-2)">' + enviados(c) + ' de ' + c.docs.length + '</span></div>' +
+      '<span class="mono" style="margin-left:auto;font-size:12px;color:var(--texto-2)">' + enviados(c) + ' de ' + c.docs.length + '</span></div>' +
     '<ul class="docs">' + docsHTML + '</ul>' +
     '<div class="card-h"><h2>Trilha</h2>' + (c.protocolo ? '<span class="pill p-ok mono" style="margin-left:auto">' + esc(c.protocolo) + '</span>' : '') + '</div>' +
     '<ul class="trilha">' + trilha + '</ul>';
@@ -846,9 +1017,9 @@ function pintarCliente(){
   } else if (ATRASO > 0 && env < tot){
     avisoEl.innerHTML = '<div class="aviso"><b>!</b><span>Prazo vencido há ' + ATRASO + (ATRASO === 1 ? " dia" : " dias") + '. Faltam ' + (tot-env) + ' ' + (tot-env === 1 ? "item" : "itens") + '.</span></div>';
   } else if (c.protocolo && env === tot){
-    avisoEl.innerHTML = '<div class="recibo"><span style="font-size:13px;color:var(--success)">Recebido pelo escritório</span>' +
+    avisoEl.innerHTML = '<div class="recibo"><span style="font-size:13px;color:var(--ok)">Recebido pelo escritório</span>' +
       '<span class="prot">' + esc(c.protocolo) + '</span>' +
-      '<span style="font-size:12.5px;color:var(--text-2)">Guarde este número. Ele prova a data e a hora do envio.</span></div>';
+      '<span style="font-size:12.5px;color:var(--texto-2)">Guarde este número. Ele prova a data e a hora do envio.</span></div>';
   } else { avisoEl.innerHTML = ""; }
 
   $("#cli-docs").innerHTML = c.docs.map(function(d){
@@ -930,15 +1101,36 @@ $("#cli-docs").addEventListener("keydown", function(ev){
 });
 
 $("#cli-enviar").addEventListener("click", function(){
+  var botao = this;
+  if (botao.disabled) return;
+  var barra = $("#envio-barra"), tira = barra.firstElementChild;
+  var poucoMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* Enviar documento leva tempo de verdade. Fingir que é instantâneo
+     é mentira de demonstração; mostrar a barra é o que faz o contador
+     reconhecer o próprio upload. Com movimento reduzido, direto ao fim. */
+  if (poucoMovimento){ concluirEnvio(); return; }
+  botao.disabled = true;
+  barra.hidden = false;
+  tira.style.transform = "scaleX(0)";
+  requestAnimationFrame(function(){ tira.style.transform = "scaleX(1)"; });
+  setTimeout(function(){
+    barra.hidden = true;
+    botao.disabled = false;
+    concluirEnvio();
+  }, 620);
+});
+
+function concluirEnvio(){
   var c = S.clientes.filter(function(x){ return x.id === clienteAtual; })[0];
   var agora = new Date();
   c.protocolo = "#" + d2(COMP.getMonth()+1) + String(COMP.getFullYear()).slice(2) + "-" + String(1000 + Math.floor(Math.random()*8999));
   c.analise = true;
   c.eventos.push({ q: agora.toISOString(), t: "Envio confirmado pelo cliente · protocolo " + c.protocolo, on:true });
   salvar(); pintarCliente(); pintarPainel();
-  toast("Enviado. O escritório foi avisado na hora.");
+  toast("Enviado. Protocolo " + c.protocolo + " emitido.");
   window.scrollTo({ top:0, behavior:"smooth" });
-});
+}
 
 /* ── troca de visão ────────────────────────────────────────────── */
 function irCliente(id){
