@@ -44,7 +44,7 @@
   --tinta-2:#17283F;
   --texto:#0E1B2E;
   --texto-2:#55647C;
-  --texto-3:#8291A7;
+  --texto-3:#64748C;
   --linha:#DBE2EA;
   --linha-2:#C3CDDA;
   --caneta:#1B43A8;
@@ -52,8 +52,8 @@
   --caneta-f:#14357F;
   --etiqueta:#FFC531;
   --etiqueta-2:#7A5600;
-  --verde:#12934F;
-  --verde-h:#0E7C42;
+  --verde:#0E7C42;
+  --verde-h:#0A5D32;
   --larg:1160px;
   --r-btn:6px;
   --r-cart:10px;
@@ -151,22 +151,29 @@ header .btn{margin-left:auto}
 .hero-onde i{width:8px;height:8px;border-radius:2px;background:var(--etiqueta);flex:none;align-self:flex-start;margin-top:.52em}
 .hero p.lede{font-size:19px;color:var(--texto-2);max-width:52ch;line-height:1.55}
 
-.fatos{
-  display:flex;flex-wrap:wrap;gap:0;margin-top:38px;
-  border-top:1px solid var(--linha-2);
+/* A prova fica ao lado do botao, nao abaixo da dobra: e ali que a
+   decisao acontece. As tres linhas sao verificaveis na propria pagina. */
+.garantias{display:flex;flex-direction:column;gap:10px;margin-top:4px}
+.garantias li{position:relative;padding-left:28px;font-size:15.5px;color:var(--texto-2);line-height:1.45}
+.garantias li::before{
+  content:"✓";position:absolute;left:0;top:.12em;
+  width:19px;height:19px;border-radius:50%;background:var(--verde);color:#fff;
+  font-size:11px;font-weight:700;display:grid;place-items:center;
 }
-.fatos div{
-  flex:1 1 190px;padding:16px 22px 0 0;font-size:15px;color:var(--texto-2);
-  border-right:1px solid var(--linha-2);padding-left:22px;
+.garantias b{color:var(--tinta);font-weight:600}
+
+/* ═══ quem faz ═════════════════════════════════════ */
+.quem{display:grid;gap:26px;align-items:start}
+@media(min-width:760px){.quem{grid-template-columns:auto 1fr;gap:34px}}
+.quem-sigla{
+  width:96px;height:96px;flex:none;border-radius:50%;
+  background:var(--tinta);color:#fff;display:grid;place-items:center;
+  font-family:"Archivo",system-ui,sans-serif;font-variation-settings:"wdth" 108;
+  font-weight:700;font-size:34px;letter-spacing:.02em;
 }
-.fatos div:first-child{padding-left:0}
-.fatos div:last-child{border-right:0}
-.fatos b{display:block;font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 108;
-  font-weight:700;font-size:21px;color:var(--tinta);letter-spacing:-.02em;margin-bottom:2px}
-@media(max-width:700px){
-  .fatos div{flex:1 1 100%;border-right:0;border-bottom:1px solid var(--linha);padding:14px 0}
-  .fatos div:last-child{border-bottom:0}
-}
+.quem-txt{display:flex;flex-direction:column;gap:16px;max-width:62ch}
+.quem-txt p{font-size:17.5px;color:var(--texto-2)}
+.quem-txt b{color:var(--tinta);font-weight:600}
 
 /* ═══ a janela — o elemento que carrega a página ═══════════════════ */
 
@@ -198,7 +205,8 @@ header .btn{margin-left:auto}
 .app-mes{margin-left:auto;font-size:13px;color:var(--texto-2);font-variant-numeric:tabular-nums}
 
 .app-titulo{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:18px 0 12px}
-.app-titulo h3{font-size:18px}
+.app-titulo .jan-tit{font-family:"Archivo",system-ui,sans-serif;font-variation-settings:"wdth" 108;
+  font-weight:700;font-size:18px;letter-spacing:-.015em;line-height:1.25}
 .app-prazo{
   font-size:12.5px;font-weight:600;color:var(--etiqueta-2);
   background:#FFF4D6;border:1px solid #F2D98A;border-radius:999px;padding:2px 10px;
@@ -218,7 +226,7 @@ header .btn{margin-left:auto}
 }
 .doc[data-ok="1"] .marca-ok{background:var(--verde);border-color:var(--verde);color:#fff}
 .doc[data-ok="1"] .marca-ok::after{content:"✓"}
-.doc .estado{font-size:12.5px;color:var(--texto-3);flex:none}
+.doc .estado{font-size:12.5px;color:var(--texto-2);flex:none}
 .doc[data-ok="1"] .estado{color:var(--verde);font-weight:600}
 
 .carimbo{
@@ -236,7 +244,7 @@ header .btn{margin-left:auto}
 }
 .jan-pe{
   background:#F5F7FA;border-top:1px solid var(--linha);padding:11px 20px;
-  font-size:12.5px;color:var(--texto-3);
+  font-size:12.5px;color:var(--texto-2);
 }
 
 /* ═══ hoje / depois ════════════════════════════════════════════════ */
@@ -293,7 +301,7 @@ header .btn{margin-left:auto}
   margin-top:auto;padding-top:14px;border-top:1px solid var(--linha);
   font-size:14px;color:var(--texto-3);display:flex;gap:14px;flex-wrap:wrap;align-items:center;
 }
-.proof .meta a{font-weight:600}
+.proof .meta a{font-weight:600;display:inline-block;padding-block:4px}
 .proof.wide{grid-column:1/-1}
 
 /* ═══ preços ═══════════════════════════════════════════════════════ */
@@ -376,6 +384,7 @@ footer p{max-width:52ch}
 footer a{color:#C3D0E2}
 footer a:hover{color:#fff}
 footer .links{display:flex;gap:22px;flex-wrap:wrap}
+footer .links a{display:inline-block;padding-block:4px}
 
 /* ═══ consentimento (LGPD) ═════════════════════════════════════════ */
 
@@ -545,22 +554,27 @@ p,li{text-wrap:pretty}
     <div class="hero-grid">
 
       <div class="hero-copy">
-        <span class="hero-onde sobe"><i></i>Jacareí, São José dos Campos e o Vale do Paraíba</span>
-        <h1 class="sobe" style="--i:1">Seu processo vive em planilha e WhatsApp. Eu tiro ele de lá.</h1>
-        <p class="lede sobe" style="--i:2">
+        <span class="hero-onde"><i></i>Jacareí, São José dos Campos e o Vale do Paraíba</span>
+        <h1>Seu processo vive em planilha e WhatsApp. Eu tiro ele de lá.</h1>
+        <p class="lede sobe">
           Catálogo B2B, portal do cliente e automação sob medida, para a parte do processo
           que o seu ERP não cobre. Antes de você decidir qualquer coisa, eu monto um
           protótipo com o seu caso e te mostro funcionando.
         </p>
-        <div class="btn-linha sobe" style="--i:3">
+        <div class="btn-linha sobe" style="--i:1">
           <a class="btn btn--azul" href="#contato" data-evt="cta-hero">Ver o meu caso funcionando</a>
           <a class="btn btn--linha" href="demo/portal-contabil/" data-evt="demo">Abrir uma demonstração</a>
         </div>
-        <p class="nota sobe" style="--i:4">Resposta em até 4 horas úteis, de segunda a sexta. Sem apresentação de slides.</p>
+        <p class="nota sobe" style="--i:2">Resposta em até 4 horas úteis, de segunda a sexta. Sem apresentação de slides.</p>
+        <ul class="garantias sobe" style="--i:3">
+          <li><b>Dois sistemas no ar</b>, com link aqui embaixo para você clicar e conferir.</li>
+          <li><b>Preço e prazo nesta página</b>, sem &ldquo;consulte-nos&rdquo;.</li>
+          <li><b>O código fica seu</b>, escrito em contrato, e a hospedagem no seu nome.</li>
+        </ul>
       </div>
 
       <!-- a janela: o produto, em vez da descrição do produto -->
-      <div class="janela sobe" style="--i:2" aria-label="Exemplo de tela: portal de documentos">
+      <div class="janela sobe" style="--i:1" aria-label="Exemplo de tela: portal de documentos">
         <div class="jan-barra">
           <span class="jan-pontos"><i></i><i></i><i></i></span>
           <span class="jan-url">portal.contabilidademodelo.com.br/agosto</span>
@@ -573,7 +587,7 @@ p,li{text-wrap:pretty}
           </div>
 
           <div class="app-titulo">
-            <h3>Documentos do mês</h3>
+            <span class="jan-tit">Documentos do mês</span>
             <span class="app-prazo">vence dia 10</span>
           </div>
           <div class="barra"><i id="jbarra"></i></div>
@@ -597,11 +611,6 @@ p,li{text-wrap:pretty}
 
     </div>
 
-    <div class="fatos sobe" style="--i:5">
-      <div><b>2 sistemas no ar</b>com link para você clicar e conferir</div>
-      <div><b>Preço e prazo nesta página</b>sem &ldquo;consulte-nos&rdquo;</div>
-      <div><b>O código é seu</b>escrito em contrato, não na conversa</div>
-    </div>
   </div>
 </section>
 
@@ -869,6 +878,28 @@ p,li{text-wrap:pretty}
         celular resolve o mesmo problema por um terço do custo — e eu falo isso mesmo quando
         significa um orçamento menor para mim.</p>
       </details>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ quem faz ══════════════════════════════════════ -->
+
+<section id="quem" class="secao-clara">
+  <div class="faixa">
+    <div class="quem">
+      <span class="quem-sigla" aria-hidden="true">GF</span>
+      <div class="quem-txt">
+        <h2>Quem vai te atender sou eu.</h2>
+        <p><b>Gabriel Fantin</b>, de Jacareí. Trabalho sozinho: quem responde o
+        primeiro WhatsApp é a mesma pessoa que escreve o código e que sobe o sistema
+        no ar. Você não passa por atendimento, nem por gerente de conta, nem repete
+        o seu problema para três pessoas diferentes.</p>
+        <p>Isso tem um lado ruim, e prefiro dizer agora: <b>fornecedor de uma pessoa
+        só é um risco</b>. É exatamente por isso que o código fica no seu repositório,
+        a hospedagem no seu nome, e a documentação de como subir tudo de novo vai
+        junto — em cláusula, não em promessa de conversa. Se eu sumir, você chama
+        outro programador e ele continua de onde eu parei.</p>
+      </div>
     </div>
   </div>
 </section>
