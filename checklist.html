@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Checklist de documentos do mês, por regime — Fantin Sistemas</title>
+<meta name="description" content="A folha que diz ao cliente exatamente o que mandar todo mês, por regime tributário. Imprima, personalize com o nome do seu escritório e repasse. Sem cadastro.">
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+
+<style>
+/* ── tokens: mesmos de index.html ───────────────────────────────── */
+:root{
+  --ink-900:#0E1318; --ink-700:#2A333D; --ink-500:#4E5A66;
+  --ink-300:#8C97A1; --ink-100:#DDE2E7; --ink-050:#F2F4F6;
+  --brand-700:#0F3560; --brand-600:#16457A; --brand-100:#E3EBF4;
+  --signal-800:#9A4F02; --signal-600:#D97005; --signal-100:#FBEBD6;
+  --success:#11703F; --warning:#8F5F09; --danger:#B0281F;
+
+  --bg:#FFFFFF; --surface:var(--ink-050); --text:var(--ink-900);
+  --text-2:var(--ink-500); --line:var(--ink-100); --line-2:var(--ink-300);
+  --accent:var(--brand-600); --accent-hover:var(--brand-700);
+  --sig:var(--signal-600); --sig-text:var(--signal-800); --sig-bg:var(--signal-100);
+  --on-accent:#FFFFFF;
+
+  --sh-sm:0 1px 2px rgba(14,19,24,.06);
+  --sh-md:0 2px 4px rgba(14,19,24,.06), 0 4px 12px -4px rgba(14,19,24,.10);
+  --sh-focus:0 0 0 3px rgba(22,69,122,.28);
+  --r-sm:2px; --r-md:4px; --r-lg:6px; --r-xl:10px;
+  --e-out:cubic-bezier(.22,.61,.36,1);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1318; --surface:#161C23; --text:#E6EAEE; --text-2:#A3AEB8;
+    --line:#242D36; --line-2:#38434E;
+    --accent:#6BA6F5; --accent-hover:#8FBDF8;
+    --sig:#F2A03D; --sig-text:#F2A03D; --sig-bg:#3A2A12;
+    --on-accent:#0E1318;
+    --sh-focus:0 0 0 3px rgba(107,166,245,.30);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1318; --surface:#161C23; --text:#E6EAEE; --text-2:#A3AEB8;
+  --line:#242D36; --line-2:#38434E;
+  --accent:#6BA6F5; --accent-hover:#8FBDF8;
+  --sig:#F2A03D; --sig-text:#F2A03D; --sig-bg:#3A2A12;
+  --on-accent:#0E1318;
+  --sh-focus:0 0 0 3px rgba(107,166,245,.30);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg); color:var(--text);
+  font-family:"Public Sans",system-ui,"Segoe UI",Roboto,sans-serif;
+  font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;
+  overflow-wrap:anywhere;
+}
+img{max-width:100%;display:block}
+a{color:var(--accent);text-underline-offset:2px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:var(--r-sm)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+@media(max-width:600px){.wrap{padding:0 16px}}
+
+/* ── marca ──────────────────────────────────────────────────────── */
+.mark{display:inline-flex;align-items:baseline;gap:10px;text-decoration:none;color:var(--text)}
+.mark svg{flex:none}
+.mark .wordmark{font-family:Archivo,"Helvetica Neue",Arial,sans-serif;font-weight:600;font-size:19px;letter-spacing:-.01em}
+.mark .sub{font-family:"JetBrains Mono",ui-monospace,Consolas,monospace;font-size:10px;text-transform:uppercase;letter-spacing:.18em;color:var(--text-2)}
+
+header{border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:18px;padding-bottom:18px}
+header .volta{font-size:14.5px;color:var(--text-2);text-decoration:none;white-space:nowrap}
+header .volta:hover{color:var(--text)}
+
+/* ── tipografia ─────────────────────────────────────────────────── */
+.eyebrow{font-family:"JetBrains Mono",monospace;font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--text-2)}
+h1{font-family:Archivo,"Helvetica Neue",Arial,sans-serif;font-weight:600;font-size:clamp(31px,4.9vw,52px);line-height:1.05;letter-spacing:-.025em;text-wrap:balance;max-width:18ch}
+h2{font-family:Archivo,"Helvetica Neue",Arial,sans-serif;font-weight:600;font-size:clamp(23px,3vw,31px);line-height:1.18;letter-spacing:-.018em;text-wrap:balance}
+h3{font-size:18px;font-weight:600;letter-spacing:-.005em;line-height:1.35}
+.lede{font-size:clamp(16.5px,2vw,18.5px);line-height:1.55;color:var(--text-2);max-width:56ch}
+p{max-width:64ch}
+
+section{padding:clamp(48px,7vw,84px) 0;border-bottom:1px solid var(--line)}
+section.alt{background:var(--surface)}
+.sec-head{display:flex;flex-direction:column;gap:12px;margin-bottom:34px;max-width:62ch}
+
+/* ── hero ───────────────────────────────────────────────────────── */
+.hero{padding-top:clamp(40px,6vw,76px);padding-bottom:clamp(40px,6vw,68px)}
+.hero-copy{display:flex;flex-direction:column;gap:20px;align-items:flex-start}
+.hl{color:var(--sig-text);box-shadow:inset 0 -.34em 0 var(--sig-bg)}
+
+/* ── botões ─────────────────────────────────────────────────────── */
+.btn{display:inline-flex;align-items:center;gap:9px;font-family:"Public Sans",sans-serif;font-size:16px;font-weight:600;line-height:1;padding:15px 22px;border-radius:var(--r-md);text-decoration:none;border:1px solid transparent;cursor:pointer;transition:background .16s var(--e-out),border-color .16s var(--e-out)}
+.btn-primary{background:var(--accent);color:var(--on-accent)}
+.btn-primary:hover{background:var(--accent-hover)}
+.btn-primary:focus-visible{box-shadow:var(--sh-focus);outline:none}
+.btn-ghost{border-color:var(--line-2);color:var(--text);background:transparent}
+.btn-ghost:hover{background:var(--surface)}
+.btn-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btn-note{font-size:14px;color:var(--text-2);max-width:44ch}
+
+/* ── o que você leva + prévia ───────────────────────────────────── */
+.duo{display:grid;grid-template-columns:1fr;gap:34px;align-items:start}
+@media(min-width:900px){.duo{grid-template-columns:1fr 1fr;gap:48px}}
+
+.leva{list-style:none;display:flex;flex-direction:column;gap:18px;margin:0}
+.leva li{display:flex;gap:13px;align-items:flex-start}
+.leva .n{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--text-2);border:1px solid var(--line-2);border-radius:var(--r-sm);padding:2px 6px;flex:none;margin-top:3px;font-variant-numeric:tabular-nums}
+.leva .d{display:flex;flex-direction:column;gap:3px;min-width:0}
+.leva .d span{font-size:14.5px;color:var(--text-2);line-height:1.45}
+
+/* ── prévia visual do checklist (decorativa) ────────────────────── */
+.previa{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--bg);box-shadow:var(--sh-md);overflow:hidden;max-width:100%}
+.previa .barra{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid var(--line);background:var(--surface)}
+.previa .barra strong{font-family:Archivo,sans-serif;font-size:16px;font-weight:600}
+.previa .barra em{font-style:normal;font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--text-2)}
+.previa .campos{display:flex;flex-wrap:wrap;gap:6px 18px;padding:13px 18px;border-bottom:1px solid var(--line)}
+.previa .campos span{font-family:"JetBrains Mono",monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-2);display:flex;align-items:baseline;gap:6px;flex:1 1 40%;min-width:0}
+.previa .campos span::after{content:"";flex:1;border-bottom:1px solid var(--line-2);min-width:36px;transform:translateY(-2px)}
+.previa ul{list-style:none;padding:6px 18px 16px;margin:0}
+.previa li{display:flex;gap:11px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--line)}
+.previa li:last-child{border-bottom:0}
+.previa .cx{width:18px;height:18px;flex:none;margin-top:2px;border:1.5px solid var(--line-2);border-radius:var(--r-sm);position:relative;background:var(--bg)}
+.previa .cx.on{background:var(--accent);border-color:var(--accent)}
+.previa .cx.on::after{content:"";position:absolute;left:5.5px;top:2px;width:4px;height:8.5px;border:solid var(--on-accent);border-width:0 2px 2px 0;transform:rotate(45deg)}
+.previa .li-txt{display:flex;flex-direction:column;gap:2px;min-width:0}
+.previa .li-txt b{font-size:14.5px;font-weight:600}
+.previa .li-txt i{font-style:normal;font-size:13px;color:var(--text-2);line-height:1.4}
+.previa .mais{padding:0 18px 16px;font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--text-2)}
+.previa-cap{font-size:13.5px;color:var(--text-2);margin-top:12px}
+
+/* ── quem fez ───────────────────────────────────────────────────── */
+.quem{display:grid;grid-template-columns:1fr;gap:18px;max-width:72ch}
+.quem p{font-size:16px;color:var(--text-2)}
+.quem p strong{color:var(--text);font-weight:600}
+
+/* ── cta final ──────────────────────────────────────────────────── */
+.cta{display:flex;flex-direction:column;gap:18px;align-items:flex-start}
+
+footer{padding:32px 0 44px;font-size:13.5px;color:var(--text-2)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:baseline}
+footer a{color:var(--text-2)}
+
+/* ── banner de consentimento (LGPD) ─────────────────────────────── */
+#consent{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--bg);border-top:1px solid var(--line-2);box-shadow:var(--sh-md);padding:16px 0}
+#consent .wrap{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
+#consent p{font-size:14px;color:var(--text-2);max-width:58ch;margin:0}
+#consent .acts{display:flex;gap:10px;flex-wrap:wrap}
+#consent .btn{padding:11px 18px;font-size:14.5px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Fantin Sistemas, in&iacute;cio">
+      <svg width="22" height="26" viewBox="0 0 22 26" role="img" aria-hidden="true">
+        <g fill="currentColor">
+          <rect x="0" y="0" width="3" height="26"/><rect x="0" y="0" width="7" height="3"/><rect x="0" y="23" width="7" height="3"/>
+          <rect x="19" y="0" width="3" height="26"/><rect x="15" y="0" width="7" height="3"/><rect x="15" y="23" width="7" height="3"/>
+          <rect x="11" y="15" width="8" height="8"/>
+        </g>
+      </svg>
+      <span class="wordmark">FANTIN</span>
+      <span class="sub">Sistemas</span>
+    </a>
+    <a class="volta" href="index.html">Ver o site</a>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <div class="wrap hero-copy">
+    <p class="eyebrow">Material gratuito &middot; escrit&oacute;rios de contabilidade</p>
+    <h1>Do dia 1 ao dia 10, voc&ecirc; ca&ccedil;a documento no WhatsApp.</h1>
+    <p class="lede">
+      Cada cliente manda o que lembrou, na hora que lembrou, e quase sempre falta
+      alguma coisa. Este &eacute; o checklist do que precisa chegar todo m&ecirc;s,
+      <span class="hl">separado por regime tribut&aacute;rio</span> — pronto para voc&ecirc; colocar o
+      nome do seu escrit&oacute;rio e repassar para a sua carteira.
+    </p>
+    <div class="btn-row">
+      <a class="btn btn-primary"
+         href="checklist-documentos/index.html"
+         data-isca data-evt="checklist-abrir">Abrir o checklist</a>
+      <span class="btn-note">Abre direto. Sem cadastro, sem e-mail, sem download.</span>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">O que voc&ecirc; leva</p>
+      <h2>Uma folha por regime, para mandar hoje mesmo.</h2>
+    </div>
+
+    <div class="duo">
+
+      <ul class="leva">
+        <li>
+          <span class="n">01</span>
+          <span class="d"><h3>Tr&ecirc;s listas prontas</h3>
+          <span>Simples Nacional, Lucro Presumido e MEI. Cada documento vem com a dica
+          do que exatamente mandar — &ldquo;m&ecirc;s fechado&rdquo;, &ldquo;XML de prefer&ecirc;ncia&rdquo;, &ldquo;com o
+          comprovante de pagamento&rdquo; — que &eacute; onde mora metade do retrabalho.</span></span>
+        </li>
+        <li>
+          <span class="n">02</span>
+          <span class="d"><h3>Cabe&ccedil;alho edit&aacute;vel</h3>
+          <span>Nome do escrit&oacute;rio, nome do cliente, compet&ecirc;ncia e prazo. Voc&ecirc; digita
+          uma vez e a folha sai com a sua cara, n&atilde;o com a minha.</span></span>
+        </li>
+        <li>
+          <span class="n">03</span>
+          <span class="d"><h3>Caixas que funcionam de verdade</h3>
+          <span>D&aacute; para usar na tela e marcar o que j&aacute; chegou. O que foi marcado fica
+          salvo no pr&oacute;prio navegador — nada sai da m&aacute;quina, porque n&atilde;o existe servidor
+          por tr&aacute;s disso.</span></span>
+        </li>
+        <li>
+          <span class="n">04</span>
+          <span class="d"><h3>Impress&atilde;o A4 arrumada</h3>
+          <span>Uma folha por regime, sem fundo escuro gastando tinta. Imprime as tr&ecirc;s
+          ou s&oacute; a que interessa para aquele cliente.</span></span>
+        </li>
+      </ul>
+
+      <div>
+        <div class="previa" aria-hidden="true">
+          <div class="barra"><strong>Simples Nacional</strong><em>2 de 6</em></div>
+          <div class="campos">
+            <span>Escrit&oacute;rio</span><span>Cliente</span>
+            <span>Compet&ecirc;ncia</span><span>Enviar at&eacute;</span>
+          </div>
+          <ul>
+            <li><span class="cx on"></span><span class="li-txt"><b>Notas fiscais de sa&iacute;da</b><i>Todas as notas emitidas no m&ecirc;s. PDF ou XML.</i></span></li>
+            <li><span class="cx on"></span><span class="li-txt"><b>Notas fiscais de entrada</b><i>Compras e servi&ccedil;os tomados. XML de prefer&ecirc;ncia.</i></span></li>
+            <li><span class="cx"></span><span class="li-txt"><b>Extrato banc&aacute;rio</b><i>M&ecirc;s fechado, da conta usada pela empresa.</i></span></li>
+            <li><span class="cx"></span><span class="li-txt"><b>Guias pagas</b><i>DAS, FGTS e INSS com o comprovante de pagamento.</i></span></li>
+          </ul>
+          <div class="mais">+ 2 itens &middot; e as folhas de Lucro Presumido e MEI</div>
+        </div>
+        <p class="previa-cap">
+          &Eacute; assim que a folha aparece na tela. No papel, o fundo &eacute; branco e o
+          cabe&ccedil;alho vira linha para preencher &agrave; m&atilde;o.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Quem fez, e por qu&ecirc;</p>
+      <h2>Fiz um portal de coleta de documentos. Este checklist &eacute; a vers&atilde;o em papel dele.</h2>
+    </div>
+    <div class="quem">
+      <p>
+        Sou <strong>Gabriel Fantin</strong>, desenvolvedor em Jacare&iacute;. Construo sistemas sob
+        medida para a parte do processo que o sistema cont&aacute;bil n&atilde;o cobre — e a coleta
+        mensal de documento &eacute; o caso mais repetido que eu encontrei ouvindo escrit&oacute;rio
+        daqui e de S&atilde;o Jos&eacute; dos Campos.
+      </p>
+      <p>
+        Enquanto eu montava esse portal, a lista de documentos por regime teve que ser
+        escrita de qualquer jeito. Ela &eacute; &uacute;til sozinha, em papel, sem sistema nenhum —
+        ent&atilde;o estou publicando. <strong>N&atilde;o tem pegadinha:</strong> n&atilde;o pede e-mail, n&atilde;o cria
+        conta, n&atilde;o entra em lista de disparo. Se depois voc&ecirc; quiser ver a vers&atilde;o que
+        cobra sozinha e registra data e hora, o bot&atilde;o do WhatsApp est&aacute; logo abaixo.
+      </p>
+      <p>
+        Se alguma dica estiver errada para a sua realidade, me diga — eu corrijo. Voc&ecirc;
+        entende de fechamento mais do que eu, e o material s&oacute; serve se estiver certo.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="contato">
+  <div class="wrap cta">
+    <p class="eyebrow">Pr&oacute;ximo passo</p>
+    <h2>Pegue o checklist. Se quiser a vers&atilde;o que cobra sozinha, me chame.</h2>
+    <p class="lede">
+      O papel resolve o &ldquo;o que eu mando?&rdquo;. Ele n&atilde;o resolve o &ldquo;quem ainda n&atilde;o mandou
+      nada?&rdquo; — isso &eacute; tela, lembrete autom&aacute;tico e registro de data e hora. Me conte como
+      a coleta funciona no seu escrit&oacute;rio hoje e eu te digo se vale mexer.
+    </p>
+    <div class="btn-row">
+      <a class="btn btn-primary"
+         href="checklist-documentos/index.html"
+         data-isca data-evt="checklist-abrir">Abrir o checklist</a>
+      <a class="btn btn-ghost"
+         href="https://wa.me/5527992864820?text=Oi%20Gabriel%2C%20vi%20a%20p%C3%A1gina%20do%20checklist%20de%20documentos.%20Sou%20do%20escrit%C3%B3rio%20%5Bnome%5D%20e%20queria%20entender%20a%20vers%C3%A3o%20que%20cobra%20sozinha."
+         target="_blank" rel="noopener" data-evt="whatsapp">Chamar no WhatsApp</a>
+    </div>
+    <p class="btn-note">
+      Respondo em at&eacute; 4h &uacute;teis, de segunda a sexta.<br>
+      Se preferir e-mail: <a href="mailto:gabriel@fantin.tech">gabriel@fantin.tech</a>
+    </p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Fantin Sistemas &middot; Jacare&iacute;/SP &middot; atendo S&atilde;o Jos&eacute; dos Campos e o Vale do Para&iacute;ba</span>
+    <span><a href="privacidade.html">Pol&iacute;tica de privacidade</a> &middot; <a href="#" id="reconsent">Prefer&ecirc;ncias de cookies</a></span>
+  </div>
+</footer>
+
+<!-- ── Consentimento LGPD: pixel só dispara depois do aceite ──────── -->
+<div id="consent" hidden>
+  <div class="wrap">
+    <p>Uso cookies de medi&ccedil;&atilde;o para entender quantas pessoas chegam aqui e por onde.
+       Nada &eacute; coletado se voc&ecirc; recusar, e a p&aacute;gina funciona igual.
+       <a href="privacidade.html">Como trato seus dados</a>.</p>
+    <div class="acts">
+      <button class="btn btn-ghost" id="deny" type="button">Recusar</button>
+      <button class="btn btn-primary" id="allow" type="button">Aceitar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ── TODO:PIXEL / TODO:CAPI ─────────────────────────────────────
+     Mesmos valores de index.html. A chave de consentimento também é a
+     mesma (fs_consent): quem já aceitou no site não vê o banner de novo.
+  ─────────────────────────────────────────────────────────────── */
+  var PIXEL_ID = "TODO_PIXEL_ID";
+  var CAPI_URL = "";               // ex: https://n8n.seudominio.com.br/webhook/capi
+  var KEY = "fs_consent";
+
+  var consented = false;
+  try { consented = localStorage.getItem(KEY) === "1"; } catch (e) {}
+
+  var banner = document.getElementById("consent");
+
+  function showBanner() { if (banner) banner.hidden = false; }
+  function hideBanner() { if (banner) banner.hidden = true; }
+
+  function uid() {
+    return "e-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 10);
+  }
+
+  function loadPixel() {
+    if (window.fbq || PIXEL_ID.indexOf("TODO") === 0) return;
+    /* snippet oficial da Meta */
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+    (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    window.fbq('init', PIXEL_ID);
+    track("PageView");
+  }
+
+  /* dispara o mesmo evento no navegador e no servidor, com event_id comum */
+  function track(name, params) {
+    if (!consented) return;
+    var id = uid();
+    var data = params || {};
+    if (window.fbq) window.fbq("track", name, data, { eventID: id });
+    if (CAPI_URL) {
+      try {
+        navigator.sendBeacon(CAPI_URL, new Blob([JSON.stringify({
+          event_name: name, event_id: id, event_source_url: location.href,
+          event_time: Math.floor(Date.now() / 1000), custom_data: data
+        })], { type: "application/json" }));
+      } catch (e) {}
+    }
+  }
+
+  function enable() {
+    consented = true;
+    try { localStorage.setItem(KEY, "1"); } catch (e) {}
+    hideBanner();
+    loadPixel();
+    armScrollEvent();
+  }
+
+  function disable() {
+    consented = false;
+    try { localStorage.setItem(KEY, "0"); } catch (e) {}
+    hideBanner();
+  }
+
+  /* ViewContent: 50% de rolagem na página */
+  function armScrollEvent() {
+    var fired = false;
+    function onScroll() {
+      if (fired) return;
+      var h = document.documentElement;
+      var pct = (h.scrollTop + window.innerHeight) / h.scrollHeight;
+      if (pct >= 0.5) {
+        fired = true;
+        track("ViewContent", { content_name: "landing-checklist" });
+        window.removeEventListener("scroll", onScroll);
+      }
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  }
+
+  /* Contact: clique no WhatsApp — mesmo evento de otimização do site */
+  document.addEventListener("click", function (ev) {
+    var t = ev.target;
+    if (!t || typeof t.closest !== "function") return;
+    var el = t.closest("[data-evt]");
+    if (!el) return;
+    var kind = el.getAttribute("data-evt");
+    if (kind === "whatsapp") track("Contact", { content_name: "whatsapp" });
+    else track("ViewContent", { content_name: kind });
+  });
+
+  var bAllow = document.getElementById("allow");
+  var bDeny  = document.getElementById("deny");
+  var bRecon = document.getElementById("reconsent");
+  if (bAllow) bAllow.addEventListener("click", enable);
+  if (bDeny)  bDeny.addEventListener("click", disable);
+  if (bRecon) bRecon.addEventListener("click", function (ev) {
+    ev.preventDefault();
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    showBanner();
+  });
+
+  /* estado inicial */
+  var stored = null;
+  try { stored = localStorage.getItem(KEY); } catch (e) {}
+  if (stored === "1") { loadPixel(); armScrollEvent(); }
+  else if (stored !== "0") { showBanner(); }
+})();
+</script>
+
+</body>
+</html>

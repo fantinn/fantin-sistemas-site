@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Política de privacidade — Fantin Sistemas</title>
+<meta name="robots" content="index,follow">
+<meta name="description" content="Como a Fantin Sistemas trata dados pessoais: o que coleta, por quê, por quanto tempo e como você exclui.">
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+
+<style>
+:root{
+  --ink-900:#0E1318; --ink-700:#2A333D; --ink-500:#4E5A66;
+  --ink-300:#8C97A1; --ink-100:#DDE2E7; --ink-050:#F2F4F6;
+  --brand-600:#16457A; --brand-700:#0F3560;
+  --signal-800:#9A4F02; --signal-600:#D97005; --signal-100:#FBEBD6;
+  --bg:#FFFFFF; --surface:var(--ink-050); --text:var(--ink-900);
+  --text-2:var(--ink-500); --line:var(--ink-100); --line-2:var(--ink-300);
+  --accent:var(--brand-600); --accent-hover:var(--brand-700);
+  --sig-text:var(--signal-800); --sig:var(--signal-600); --sig-bg:var(--signal-100);
+  --on-accent:#FFFFFF;
+  --r-sm:2px; --r-md:4px; --r-lg:6px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1318; --surface:#161C23; --text:#E6EAEE; --text-2:#A3AEB8;
+    --line:#242D36; --line-2:#38434E;
+    --accent:#6BA6F5; --accent-hover:#8FBDF8;
+    --sig-text:#F2A03D; --sig:#F2A03D; --sig-bg:#3A2A12;
+    --on-accent:#0E1318;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1318; --surface:#161C23; --text:#E6EAEE; --text-2:#A3AEB8;
+  --line:#242D36; --line-2:#38434E;
+  --accent:#6BA6F5; --accent-hover:#8FBDF8;
+  --sig-text:#F2A03D; --sig:#F2A03D; --sig-bg:#3A2A12;
+  --on-accent:#0E1318;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:"Public Sans",system-ui,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-underline-offset:2px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:var(--r-sm)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.wrap{max-width:760px;margin:0 auto;padding:0 24px}
+@media(max-width:600px){.wrap{padding:0 16px}}
+
+header{border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 24px}
+.mark{display:inline-flex;align-items:baseline;gap:10px;text-decoration:none;color:var(--text)}
+.mark .wordmark{font-family:Archivo,"Helvetica Neue",Arial,sans-serif;font-weight:600;font-size:19px;letter-spacing:-.01em}
+.mark .sub{font-family:"JetBrains Mono",ui-monospace,Consolas,monospace;font-size:10px;text-transform:uppercase;letter-spacing:.18em;color:var(--text-2)}
+.back{font-size:14px;color:var(--text-2);text-decoration:none}
+.back:hover{color:var(--text)}
+
+main{padding:clamp(40px,6vw,72px) 0 80px}
+.eyebrow{font-family:"JetBrains Mono",monospace;font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--text-2);margin-bottom:12px}
+h1{font-family:Archivo,"Helvetica Neue",Arial,sans-serif;font-weight:600;font-size:clamp(30px,4.4vw,42px);line-height:1.1;letter-spacing:-.022em;margin-bottom:14px;text-wrap:balance}
+.lede{font-size:17.5px;color:var(--text-2);line-height:1.55;margin-bottom:34px}
+h2{font-family:Archivo,sans-serif;font-weight:600;font-size:21px;letter-spacing:-.012em;margin:42px 0 12px;padding-top:22px;border-top:1px solid var(--line)}
+h3{font-size:16px;font-weight:600;margin:22px 0 8px}
+p{margin-bottom:13px}
+ul,ol{margin:0 0 14px;padding-left:20px}
+li{margin-bottom:7px}
+li::marker{color:var(--text-2)}
+strong{font-weight:600}
+.mono{font-family:"JetBrains Mono",monospace}
+
+.tw{overflow-x:auto;margin:0 0 18px;border:1px solid var(--line);border-radius:var(--r-lg)}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:520px}
+th{text-align:left;font-family:"JetBrains Mono",monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-2);font-weight:600;padding:11px 14px;border-bottom:1px solid var(--line-2);vertical-align:bottom}
+td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.5}
+tbody tr:last-child td{border-bottom:0}
+
+.note{border-left:3px solid var(--sig);background:var(--sig-bg);padding:14px 16px;border-radius:0 var(--r-md) var(--r-md) 0;margin:20px 0;font-size:14.5px}
+.note b{color:var(--sig-text)}
+.note p:last-child{margin-bottom:0}
+
+.box{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:18px 20px;margin:20px 0}
+.box p:last-child{margin-bottom:0}
+
+.btn{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:600;line-height:1;padding:12px 18px;border-radius:var(--r-md);border:1px solid var(--line-2);background:transparent;color:var(--text);cursor:pointer;text-decoration:none;font-family:inherit}
+.btn:hover{background:var(--surface)}
+
+footer{border-top:1px solid var(--line);padding:28px 0 44px;font-size:13.5px;color:var(--text-2)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between}
+footer a{color:var(--text-2)}
+.upd{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--text-2);margin-top:30px;padding-top:16px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="mark" href="index.html">
+      <svg width="18" height="22" viewBox="0 0 22 26" role="img" aria-hidden="true"><g fill="currentColor">
+        <rect x="0" y="0" width="3" height="26"/><rect x="0" y="0" width="7" height="3"/><rect x="0" y="23" width="7" height="3"/>
+        <rect x="19" y="0" width="3" height="26"/><rect x="15" y="0" width="7" height="3"/><rect x="15" y="23" width="7" height="3"/>
+        <rect x="11" y="15" width="8" height="8"/>
+      </g></svg>
+      <span class="wordmark">FANTIN</span><span class="sub">Sistemas</span>
+    </a>
+    <a class="back" href="index.html">&larr; voltar ao site</a>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+<p class="eyebrow">LGPD &middot; Lei 13.709/2018</p>
+<h1>Política de privacidade</h1>
+<p class="lede">
+  O que eu coleto, por que coleto, por quanto tempo guardo e como você apaga.
+  Escrito para ser lido, não para se proteger de você.
+</p>
+
+<h2>1. Quem é responsável pelos seus dados</h2>
+<p>
+  <strong>Gabriel Fantin</strong> — Fantin Sistemas, com sede em Jacareí/SP.
+</p>
+<p>
+  Sou o <strong>controlador</strong> dos dados coletados neste site, e também atuo como
+  <strong>encarregado</strong> (DPO) para falar com você sobre eles.
+  Contato: <a href="mailto:gabriel@fantin.tech">gabriel@fantin.tech</a>.
+</p>
+
+<h2>2. O que eu coleto e por quê</h2>
+<div class="tw">
+<table>
+<thead><tr><th>Dado</th><th>Quando</th><th>Para quê</th><th>Base legal</th></tr></thead>
+<tbody>
+<tr><td>Nome, empresa, telefone, e-mail</td><td>Quando você me escreve pelo WhatsApp, e-mail ou formulário</td><td>Responder, entender sua necessidade e enviar proposta</td><td>Consentimento e, havendo negociação, execução de contrato (art. 7º, I e V)</td></tr>
+<tr><td>Conteúdo da conversa</td><td>Durante o atendimento</td><td>Escrever a proposta e o escopo sem depender da minha memória</td><td>Execução de contrato / procedimento preliminar</td></tr>
+<tr><td>Páginas visitadas, origem do acesso, cliques</td><td>Só depois de você aceitar no aviso de cookies</td><td>Saber quantas pessoas chegam aqui e por onde</td><td><strong>Consentimento</strong> (art. 7º, I)</td></tr>
+<tr><td>Identificadores de anúncio (pixel da Meta)</td><td>Só depois do aceite</td><td>Medir resultado de anúncio e evitar mostrar anúncio a quem já é cliente</td><td><strong>Consentimento</strong> (art. 7º, I)</td></tr>
+<tr><td>Dados de cliente contratado</td><td>Após a assinatura do contrato</td><td>Executar o projeto, emitir cobrança e prestar suporte</td><td>Execução de contrato e obrigação legal/fiscal (art. 7º, V e II)</td></tr>
+</tbody>
+</table>
+</div>
+<p>
+  <strong>Não coleto dado sensível</strong> (origem racial, saúde, religião, opinião política,
+  biometria) e não peço dado de criança ou adolescente. Se você me mandar algo assim por
+  engano, eu apago.
+</p>
+
+<h2>3. Cookies e medição</h2>
+<p>
+  O site não usa cookie de rastreamento até você clicar em <strong>Aceitar</strong> no aviso.
+  Se você recusar, nada é carregado e o site funciona igual — sem versão degradada, sem
+  insistência.
+</p>
+<ul>
+<li><strong>Essencial:</strong> guardo apenas a sua escolha sobre cookies, no seu próprio
+navegador. Isso não sai daqui e não identifica você.</li>
+<li><strong>Medição e anúncio (opcional):</strong> Meta Pixel e Conversions API, para medir
+quantas pessoas chegam e de onde. Só com o seu aceite.</li>
+</ul>
+<div class="box">
+  <p>Mudou de ideia? <button class="btn" id="reabrir" type="button">Rever minhas preferências de cookies</button></p>
+</div>
+
+<h2>4. Com quem eu compartilho</h2>
+<p>Só com quem é necessário para o site e o serviço funcionarem. Nunca vendo dado a ninguém.</p>
+<ul>
+<li><strong>Meta Platforms</strong> — dados de medição, se você aceitou os cookies.
+<em>Transferência internacional</em> (Estados Unidos).</li>
+<li><strong>Provedores de hospedagem e banco de dados</strong> — para manter o site e os
+sistemas no ar. <em>Podem envolver transferência internacional.</em></li>
+<li><strong>Contabilidade e autoridades fiscais</strong> — quando a lei obriga, no caso de
+clientes contratados.</li>
+</ul>
+<p>
+  Nos projetos que entrego, quando trato dados dos <em>seus</em> clientes, eu sou
+  <strong>operador</strong> e você é o controlador: eu trato apenas conforme a sua instrução,
+  e isso vai escrito em anexo no contrato.
+</p>
+
+<h2>5. Por quanto tempo eu guardo</h2>
+<div class="tw">
+<table>
+<thead><tr><th>Dado</th><th>Prazo</th></tr></thead>
+<tbody>
+<tr><td>Contato que não virou cliente</td><td><strong>24 meses</strong> sem interação, depois eu elimino</td></tr>
+<tr><td>Dados de cliente contratado</td><td>Durante o contrato e pelo prazo legal/fiscal aplicável após o encerramento</td></tr>
+<tr><td>Dados de medição</td><td>Conforme a retenção da própria Meta, sobre a qual eu não tenho controle</td></tr>
+<tr><td>Sua escolha de cookies</td><td>Fica no seu navegador até você limpar ou revogar</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>6. Seus direitos</h2>
+<p>O art. 18 da LGPD te dá estes direitos, e eu atendo todos:</p>
+<ol>
+<li>Saber se eu trato dados seus</li>
+<li>Acessar esses dados</li>
+<li>Corrigir dado incompleto, inexato ou desatualizado</li>
+<li>Pedir anonimização, bloqueio ou eliminação de dado desnecessário ou excessivo</li>
+<li>Pedir portabilidade a outro fornecedor</li>
+<li>Pedir eliminação dos dados tratados com base no seu consentimento</li>
+<li>Saber com quem eu compartilhei</li>
+<li>Saber o que acontece se você negar consentimento</li>
+<li><strong>Revogar o consentimento a qualquer momento</strong></li>
+</ol>
+<div class="box">
+  <p>
+    <strong>Como exercer:</strong> me escreva em
+    <a href="mailto:gabriel@fantin.tech">gabriel@fantin.tech</a> com o assunto
+    <span class="mono">LGPD</span>. Respondo em <strong>até 15 dias</strong>.
+    Não cobro nada por isso e não preciso de justificativa.
+  </p>
+  <p style="margin-top:10px">
+    Se eu não resolver, você pode reclamar à
+    <strong>ANPD — Autoridade Nacional de Proteção de Dados</strong>
+    (<a href="https://www.gov.br/anpd" target="_blank" rel="noopener">gov.br/anpd</a>).
+  </p>
+</div>
+
+<h2>7. Segurança</h2>
+<p>
+  Uso conexão criptografada (HTTPS), controle de acesso por perfil nos sistemas que
+  construo, e registro de acesso. Se acontecer um incidente que possa te trazer risco
+  relevante, eu comunico você e a ANPD — nos projetos de cliente, comunico o controlador
+  em <strong>até 24 horas</strong> de eu tomar conhecimento.
+</p>
+<p>
+  Nenhuma medida é infalível, e eu prefiro dizer isso a prometer segurança absoluta.
+</p>
+
+<h2>8. Mudanças nesta política</h2>
+<p>
+  Se eu mudar algo relevante, atualizo a data abaixo. Se a mudança afetar a base legal
+  ou a finalidade de algo que você já consentiu, eu peço o consentimento de novo em vez
+  de presumir.
+</p>
+
+<p class="upd">Última atualização: 13 de setembro de 2026</p>
+
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Fantin Sistemas &middot; Jacareí/SP &middot; <a href="mailto:gabriel@fantin.tech">gabriel@fantin.tech</a></span>
+    <span><a href="index.html">Início</a></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var b = document.getElementById("reabrir");
+  if (!b) return;
+  b.addEventListener("click", function(){
+    try { localStorage.removeItem("fs_consent"); } catch(e){}
+    b.textContent = "Preferência apagada — escolha de novo na página inicial";
+    b.disabled = true;
+  });
+})();
+</script>
+
+</body>
+</html>
