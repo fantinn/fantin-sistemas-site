@@ -61,6 +61,7 @@
   --centro-2:#0A121C;
   --noite-cart:#0A121C;
   --larg:1200px;
+  --divisa-h:clamp(34px,4.2vw,62px);
   color-scheme:dark;
 }
 
@@ -102,16 +103,6 @@
 .claro .btn--ciano:hover{background:#0A5C67;color:#fff}
 .claro .proof:hover{border-color:rgba(14,122,136,.45)}
 .claro .itens li::before{box-shadow:none}
-/* O diagrama foi calibrado no escuro. Sombra preta a 90% e halo de
-   50px viram borrao cinza embaixo de um circulo branco num fundo
-   quase branco — e o .sat nao tinha variante clara nenhuma. E a mesma
-   armadilha do ciano e do verde, so que em SOMBRA: ao criar um tema,
-   varra box-shadow tambem, nao so color. */
-.claro .centro{border-color:rgba(14,122,136,.30);
-  box-shadow:0 10px 28px -16px rgba(14,122,136,.34),inset 0 0 0 1px rgba(255,255,255,.75)}
-.claro .sat{box-shadow:0 10px 24px -14px rgba(8,13,22,.28),0 2px 5px -2px rgba(8,13,22,.05)}
-.claro .anel{border-color:rgba(14,122,136,.32)}
-.claro .anel--2{border-color:rgba(14,122,136,.15)}
 .claro .selo{color:#fff}
 /* o verde claro do tema escuro usa texto escuro; no tema claro o verde
    escurece e o texto tem que virar branco, senao da 3,14:1 */
@@ -123,11 +114,16 @@
    então a cor seguinte parece subir por dentro da anterior. Fica em
    position:absolute com altura fixa: não entra no fluxo e não mexe em
    CLS. `preserveAspectRatio="none"` deixa a onda esticar na largura
-   sem engordar de altura. */
+   sem engordar de altura.
+
+   Curva única e rasa (um arco só, sem contracurva) — acabamento, não
+   decoração. --divisa-h mora numa variável no :root porque .divisa e
+   .tem-divisa precisam do mesmo valor: a primeira para desenhar, a
+   segunda para abrir espaço embaixo do conteúdo pro desenho caber. */
 .divisa{position:absolute;left:0;right:0;bottom:-1px;z-index:1;
-  height:clamp(46px,6vw,88px);pointer-events:none;line-height:0}
+  height:var(--divisa-h);pointer-events:none;line-height:0}
 .divisa svg{width:100%;height:100%;display:block}
-.tem-divisa{padding-bottom:calc(clamp(72px,9vw,120px) + clamp(46px,6vw,88px))}
+.tem-divisa{padding-bottom:calc(clamp(72px,9vw,120px) + var(--divisa-h))}
 
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
@@ -376,7 +372,8 @@ header .btn{margin-left:auto}
 @keyframes tracar{from{stroke-dashoffset:620}to{stroke-dashoffset:0}}
 @keyframes aparece{from{opacity:0}to{opacity:1}}
 @keyframes chega{from{opacity:0;transform:scale(.55)}to{opacity:1;transform:scale(1)}}
-@keyframes elo{from{stroke-dashoffset:10}to{stroke-dashoffset:0}}
+@keyframes orbita-gira{from{rotate:0deg}to{rotate:360deg}}
+@keyframes orbita-contragira{from{rotate:0deg}to{rotate:-360deg}}
 @keyframes ent-lado{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
 @keyframes tracoX{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 
@@ -403,12 +400,22 @@ header .btn{margin-left:auto}
        elos se desenham. As faixas nao podem encostar na do .ent do
        bloco (entry 2% cover 24%), senao tudo abre junto e nada e visto. */
     .centro{animation:chega .8s cubic-bezier(.2,1.2,.4,1) both;animation-timeline:view();animation-range:entry 14% cover 32%}
+    /* o .sat so cuida da chegada (view(), uma vez). Girar e uma animacao
+       de tempo comum (auto, infinita) — por isso mora num filho, o
+       .sat-cont, em vez de dividir a lista "animation" do pai com a de
+       chegada. Misturar as duas no mesmo elemento e depois pausar so
+       uma via animation-play-state e fragil: o valor unico se repete
+       para as duas, e pausar/retomar a que usa view() no meio do
+       hover gerado pelo mouse cruzando o anel foi o que fazia o card
+       sumir. */
     .sat{animation:chega .7s cubic-bezier(.2,1.5,.4,1) both;animation-timeline:view();animation-range:entry 22% cover 40%}
-    .sat--2{animation-range:entry 28% cover 46%}
-    .sat--3{animation-range:entry 34% cover 52%}
-    .elos path{animation:elo .5s ease-out both;animation-timeline:view();animation-range:entry 30% cover 46%}
-    .elos path:nth-child(2){animation-range:entry 36% cover 52%}
-    .elos path:nth-child(3){animation-range:entry 42% cover 58%}
+    .sat--2{animation-range:entry 26% cover 44%}
+    .sat--3{animation-range:entry 30% cover 48%}
+    .sat--4{animation-range:entry 34% cover 52%}
+    .sat--5{animation-range:entry 38% cover 56%}
+    .sat--6{animation-range:entry 42% cover 60%}
+    .orbita-gira{animation:orbita-gira 44s linear infinite}
+    .sat-cont{animation:orbita-contragira 44s linear infinite}
     .passos::after{animation:tracoX linear both;animation-timeline:view();animation-range:entry 12% cover 52%}
   }
 }
@@ -425,9 +432,9 @@ header .btn{margin-left:auto}
 .dores-pe b{color:var(--ciano-2);font-weight:600}
 
 /* ═══ a órbita ═════════════════════════════════════════════════════
-   Três frentes em volta do que importa, que é o negócio do cliente.
-   São três porque ele tem três — o diagrama não existe para parecer
-   maior do que é. */
+   Seis frentes girando devagar em volta do que importa, que é o
+   negócio do cliente. Um hexágono "deitado" (vértices às 1h, 3h, 5h,
+   7h, 9h e 11h) sobre um raio de 38%: sen30*38=19 e cos30*38=32,9. */
 .metodo{display:grid;gap:56px;align-items:center}
 @media(min-width:980px){.metodo{grid-template-columns:1fr 1fr;gap:72px}}
 .metodo-checks{display:flex;flex-direction:column;gap:14px;margin-top:32px}
@@ -435,29 +442,37 @@ header .btn{margin-left:auto}
 .metodo-checks li::before{content:"\2713";flex:none;width:23px;height:23px;border-radius:50%;
   background:rgba(47,216,232,.14);color:var(--ciano);font-size:12px;font-weight:700;
   display:grid;place-items:center;margin-top:2px}
-.orbita{position:relative;width:100%;max-width:440px;aspect-ratio:1;margin-inline:auto;
+.orbita{position:relative;width:100%;max-width:460px;aspect-ratio:1;margin-inline:auto;
   container-type:inline-size}
+.orbita-gira{position:absolute;inset:0}
 .anel{position:absolute;left:50%;top:50%;translate:-50% -50%;border-radius:50%;
-  border:1px dashed rgba(47,216,232,.22);width:78%;aspect-ratio:1}
-.anel--2{width:52%;border-style:solid;border-color:var(--superficie-2)}
-.centro{position:absolute;left:50%;top:50%;translate:-50% -50%;width:32%;aspect-ratio:1;
-  border-radius:50%;background:var(--centro-1);
-  border:1px solid rgba(47,216,232,.30);display:grid;place-content:center;text-align:center;gap:4px;
-  box-shadow:0 14px 34px -20px rgba(0,0,0,.8)}
-.centro span{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ciano)}
-.centro b{font-size:clamp(13px,3.4cqw,17px);font-weight:700;letter-spacing:-.02em;line-height:1.15}
-.sat{position:absolute;translate:-50% -50%;width:26.5%;aspect-ratio:1;border-radius:50%;
-  background:var(--fundo-3);border:1px solid var(--borda-2);display:grid;place-content:center;
-  text-align:center;gap:3px;box-shadow:0 18px 40px -18px rgba(0,0,0,.9)}
-.sat i{font-style:normal;font-size:10px;font-weight:700;letter-spacing:.16em;color:var(--ciano)}
-.sat b{font-size:clamp(12px,3cqw,15px);font-weight:600;letter-spacing:-.015em;line-height:1.15}
-/* 120 graus exatos sobre o anel de raio 39%: cos30*39=33,77 e sen30*39=19,5 */
-.elos{position:absolute;inset:0;width:100%;height:100%;z-index:0}
-.elos path{fill:none;stroke:var(--ciano);stroke-width:.7;stroke-linecap:round;stroke-dasharray:10}
-.centro,.sat{z-index:1}
-.sat--1{left:50%;top:11%}
-.sat--2{left:83.8%;top:69.5%}
-.sat--3{left:16.2%;top:69.5%}
+  border:1px dashed rgba(14,122,136,.28);width:88%;aspect-ratio:1}
+.centro{position:absolute;left:50%;top:50%;translate:-50% -50%;width:40%;aspect-ratio:1;
+  border-radius:50%;z-index:1;
+  background:radial-gradient(circle at 34% 28%,#6FE3EC 0%,#12838F 52%,#083A42 100%);
+  display:grid;place-content:center;text-align:center;gap:6px;
+  box-shadow:0 0 0 20px rgba(14,122,136,.08),0 26px 56px -20px rgba(6,35,40,.55),
+    inset 0 -16px 30px -8px rgba(0,0,0,.35),inset 0 16px 22px -8px rgba(255,255,255,.3)}
+.centro::before{content:"";position:absolute;inset:-16%;z-index:-1;border-radius:50%;
+  background:radial-gradient(circle,rgba(18,131,143,.22),rgba(18,131,143,0) 70%)}
+.centro span{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.78)}
+.centro b{font-size:clamp(15px,4.2cqw,20px);font-weight:800;letter-spacing:-.02em;
+  line-height:1.15;color:#fff}
+.sat{position:absolute;translate:-50% -50%;z-index:1}
+.sat-cont{min-width:96px;padding:10px 16px;border-radius:14px;background:#fff;
+  border:1px solid rgba(8,13,22,.08);display:flex;flex-direction:column;align-items:center;
+  text-align:center;gap:3px;box-shadow:0 10px 26px -16px rgba(8,13,22,.32),0 2px 6px -2px rgba(8,13,22,.06)}
+.sat-cont i{font-style:normal;font-size:clamp(8px,2.2cqw,9.5px);font-weight:700;letter-spacing:.16em;
+  color:var(--ciano)}
+.sat-cont b{font-size:clamp(12px,3cqw,14.5px);font-weight:700;letter-spacing:-.01em;line-height:1.15;
+  color:var(--texto)}
+.sat--1{left:31%;top:17%}
+.sat--2{left:69%;top:17%}
+.sat--3{left:88%;top:50%}
+.sat--4{left:69%;top:83%}
+.sat--5{left:31%;top:83%}
+.sat--6{left:12%;top:50%}
 
 /* ═══ frentes ══════════════════════════════════════════════════════ */
 .frente{border-top:1px solid var(--borda);padding-top:48px;margin-top:48px;
@@ -638,7 +653,7 @@ footer a:hover{color:var(--ciano)}
 
 @media (forced-colors: active){
   .btn{border-color:currentColor}
-  .dor,.proof,.gar-cart,.tier,.passo,.itens li,.kpi,.centro,.sat,.entrega{border:1px solid CanvasText}
+  .dor,.proof,.gar-cart,.tier,.passo,.itens li,.kpi,.centro,.sat-cont,.entrega{border:1px solid CanvasText}
   .tier li::before,.metodo-checks li::before{forced-color-adjust:none}
   .tampa{animation:none!important;transform:none!important}
 }
@@ -759,7 +774,7 @@ footer a:hover{color:var(--ciano)}
   </div>
     <div class="divisa" aria-hidden="true">
       <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
-        <path fill="#FFFFFF" d="M0,90 L1440,90 L1440,34 C1180,72 980,16 720,26 C470,36 250,70 0,40 Z"/>
+        <path fill="#FFFFFF" d="M0,90 L1440,90 L1440,52 Q720,22 0,52 Z"/>
       </svg>
     </div>
 </section>
@@ -826,18 +841,17 @@ footer a:hover{color:var(--ciano)}
         </ul>
       </div>
 
-      <div class="ent" role="img" aria-label="Diagrama: o seu negócio no centro, com três frentes em volta — páginas, lojas e automação.">
+      <div class="ent" role="img" aria-label="Diagrama: o seu negócio no centro, orbitado por processos, marketing, sistemas, I.A., automação e dados.">
         <div class="orbita">
           <div class="anel"></div>
-          <div class="anel anel--2"></div>
-          <svg class="elos" viewBox="0 0 100 100" aria-hidden="true">
-            <path d="M50,34 L50,24.3"/>
-            <path d="M63.9,58 L72.3,62.9"/>
-            <path d="M36.1,58 L27.7,62.9"/>
-          </svg>
-          <div class="sat sat--1"><i>01</i><b>Páginas</b></div>
-          <div class="sat sat--2"><i>02</i><b>Lojas</b></div>
-          <div class="sat sat--3"><i>03</i><b>Automação</b></div>
+          <div class="orbita-gira">
+            <div class="sat sat--1"><div class="sat-cont"><i>PRC</i><b>Processos</b></div></div>
+            <div class="sat sat--2"><div class="sat-cont"><i>MKT</i><b>Marketing</b></div></div>
+            <div class="sat sat--3"><div class="sat-cont"><i>DEV</i><b>Sistemas</b></div></div>
+            <div class="sat sat--4"><div class="sat-cont"><i>IA</i><b>I.A.</b></div></div>
+            <div class="sat sat--5"><div class="sat-cont"><i>AUTO</i><b>Automação</b></div></div>
+            <div class="sat sat--6"><div class="sat-cont"><i>DADOS</i><b>Dados</b></div></div>
+          </div>
           <div class="centro"><span>O centro</span><b>Seu negócio</b></div>
         </div>
       </div>
@@ -913,6 +927,11 @@ footer a:hover{color:var(--ciano)}
       </ul>
     </div>
   </div>
+    <div class="divisa" aria-hidden="true">
+      <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
+        <path fill="#060B12" d="M0,90 L1440,90 L1440,52 Q720,22 0,52 Z"/>
+      </svg>
+    </div>
 </section>
 
 <!-- ═══ prova ═══════════════════════════════════════════════════════
@@ -975,6 +994,11 @@ footer a:hover{color:var(--ciano)}
 
 </div>
   </div>
+    <div class="divisa" aria-hidden="true">
+      <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
+        <path fill="#F1F5F9" d="M0,90 L1440,90 L1440,52 Q720,22 0,52 Z"/>
+      </svg>
+    </div>
 </section>
 
 <!-- ═══ preços ══════════════════════════════════════════════════════ -->
@@ -1215,11 +1239,6 @@ footer a:hover{color:var(--ciano)}
       </details>
     </div>
   </div>
-    <div class="divisa" aria-hidden="true">
-      <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
-        <path fill="#060B12" d="M0,90 L1440,90 L1440,34 C1180,72 980,16 720,26 C470,36 250,70 0,40 Z"/>
-      </svg>
-    </div>
 </section>
 
 <!-- ═══ quem faz ═══════════════════════════════════════════════════ -->
@@ -1242,7 +1261,7 @@ footer a:hover{color:var(--ciano)}
   </div>
     <div class="divisa" aria-hidden="true">
       <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
-        <path fill="#060B12" d="M0,90 L1440,90 L1440,34 C1180,72 980,16 720,26 C470,36 250,70 0,40 Z"/>
+        <path fill="#060B12" d="M0,90 L1440,90 L1440,52 Q720,22 0,52 Z"/>
       </svg>
     </div>
 </section>
