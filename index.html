@@ -376,6 +376,8 @@ header .btn{margin-left:auto}
 @keyframes tracar{from{stroke-dashoffset:620}to{stroke-dashoffset:0}}
 @keyframes aparece{from{opacity:0}to{opacity:1}}
 @keyframes chega{from{opacity:0;transform:scale(.55)}to{opacity:1;transform:scale(1)}}
+@keyframes elo{from{stroke-dashoffset:10}to{stroke-dashoffset:0}}
+@keyframes ent-lado{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
 @keyframes tracoX{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 
 .app-graf polyline{stroke-dasharray:620}
@@ -392,10 +394,21 @@ header .btn{margin-left:auto}
 }
 @supports (animation-timeline:view()){
   @media (prefers-reduced-motion:no-preference){
-    .centro{animation:chega .8s cubic-bezier(.2,1.2,.4,1) both;animation-timeline:view();animation-range:entry 6% cover 28%}
-    .sat{animation:chega .7s cubic-bezier(.2,1.5,.4,1) both;animation-timeline:view();animation-range:entry 14% cover 36%}
-    .sat--2{animation-range:entry 20% cover 42%}
-    .sat--3{animation-range:entry 26% cover 48%}
+    /* a lista da esquerda se preenche item a item */
+    .metodo-checks li{animation:ent-lado .55s cubic-bezier(.2,.8,.2,1) both;animation-timeline:view();animation-range:entry 14% cover 32%}
+    .metodo-checks li:nth-child(2){animation-range:entry 19% cover 37%}
+    .metodo-checks li:nth-child(3){animation-range:entry 24% cover 42%}
+    .metodo-checks li:nth-child(4){animation-range:entry 29% cover 47%}
+    /* o centro aterrissa, as frentes chegam uma a uma, e so entao os
+       elos se desenham. As faixas nao podem encostar na do .ent do
+       bloco (entry 2% cover 24%), senao tudo abre junto e nada e visto. */
+    .centro{animation:chega .8s cubic-bezier(.2,1.2,.4,1) both;animation-timeline:view();animation-range:entry 14% cover 32%}
+    .sat{animation:chega .7s cubic-bezier(.2,1.5,.4,1) both;animation-timeline:view();animation-range:entry 22% cover 40%}
+    .sat--2{animation-range:entry 28% cover 46%}
+    .sat--3{animation-range:entry 34% cover 52%}
+    .elos path{animation:elo .5s ease-out both;animation-timeline:view();animation-range:entry 30% cover 46%}
+    .elos path:nth-child(2){animation-range:entry 36% cover 52%}
+    .elos path:nth-child(3){animation-range:entry 42% cover 58%}
     .passos::after{animation:tracoX linear both;animation-timeline:view();animation-range:entry 12% cover 52%}
   }
 }
@@ -439,6 +452,9 @@ header .btn{margin-left:auto}
 .sat i{font-style:normal;font-size:10px;font-weight:700;letter-spacing:.16em;color:var(--ciano)}
 .sat b{font-size:clamp(12px,3cqw,15px);font-weight:600;letter-spacing:-.015em;line-height:1.15}
 /* 120 graus exatos sobre o anel de raio 39%: cos30*39=33,77 e sen30*39=19,5 */
+.elos{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.elos path{fill:none;stroke:var(--ciano);stroke-width:.7;stroke-linecap:round;stroke-dasharray:10}
+.centro,.sat{z-index:1}
 .sat--1{left:50%;top:11%}
 .sat--2{left:83.8%;top:69.5%}
 .sat--3{left:16.2%;top:69.5%}
@@ -814,6 +830,11 @@ footer a:hover{color:var(--ciano)}
         <div class="orbita">
           <div class="anel"></div>
           <div class="anel anel--2"></div>
+          <svg class="elos" viewBox="0 0 100 100" aria-hidden="true">
+            <path d="M50,34 L50,24.3"/>
+            <path d="M63.9,58 L72.3,62.9"/>
+            <path d="M36.1,58 L27.7,62.9"/>
+          </svg>
           <div class="sat sat--1"><i>01</i><b>Páginas</b></div>
           <div class="sat sat--2"><i>02</i><b>Lojas</b></div>
           <div class="sat sat--3"><i>03</i><b>Automação</b></div>
