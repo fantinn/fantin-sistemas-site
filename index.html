@@ -4,948 +4,393 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Fantin Sistemas — página que vende e loja online para quem vende no Instagram</title>
-<meta name="description" content="Landing page por R$ 700 em 7 dias e loja completa na Nuvemshop por R$ 1.200. Preço fechado antes de começar, e a loja fica no seu nome. Jacareí e Vale do Paraíba.">
-<meta name="theme-color" content="#060B12">
-
-
-<link rel="canonical" href="https://fantinn.github.io/fantin-sistemas-site/">
+<meta name="description" content="Landing page por R$ 700 em 7 dias e loja completa na Nuvemshop por R$ 1.200. Preço fechado antes de começar, e a loja fica no seu nome. Atendimento para todo o Brasil pelo WhatsApp.">
+<link rel="canonical" href="https://fantin.tech/">
+<meta name="theme-color" content="#f0eee6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121311" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Fantin Sistemas">
 <meta property="og:locale" content="pt_BR">
-<meta property="og:url" content="https://fantinn.github.io/fantin-sistemas-site/">
+<meta property="og:url" content="https://fantin.tech/">
 <meta property="og:title" content="Seu cliente te acha no Instagram e não tem onde comprar.">
-<meta property="og:description" content="Eu monto a página que vende e a loja que recebe o pagamento — no seu nome, com data de entrega marcada. Jacareí e Vale do Paraíba.">
-<meta property="og:image" content="https://fantinn.github.io/fantin-sistemas-site/og.png">
+<meta property="og:description" content="Eu monto a loja onde ele vê o preço, escolhe e paga sozinho — no seu nome, com preço fechado antes de começar. Atendimento para todo o Brasil pelo WhatsApp.">
+<meta property="og:image" content="https://fantin.tech/og.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Fantin Sistemas: a tela de uma loja com as vendas do dia e um pedido aprovado.">
+<meta property="og:image:alt" content="Fantin Sistemas: o título Seu cliente te acha no Instagram e não tem onde comprar, ao lado do print de um site publicado.">
 <meta name="twitter:card" content="summary_large_image">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400..800&display=swap">
+<!-- O tema salvo entra antes da primeira pintura, senão a página pisca. -->
+<script>try{var t=localStorage.getItem("fs_tema");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
 
-<style>
-/* ═══════════════════════════════════════════════════════════════════
-   VERSÃO TECH — estudo de direção visual. Não publicado.
+<!-- Fontes servidas daqui mesmo (três famílias, um arquivo variável cada).
+     As duas da primeira dobra vêm pré-carregadas; nenhuma bloqueia a pintura. -->
+<link rel="preload" href="assets/fontes/archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fontes/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="tokens.css" as="style">
+<link rel="stylesheet" href="style.css">
 
-   O clima é o que ele pediu: escuro, brilho ciano, notebook que abre
-   na rolagem, frentes orbitando um centro. A EXECUÇÃO é original e o
-   conteúdo é dele — dois trabalhos no ar, três frentes, os preços
-   reais. Nada de número que ele não possa provar numa ligação.
-
-   Tipografia continua Geist, para não virar um site de outra empresa.
-   ═══════════════════════════════════════════════════════════════════ */
-
-:root{
-  --ft:"Geist","Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --fundo:#060B12;
-  --fundo-2:#0A121C;
-  --fundo-3:#0E1826;
-  --borda:rgba(255,255,255,.10);
-  --borda-2:rgba(255,255,255,.18);
-  --texto:#E8F0F7;
-  --texto-2:#9DB2C6;
-  --texto-3:#7A8FA6;
-  --ciano:#2FD8E8;
-  --ciano-2:#8FEDF6;
-  --ciano-esc:#0E7A88;
-  --azul:#1683FF;
-  --verde:#22C77E;
-  --superficie:rgba(255,255,255,.035);
-  --superficie-2:rgba(255,255,255,.08);
-  --centro-1:#16283C;
-  --centro-2:#0A121C;
-  --noite-cart:#0A121C;
-  --larg:1200px;
-  --divisa-h:clamp(34px,4.2vw,62px);
-  color-scheme:dark;
-}
-
-/* ═══ o tema claro ═════════════════════════════════════════════════
-   Os componentes já liam tudo de token, então a seção clara é só uma
-   troca de valores — nenhum deles sabe em que fundo está.
-
-   O ciano #2FD8E8 dá 1,8:1 no branco. Ele é lindo no escuro e ilegível
-   no claro, então no tema claro o mesmo token vira #0E7A88 (5,05:1).
-   É a mesma armadilha do #1683FF no index: um azul só não serve para
-   os dois fundos. */
-.claro{
-  --fundo:#FFFFFF;
-  --fundo-2:#F6F9FB;
-  --fundo-3:#EDF2F6;
-  --borda:#DFE7EE;
-  --borda-2:#C3D1DD;
-  --texto:#080D16;
-  --texto-2:#4A5A6B;
-  --texto-3:#5D6E80;
-  --ciano:#0E7A88;
-  --ciano-2:#0A5C67;
-  /* o #22C77E e verde de fundo escuro: no claro da 2,20:1. Mesma
-     armadilha do ciano, e vale para toda cor viva desta paleta. */
-  --verde:#0E7C42;
-  --superficie:rgba(8,13,22,.028);
-  --superficie-2:rgba(8,13,22,.06);
-  --centro-1:#FFFFFF;
-  --centro-2:#E9F1F6;
-  --noite-cart:#0A121C;
-  background:var(--fundo);color:var(--texto);
-}
-.claro--2{--fundo:#F1F5F9;--fundo-2:#FFFFFF;--fundo-3:#FFFFFF}
-.claro .brilho::before{
-  background:radial-gradient(circle,rgba(47,216,232,.05) 0%,rgba(22,131,255,.025) 40%,transparent 66%);
-}
-.claro .tier--destaque{box-shadow:0 18px 40px -28px rgba(8,13,22,.35)}
-.claro .btn--ciano{background:var(--ciano);color:#fff}
-.claro .btn--ciano:hover{background:#0A5C67;color:#fff}
-.claro .proof:hover{border-color:rgba(14,122,136,.45)}
-.claro .itens li::before{box-shadow:none}
-.claro .selo{color:#fff}
-/* o verde claro do tema escuro usa texto escuro; no tema claro o verde
-   escurece e o texto tem que virar branco, senao da 3,14:1 */
-.claro .btn--verde{background:var(--verde);color:#fff}
-.claro .btn--verde:hover{background:#0A5D32;color:#fff}
-
-/* ═══ a divisa curva ═══════════════════════════════════════════════
-   A onda pertence à seção de CIMA e é pintada com a cor da de BAIXO,
-   então a cor seguinte parece subir por dentro da anterior. Fica em
-   position:absolute com altura fixa: não entra no fluxo e não mexe em
-   CLS. `preserveAspectRatio="none"` deixa a onda esticar na largura
-   sem engordar de altura.
-
-   Curva única e rasa (um arco só, sem contracurva) — acabamento, não
-   decoração. --divisa-h mora numa variável no :root porque .divisa e
-   .tem-divisa precisam do mesmo valor: a primeira para desenhar, a
-   segunda para abrir espaço embaixo do conteúdo pro desenho caber. */
-.divisa{position:absolute;left:0;right:0;bottom:-1px;z-index:1;
-  height:var(--divisa-h);pointer-events:none;line-height:0}
-.divisa svg{width:100%;height:100%;display:block}
-.tem-divisa{padding-bottom:calc(clamp(72px,9vw,120px) + var(--divisa-h))}
-
-*,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-body{margin:0;background:var(--fundo);color:var(--texto);font-family:var(--ft);
-  font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-h1,h2,h3{font-family:var(--ft);font-weight:700;letter-spacing:-.03em;line-height:1.08;margin:0;text-wrap:balance}
-h1{font-size:clamp(38px,5.4vw,64px);font-weight:800;letter-spacing:-.04em;line-height:1.02}
-h2{font-size:clamp(28px,3.6vw,44px);font-weight:800;letter-spacing:-.035em}
-h3{font-size:20px;line-height:1.25;letter-spacing:-.02em}
-p{margin:0;max-width:62ch}
-ul{margin:0;padding:0;list-style:none}
-svg{max-width:100%;height:auto;display:block}
-a{color:var(--ciano);text-underline-offset:.18em}
-:focus-visible{outline:3px solid var(--ciano);outline-offset:2px;border-radius:3px}
-::selection{background:var(--ciano);color:#04252A}
-p,li{text-wrap:pretty}
-
-.faixa{max-width:var(--larg);margin-inline:auto;padding-inline:32px}
-@media(max-width:620px){.faixa{padding-inline:20px}}
-section{padding-block:clamp(72px,9vw,120px);position:relative}
-.cabeca{max-width:740px;margin-bottom:56px}
-.cabeca h2{margin-bottom:18px}
-.cabeca p{font-size:18px;color:var(--texto-2);max-width:58ch}
-.rot{display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:700;
-  letter-spacing:.16em;text-transform:uppercase;color:var(--ciano);margin-bottom:18px}
-.rot::before{content:"";width:22px;height:1px;background:var(--ciano);flex:none}
-
-/* ═══ o brilho ═════════════════════════════════════════════════════
-   Um só por seção, sempre atrás de tudo. Se virar dois, a página
-   perde o ponto de foco e começa a parecer papel de parede. */
-.brilho{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
-.brilho::before{content:"";position:absolute;left:50%;top:-30%;translate:-50% 0;
-  width:min(1100px,130%);aspect-ratio:1;border-radius:50%;
-  background:radial-gradient(circle,rgba(47,216,232,.075) 0%,rgba(22,131,255,.04) 40%,transparent 66%)}
-.malha{position:absolute;inset:0;z-index:-1;pointer-events:none;
-  background-image:
-    linear-gradient(to right,rgba(255,255,255,.035) 1px,transparent 1px),
-    linear-gradient(to bottom,rgba(255,255,255,.035) 1px,transparent 1px);
-  background-size:44px 44px;
-  -webkit-mask-image:radial-gradient(120% 78% at 50% 0%,#000 0%,transparent 74%);
-  mask-image:radial-gradient(120% 78% at 50% 0%,#000 0%,transparent 74%)}
-
-/* ═══ movimento ════════════════════════════════════════════════════
-   Estado inicial invisível SÓ dentro do @supports e do
-   prefers-reduced-motion. Navegador que não anima nunca esconde texto
-   para sempre — e o H1 nunca entra animado, é o elemento de LCP. */
-@keyframes sobe{to{opacity:1;transform:none}}
-@keyframes ent{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
-@keyframes abrir{from{transform:rotateX(-88deg)}to{transform:rotateX(0)}}
-
-@media (prefers-reduced-motion:no-preference){
-  .sobe{opacity:0;transform:translateY(20px);animation:sobe .72s cubic-bezier(.2,.7,.2,1) forwards;
-    animation-delay:calc(var(--i,0) * 90ms)}
-}
-@supports (animation-timeline:view()){
-  @media (prefers-reduced-motion:no-preference){
-    .ent{animation:ent .9s cubic-bezier(.2,.7,.2,1) both;animation-timeline:view();animation-range:entry 2% cover 24%}
-    .ent-g>*{animation:ent .8s cubic-bezier(.2,.7,.2,1) both;animation-timeline:view();animation-range:entry 2% cover 22%}
-    .ent-g>*:nth-child(2){animation-range:entry 6% cover 26%}
-    .ent-g>*:nth-child(3){animation-range:entry 10% cover 30%}
-    .ent-g>*:nth-child(4){animation-range:entry 14% cover 34%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": "https://fantin.tech/#fantin",
+  "name": "Fantin Sistemas",
+  "url": "https://fantin.tech/",
+  "image": "https://fantin.tech/og.png",
+  "description": "Landing page, loja completa na Nuvemshop e automação para quem vende no Instagram. Preço fechado antes de começar, com a loja e o domínio no nome do cliente.",
+  "telephone": "+55 27 99286-4820",
+  "areaServed": { "@type": "Country", "name": "Brasil" },
+  "availableLanguage": "pt-BR",
+  "founder": { "@type": "Person", "name": "Gabriel Fantin" },
+  "sameAs": ["https://www.instagram.com/fantinsi/"],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "sales",
+    "telephone": "+55 27 99286-4820",
+    "url": "https://wa.me/5527992864820",
+    "areaServed": "BR",
+    "availableLanguage": "pt-BR"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Serviços",
+    "itemListElement": [
+      { "@type": "Offer", "price": "700", "priceCurrency": "BRL",
+        "itemOffered": { "@type": "Service", "name": "Landing page", "description": "Página de vendas pronta em 7 dias." } },
+      { "@type": "Offer", "price": "1200", "priceCurrency": "BRL",
+        "itemOffered": { "@type": "Service", "name": "Loja completa na Nuvemshop", "description": "Loja criada na conta do cliente, pronta em 14 dias. Ou 10x de R$ 120 no cartão." } },
+      { "@type": "Offer", "priceCurrency": "BRL",
+        "priceSpecification": { "@type": "PriceSpecification", "minPrice": "197", "priceCurrency": "BRL" },
+        "itemOffered": { "@type": "Service", "name": "Automação", "description": "Valor fechado antes, sem cobrança por hora." } }
+    ]
   }
 }
-
-/* ═══ botões ═══════════════════════════════════════════════════════ */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;
-  min-height:52px;padding-inline:24px;border:1px solid transparent;border-radius:10px;
-  font-weight:600;font-size:16px;line-height:1.1;text-decoration:none;cursor:pointer;
-  white-space:nowrap;transition:background .16s,border-color .16s,transform .14s,box-shadow .2s}
-.btn--ciano{background:var(--ciano);color:#04252A}
-.btn--ciano:hover{background:var(--ciano-2);color:#04252A;transform:translateY(-2px)}
-.btn--linha{background:var(--superficie);color:var(--texto);border-color:var(--borda-2)}
-.btn--linha:hover{background:var(--superficie-2);color:var(--texto);border-color:var(--texto-3);transform:translateY(-2px)}
-.btn--verde{background:var(--verde);color:#042415}
-.btn--verde:hover{background:#3BDE94;color:#042415;transform:translateY(-2px)}
-.btn--sm{min-height:42px;padding-inline:18px;font-size:15px;border-radius:9px}
-.btn .seta{transition:transform .18s}
-.btn:hover .seta{transform:translateX(3px)}
-.btn-linha{display:flex;flex-wrap:wrap;gap:14px}
-@media (prefers-reduced-motion:reduce){.btn{transition:none}}
-
-/* ═══ cabeçalho ════════════════════════════════════════════════════ */
-header{position:sticky;top:0;z-index:50;background:#070D15;border-bottom:1px solid var(--borda)}
-header .faixa{display:flex;align-items:center;gap:18px;height:70px}
-.marca{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:var(--texto);flex:none}
-.marca svg{flex:none;color:var(--ciano)}
-.marca b{font-weight:700;font-size:17px;letter-spacing:.1em}
-.marca span{font-size:14px;color:var(--texto-3)}
-nav{margin-left:auto;display:flex;gap:6px}
-nav a{color:var(--texto-2);text-decoration:none;font-size:15px;font-weight:500;
-  padding:8px 14px;border-radius:8px;transition:background .16s,color .16s}
-nav a:hover{color:#fff;background:rgba(255,255,255,.06)}
-@media(max-width:1020px){nav{display:none}}
-header .btn{margin-left:auto}
-@media(min-width:1021px){header .btn{margin-left:18px}}
-@media(max-width:620px){.marca span{display:none}}
-
-/* ═══ herói ════════════════════════════════════════════════════════ */
-.hero{padding-block:clamp(64px,8vw,104px) clamp(40px,5vw,64px);overflow:clip;isolation:isolate}
-.hero-grid{display:grid;gap:56px;align-items:center}
-@media(min-width:1060px){
-  .hero-grid{grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;min-height:560px}
-  .hero-copy{grid-column:1 / span 6}
-  .hero-visual{grid-column:7 / span 6}
-}
-.hero-copy{display:flex;flex-direction:column;align-items:flex-start;gap:26px}
-.hero h1 b{font-weight:inherit;color:var(--ciano)}
-.hero .lede{font-size:18.5px;line-height:1.6;color:var(--texto-2);max-width:46ch}
-.hero .pe{font-size:14.5px;color:var(--texto-3);max-width:44ch;margin:0}
-.hero .pe b{color:var(--texto);font-weight:600}
-
-/* ═══ o notebook que abre ══════════════════════════════════════════
-   A tampa gira de fechada para aberta conforme a seção entra na tela.
-   O estado FECHADO mora só dentro do @supports: sem timeline de
-   rolagem o notebook simplesmente já nasce aberto, e não fica um
-   retângulo deitado sem explicação. A caixa tem altura fixa, então a
-   tampa girando não empurra nada — CLS continua 0. */
-.maquina{position:relative;width:100%;max-width:560px;margin-inline:auto;
-  perspective:1400px;perspective-origin:50% 84%}
-.maquina-caixa{position:relative;aspect-ratio:560/392;container-type:inline-size}
-.tampa{position:absolute;left:0;top:0;width:100%;transform-origin:bottom center;
-  transform-style:preserve-3d;backface-visibility:hidden}
-@supports (animation-timeline:view()){
-  @media (prefers-reduced-motion:no-preference){
-    /* scroll(), nao view(): o heroi ja esta na tela no carregamento, entao
-       uma timeline de view() nasceria no fim do intervalo e a tampa ja
-       apareceria aberta. Presa ao scroll da pagina ela comeca fechada e
-       abre nos primeiros 46vh — que e o que a deixa "role para abrir" promete. */
-    .tampa{animation:abrir linear both;animation-timeline:scroll(root block);animation-range:0 46vh}
-  }
-}
-.tampa-corpo{background:linear-gradient(#141F2E,#0A1420);border:1px solid var(--borda-2);
-  border-radius:14px;padding:10px 10px 12px;
-  box-shadow:0 0 0 1px rgba(255,255,255,.08),0 40px 90px -34px rgba(0,0,0,.9)}
-.tela{background:#05090F;border-radius:8px;overflow:hidden;aspect-ratio:16/10;container-type:inline-size;
-}
-.base{position:absolute;left:50%;bottom:0;translate:-50% 0;width:116%;height:2.6%;
-  background:linear-gradient(#2A3A4F,#121B27);border-radius:0 0 10px 10px;
-  clip-path:polygon(1.4% 0,98.6% 0,100% 100%,0 100%);
-  box-shadow:0 26px 50px -24px rgba(0,0,0,.95)}
-.base::after{content:"";position:absolute;left:50%;top:0;translate:-50% 0;width:12%;height:34%;
-  background:rgba(0,0,0,.45);border-radius:0 0 6px 6px}
-
-/* ═══ o painel dentro da tela ══════════════════════════════════════ */
-.app{display:flex;height:100%;font-size:2.3cqw;color:var(--texto)}
-.app-lado{width:24%;flex:none;border-right:.2cqw solid rgba(255,255,255,.08);
-  padding:3cqw 2.2cqw;display:flex;flex-direction:column;gap:1.6cqw;background:rgba(255,255,255,.015)}
-.app-marca{display:flex;align-items:center;gap:1.4cqw;margin-bottom:2.4cqw}
-.app-marca i{width:3.4cqw;height:3.4cqw;border-radius:1cqw;flex:none;
-  background:linear-gradient(135deg,var(--ciano),var(--azul))}
-.app-marca b{font-size:2.5cqw;font-weight:700;letter-spacing:-.03em}
-.app-lado span{display:block;padding:1.3cqw 1.6cqw;border-radius:1.1cqw;font-size:2.1cqw;
-  color:var(--texto-3)}
-.app-lado span.on{background:rgba(47,216,232,.14);color:var(--ciano-2);font-weight:600}
-.app-corpo{flex:1;padding:3cqw 3.2cqw;display:flex;flex-direction:column;gap:2.4cqw;min-width:0}
-.app-topo{display:flex;align-items:center;justify-content:space-between;gap:2cqw}
-.app-topo b{font-size:3cqw;font-weight:700;letter-spacing:-.03em}
-.app-vivo{display:inline-flex;align-items:center;gap:1cqw;font-size:1.9cqw;color:var(--texto-3)}
-.app-vivo i{width:1.4cqw;height:1.4cqw;border-radius:50%;background:var(--verde);flex:none}
-.app-nums{display:grid;grid-template-columns:1fr 1fr;gap:2cqw}
-.kpi{background:rgba(255,255,255,.04);border:.2cqw solid rgba(255,255,255,.09);
-  border-radius:1.6cqw;padding:2cqw 2.2cqw}
-.kpi span{display:block;font-size:1.85cqw;letter-spacing:.1em;text-transform:uppercase;color:var(--texto-3)}
-.kpi b{display:block;font-size:4.2cqw;font-weight:800;letter-spacing:-.045em;margin-top:.6cqw;
-  font-variant-numeric:tabular-nums}
-.kpi--ciano b{color:var(--ciano-2)}
-.app-graf{flex:1;min-height:0;background:rgba(255,255,255,.03);border:.2cqw solid rgba(255,255,255,.08);
-  border-radius:1.6cqw;padding:2cqw;display:flex;flex-direction:column;gap:1.4cqw}
-.app-graf span{font-size:1.85cqw;letter-spacing:.1em;text-transform:uppercase;color:var(--texto-3)}
-.app-graf svg{flex:1;min-height:0;width:100%}
-.app-fila{display:flex;flex-direction:column;gap:1.2cqw}
-.linha-ped{display:flex;align-items:center;gap:1.6cqw;font-size:2cqw;
-  padding:1.4cqw 1.8cqw;background:rgba(255,255,255,.035);border-radius:1.2cqw;
-  border:.2cqw solid rgba(255,255,255,.07)}
-.linha-ped i{width:2.2cqw;height:2.2cqw;border-radius:50%;flex:none;
-  background:rgba(34,199,126,.18);color:var(--verde);display:grid;place-items:center;
-  font-size:1.4cqw;font-weight:700;font-style:normal}
-.linha-ped em{font-style:normal;flex:1;min-width:0;color:var(--texto-2);white-space:nowrap;
-  overflow:hidden;text-overflow:ellipsis}
-.linha-ped b{font-weight:600;font-variant-numeric:tabular-nums}
-.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:26px}
-.chips span{display:inline-flex;align-items:center;gap:9px;font-size:13.5px;color:var(--texto-2);
-  background:var(--superficie);border:1px solid var(--borda);border-radius:999px;padding:8px 16px}
-.chips i{width:6px;height:6px;border-radius:50%;background:var(--ciano);flex:none}
-.maquina-pe{text-align:center;font-size:12.5px;color:var(--texto-3);margin:26px auto 0;max-width:46ch}
-
-/* ═══ a deixa de rolagem ═══════════════════════════════════════════ */
-.role{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:56px}
-.role span{font-size:11.5px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--texto-3)}
-.role i{width:1px;height:40px;background:linear-gradient(transparent,var(--ciano));display:block}
-.role svg{width:26px;color:var(--ciano)}
-
-/* ═══ a calculadora ════════════════════════════════════════════════
-   A única forma honesta de falar de ganho: dividir, com o número que
-   o visitante digita. Não existe projeção de faturamento aqui e não
-   pode passar a existir — o rodapé da seção diz isso com todas as
-   letras, e o HTML já nasce com o resultado dos valores padrão, então
-   sem JavaScript a seção continua fazendo sentido. */
-.conta{display:grid;gap:22px;align-items:stretch}
-@media(min-width:920px){.conta{grid-template-columns:.92fr 1.08fr;gap:32px}}
-.conta-entrada{background:var(--fundo-2);border:1px solid var(--borda);border-radius:16px;
-  padding:28px;display:flex;flex-direction:column;gap:28px}
-.medida label{display:block;font-size:15.5px;font-weight:600;color:var(--texto);margin-bottom:10px}
-.medida .leitura{font-weight:800;font-size:30px;letter-spacing:-.03em;
-  font-variant-numeric:tabular-nums;line-height:1.1;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
-.medida .leitura small{font-weight:400;font-size:15px;letter-spacing:0;color:var(--texto-2)}
-.medida input[type=range]{width:100%;margin:14px 0 0;accent-color:var(--ciano);
-  height:26px;cursor:pointer;display:block}
-.medida .reguas{display:flex;justify-content:space-between;font-size:13px;color:var(--texto-3)}
-.conta-dica{margin-top:auto;padding-top:20px;border-top:1px solid var(--borda);
-  font-size:14.5px;color:var(--texto-3)}
-
-/* ilha escura dentro da seção clara: os tokens viram os do tema escuro
-   outra vez, senão o ciano de fundo claro (#0E7A88) some aqui dentro */
-.conta-saida{
-  --ciano:#2FD8E8;--texto:#E8F0F7;--texto-2:#9DB2C6;--texto-3:#7A8FA6;
-  --borda:rgba(255,255,255,.14);
-  background:var(--noite-cart);color:var(--texto);border-radius:16px;padding:30px;
-  display:flex;flex-direction:column;gap:16px;position:relative;isolation:isolate;overflow:clip;
-}
-.conta-saida::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
-  background:radial-gradient(70% 60% at 100% 0%,rgba(47,216,232,.18),transparent 70%)}
-.conta-topo{font-size:15px;color:var(--texto-3)}
-.conta-num{font-weight:800;font-size:clamp(56px,8.5vw,92px);letter-spacing:-.045em;
-  line-height:.95;color:var(--ciano);font-variant-numeric:tabular-nums;
-  display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
-.conta-num span{font-weight:400;font-size:20px;letter-spacing:0;color:var(--texto)}
-.conta-exp{font-size:17px;color:var(--texto-2);max-width:44ch}
-.conta-exp b{color:#fff;font-weight:600}
-.conta-mais{display:flex;flex-direction:column;gap:11px;margin-top:auto;padding-top:20px;
-  border-top:1px solid var(--borda)}
-.conta-mais li{position:relative;padding-left:26px;font-size:15.5px;color:var(--texto-2);line-height:1.45}
-.conta-mais li::before{content:"\2713";position:absolute;left:0;top:.1em;width:18px;height:18px;
-  border-radius:50%;background:rgba(47,216,232,.16);color:var(--ciano);font-size:10px;
-  font-weight:700;display:grid;place-items:center;line-height:1}
-.conta-mais b{color:#fff;font-weight:600;font-variant-numeric:tabular-nums}
-.conta-pe{margin-top:22px;font-size:15.5px;color:var(--texto-2);max-width:76ch}
-.conta-pe b{color:var(--texto);font-weight:600}
-
-/* ═══ movimento extra ══════════════════════════════════════════════
-   Tudo preso à rolagem e sem JavaScript, menos a contagem. Cada um
-   existe para dizer algo — o gráfico que se desenha é "está subindo",
-   os satélites que chegam são "as frentes se encaixam no seu negócio",
-   o traço dos passos é "o processo anda". Nada gira à toa. */
-@keyframes tracar{from{stroke-dashoffset:620}to{stroke-dashoffset:0}}
-@keyframes aparece{from{opacity:0}to{opacity:1}}
-@keyframes chega{from{opacity:0;transform:scale(.55)}to{opacity:1;transform:scale(1)}}
-@keyframes orbita-gira{from{rotate:0deg}to{rotate:360deg}}
-@keyframes orbita-contragira{from{rotate:0deg}to{rotate:-360deg}}
-@keyframes ent-lado{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
-@keyframes tracoX{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-
-.app-graf polyline{stroke-dasharray:620}
-.passos{position:relative}
-.passos::after{content:"";position:absolute;left:0;top:-1px;height:2px;width:100%;
-  background:linear-gradient(90deg,var(--ciano),transparent);transform-origin:left}
-
-@supports (animation-timeline:scroll()){
-  @media (prefers-reduced-motion:no-preference){
-    /* o gráfico se desenha junto com a tampa abrindo, um pouco depois */
-    .app-graf polyline{animation:tracar linear both;animation-timeline:scroll(root block);animation-range:8vh 62vh}
-    .app-graf path{animation:aparece linear both;animation-timeline:scroll(root block);animation-range:24vh 68vh}
-  }
-}
-@supports (animation-timeline:view()){
-  @media (prefers-reduced-motion:no-preference){
-    /* a lista da esquerda se preenche item a item */
-    .metodo-checks li{animation:ent-lado .55s cubic-bezier(.2,.8,.2,1) both;animation-timeline:view();animation-range:entry 14% cover 32%}
-    .metodo-checks li:nth-child(2){animation-range:entry 19% cover 37%}
-    .metodo-checks li:nth-child(3){animation-range:entry 24% cover 42%}
-    .metodo-checks li:nth-child(4){animation-range:entry 29% cover 47%}
-    /* o centro aterrissa, as frentes chegam uma a uma, e so entao os
-       elos se desenham. As faixas nao podem encostar na do .ent do
-       bloco (entry 2% cover 24%), senao tudo abre junto e nada e visto. */
-    .centro{animation:chega .8s cubic-bezier(.2,1.2,.4,1) both;animation-timeline:view();animation-range:entry 14% cover 32%}
-    /* o .sat so cuida da chegada (view(), uma vez). Girar e uma animacao
-       de tempo comum (auto, infinita) — por isso mora num filho, o
-       .sat-cont, em vez de dividir a lista "animation" do pai com a de
-       chegada. Misturar as duas no mesmo elemento e depois pausar so
-       uma via animation-play-state e fragil: o valor unico se repete
-       para as duas, e pausar/retomar a que usa view() no meio do
-       hover gerado pelo mouse cruzando o anel foi o que fazia o card
-       sumir. */
-    .sat{animation:chega .7s cubic-bezier(.2,1.5,.4,1) both;animation-timeline:view();animation-range:entry 22% cover 40%}
-    .sat--2{animation-range:entry 26% cover 44%}
-    .sat--3{animation-range:entry 30% cover 48%}
-    .sat--4{animation-range:entry 34% cover 52%}
-    .sat--5{animation-range:entry 38% cover 56%}
-    .sat--6{animation-range:entry 42% cover 60%}
-    .orbita-gira{animation:orbita-gira 44s linear infinite}
-    .sat-cont{animation:orbita-contragira 44s linear infinite}
-    .passos::after{animation:tracoX linear both;animation-timeline:view();animation-range:entry 12% cover 52%}
-  }
-}
-
-/* ═══ dores numeradas ══════════════════════════════════════════════ */
-.dores{display:grid;gap:1px;background:var(--borda);border:1px solid var(--borda);
-  border-radius:18px;overflow:hidden}
-@media(min-width:780px){.dores{grid-template-columns:1fr 1fr}}
-.dor{background:var(--fundo-2);padding:36px 30px;position:relative}
-.dor .n{font-size:13px;font-weight:700;letter-spacing:.16em;color:var(--ciano);display:block;margin-bottom:18px}
-.dor h3{margin-bottom:10px}
-.dor p{font-size:15.5px;color:var(--texto-2);max-width:46ch}
-.dores-pe{margin-top:36px;font-size:17.5px;color:var(--texto);max-width:60ch}
-.dores-pe b{color:var(--ciano-2);font-weight:600}
-
-/* ═══ a órbita ═════════════════════════════════════════════════════
-   Seis frentes girando devagar em volta do que importa, que é o
-   negócio do cliente. Um hexágono "deitado" (vértices às 1h, 3h, 5h,
-   7h, 9h e 11h) sobre um raio de 38%: sen30*38=19 e cos30*38=32,9. */
-.metodo{display:grid;gap:56px;align-items:center}
-@media(min-width:980px){.metodo{grid-template-columns:1fr 1fr;gap:72px}}
-.metodo-checks{display:flex;flex-direction:column;gap:14px;margin-top:32px}
-.metodo-checks li{display:flex;gap:13px;font-size:16.5px;color:var(--texto-2);line-height:1.5}
-.metodo-checks li::before{content:"\2713";flex:none;width:23px;height:23px;border-radius:50%;
-  background:rgba(47,216,232,.14);color:var(--ciano);font-size:12px;font-weight:700;
-  display:grid;place-items:center;margin-top:2px}
-.orbita{position:relative;width:100%;max-width:460px;aspect-ratio:1;margin-inline:auto;
-  container-type:inline-size}
-.orbita-gira{position:absolute;inset:0}
-.anel{position:absolute;left:50%;top:50%;translate:-50% -50%;border-radius:50%;
-  border:1px dashed rgba(14,122,136,.28);width:88%;aspect-ratio:1}
-.centro{position:absolute;left:50%;top:50%;translate:-50% -50%;width:40%;aspect-ratio:1;
-  border-radius:50%;z-index:1;
-  background:radial-gradient(circle at 34% 28%,#6FE3EC 0%,#12838F 52%,#083A42 100%);
-  display:grid;place-content:center;text-align:center;gap:6px;
-  box-shadow:0 0 0 20px rgba(14,122,136,.08),0 26px 56px -20px rgba(6,35,40,.55),
-    inset 0 -16px 30px -8px rgba(0,0,0,.35),inset 0 16px 22px -8px rgba(255,255,255,.3)}
-.centro::before{content:"";position:absolute;inset:-16%;z-index:-1;border-radius:50%;
-  background:radial-gradient(circle,rgba(18,131,143,.22),rgba(18,131,143,0) 70%)}
-.centro span{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
-  color:rgba(255,255,255,.78)}
-.centro b{font-size:clamp(15px,4.2cqw,20px);font-weight:800;letter-spacing:-.02em;
-  line-height:1.15;color:#fff}
-.sat{position:absolute;translate:-50% -50%;z-index:1}
-.sat-cont{min-width:96px;padding:10px 16px;border-radius:14px;background:#fff;
-  border:1px solid rgba(8,13,22,.08);display:flex;flex-direction:column;align-items:center;
-  text-align:center;gap:3px;box-shadow:0 10px 26px -16px rgba(8,13,22,.32),0 2px 6px -2px rgba(8,13,22,.06)}
-.sat-cont i{font-style:normal;font-size:clamp(8px,2.2cqw,9.5px);font-weight:700;letter-spacing:.16em;
-  color:var(--ciano)}
-.sat-cont b{font-size:clamp(12px,3cqw,14.5px);font-weight:700;letter-spacing:-.01em;line-height:1.15;
-  color:var(--texto)}
-.sat--1{left:31%;top:17%}
-.sat--2{left:69%;top:17%}
-.sat--3{left:88%;top:50%}
-.sat--4{left:69%;top:83%}
-.sat--5{left:31%;top:83%}
-.sat--6{left:12%;top:50%}
-
-/* ═══ frentes ══════════════════════════════════════════════════════ */
-.frente{border-top:1px solid var(--borda);padding-top:48px;margin-top:48px;
-  display:grid;gap:36px;align-items:start}
-.frente:first-of-type{border-top:0;padding-top:0;margin-top:0}
-@media(min-width:980px){.frente{grid-template-columns:.85fr 1.15fr;gap:64px}}
-.frente .n{display:inline-flex;align-items:center;gap:9px;font-size:11.5px;font-weight:700;
-  letter-spacing:.16em;text-transform:uppercase;color:var(--ciano);margin-bottom:16px}
-.frente .n::before{content:"";width:20px;height:1px;background:var(--ciano)}
-.frente h3{font-size:clamp(24px,3vw,32px);font-weight:800;letter-spacing:-.035em;margin-bottom:14px}
-.frente>div>p{font-size:16.5px;color:var(--texto-2);margin-bottom:24px}
-.itens{display:grid;gap:12px}
-@media(min-width:560px){.itens{grid-template-columns:1fr 1fr}}
-.itens li{display:flex;gap:11px;font-size:15.5px;color:var(--texto-2);line-height:1.45;
-  background:var(--superficie);border:1px solid var(--borda);border-radius:11px;padding:14px 16px}
-.itens li::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;
-  background:var(--ciano);margin-top:9px}
-.frente .quem{margin-top:22px;font-size:15px;color:var(--texto-3);max-width:52ch}
-.frente .quem b{color:var(--texto);font-weight:600}
-
-/* ═══ prova ════════════════════════════════════════════════════════ */
-.prova-topo{display:grid;gap:32px;align-items:start;margin-bottom:44px}
-@media(min-width:920px){.prova-topo{grid-template-columns:1.1fr .9fr;gap:60px}}
-.prova-nota{background:var(--fundo-2);border:1px solid var(--borda);border-left:3px solid var(--ciano);
-  border-radius:12px;padding:24px;font-size:16px;color:var(--texto-2);max-width:none}
-.prova-nota b{color:var(--texto);font-weight:600}
-.proofs{display:grid;gap:22px}
-@media(min-width:760px){.proofs{grid-template-columns:1fr 1fr}}
-.proof{background:var(--fundo-2);border:1px solid var(--borda);border-radius:16px;padding:28px 26px;
-  display:flex;flex-direction:column;transition:border-color .2s,transform .2s}
-.proof:hover{border-color:rgba(47,216,232,.36);transform:translateY(-3px)}
-.proof .kind{font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--texto-3)}
-.proof h3{margin:12px 0 10px}
-.proof p{font-size:15px;color:var(--texto-2);margin-bottom:20px}
-.proof .meta{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;
-  padding-top:18px;border-top:1px solid var(--borda);font-size:14.5px}
-.proof .meta a{display:inline-flex;align-items:center;min-height:24px;font-weight:600}
-.proof .meta span{color:var(--verde);font-weight:600}
-@media (prefers-reduced-motion:reduce){.proof{transition:none}}
-
-/* ═══ garantias ════════════════════════════════════════════════════ */
-.gar{display:grid;gap:22px;margin-bottom:52px}
-@media(min-width:900px){.gar{grid-template-columns:repeat(3,1fr);gap:24px}}
-.gar-cart{background:var(--fundo-2);border:1px solid var(--borda);border-radius:16px;padding:28px 26px}
-.gar-cart .ic{width:42px;height:42px;border-radius:12px;background:rgba(47,216,232,.13);
-  color:var(--ciano);display:grid;place-items:center;margin-bottom:20px}
-.gar-cart .ic svg{width:20px}
-.gar-cart h3{font-size:18px;margin-bottom:9px}
-.gar-cart p{font-size:15px;color:var(--texto-2)}
-
-/* ═══ preços ═══════════════════════════════════════════════════════ */
-.tiers{display:grid;gap:24px;align-items:start}
-@media(min-width:920px){.tiers{grid-template-columns:repeat(3,1fr)}}
-.tier{background:var(--fundo-2);border:1px solid var(--borda);border-radius:18px;padding:32px 28px;
-  display:flex;flex-direction:column;position:relative}
-.tier--destaque{border-color:rgba(47,216,232,.4);
-  box-shadow:0 22px 48px -30px rgba(0,0,0,.8)}
-.selo{position:absolute;top:-11px;left:28px;background:var(--ciano);color:#04252A;
-  font-size:11.5px;font-weight:700;border-radius:6px;padding:4px 10px;letter-spacing:.02em}
-.tier .nome{font-weight:700;font-size:18px}
-.tier .desde{font-size:13.5px;color:var(--texto-3);font-weight:600;margin-top:10px}
-.tier .preco{font-weight:800;font-size:36px;letter-spacing:-.045em;line-height:1.1;margin-top:8px;
-  font-variant-numeric:tabular-nums}
-.tier .desde+.preco{margin-top:1px}
-.tier--destaque .preco{color:var(--ciano-2)}
-.tier .parcela{font-size:15px;color:var(--verde);font-weight:600}
-.tier .prazo{font-size:14.5px;color:var(--texto-3);margin-bottom:18px}
-.tier ul{display:flex;flex-direction:column;gap:10px;padding-top:20px;border-top:1px solid var(--borda);margin-bottom:24px}
-.tier li{position:relative;padding-left:26px;font-size:15px;color:var(--texto-2);line-height:1.45}
-.tier li::before{content:"\2713";position:absolute;left:0;top:.15em;width:18px;height:18px;border-radius:50%;
-  background:rgba(47,216,232,.14);color:var(--ciano);font-size:10px;font-weight:700;
-  display:grid;place-items:center;line-height:1}
-.tier li b{color:var(--texto);font-weight:600}
-.tier .btn{margin-top:auto}
-.preco-pe{margin-top:36px;font-size:15.5px;color:var(--texto-2);max-width:76ch}
-.preco-pe b{color:var(--texto);font-weight:600}
-
-/* ═══ passos ═══════════════════════════════════════════════════════ */
-.passos{display:grid;gap:1px;background:var(--borda);border:1px solid var(--borda);border-radius:18px;overflow:hidden}
-@media(min-width:900px){.passos{grid-template-columns:repeat(4,1fr)}}
-.passo{background:var(--fundo-2);padding:32px 26px}
-.passo .n{font-size:13px;font-weight:700;letter-spacing:.16em;color:var(--ciano);display:block;margin-bottom:16px}
-.passo h3{font-size:18px;margin-bottom:9px}
-.passo p{font-size:15px;color:var(--texto-2)}
-
-/* ═══ FAQ ══════════════════════════════════════════════════════════ */
-.faq{max-width:840px;border-top:1px solid var(--borda)}
-.faq details{border-bottom:1px solid var(--borda)}
-.faq summary{list-style:none;cursor:pointer;padding:24px 46px 24px 0;position:relative;
-  font-weight:600;font-size:17.5px;line-height:1.35}
-.faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"";position:absolute;right:10px;top:32px;width:11px;height:11px;
-  border-right:2px solid var(--texto-3);border-bottom:2px solid var(--texto-3);
-  transform:rotate(45deg);transition:transform .2s}
-.faq details[open] summary::after{transform:rotate(-135deg);top:36px}
-.faq summary:hover{color:var(--ciano)}
-.faq .resp{padding:0 12px 26px 0;font-size:16px;color:var(--texto-2);max-width:68ch}
-.faq .resp b{color:var(--texto);font-weight:600}
-@media (prefers-reduced-motion:reduce){.faq summary::after{transition:none}}
-
-/* ═══ fecho ════════════════════════════════════════════════════════ */
-.fecho{text-align:center;overflow:clip}
-.fecho .cabeca{margin-inline:auto;margin-bottom:36px}
-.fecho .btn-linha{justify-content:center}
-.fecho .tel{margin:24px auto 0;font-size:15px;color:var(--texto-3)}
-footer{border-top:1px solid var(--borda);padding-block:34px;font-size:14.5px;color:var(--texto-3)}
-footer .faixa{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;justify-content:space-between}
-
-/* ═══ cartões de prova ═════════════════════════════════════════════
-   As três regras .todo abaixo são apagadas por regex de LINHA pelo
-   publicar.py, junto com os cartões pendentes. Por isso cada uma tem
-   que ser de uma linha só, começando na coluna 0. Não reformate. */
-
-/* ═══ o que ele entrega no dia ═════════════════════════════════════ */
-.entrega{
-  margin-top:46px;background:var(--fundo-2);border:1px solid var(--borda);
-  border-radius:16px;padding:clamp(24px,3vw,34px);
-}
-.entrega h3{margin-bottom:6px}
-.entrega>p{font-size:15.5px;color:var(--texto-2);margin-bottom:22px;max-width:66ch}
-.entrega ul{display:grid;gap:13px}
-@media(min-width:760px){.entrega ul{grid-template-columns:1fr 1fr;gap:13px 36px}}
-.entrega li{position:relative;padding-left:30px;font-size:16px;color:var(--texto-2);line-height:1.45}
-.entrega li::before{
-  content:"\2713";position:absolute;left:0;top:.1em;width:20px;height:20px;border-radius:50%;
-  background:var(--verde);color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center;line-height:1;
-}
-.entrega li b{color:var(--texto);font-weight:600}
-
-/* ═══ quem faz ═════════════════════════════════════════════════════
-   Levanta o risco de "fornecedor de uma pessoa só" antes de o cliente
-   levantar. Sai da página só quando ele tiver uma foto de verdade. */
-.quem{display:grid;gap:26px;align-items:start}
-@media(min-width:760px){.quem{grid-template-columns:auto 1fr;gap:34px}}
-.quem-sigla{
-  width:96px;height:96px;flex:none;border-radius:50%;
-  background:var(--texto);color:var(--fundo);display:grid;place-items:center;
-  font-weight:700;font-size:34px;letter-spacing:-.02em;
-}
-.quem-txt{display:flex;flex-direction:column;gap:16px;max-width:62ch}
-.quem-txt p{font-size:17.5px;color:var(--texto-2)}
-.quem-txt b{color:var(--texto);font-weight:600}
-
-/* ═══ consentimento (LGPD) ═════════════════════════════════════════ */
-#consent{
-  position:fixed;left:0;right:0;bottom:0;z-index:60;
-  border-top:2px solid var(--texto);box-shadow:0 -8px 30px -12px rgba(8,13,22,.3);padding:16px 0;
-}
-#consent .faixa{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
-#consent p{font-size:14.5px;color:var(--texto-2);max-width:60ch}
-#consent .acts{display:flex;gap:10px;flex-wrap:wrap}
-#consent .btn{min-height:44px;font-size:15px}
-
-/* ═══ barra de contato no celular ══════════════════════════════════
-   Some quando a chamada final entra na tela — dois botões iguais na
-   mesma tela só atrapalham. */
-.barra-zap{display:none}
-@media(max-width:900px){
-  .barra-zap{
-    position:fixed;left:0;right:0;bottom:0;z-index:45;
-    display:flex;align-items:center;gap:14px;
-    padding:10px 16px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));
-    border-top:1px solid var(--borda);
-    box-shadow:0 -8px 24px -14px rgba(8,13,22,.4);
-    transform:translateY(115%);transition:transform .3s cubic-bezier(.2,.8,.2,1);
-  }
-  .barra-zap[data-on]{transform:none}
-  .barra-zap p{flex:1;min-width:0;font-size:13.5px;line-height:1.3;color:var(--texto-2);margin:0}
-  .barra-zap .btn{flex:none;min-height:44px;padding-inline:18px;font-size:15px}
-}
-@media (prefers-reduced-motion:reduce){.barra-zap{transition:none}}
-
-/* ═══ rodapé ═══════════════════════════════════════════════════════ */
-footer .links{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center}
-/* link de uma linha nao chega a 24px de altura: alvo pequeno demais no celular */
-footer a{color:var(--texto-2);text-decoration:none;display:inline-flex;align-items:center;min-height:24px}
-footer a:hover{color:var(--ciano)}
-
-@media (forced-colors: active){
-  .btn{border-color:currentColor}
-  .dor,.proof,.gar-cart,.tier,.passo,.itens li,.kpi,.centro,.sat-cont,.entrega{border:1px solid CanvasText}
-  .tier li::before,.metodo-checks li::before{forced-color-adjust:none}
-  .tampa{animation:none!important;transform:none!important}
-}
-</style>
+</script>
 </head>
 <body>
 
-<header>
-  <div class="faixa">
-    <a class="marca" href="#top" aria-label="Fantin Sistemas, início">
-      <svg width="20" height="24" viewBox="0 0 22 26" role="img" aria-hidden="true">
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="#topo">
+      <svg width="20" height="24" viewBox="0 0 22 26" aria-hidden="true" focusable="false">
         <g fill="currentColor">
           <rect x="0" y="0" width="3" height="26"/><rect x="0" y="0" width="7" height="3"/><rect x="0" y="23" width="7" height="3"/>
           <rect x="19" y="0" width="3" height="26"/><rect x="15" y="0" width="7" height="3"/><rect x="15" y="23" width="7" height="3"/>
           <rect x="11" y="15" width="8" height="8"/>
         </g>
       </svg>
-      <b>FANTIN</b><span>Sistemas</span>
+      <span class="brand-nome">FANTIN</span> <span class="brand-sub">Sistemas</span>
     </a>
-    <nav>
-      <a href="#problema">O problema</a>
-      <a href="#metodo">Método</a>
-      <a href="#frentes">Frentes</a>
-      <a href="#trabalhos">Trabalhos</a>
-      <a href="#precos">Preços</a>
-      <a href="#perguntas">Perguntas</a>
+
+    <nav class="nav" id="nav" aria-label="Seções da página">
+      <ul class="nav-lista">
+        <li><a href="#problema">O problema</a></li>
+        <li><a href="#metodo">Método</a></li>
+        <li><a href="#frentes">Frentes</a></li>
+        <li><a href="#trabalhos">Trabalhos</a></li>
+        <li><a href="#precos">Preços</a></li>
+        <li><a href="#perguntas">Perguntas</a></li>
+      </ul>
+      <a class="btn btn--primary" href="#contato">Solicitar orçamento <span class="seta" aria-hidden="true">&rarr;</span></a>
     </nav>
-    <a class="btn btn--verde btn--sm" href="https://wa.me/5527992864820?text=Oi%20Gabriel%2C%20vi%20seu%20site." target="_blank" rel="noopener">Falar no WhatsApp</a>
+
+    <a class="btn btn--ghost head-zap" href="https://wa.me/5527992864820?text=Oi%20Gabriel%2C%20vi%20seu%20site." target="_blank" rel="noopener" data-evt="whatsapp">Falar no WhatsApp</a>
+    <button class="icon-btn" type="button" id="tema" aria-label="Tema escuro" aria-pressed="false" title="Alternar tema claro e escuro">
+      <svg class="tema-sol" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <svg class="tema-lua" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>
+    </button>
+    <button class="icon-btn menu-btn" type="button" id="menu-btn" aria-expanded="false" aria-controls="nav" aria-label="Abrir menu">
+      <svg class="i-abrir" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <svg class="i-fechar" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
   </div>
 </header>
 
-<main id="top">
+<main id="conteudo">
 
-<section class="hero tem-divisa">
-  <div class="brilho"></div>
-  <div class="malha"></div>
-  <div class="faixa">
-    <div class="hero-grid">
-
-      <div class="hero-copy">
-        <span class="rot sobe">Landing pages, lojas online e automação</span>
-        <h1>Seu cliente te acha no Instagram e não tem onde <b>comprar.</b></h1>
-        <p class="lede sobe" style="--i:1">
-          Eu crio sites e lojas online que transformam seguidores em clientes.
-          Design moderno, foco em resultado e tudo pronto para você vender de verdade.
-        </p>
-        <div class="btn-linha sobe" style="--i:2">
-          <a class="btn btn--ciano" href="#contato">Solicitar orçamento <span class="seta" aria-hidden="true">&rarr;</span></a>
-          <a class="btn btn--linha" href="#trabalhos">Ver trabalhos</a>
-        </div>
-        <p class="pe sobe" style="--i:3"><b>Preço fechado antes de começar.</b> Jacareí, São José dos Campos e todo o Vale do Paraíba.</p>
-      </div>
-
-      <div class="hero-visual sobe" style="--i:4">
-        <div class="chips" aria-hidden="true">
-          <span><i></i>recebe no Pix</span>
-          <span><i></i>calcula o frete</span>
-          <span><i></i>vende de madrugada</span>
-        </div>
-        <div class="maquina" role="img"
-             aria-label="Ilustração: o painel de uma loja aberto num notebook, com o faturamento do dia, os pedidos a entregar e a fila de pedidos chegando.">
-          <div class="maquina-caixa">
-            <div class="tampa">
-              <div class="tampa-corpo">
-                <div class="tela">
-                  <div class="app">
-                    <div class="app-lado">
-                      <div class="app-marca"><i></i><b>Painel</b></div>
-                      <span class="on">Início</span>
-                      <span>Pedidos</span>
-                      <span>Produtos</span>
-                      <span>Clientes</span>
-                      <span>Financeiro</span>
-                    </div>
-                    <div class="app-corpo">
-                      <div class="app-topo">
-                        <b>Hoje</b>
-                        <span class="app-vivo"><i></i>ao vivo</span>
-                      </div>
-                      <div class="app-nums">
-                        <div class="kpi kpi--ciano"><span>Faturado hoje</span><b id="kfat">R$ 4.318</b></div>
-                        <div class="kpi"><span>A separar</span><b>07</b></div>
-                      </div>
-                      <div class="app-graf">
-                        <span>Últimos 14 dias</span>
-                        <svg viewBox="0 0 220 60" preserveAspectRatio="none" aria-hidden="true">
-                          <defs><linearGradient id="g-tech" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0" stop-color="#2FD8E8" stop-opacity=".34"/>
-                            <stop offset="1" stop-color="#2FD8E8" stop-opacity="0"/></linearGradient></defs>
-                          <path fill="url(#g-tech)" d="M0,46 L20,41 L40,45 L60,32 L80,37 L100,24 L120,29 L140,16 L160,21 L180,11 L200,15 L220,5 L220,60 L0,60 Z"/>
-                          <polyline points="0,46 20,41 40,45 60,32 80,37 100,24 120,29 140,16 160,21 180,11 200,15 220,5"
-                            fill="none" stroke="#2FD8E8" stroke-width="2" stroke-linejoin="round"
-                            stroke-linecap="round" vector-effect="non-scaling-stroke"/>
-                        </svg>
-                      </div>
-                      <div class="app-fila">
-                        <div class="linha-ped"><i>&#10003;</i><em>#1044 &middot; Pix</em><b>R$ 178,00</b></div>
-                        <div class="linha-ped"><i>&#10003;</i><em>#1043 &middot; Cartão</em><b>R$ 246,00</b></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="base"></div>
-          </div>
-          <p class="maquina-pe">Tela de demonstração. Os números são fictícios.</p>
-        </div>
-      </div>
-
+<!-- ═══ herói ══════════════════════════════════════════════════════════ -->
+<section class="hero" id="topo" aria-labelledby="hero-titulo">
+  <div class="wrap">
+    <p class="eyebrow">Landing pages, lojas online e automação</p>
+    <h1 id="hero-titulo">Seu cliente te acha no Instagram e não tem onde <span class="destaque">comprar.</span></h1>
+    <p class="lead">Eu monto a loja onde ele vê o preço, escolhe e paga sozinho — no Pix ou
+    no cartão, até às 23h de domingo, sem esperar você responder o direct.</p>
+    <div class="hero-cta">
+      <a class="btn btn--primary btn--g" href="#contato">Solicitar orçamento <span class="seta" aria-hidden="true">&rarr;</span></a>
+      <a class="btn btn--ghost btn--g" href="#trabalhos">Ver trabalhos</a>
     </div>
+    <p class="hero-meta">
+      <span>Landing page · R$ 700 · 7 dias</span>
+      <span>Loja completa · R$ 1.200 · 14 dias</span>
+      <span>Automação · a partir de R$ 197</span>
+    </p>
+    <dl class="provas">
+      <div><dt>Preço</dt><dd>Fechado antes de começar</dd></div>
+      <div><dt>Posse</dt><dd>Loja e domínio no seu nome</dd></div>
+      <div><dt>Atendimento</dt><dd>Direto comigo, Brasil todo</dd></div>
+    </dl>
 
-    <div class="role sobe" style="--i:5" aria-hidden="true">
-      <span>Role para abrir</span>
-      <i></i>
-      <svg viewBox="0 0 24 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2 12 12 22 2"/></svg>
-    </div>
+    <figure class="hero-print">
+      <a class="frame frame--link" href="https://pdrdesign.com.br" target="_blank" rel="noopener">
+        <span class="frame-bar">
+          <span class="frame-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="frame-url">pdrdesign.com.br</span>
+          <span class="tag frame-note"><span class="dot" aria-hidden="true"></span>no ar</span>
+        </span>
+        <picture>
+          <source type="image/avif" srcset="assets/pdrdesign-720.avif 720w, assets/pdrdesign-1200.avif 1200w" sizes="(min-width: 1160px) 1080px, calc(100vw - 42px)">
+          <source type="image/webp" srcset="assets/pdrdesign-720.webp 720w, assets/pdrdesign-1200.webp 1200w" sizes="(min-width: 1160px) 1080px, calc(100vw - 42px)">
+          <img src="assets/pdrdesign-1200.webp" width="1200" height="750" fetchpriority="high" decoding="async"
+               alt="Print da página inicial de pdrdesign.com.br: o título Design estratégico, o botão Entrar em contato e a foto do designer.">
+        </picture>
+        <span class="visually-hidden">(abre o site em nova aba)</span>
+      </a>
+      <figcaption class="muted">Print real de um projeto meu, publicado. Toque na imagem para abrir o site.</figcaption>
+    </figure>
   </div>
-    <div class="divisa" aria-hidden="true">
-      <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
-        <path fill="#FFFFFF" d="M0,90 L1440,90 L1440,52 Q720,22 0,52 Z"/>
-      </svg>
-    </div>
 </section>
 
-<!-- ═══ dores ═══════════════════════════════════════════════════════ -->
-<section id="problema" class="claro">
-  <div class="faixa">
-    <div class="cabeca ent">
-      <span class="rot">Se você reconhecer duas, é disto que eu estou falando</span>
-      <h2>Você não tem problema de divulgação. Tem problema de lugar para vender.</h2>
-      <p>O anúncio traz gente, o Instagram traz gente, a indicação traz gente. E todo mundo
+<!-- ═══ dores ══════════════════════════════════════════════════════════ -->
+<section id="problema" aria-labelledby="problema-titulo">
+  <div class="wrap">
+    <div class="cabeca">
+      <p class="eyebrow">Se você reconhecer duas, é disto que eu estou falando</p>
+      <h2 id="problema-titulo">Você não tem problema de divulgação. Tem problema de lugar para vender.</h2>
+      <p class="lead">O anúncio traz gente, o Instagram traz gente, a indicação traz gente. E todo mundo
       cai no mesmo lugar: o seu direct. Nenhuma das quatro abaixo se resolve postando mais.</p>
     </div>
 
-    <div class="dores ent-g">
-      <div class="dor">
-        <span class="n">01</span>
+    <ol class="dores">
+      <li class="card dor">
+        <span class="num" aria-hidden="true">01</span>
         <h3>O preço mora no seu direct</h3>
         <p>Cada pessoa pergunta quanto custa, e você responde uma por uma, a mesma coisa,
         todo dia. É a sua hora indo embora em mensagem repetida.</p>
-      </div>
-      <div class="dor">
-        <span class="n">02</span>
+      </li>
+      <li class="card dor">
+        <span class="num" aria-hidden="true">02</span>
         <h3>A tabela virou print e envelheceu</h3>
         <p>Você mandou a foto da lista, mudou o preço na semana seguinte, e o print antigo
         continua circulando. Aí a venda chega errada e você absorve a diferença.</p>
-      </div>
-      <div class="dor">
-        <span class="n">03</span>
+      </li>
+      <li class="card dor">
+        <span class="num" aria-hidden="true">03</span>
         <h3>Quem chega às 23h vai embora</h3>
         <p>Ele viu o story, quis comprar e esbarrou num &ldquo;te respondo amanhã&rdquo;.
         Amanhã a vontade passou, ou ele já comprou de outro.</p>
-      </div>
-      <div class="dor">
-        <span class="n">04</span>
+      </li>
+      <li class="card dor">
+        <span class="num" aria-hidden="true">04</span>
         <h3>No fim do mês você não sabe o que funcionou</h3>
         <p>Impulsionou três publicações, vendeu bem, e não faz ideia de qual delas trouxe a
         venda. Então no mês seguinte você repete tudo, inclusive o que não deu nada.</p>
-      </div>
-    </div>
+      </li>
+    </ol>
 
-    <p class="dores-pe ent">Quem não quer conversar para comprar simplesmente não compra.
+    <p class="dores-pe">Quem não quer conversar para comprar simplesmente não compra.
     <b>Essa venda não aparece em lugar nenhum</b> — ela não vira mensagem não respondida,
     ela só não acontece.</p>
   </div>
 </section>
 
-<!-- ═══ método e órbita ═════════════════════════════════════════════ -->
-<section id="metodo" class="claro claro--2">
-  <div class="brilho"></div>
-  <div class="faixa">
-    <div class="metodo">
-      <div class="ent">
-        <span class="rot">Como eu trabalho</span>
-        <h2>O centro não é a tecnologia. É o que você vende.</h2>
-        <p>Eu não chego com um pacote pronto para você caber dentro. Primeiro eu entendo o que
-        você vende, para quem, e por que as pessoas compram de você — só depois decido se o
-        seu caso é uma página, uma loja ou só uma automação.</p>
-        <ul class="metodo-checks">
-          <li>Falo na sua língua: sem sigla, sem &ldquo;stack&rdquo;, sem reunião de alinhamento</li>
-          <li>Escopo, prazo e valor no papel antes da primeira linha de código</li>
-          <li>Você acompanha pelo link da prévia, não por relatório de status</li>
-          <li>Quem atende no WhatsApp é quem monta, e é sempre a mesma pessoa</li>
-        </ul>
-      </div>
+<!-- ═══ antes e depois ═════════════════════════════════════════════════
+     Exemplo montado em HTML/CSS, marcado como ilustrativo em quatro
+     lugares (rótulo, aviso, moldura e legenda). Quando houver print real
+     de um projeto, troque os dois painéis por imagens. -->
+<section class="alt" id="antes-depois" aria-labelledby="ad-titulo">
+  <div class="wrap ba-grade">
+    <div class="ba-texto">
+      <p class="eyebrow">Exemplo ilustrativo</p>
+      <h2 id="ad-titulo">Arraste a linha: a mesma venda, no direct e na loja.</h2>
+      <p class="lead">À esquerda, o que o seu cliente encontra hoje: preço só no direct, tabela
+      em print, frete &ldquo;a combinar&rdquo; e ninguém respondendo depois das 18h. À direita, a
+      mesma venda numa loja: preço na tela, frete calculado, Pix e cartão, aberta a qualquer hora.</p>
+      <p class="aviso"><span class="tag">Exemplo</span> Montei os dois lados
+      para mostrar a diferença. Não é loja de cliente, e os números são fictícios.</p>
+      <a class="btn btn--primary btn--g" href="#contato" data-servico="loja">Quero a minha do lado direito <span class="seta" aria-hidden="true">&rarr;</span></a>
+    </div>
 
-      <div class="ent" role="img" aria-label="Diagrama: o seu negócio no centro, orbitado por processos, marketing, sistemas, I.A., automação e dados.">
-        <div class="orbita">
-          <div class="anel"></div>
-          <div class="orbita-gira">
-            <div class="sat sat--1"><div class="sat-cont"><i>PRC</i><b>Processos</b></div></div>
-            <div class="sat sat--2"><div class="sat-cont"><i>MKT</i><b>Marketing</b></div></div>
-            <div class="sat sat--3"><div class="sat-cont"><i>DEV</i><b>Sistemas</b></div></div>
-            <div class="sat sat--4"><div class="sat-cont"><i>IA</i><b>I.A.</b></div></div>
-            <div class="sat sat--5"><div class="sat-cont"><i>AUTO</i><b>Automação</b></div></div>
-            <div class="sat sat--6"><div class="sat-cont"><i>DADOS</i><b>Dados</b></div></div>
+    <figure class="ba">
+      <label class="ba-rotulo" for="comparar">Arraste para comparar, ou use as setas do teclado</label>
+      <div class="frame">
+        <div class="frame-bar">
+          <span class="frame-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="frame-url">lojaexemplo.com.br</span>
+          <span class="tag frame-note">exemplo</span>
+        </div>
+        <div class="ba-stage" id="ba-stage">
+          <div class="ba-pane ba-before" aria-hidden="true">
+            <div class="ex-a-perfil">
+              <span class="ex-a-avatar"></span>
+              <span class="ex-a-nome">LOJA EXEMPLO</span>
+              <span class="ex-a-arroba">@lojaexemplo &middot; link na bio</span>
+            </div>
+            <p class="ex-a-grito">PROMOÇÃO!!! CHAMA NO DIRECT</p>
+            <p class="ex-a-texto">Preço? Me chama no direct que eu passo :)</p>
+            <div class="ex-a-botoes">
+              <span>Catálogo (PDF de 18 MB)</span>
+              <span>Tabela de preços (print de março)</span>
+              <span>Frete: a combinar</span>
+              <span>Pagamento: a combinar</span>
+            </div>
+            <p class="ex-a-pe">Respondo das 9h às 18h. Depois disso, só amanhã.</p>
           </div>
-          <div class="centro"><span>O centro</span><b>Seu negócio</b></div>
+          <div class="ba-pane ba-after" aria-hidden="true">
+            <div class="ex-d-topo">Loja Exemplo <span>Sacola (0)</span></div>
+            <div class="ex-d-foto"><span class="ex-d-produto"></span></div>
+            <p class="ex-d-nome">Camiseta de algodão, cor areia</p>
+            <p class="ex-d-preco"><b>R$ 89,90</b> <span>ou 3x sem juros &middot; 5% off no Pix</span></p>
+            <div class="ex-d-tamanhos"><span>P</span><span class="sel">M</span><span>G</span><span>GG</span></div>
+            <p class="ex-d-frete">Frete calculado: chega em 3 dias úteis</p>
+            <div class="ex-d-comprar">Comprar agora</div>
+            <p class="ex-d-pagamento">Pix &middot; cartão &middot; boleto &middot; aberta 24 horas</p>
+          </div>
+          <span class="ba-label ba-label--l" aria-hidden="true">Antes</span>
+          <span class="ba-label ba-label--r" aria-hidden="true">Depois</span>
+          <div class="ba-handle" aria-hidden="true"><span class="ba-knob">‹ ›</span></div>
+          <input class="ba-range" id="comparar" type="range" min="0" max="100" step="1" value="50"
+                 aria-describedby="ba-desc" aria-valuetext="Linha no meio: metade antes, metade depois">
         </div>
       </div>
+      <figcaption class="muted">Tela de demonstração. Os números são fictícios. Exemplo ilustrativo, não é caso de cliente.</figcaption>
+      <p class="visually-hidden" id="ba-desc">Antes: uma página de link na bio com o preço
+      só no direct, catálogo em PDF, tabela em print, frete e pagamento a combinar, e atendimento
+      só das 9h às 18h. Depois: a página do produto com preço, parcelamento, desconto no Pix,
+      escolha de tamanho, frete calculado e o botão de comprar, aberta 24 horas.</p>
+    </figure>
+  </div>
+</section>
+
+<!-- ═══ método ═════════════════════════════════════════════════════════
+     As etapas reais, na ordem, com o que o cliente recebe em cada uma. -->
+<section id="metodo" aria-labelledby="metodo-titulo">
+  <div class="wrap">
+    <div class="cabeca">
+      <p class="eyebrow">Como eu trabalho</p>
+      <h2 id="metodo-titulo">O centro não é a tecnologia. É o que você vende.</h2>
+      <p class="lead">Eu não chego com um pacote pronto para você caber dentro. Primeiro eu entendo o que
+      você vende, para quem, e por que as pessoas compram de você — só depois decido se o
+      seu caso é uma página, uma loja ou só uma automação.</p>
+    </div>
+    <ul class="lista metodo-lista">
+      <li>Falo na sua língua: sem sigla, sem &ldquo;stack&rdquo;, sem reunião de alinhamento</li>
+      <li>Escopo, prazo e valor no papel antes da primeira linha de código</li>
+      <li>Você acompanha pelo link da prévia, não por relatório de status</li>
+      <li>Quem atende no WhatsApp é quem monta, e é sempre a mesma pessoa</li>
+    </ul>
+
+    <div class="processo">
+      <h3>Quatro passos, e você sabe onde está em cada um.</h3>
+      <p class="muted">Sem reunião de alinhamento e sem relatório de status. Você me conta, eu monto, você confere, sobe.</p>
+      <ol class="steps">
+        <li class="step">
+          <h4>Você me conta o que vende</h4>
+          <p>Quinze minutos no WhatsApp. Eu te digo na hora se é página, se é loja, e quanto custa.</p>
+          <p class="recebe"><span>Você recebe</span>Escopo, prazo e valor por escrito</p>
+        </li>
+        <li class="step">
+          <h4>Você me manda o material</h4>
+          <p>Fotos, preços e o que você já tem escrito. Aqui entra metade do valor, e eu começo.</p>
+          <p class="recebe"><span>Você recebe</span>A data de entrega marcada</p>
+        </li>
+        <li class="step">
+          <h4>Eu monto e te mostro</h4>
+          <p>Link da prévia no seu celular. Você aponta o que quer diferente e eu ajusto.</p>
+          <p class="recebe"><span>Você recebe</span>O link da prévia para aprovar</p>
+        </li>
+        <li class="step">
+          <h4>Vai ao ar no seu nome</h4>
+          <p>Domínio, senhas e treino gravado na sua mão. A outra metade entra aqui.</p>
+          <p class="recebe"><span>Você recebe</span>Domínio, senhas e o treino gravado</p>
+        </li>
+      </ol>
     </div>
   </div>
 </section>
 
-<!-- ═══ frentes ═════════════════════════════════════════════════════ -->
-<section id="frentes" class="claro tem-divisa">
-  <div class="faixa">
-    <div class="cabeca ent">
-      <span class="rot">O que eu faço</span>
-      <h2>Três frentes. Uma pessoa só, e é sempre a mesma.</h2>
-      <p>Escolha por onde começar. As três se conectam, mas nenhuma depende da outra para
+<!-- ═══ frentes ════════════════════════════════════════════════════════ -->
+<section class="alt" id="frentes" aria-labelledby="frentes-titulo">
+  <div class="wrap">
+    <div class="cabeca">
+      <p class="eyebrow">O que eu faço</p>
+      <h2 id="frentes-titulo">Três frentes. Uma pessoa só, e é sempre a mesma.</h2>
+      <p class="lead">Escolha por onde começar. As três se conectam, mas nenhuma depende da outra para
       funcionar — dá para fazer só a página, ou só a loja, ou só a automação.</p>
     </div>
 
-    <div class="frente ent">
-      <div>
-        <span class="n">Frente 01</span>
+    <div class="frentes">
+      <article class="card frente">
+        <p class="eyebrow">Frente 01</p>
         <h3>Landing page</h3>
-        <p>Uma página só, escrita para vender uma coisa: um produto, um serviço, um lançamento.</p>
-        <a class="btn btn--linha btn--sm" href="#contato">Falar sobre isso <span class="seta" aria-hidden="true">&rarr;</span></a>
-        <p class="quem">Para quem vende <b>um serviço ou um produto só</b> e precisa de um lugar para mandar o link.</p>
-      </div>
-      <ul class="itens">
-        <li>O texto escrito por mim, do título ao botão</li>
-        <li>Layout desenhado para o seu caso, não modelo pronto</li>
-        <li>Botão de WhatsApp com a mensagem já preenchida</li>
-        <li>Abre rápido no celular, que é onde te abrem</li>
-        <li>Domínio próprio e certificado de segurança</li>
-        <li>Medição ligada, para saber o que deu retorno</li>
-      </ul>
-    </div>
+        <p class="frente-desc">Uma página só, escrita para vender uma coisa: um produto, um serviço, um lançamento.</p>
+        <p class="frente-quem">Para quem vende <b>um serviço ou um produto só</b> e precisa de um lugar para mandar o link.</p>
+        <ul class="lista">
+          <li>O texto escrito por mim, do título ao botão</li>
+          <li>Layout desenhado para o seu caso, não modelo pronto</li>
+          <li>Botão de WhatsApp com a mensagem já preenchida</li>
+          <li>Abre rápido no celular, que é onde te abrem</li>
+          <li>Domínio próprio e certificado de segurança</li>
+          <li>Medição ligada, para saber o que deu retorno</li>
+        </ul>
+        <a class="btn btn--ghost" href="#contato" data-servico="landing">Falar sobre isso <span class="seta" aria-hidden="true">&rarr;</span></a>
+      </article>
 
-    <div class="frente ent">
-      <div>
-        <span class="n">Frente 02</span>
+      <article class="card frente" data-featured="true">
+        <p class="eyebrow">Frente 02</p>
         <h3>Loja completa</h3>
-        <p>Loja de verdade na Nuvemshop: o cliente escolhe, paga no Pix ou no cartão, e o
+        <p class="frente-desc">Loja de verdade na Nuvemshop: o cliente escolhe, paga no Pix ou no cartão, e o
         pedido cai pronto para você separar.</p>
-        <a class="btn btn--ciano btn--sm" href="#contato">Falar sobre isso <span class="seta" aria-hidden="true">&rarr;</span></a>
-        <p class="quem">Para quem vende <b>vários produtos</b> e já perde venda por não conseguir responder todo mundo.</p>
-      </div>
-      <ul class="itens">
-        <li>Criada <b>na sua conta</b>, não na minha</li>
-        <li>Pix, cartão e boleto testados com uma compra de verdade</li>
-        <li>Frete calculado sozinho no carrinho</li>
-        <li>Sacolinha do Instagram ligada na loja</li>
-        <li>E-mail de carrinho abandonado</li>
-        <li>Cupom de primeira compra</li>
-        <li>Páginas de troca, devolução e frete escritas</li>
-        <li>Domínio próprio e certificado de segurança</li>
-      </ul>
-    </div>
+        <p class="frente-quem">Para quem vende <b>vários produtos</b> e já perde venda por não conseguir responder todo mundo.</p>
+        <ul class="lista">
+          <li>Criada <b>na sua conta</b>, não na minha</li>
+          <li>Pix, cartão e boleto testados com uma compra de verdade</li>
+          <li>Frete calculado sozinho no carrinho</li>
+          <li>Sacolinha do Instagram ligada na loja</li>
+          <li>E-mail de carrinho abandonado</li>
+          <li>Cupom de primeira compra</li>
+          <li>Páginas de troca, devolução e frete escritas</li>
+          <li>Domínio próprio e certificado de segurança</li>
+        </ul>
+        <a class="btn btn--primary" href="#contato" data-servico="loja">Falar sobre isso <span class="seta" aria-hidden="true">&rarr;</span></a>
+      </article>
 
-    <div class="frente ent">
-      <div>
-        <span class="n">Frente 03</span>
+      <article class="card frente">
+        <p class="eyebrow">Frente 03</p>
         <h3>Automação</h3>
-        <p>Para o que você refaz na mão toda semana: responder o mesmo, copiar pedido de um
+        <p class="frente-desc">Para o que você refaz na mão toda semana: responder o mesmo, copiar pedido de um
         lugar para outro, montar o mesmo relatório.</p>
-        <a class="btn btn--linha btn--sm" href="#contato">Falar sobre isso <span class="seta" aria-hidden="true">&rarr;</span></a>
-        <p class="quem">Para quando o gargalo <b>não é mais a venda</b>, é dar conta do que já está vendendo.</p>
-      </div>
-      <ul class="itens">
-        <li>Resposta automática no WhatsApp</li>
-        <li>Pedido que entra sozinho na planilha</li>
-        <li>Aviso quando o estoque está acabando</li>
-        <li>Relatório que chega pronto no e-mail</li>
-        <li>Integração entre o que você já usa</li>
-        <li><b>Você aprova o total em reais</b> antes da primeira linha</li>
-      </ul>
+        <p class="frente-quem">Para quando o gargalo <b>não é mais a venda</b>, é dar conta do que já está vendendo.</p>
+        <ul class="lista">
+          <li>Resposta automática no WhatsApp</li>
+          <li>Pedido que entra sozinho na planilha</li>
+          <li>Aviso quando o estoque está acabando</li>
+          <li>Relatório que chega pronto no e-mail</li>
+          <li>Integração entre o que você já usa</li>
+          <li><b>Você aprova o total em reais</b> antes da primeira linha</li>
+        </ul>
+        <a class="btn btn--ghost" href="#contato" data-servico="automacao">Falar sobre isso <span class="seta" aria-hidden="true">&rarr;</span></a>
+      </article>
     </div>
   </div>
-    <div class="divisa" aria-hidden="true">
-      <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
-        <path fill="#060B12" d="M0,90 L1440,90 L1440,52 Q720,22 0,52 Z"/>
-      </svg>
-    </div>
 </section>
 
-<!-- ═══ prova ═══════════════════════════════════════════════════════
-     Aqui é o ponto em que uma página nesse estilo costuma mentir, com
-     "+60 projetos" e logo de cliente. O Gabriel tem dois trabalhos e
-     uma pessoa. Então a seção aposta em verificável, e não em volume.
-     NAO acrescente estatistica aqui sem fonte. -->
-<section id="trabalhos" class="tem-divisa">
-  <div class="brilho"></div>
-  <div class="faixa">
-    <div class="prova-topo ent">
+<!-- ═══ trabalhos ══════════════════════════════════════════════════════
+     Dois trabalhos no ar e uma demonstração. NÃO acrescente estatística
+     nem logo de cliente aqui sem fonte. -->
+<section id="trabalhos" aria-labelledby="trabalhos-titulo">
+  <div class="wrap">
+    <div class="prova-topo">
       <div>
-        <span class="rot">O que já está no ar</span>
-        <h2>Eu não tenho sessenta projetos para mostrar. Tenho dois, e você pode clicar nos dois agora.</h2>
+        <p class="eyebrow">O que já está no ar</p>
+        <h2 id="trabalhos-titulo">Eu não tenho sessenta projetos para mostrar. Tenho dois, e você pode clicar nos dois agora.</h2>
       </div>
       <p class="prova-nota">Todo mundo nesse ramo mostra número grande e logo de cliente.
       Eu prefiro te entregar o endereço: <b>abra, navegue, clique no botão de contato.</b>
@@ -953,93 +398,74 @@ footer a:hover{color:var(--ciano)}
       construí antes de ter cliente, de propósito.</p>
     </div>
 
-    <!-- Estrutura consumida pelo publicar.py: div.proofs com cartões em tag
-         ARTICLE, classe proof. Ele remove os "proof todo" e depois exige
-         EXATAMENTE DOIS cartões no arquivo inteiro antes de injetar o da
-         demonstração. Duas armadilhas: a contagem é por texto puro, então
-         escrever a tag por extenso aqui dentro já quebraria o build; e a tag
-         ARTICLE não pode aparecer em nenhum outro lugar da página. -->
-    <div class="proofs ent-g">
-
-      <article class="proof">
-        <span class="kind">Página de captação, para cliente</span>
+    <div class="works">
+      <article class="card work">
+        <span class="tag"><span class="dot" aria-hidden="true"></span>no ar</span>
+        <p class="eyebrow">Página de captação, para cliente</p>
         <h3>Pedro Design</h3>
-        <p>Página de um rolo só para um designer: o problema que ele resolve, três planos de
+        <p class="muted">Página de um rolo só para um designer: o problema que ele resolve, três planos de
         assinatura com escopo escrito, projetos em destaque e conversa direta no WhatsApp.</p>
-        <div class="meta">
-          <a href="https://pdrdesign.com.br" target="_blank" rel="noopener">pdrdesign.com.br</a>
-          <span>no ar</span>
-        </div>
+        <a class="work-link" href="https://pdrdesign.com.br" target="_blank" rel="noopener">pdrdesign.com.br <span aria-hidden="true">&nearr;</span></a>
       </article>
 
-      <article class="proof">
-        <span class="kind">Página de vendas, para cliente</span>
+      <article class="card work">
+        <span class="tag"><span class="dot" aria-hidden="true"></span>no ar</span>
+        <p class="eyebrow">Página de vendas, para cliente</p>
         <h3>ListaJota</h3>
-        <p>Página de vendas com a oferta, a lista do que entra e o caminho até o fechamento,
+        <p class="muted">Página de vendas com a oferta, a lista do que entra e o caminho até o fechamento,
         montada para ser mandada por link no WhatsApp.</p>
-        <div class="meta">
-          <a href="https://fantinn.github.io/ListaJota/" target="_blank" rel="noopener">fantinn.github.io/ListaJota</a>
-          <span>no ar</span>
-        </div>
+        <a class="work-link" href="https://fantinn.github.io/ListaJota/" target="_blank" rel="noopener">fantinn.github.io/ListaJota <span aria-hidden="true">&nearr;</span></a>
       </article>
 
-      <article class="proof">
-        <span class="kind">Sistema sob medida, demonstração minha</span>
+      <article class="card work">
+        <span class="tag">duas visões</span>
+        <p class="eyebrow">Sistema sob medida, demonstração minha</p>
         <h3>Portal de documentos</h3>
-        <p>Exemplo do que entra na faixa de sob medida, quando a loja pronta não
+        <p class="muted">Exemplo do que entra na faixa de sob medida, quando a loja pronta não
         resolve: coleta mensal de documentos, cobrança automática do que falta e
         trilha com data e hora. Construído antes de existir cliente, de propósito.</p>
-        <div class="meta"><a href="demo/portal-contabil/">abrir a demonstração</a><span>duas visões</span></div>
+        <a class="work-link" href="demo/portal-contabil/">abrir a demonstração <span aria-hidden="true">&rarr;</span></a>
       </article>
-
-</div>
-  </div>
-    <div class="divisa" aria-hidden="true">
-      <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
-        <path fill="#F1F5F9" d="M0,90 L1440,90 L1440,52 Q720,22 0,52 Z"/>
-      </svg>
     </div>
+  </div>
 </section>
 
-<!-- ═══ preços ══════════════════════════════════════════════════════ -->
-<section id="precos" class="claro claro--2">
-  <div class="faixa">
-    <div class="cabeca ent">
-      <span class="rot">Preços</span>
-      <h2>O preço está aqui. Não tem &ldquo;consulte-nos&rdquo;.</h2>
-      <p>Quem esconde o preço está guardando espaço para improvisar depois de te conhecer.
+<!-- ═══ preços (banda escura) ══════════════════════════════════════════ -->
+<section class="faixa" id="precos" aria-labelledby="precos-titulo">
+  <div class="wrap">
+    <div class="cabeca">
+      <p class="eyebrow">Preços</p>
+      <h2 id="precos-titulo">O preço está aqui. Não tem &ldquo;consulte-nos&rdquo;.</h2>
+      <p class="lead">Quem esconde o preço está guardando espaço para improvisar depois de te conhecer.
       Estes valores são fechados, e a lista embaixo de cada um é tudo o que entra.</p>
     </div>
 
     <!-- Ordem importa: derruba as três objeções e só então mostra o número. -->
-    <div class="gar ent-g">
-      <div class="gar-cart">
-        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h10M4 17h7"/><circle cx="18.5" cy="16.5" r="3.5"/></svg></span>
+    <ul class="garantias">
+      <li class="garantia">
         <h3>Preço fechado antes de começar</h3>
         <p>Escopo e valor no papel antes da primeira linha. Metade para começar, metade quando
         vai ao ar. Não existe conta que cresce no meio do caminho.</p>
-      </div>
-      <div class="gar-cart">
-        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2.2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span>
+      </li>
+      <li class="garantia">
         <h3>A loja e o domínio ficam no seu nome</h3>
         <p>Criados na sua conta, com a sua senha. Se amanhã você quiser me trocar, leva tudo
         e não me pede nada.</p>
-      </div>
-      <div class="gar-cart">
-        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6-10-6-10-6z"/><circle cx="12" cy="12" r="2.6"/></svg></span>
+      </li>
+      <li class="garantia">
         <h3>Você vê antes de ir ao ar</h3>
         <p>Eu monto, te mando o link da prévia e você aponta o que quer diferente. O site só
         sobe depois que você disse que está bom.</p>
-      </div>
-    </div>
+      </li>
+    </ul>
 
-    <div class="tiers ent-g">
-      <div class="tier">
-        <span class="nome">Landing page</span>
-        <span class="preco">R$ 700</span>
-        
-        <span class="prazo">pronta em 7 dias</span>
-        <ul>
+    <div class="prices">
+      <article class="card price">
+        <div class="price-topo"><h3>Landing page</h3></div>
+        <p class="eyebrow">Investimento</p>
+        <p class="amount">R$ 700</p>
+        <p class="amount-nota">pronta em 7 dias</p>
+        <ul class="lista">
           <li><b>O texto escrito por mim</b>, do título ao botão</li>
           <li>Layout desenhado para o seu caso</li>
           <li>Botão de WhatsApp com mensagem preenchida</li>
@@ -1047,16 +473,16 @@ footer a:hover{color:var(--ciano)}
           <li>Medição de visitas e cliques ligada</li>
           <li><b>Cartão de link do WhatsApp</b></li>
         </ul>
-        <a class="btn btn--linha" href="#contato">Quero esta</a>
-      </div>
+        <a class="btn btn--ghost" href="#contato" data-servico="landing">Quero esta</a>
+      </article>
 
-      <div class="tier tier--destaque">
-        <span class="selo">Para quem vende produto</span>
-        <span class="nome">Loja completa</span>
-        <span class="preco">R$ 1.200</span>
-        <span class="parcela">ou 10x de R$ 120 no cartão</span>
-        <span class="prazo">pronta em 14 dias</span>
-        <ul>
+      <article class="card price" data-featured="true">
+        <div class="price-topo"><h3>Loja completa</h3><span class="tag">Para quem vende produto</span></div>
+        <p class="eyebrow">Investimento</p>
+        <p class="amount">R$ 1.200</p>
+        <p class="amount-nota">ou 10x de R$ 120 no cartão</p>
+        <p class="amount-nota">pronta em 14 dias</p>
+        <ul class="lista">
           <li>Loja na Nuvemshop criada <b>na sua conta</b></li>
           <li>Pix, cartão e boleto <b>testados com uma compra de verdade</b></li>
           <li>Frete calculado sozinho, Correios e transportadora</li>
@@ -1066,15 +492,15 @@ footer a:hover{color:var(--ciano)}
           <li>Páginas de troca, devolução, frete e privacidade</li>
           <li><b>1 hora de treino gravada</b></li>
         </ul>
-        <a class="btn btn--ciano" href="#contato">Quero esta</a>
-      </div>
+        <a class="btn btn--primary" href="#contato" data-servico="loja">Quero esta</a>
+      </article>
 
-      <div class="tier">
-        <span class="nome">Automação</span>
-        <span class="desde">a partir de</span>
-        <span class="preco">R$ 197</span>
-        <span class="prazo">valor fechado antes, sem cobrança por hora</span>
-        <ul>
+      <article class="card price">
+        <div class="price-topo"><h3>Automação</h3></div>
+        <p class="eyebrow">A partir de</p>
+        <p class="amount">R$ 197</p>
+        <p class="amount-nota">valor fechado antes, sem cobrança por hora</p>
+        <ul class="lista">
           <li>Resposta automática no WhatsApp</li>
           <li>Pedido que entra sozinho na planilha</li>
           <li>Aviso quando o estoque está acabando</li>
@@ -1082,52 +508,69 @@ footer a:hover{color:var(--ciano)}
           <li>Integração entre o que você já usa</li>
           <li><b>Você aprova o total em reais</b> antes da primeira linha</li>
         </ul>
-        <a class="btn btn--linha" href="#contato">Quero esta</a>
-      </div>
+        <a class="btn btn--ghost" href="#contato" data-servico="automacao">Quero esta</a>
+      </article>
     </div>
 
     <p class="preco-pe"><b>A mensalidade da plataforma é sua e vai direto para a Nuvemshop</b>, não passa
     por mim e eu não ganho comissão nela. A Nuvemshop tem plano gratuito: dá para começar pagando
     só o meu trabalho e o domínio, uns R$ 40 por ano. Você sobe de plano quando a loja já estiver
     vendendo o suficiente para justificar.</p>
+
+    <div class="card entrega">
+      <h3>No dia da entrega, você recebe isto aqui</h3>
+      <p>Não é uma senha e boa sorte. É a chave de tudo, no seu e-mail e no seu nome — e é
+      por isso que nada aqui depende de eu continuar existindo.</p>
+      <ul class="lista">
+        <li>O endereço <b>no ar e funcionando</b>, aberto no seu celular junto comigo</li>
+        <li><b>Usuário e senha de tudo</b>, mandados para o seu e-mail</li>
+        <li>O domínio registrado <b>no seu nome</b>, com o seu documento</li>
+        <li>A loja criada <b>na sua conta</b> da Nuvemshop</li>
+        <li>A gravação da hora de treino, para rever quando esquecer</li>
+        <li>Uma folha com o que fazer quando cair o primeiro pedido</li>
+        <li>30 dias para me chamar se algo que eu entreguei estiver errado</li>
+        <li>E o meu WhatsApp, <b>que continua o mesmo depois de você pagar</b></li>
+      </ul>
+    </div>
   </div>
 </section>
 
-<!-- ═══ a calculadora ═══════════════════════════════════════════════
-     Divisão, não previsão. Ver o rodapé da seção: não entra projeção
-     de faturamento aqui, nem agora nem depois. -->
-<section id="conta" class="claro">
-  <div class="faixa">
-    <div class="cabeca ent">
-      <span class="rot">A conta</span>
-      <h2>Em quantas vendas isso se paga?</h2>
-      <p>Eu não vou te prometer faturamento: quem promete está chutando o que o seu cliente
+<!-- ═══ a conta ════════════════════════════════════════════════════════
+     Divisão, não previsão. Não entra projeção de faturamento aqui. O HTML
+     já nasce com o resultado dos valores padrão: sem JavaScript a seção
+     continua fazendo sentido. -->
+<section id="conta" aria-labelledby="conta-titulo">
+  <div class="wrap">
+    <div class="cabeca">
+      <p class="eyebrow">A conta</p>
+      <h2 id="conta-titulo">Em quantas vendas isso se paga?</h2>
+      <p class="lead">Eu não vou te prometer faturamento: quem promete está chutando o que o seu cliente
       vai fazer. O que dá para fazer é dividir. Arraste e veja a conta com o seu número.</p>
     </div>
 
-    <div class="conta ent-g">
-      <div class="conta-entrada">
+    <div class="conta">
+      <div class="card">
         <div class="medida">
           <label for="cticket">Quanto custa, em média, o que você vende?</label>
-          <div class="leitura"><span id="cticketv">R$ 150</span><small>por venda</small></div>
-          <input id="cticket" type="range" min="20" max="600" step="10" value="150">
-          <div class="reguas"><span>R$ 20</span><span>R$ 600</span></div>
+          <p class="medida-leitura"><span id="cticketv">R$ 150</span><small>por venda</small></p>
+          <input class="faixa-range" id="cticket" type="range" min="20" max="600" step="10" value="150" aria-valuetext="R$ 150 por venda">
+          <div class="reguas" aria-hidden="true"><span>R$ 20</span><span>R$ 600</span></div>
         </div>
         <div class="medida">
           <label for="cmsg">Quantas vezes por dia você responde &ldquo;quanto custa?&rdquo; no direct?</label>
-          <div class="leitura"><span id="cmsgv">8</span><small>mensagens por dia</small></div>
-          <input id="cmsg" type="range" min="1" max="40" step="1" value="8">
-          <div class="reguas"><span>1</span><span>40</span></div>
+          <p class="medida-leitura"><span id="cmsgv">8</span><small>mensagens por dia</small></p>
+          <input class="faixa-range" id="cmsg" type="range" min="1" max="40" step="1" value="8" aria-valuetext="8 mensagens por dia">
+          <div class="reguas" aria-hidden="true"><span>1</span><span>40</span></div>
         </div>
-        <p class="conta-dica">Arraste as duas barras. A conta do lado muda junto, na hora.</p>
+        <p class="muted conta-dica">Arraste as duas barras. A conta do lado muda junto, na hora.</p>
       </div>
 
-      <div class="conta-saida">
+      <div class="card conta-saida" aria-live="polite">
         <p class="conta-topo">Com esse preço, a loja completa se paga em</p>
         <p class="conta-num"><b id="cvendas">8</b> <span id="cvendasr">vendas</span></p>
         <p class="conta-exp">Depois dessas, <b>a loja é sua e continua vendendo</b> &mdash; todo dia, de madrugada,
         no domingo, sem mensalidade minha e sem você responder nada.</p>
-        <ul class="conta-mais">
+        <ul class="lista">
           <li>A <b>landing page</b> se paga em <b id="cvendasp">5 vendas</b>.</li>
           <li>Você deixa de gastar <b id="choras">12 horas</b> por mês repetindo o mesmo preço.</li>
           <li>E quem tem vergonha de perguntar o preço passa a comprar sem falar com ninguém.</li>
@@ -1142,444 +585,574 @@ footer a:hover{color:var(--ciano)}
   </div>
 </section>
 
-<!-- ═══ processo ════════════════════════════════════════════════════ -->
-<section id="como" class="claro claro--2">
-  <div class="faixa">
-    <div class="cabeca ent">
-      <span class="rot">Como funciona</span>
-      <h2>Quatro passos, e você sabe onde está em cada um.</h2>
-      <p>Sem reunião de alinhamento e sem relatório de status. Você me conta, eu monto, você confere, sobe.</p>
+<!-- ═══ perguntas ══════════════════════════════════════════════════════ -->
+<section class="alt" id="perguntas" aria-labelledby="perguntas-titulo">
+  <div class="wrap">
+    <div class="cabeca">
+      <p class="eyebrow">Perguntas</p>
+      <h2 id="perguntas-titulo">O que perguntam antes de fechar.</h2>
     </div>
-    <div class="passos ent-g">
-      <div class="passo">
-        <span class="n">01</span>
-        <h3>Você me conta o que vende</h3>
-        <p>Quinze minutos no WhatsApp. Eu te digo na hora se é página, se é loja, e quanto custa.</p>
-      </div>
-      <div class="passo">
-        <span class="n">02</span>
-        <h3>Você me manda o material</h3>
-        <p>Fotos, preços e o que você já tem escrito. Aqui entra metade do valor, e eu começo.</p>
-      </div>
-      <div class="passo">
-        <span class="n">03</span>
-        <h3>Eu monto e te mostro</h3>
-        <p>Link da prévia no seu celular. Você aponta o que quer diferente e eu ajusto.</p>
-      </div>
-      <div class="passo">
-        <span class="n">04</span>
-        <h3>Vai ao ar no seu nome</h3>
-        <p>Domínio, senhas e treino gravado na sua mão. A outra metade entra aqui.</p>
-      </div>
-    </div>
-
-    <div class="entrega">
-      <h3>No dia da entrega, você recebe isto aqui</h3>
-      <p>Não é uma senha e boa sorte. É a chave de tudo, no seu e-mail e no seu nome — e é
-      por isso que nada aqui depende de eu continuar existindo.</p>
-      <ul class="ent-l">
-        <li>O endereço <b>no ar e funcionando</b>, aberto no seu celular junto comigo</li>
-        <li><b>Usuário e senha de tudo</b>, mandados para o seu e-mail</li>
-        <li>O domínio registrado <b>no seu nome</b>, com o seu documento</li>
-        <li>A loja criada <b>na sua conta</b> da Nuvemshop</li>
-        <li>A gravação da hora de treino, para rever quando esquecer</li>
-        <li>Uma folha com o que fazer quando cair o primeiro pedido</li>
-        <li>30 dias para me chamar se algo que eu entreguei estiver errado</li>
-        <li>E o meu WhatsApp, <b>que continua o mesmo depois de você pagar</b></li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ perguntas ═══════════════════════════════════════════════════ -->
-<section id="perguntas" class="claro">
-  <div class="faixa">
-    <div class="cabeca ent">
-      <span class="rot">Perguntas</span>
-      <h2>O que perguntam antes de fechar.</h2>
-    </div>
-    <div class="faq ent">
+    <div class="faq">
       <details open>
         <summary>Preciso pagar mensalidade?</summary>
-        <div class="resp">Para a landing page, não: só o domínio, uns R$ 40 por ano. Para a loja,
+        <p class="faq-resp">Para a landing page, não: só o domínio, uns R$ 40 por ano. Para a loja,
         a plataforma tem mensalidade — mas <b>a Nuvemshop tem plano gratuito</b>, então dá para
         começar pagando só o meu trabalho e o domínio. Essa mensalidade é sua e vai direto para
-        eles; não passa por mim e eu não ganho comissão nela.</div>
+        eles; não passa por mim e eu não ganho comissão nela.</p>
       </details>
       <details>
         <summary>E se você sumir?</summary>
-        <div class="resp">A loja é criada <b>na sua conta</b> e o domínio no seu nome, com a sua
+        <p class="faq-resp">A loja é criada <b>na sua conta</b> e o domínio no seu nome, com a sua
         senha. Se eu sumir amanhã, nada para de funcionar e qualquer outra pessoa consegue mexer.
-        É por isso que eu faço assim, e não no meu login.</div>
+        É por isso que eu faço assim, e não no meu login.</p>
       </details>
       <details>
         <summary>Eu tenho mais de 60 produtos. E aí?</summary>
-        <div class="resp">O pacote cobre 60 cadastrados por mim. Acima disso a gente combina: ou
+        <p class="faq-resp">O pacote cobre 60 cadastrados por mim. Acima disso a gente combina: ou
         eu cadastro o resto e isso entra como valor à parte, ou eu cadastro os 60 principais e
-        te ensino a cadastrar os outros — o treino gravado cobre exatamente isso.</div>
+        te ensino a cadastrar os outros — o treino gravado cobre exatamente isso.</p>
       </details>
       <details>
         <summary>Não entendo nada de computador. Vou conseguir mexer?</summary>
-        <div class="resp">Quem mexe no dia a dia é você, e por isso a entrega inclui <b>1 hora de
+        <p class="faq-resp">Quem mexe no dia a dia é você, e por isso a entrega inclui <b>1 hora de
         treino gravada</b> com a sua loja na tela, não um manual genérico. Você reassiste quando
-        esquecer. E o meu WhatsApp continua o mesmo depois de você pagar.</div>
+        esquecer. E o meu WhatsApp continua o mesmo depois de você pagar.</p>
       </details>
       <details>
         <summary>Quanto tempo leva?</summary>
-        
-        <div class="resp">Landing page em 7 dias, loja completa em 14, contando a partir do dia em
+        <p class="faq-resp">Landing page em 7 dias, loja completa em 14, contando a partir do dia em
         que você me manda fotos e preços. O que costuma atrasar não é o meu lado: é o material
-        chegando em pedaços.</div>
+        chegando em pedaços.</p>
       </details>
       <details>
         <summary>Por que eu não deveria fazer sozinho num criador de sites?</summary>
-        <div class="resp">Você deveria, se tiver tempo e paciência. O que você paga aqui não é o
+        <p class="faq-resp">Você deveria, se tiver tempo e paciência. O que você paga aqui não é o
         site em si — é não gastar três fins de semana descobrindo por que o Pix não aparece no
-        carrinho, e receber tudo <b>testado com uma compra de verdade</b> antes de ir ao ar.</div>
+        carrinho, e receber tudo <b>testado com uma compra de verdade</b> antes de ir ao ar.</p>
       </details>
     </div>
   </div>
 </section>
 
-<!-- ═══ quem faz ═══════════════════════════════════════════════════ -->
-<section id="quem" class="claro claro--2 tem-divisa">
-  <div class="faixa">
-    <div class="quem ent">
-      <span class="quem-sigla" aria-hidden="true">GF</span>
-      <div class="quem-txt">
-        <h2>Quem vai te atender sou eu.</h2>
-        <p><b>Gabriel Fantin</b>, de Jacareí. Trabalho sozinho: quem responde o primeiro
-        WhatsApp é a mesma pessoa que monta a loja e a mesma que te ensina a mexer. Você não
-        passa por atendimento, nem por gerente de conta, nem repete o seu problema para três
-        pessoas diferentes.</p>
-        <p>Isso tem um lado ruim, e prefiro dizer agora: <b>fornecedor de uma pessoa só é um
-        risco</b>. É exatamente por isso que a loja é criada na sua conta e o domínio fica
-        registrado no seu nome. Se eu sumir, você não perde nada, e qualquer outra pessoa
-        continua de onde eu parei.</p>
-      </div>
+<!-- ═══ quem faz ═══════════════════════════════════════════════════════
+     O monograma sai quando houver uma foto de verdade. -->
+<section id="quem" aria-labelledby="quem-titulo">
+  <div class="wrap quem">
+    <span class="quem-sigla" aria-hidden="true">GF</span>
+    <div class="quem-texto">
+      <h2 id="quem-titulo">Quem vai te atender sou eu.</h2>
+      <p><b>Gabriel Fantin.</b> Trabalho sozinho: quem responde o primeiro
+      WhatsApp é a mesma pessoa que monta a loja e a mesma que te ensina a mexer. Você não
+      passa por atendimento, nem por gerente de conta, nem repete o seu problema para três
+      pessoas diferentes.</p>
+      <p>Isso tem um lado ruim, e prefiro dizer agora: <b>fornecedor de uma pessoa só é um
+      risco</b>. É exatamente por isso que a loja é criada na sua conta e o domínio fica
+      registrado no seu nome. Se eu sumir, você não perde nada, e qualquer outra pessoa
+      continua de onde eu parei.</p>
     </div>
   </div>
-    <div class="divisa" aria-hidden="true">
-      <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
-        <path fill="#060B12" d="M0,90 L1440,90 L1440,52 Q720,22 0,52 Z"/>
-      </svg>
-    </div>
 </section>
 
-<!-- ═══ fecho ═══════════════════════════════════════════════════════ -->
-<section class="fecho" id="contato">
-  <div class="brilho"></div>
-  <div class="faixa">
-    <div class="cabeca ent">
-      <span class="rot">Começar</span>
-      <h2>Quinze minutos, e você sai sabendo o preço.</h2>
-      <p>Me conta o que você vende. Eu te digo na hora se o seu caso é página ou loja, quanto
+<!-- ═══ contato ════════════════════════════════════════════════════════
+     Sem servidor: o formulário monta a mensagem e abre o wa.me com o
+     texto preenchido. Nada sai daqui sem a pessoa tocar em enviar no
+     WhatsApp. Sem JavaScript ele ainda funciona: envia só o campo "text"
+     (a mensagem editável) direto para o wa.me. -->
+<section class="alt" id="contato" aria-labelledby="contato-titulo">
+  <div class="wrap contato-grade">
+    <div class="contato-texto">
+      <p class="eyebrow">Começar</p>
+      <h2 id="contato-titulo">Quinze minutos, e você sai sabendo o preço.</h2>
+      <p class="lead">Me conta o que você vende. Eu te digo na hora se o seu caso é página ou loja, quanto
       custa e em quanto tempo fica pronto — mesmo que você decida não fechar comigo.</p>
+      <ul class="contato-canais">
+        <li><span>WhatsApp</span> <a href="https://wa.me/5527992864820?text=Oi%20Gabriel%2C%20vi%20seu%20site." target="_blank" rel="noopener" data-evt="whatsapp">(27) 99286-4820</a></li>
+        <li><span>Instagram</span> <a href="https://www.instagram.com/fantinsi/" target="_blank" rel="noopener">@fantinsi</a></li>
+      </ul>
+      <p class="muted contato-tempo">Resposta em até 4 horas úteis, de segunda a sexta. Atendo o Brasil todo pelo WhatsApp.</p>
     </div>
-    <div class="btn-linha">
-      <a class="btn btn--verde" href="https://wa.me/5527992864820?text=Oi%20Gabriel%2C%20vi%20seu%20site.%20Eu%20vendo%20%5Bo%20que%5D%20e%20queria%20saber%20sobre%20%5Bp%C3%A1gina%20ou%20loja%5D." target="_blank" rel="noopener">Chamar no WhatsApp agora</a>
-    </div>
-    <p class="tel">Resposta em até 4 horas úteis, de segunda a sexta.</p>
+
+    <form class="card form-zap" id="form-zap" action="https://wa.me/5527992864820" method="get" target="_blank" novalidate>
+      <h3>Monte sua mensagem</h3>
+      <div class="campo">
+        <label for="f-nome">Seu nome</label>
+        <input class="campo-controle" id="f-nome" type="text" autocomplete="name" required>
+        <p class="campo-erro" id="f-nome-erro" hidden>Escreva o seu nome.</p>
+      </div>
+      <div class="campo">
+        <label for="f-vende">O que você vende?</label>
+        <input class="campo-controle" id="f-vende" type="text" required placeholder="Ex.: roupa feminina, doces, consultoria" aria-describedby="f-vende-ajuda">
+        <p class="campo-ajuda" id="f-vende-ajuda">Em poucas palavras. Não precisa caprichar.</p>
+        <p class="campo-erro" id="f-vende-erro" hidden>Conte em poucas palavras o que você vende.</p>
+      </div>
+      <div class="campo">
+        <label for="f-servico">O que você precisa?</label>
+        <select class="campo-controle" id="f-servico">
+          <option value="nao-sei">Ainda não sei, me ajuda a decidir</option>
+          <option value="loja">Loja completa (R$ 1.200)</option>
+          <option value="landing">Landing page (R$ 700)</option>
+          <option value="automacao">Automação (a partir de R$ 197)</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label for="f-insta">Seu Instagram ou site <span class="campo-opcional">(opcional)</span></label>
+        <input class="campo-controle" id="f-insta" type="text" autocapitalize="none" spellcheck="false" placeholder="@sualoja">
+      </div>
+      <div class="campo">
+        <label for="f-msg">Sua mensagem <span class="campo-opcional">(dá para editar antes de enviar)</span></label>
+        <textarea class="campo-controle" id="f-msg" name="text" rows="5">Oi Gabriel, vi seu site. Eu vendo [o quê] e queria saber sobre [página ou loja].</textarea>
+      </div>
+      <button class="btn btn--primary btn--g btn--bloco" type="submit" id="f-enviar">Abrir no WhatsApp <span class="seta" aria-hidden="true">&rarr;</span></button>
+      <p class="form-nota">Nada é enviado daqui. O WhatsApp abre com a mensagem pronta e você decide se envia.</p>
+      <p class="form-status" id="f-status" role="status" aria-live="polite"></p>
+    </form>
   </div>
 </section>
 
 </main>
 
-<footer>
-  <div class="faixa">
-    <span>Fantin Sistemas &middot; Jacareí, SP</span>
-    <span>Estudo de direção visual. Não publicado.</span>
+<footer class="site-foot">
+  <div class="wrap">
+    <p><b>Fantin Sistemas</b> &middot; Atendimento remoto para todo o Brasil, pelo WhatsApp.</p>
+    <ul class="foot-links">
+      <li><a href="https://wa.me/5527992864820?text=Oi%20Gabriel%2C%20vi%20seu%20site." target="_blank" rel="noopener" data-evt="whatsapp">WhatsApp (27) 99286-4820</a></li>
+      <li><a href="https://www.instagram.com/fantinsi/" target="_blank" rel="noopener">Instagram @fantinsi</a></li>
+      <li><a href="privacidade.html">Política de privacidade</a></li>
+      <li id="cookies-pref" hidden><a href="#" id="reconsent">Preferências de cookies</a></li>
+    </ul>
   </div>
 </footer>
 
-<script>
-/* ═══ a conta ═════════════════════════════════════════════════════
-   Divisão pura, com o número que o visitante mesmo colocou. O HTML já
-   nasce com o resultado dos valores padrão, então sem JavaScript a
-   seção continua fazendo sentido — só para de mexer.              */
-(function () {
-  "use strict";
-  var lento   = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var LOJA    = 1200;
-  var PAGINA  = 700;
-  var MIN_MSG = 3;    /* três minutos por conversa de "quanto custa?" */
-
-  var ticket = document.getElementById("cticket");
-  var msg    = document.getElementById("cmsg");
-  if (!ticket || !msg) return;
-
-  var vTicket = document.getElementById("cticketv");
-  var vMsg    = document.getElementById("cmsgv");
-  var nVendas = document.getElementById("cvendas");
-  var rVendas = document.getElementById("cvendasr");
-  var pVendas = document.getElementById("cvendasp");
-  var nHoras  = document.getElementById("choras");
-
-  var mostrado = 0, quadro = 0;
-
-  function plural(n, um, varios) { return n === 1 ? um : varios; }
-
-  function animarInteiro(el, de, ate, ms) {
-    if (quadro) cancelAnimationFrame(quadro);
-    if (lento || !window.requestAnimationFrame || de === ate) {
-      el.textContent = ate; mostrado = ate; return;
-    }
-    var t0 = 0;
-    quadro = requestAnimationFrame(function passo(t) {
-      if (!t0) t0 = t;
-      var p = Math.min(1, (t - t0) / ms);
-      el.textContent = Math.round(de + (ate - de) * (1 - Math.pow(1 - p, 3)));
-      if (p < 1) quadro = requestAnimationFrame(passo);
-      else { el.textContent = ate; mostrado = ate; }
-    });
-  }
-
-  function recalcular(animar) {
-    var t = Number(ticket.value) || 20;
-    var m = Number(msg.value) || 1;
-
-    vTicket.textContent = "R$ " + t.toLocaleString("pt-BR");
-    vMsg.textContent = m;
-    ticket.setAttribute("aria-valuetext", "R$ " + t + " por venda");
-    msg.setAttribute("aria-valuetext", m + " " + plural(m, "mensagem", "mensagens") + " por dia");
-
-    var vLoja = Math.ceil(LOJA / t);
-    var vPag  = Math.ceil(PAGINA / t);
-    var horas = m * MIN_MSG * 30 / 60;
-
-    rVendas.textContent = plural(vLoja, "venda", "vendas");
-    pVendas.textContent = vPag + " " + plural(vPag, "venda", "vendas");
-    nHoras.textContent  = horas.toLocaleString("pt-BR", { maximumFractionDigits: 1 }) +
-                          " " + plural(horas, "hora", "horas");
-
-    if (animar) animarInteiro(nVendas, mostrado, vLoja, 480);
-    else { nVendas.textContent = vLoja; mostrado = vLoja; }
-  }
-
-  ticket.addEventListener("input", function () { recalcular(true); });
-  msg.addEventListener("input", function () { recalcular(true); });
-  recalcular(false);
-
-  /* na primeira vez que a seção aparece, o número grande conta do zero */
-  if ("IntersectionObserver" in window && !lento) {
-    var alvo = document.getElementById("conta");
-    if (alvo) {
-      var obs = new IntersectionObserver(function (e) {
-        if (!e[0].isIntersecting) return;
-        obs.disconnect();
-        var fim = mostrado;
-        mostrado = 0;
-        animarInteiro(nVendas, 0, fim, 900);
-      }, { threshold: .35 });
-      obs.observe(alvo);
-    }
-  }
-})();
-
-/* ═══ o faturamento do painel ═════════════════════════════════════
-   Sobe contando quando a tampa do notebook entra em cena. Mesmo
-   motivo da conta: número que troca num piscar não é lido, número
-   que sobe é. Não insere nó nenhum, então não mexe em CLS.        */
-(function () {
-  "use strict";
-  var lento = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var el = document.getElementById("kfat");
-  var alvo = document.querySelector(".maquina");
-  if (!el || !alvo || lento || !("IntersectionObserver" in window)) return;
-
-  var ATE = 4318;
-  function moeda(v) {
-    try { return "R$ " + Math.round(v).toLocaleString("pt-BR"); }
-    catch (e) { return "R$ " + Math.round(v); }
-  }
-  var obs = new IntersectionObserver(function (e) {
-    if (!e[0].isIntersecting) return;
-    obs.disconnect();
-    var t0 = 0;
-    requestAnimationFrame(function passo(t) {
-      if (!t0) t0 = t;
-      var p = Math.min(1, (t - t0) / 1100);
-      el.textContent = moeda(ATE * (1 - Math.pow(1 - p, 3)));
-      if (p < 1) requestAnimationFrame(passo);
-      else el.textContent = moeda(ATE);
-    });
-  }, { threshold: 0.35 });
-  obs.observe(alvo);
-})();
-</script>
-
-<footer>
-  <div class="faixa">
-    <p>Fantin Sistemas, Jacareí/SP. Atendo presencialmente São José dos Campos e o Vale do
-       Paraíba, e remotamente o Brasil todo.</p>
-    <span class="links">
-      <a href="privacidade.html">Política de privacidade</a>
-      <a href="#" id="reconsent">Preferências de cookies</a>
-    </span>
-  </div>
-</footer>
-
-<div class="barra-zap claro" id="barraZap">
+<div class="barra-zap" id="barra-zap">
   <p>Resposta em até 4h úteis.</p>
-  <a class="btn btn--verde"
+  <a class="btn btn--primary"
      href="https://wa.me/5527992864820?text=Oi%20Gabriel%2C%20vi%20seu%20site.%20Eu%20vendo%20%5Bo%20que%5D%20e%20queria%20saber%20sobre%20%5Bp%C3%A1gina%20ou%20loja%5D."
-     target="_blank" rel="noopener" data-evt="whatsapp">Chamar no WhatsApp</a>
+     target="_blank" rel="noopener" data-evt="whatsapp">Chamar no WhatsApp <span class="seta" aria-hidden="true">&rarr;</span></a>
 </div>
 
-<!-- ── Consentimento LGPD: pixel só dispara depois do aceite ──────── -->
-<div id="consent" class="claro" hidden>
-  <div class="faixa">
+<!-- Consentimento LGPD: só aparece se houver pixel configurado em site.js.
+     Enquanto não houver, nada é carregado, nada é enviado, e o aviso não
+     atrapalha a primeira visita. -->
+<div class="consent" id="consent" role="region" aria-label="Aviso de cookies" hidden>
+  <div class="card">
     <p>Uso cookies de medição para entender quantas pessoas chegam aqui e por onde.
        Nada é coletado se você recusar, e o site funciona igual.
        <a href="privacidade.html">Como trato seus dados</a>.</p>
-    <div class="acts">
-      <button class="btn btn--linha" id="deny" type="button">Recusar</button>
-      <button class="btn btn--ciano" id="allow" type="button">Aceitar</button>
+    <div class="consent-acoes">
+      <button class="btn btn--ghost" id="deny" type="button">Recusar</button>
+      <button class="btn btn--primary" id="allow" type="button">Aceitar</button>
     </div>
   </div>
 </div>
 
 <script>
-/* A barra de contato do celular aparece depois que o herói sai da tela e
-   se recolhe quando a chamada final entra — duas vezes o mesmo botão na
-   mesma tela só atrapalha. Fica escondida enquanto o aviso de cookies
-   ocupa o rodapé. */
+/* ==========================================================================
+   Fantin Sistemas — o JavaScript da página
+
+   Fica embutido no fim do <body>: roda com o DOM pronto, sem uma
+   requisição a mais e sem ficar pendurado no primeiro layout.
+
+   JavaScript puro, sem biblioteca. Cada bloco é independente e desiste em
+   silêncio se o elemento dele não existir. Nada roda em requestAnimationFrame
+   contínuo: tudo reage a clique, digitação ou IntersectionObserver.
+   ========================================================================== */
 (function () {
   "use strict";
-  var barra = document.getElementById("barraZap");
-  var heroi = document.querySelector(".hero");
-  var fim = document.getElementById("contato");
-  var consent = document.getElementById("consent");
-  if (!barra || !heroi || !fim || !("IntersectionObserver" in window)) return;
 
-  var passouDoHeroi = false, noFim = false;
+  var doc = document.documentElement;
+  var WHATSAPP = "5527992864820";
 
-  function decidir() {
-    var cookieAberto = consent && !consent.hidden;
-    if (passouDoHeroi && !noFim && !cookieAberto) barra.setAttribute("data-on", "");
-    else barra.removeAttribute("data-on");
+  function ler(chave) {
+    try { return localStorage.getItem(chave); } catch (e) { return null; }
+  }
+  function guardar(chave, valor) {
+    try { localStorage.setItem(chave, valor); } catch (e) { /* aba privada: segue sem lembrar */ }
+  }
+  function apagar(chave) {
+    try { localStorage.removeItem(chave); } catch (e) {}
+  }
+  function aoMudar(mq, fn) {
+    if (mq.addEventListener) mq.addEventListener("change", fn);
+    else if (mq.addListener) mq.addListener(fn);
   }
 
-  new IntersectionObserver(function (e) {
-    passouDoHeroi = !e[0].isIntersecting;
-    decidir();
-  }, { rootMargin: "-40px 0px 0px 0px" }).observe(heroi);
-
-  new IntersectionObserver(function (e) {
-    noFim = e[0].isIntersecting;
-    decidir();
-  }).observe(fim);
-
-  if (consent) new MutationObserver(decidir).observe(consent, { attributes: true, attributeFilter: ["hidden"] });
-})();
-</script>
-
-<script>
-(function () {
-  "use strict";
-
-  
+  /* ═══ medição (Meta Pixel) ════════════════════════════════════════════
+     Só liga com PIXEL_ID configurado E depois do aceite. Enquanto o ID for
+     TODO, o aviso de cookies nem aparece — não existe o que consentir. */
   var PIXEL_ID = "TODO_PIXEL_ID";
-  var CAPI_URL = "";               // ex: https://n8n.seudominio.com.br/webhook/capi
-  var KEY = "fs_consent";
-
-  var consented = false;
-  try { consented = localStorage.getItem(KEY) === "1"; } catch (e) {}
-
-  var banner = document.getElementById("consent");
-
-  function showBanner() { if (banner) banner.hidden = false; }
-  function hideBanner() { if (banner) banner.hidden = true; }
+  var CAPI_URL = "";          // ex.: https://n8n.seudominio.com.br/webhook/capi
+  var CHAVE_CONSENT = "fs_consent";
+  var medicaoConfigurada = PIXEL_ID.indexOf("TODO") !== 0;
+  var consentiu = medicaoConfigurada && ler(CHAVE_CONSENT) === "1";
 
   function uid() {
     return "e-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 10);
   }
 
-  function loadPixel() {
-    if (window.fbq || PIXEL_ID.indexOf("TODO") === 0) return;
-    /* snippet oficial da Meta */
-    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
-    (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    window.fbq('init', PIXEL_ID);
-    track("PageView");
-  }
-
-  /* dispara o mesmo evento no navegador e no servidor, com event_id comum */
-  function track(name, params) {
-    if (!consented) return;
+  function rastrear(nome, dados) {
+    if (!consentiu) return;
     var id = uid();
-    var data = params || {};
-    if (window.fbq) window.fbq("track", name, data, { eventID: id });
-    if (CAPI_URL) {
+    dados = dados || {};
+    if (window.fbq) window.fbq("track", nome, dados, { eventID: id });
+    if (CAPI_URL && navigator.sendBeacon) {
       try {
         navigator.sendBeacon(CAPI_URL, new Blob([JSON.stringify({
-          event_name: name, event_id: id, event_source_url: location.href,
-          event_time: Math.floor(Date.now() / 1000), custom_data: data
+          event_name: nome, event_id: id, event_source_url: location.href,
+          event_time: Math.floor(Date.now() / 1000), custom_data: dados
         })], { type: "application/json" }));
       } catch (e) {}
     }
   }
 
-  function enable() {
-    consented = true;
-    try { localStorage.setItem(KEY, "1"); } catch (e) {}
-    hideBanner();
-    loadPixel();
-    armScrollEvent();
-  }
+  (function consentimento() {
+    var aviso = document.getElementById("consent");
+    var pref = document.getElementById("cookies-pref");
+    if (!medicaoConfigurada || !aviso) return;
+    if (pref) pref.hidden = false;
 
-  function disable() {
-    consented = false;
-    try { localStorage.setItem(KEY, "0"); } catch (e) {}
-    hideBanner();
-  }
+    function carregarPixel() {
+      if (window.fbq) return;
+      /* snippet oficial da Meta */
+      !function (f, b, e, v, n, t, s) { if (f.fbq) return; n = f.fbq = function () { n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments); }; if (!f._fbq) f._fbq = n;
+        n.push = n; n.loaded = !0; n.version = "2.0"; n.queue = []; t = b.createElement(e); t.async = !0;
+        t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s); }
+      (window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
+      window.fbq("init", PIXEL_ID);
+      rastrear("PageView");
+    }
 
-  /* ViewContent: 50% de rolagem na página */
-  function armScrollEvent() {
-    var fired = false;
-    function onScroll() {
-      if (fired) return;
-      var h = document.documentElement;
-      var pct = (h.scrollTop + window.innerHeight) / h.scrollHeight;
-      if (pct >= 0.5) {
-        fired = true;
-        track("ViewContent", { content_name: "landing" });
-        window.removeEventListener("scroll", onScroll);
+    /* ViewContent: metade da página rolada */
+    function armarRolagem() {
+      var disparou = false;
+      function aoRolar() {
+        if (disparou) return;
+        if ((doc.scrollTop + window.innerHeight) / doc.scrollHeight >= 0.5) {
+          disparou = true;
+          rastrear("ViewContent", { content_name: "landing" });
+          window.removeEventListener("scroll", aoRolar);
+        }
+      }
+      window.addEventListener("scroll", aoRolar, { passive: true });
+      aoRolar();
+    }
+
+    function aceitar() {
+      consentiu = true; guardar(CHAVE_CONSENT, "1"); aviso.hidden = true;
+      carregarPixel(); armarRolagem();
+    }
+    function recusar() {
+      consentiu = false; guardar(CHAVE_CONSENT, "0"); aviso.hidden = true;
+    }
+
+    document.getElementById("allow").addEventListener("click", aceitar);
+    document.getElementById("deny").addEventListener("click", recusar);
+    var reabrir = document.getElementById("reconsent");
+    if (reabrir) reabrir.addEventListener("click", function (e) {
+      e.preventDefault(); apagar(CHAVE_CONSENT); aviso.hidden = false;
+    });
+
+    var guardado = ler(CHAVE_CONSENT);
+    if (guardado === "1") { carregarPixel(); armarRolagem(); }
+    else if (guardado !== "0") aviso.hidden = false;
+  })();
+
+  /* clique em qualquer WhatsApp conta como Contact */
+  document.addEventListener("click", function (e) {
+    var alvo = e.target && e.target.closest ? e.target.closest("[data-evt]") : null;
+    if (alvo && alvo.getAttribute("data-evt") === "whatsapp") rastrear("Contact", { content_name: "whatsapp" });
+  });
+
+  /* ═══ tema ════════════════════════════════════════════════════════════
+     Sem escolha salva, segue o sistema. O botão grava a escolha e passa a
+     mandar nos dois sentidos. O script no <head> aplica antes de pintar. */
+  (function tema() {
+    var botao = document.getElementById("tema");
+    if (!botao) return;
+    var escuroNoSistema = window.matchMedia("(prefers-color-scheme: dark)");
+
+    function atual() {
+      return doc.getAttribute("data-theme") || (escuroNoSistema.matches ? "dark" : "light");
+    }
+    function refletir() {
+      botao.setAttribute("aria-pressed", atual() === "dark" ? "true" : "false");
+    }
+
+    botao.addEventListener("click", function () {
+      var novo = atual() === "dark" ? "light" : "dark";
+      doc.setAttribute("data-theme", novo);
+      guardar("fs_tema", novo);
+      refletir();
+    });
+    aoMudar(escuroNoSistema, refletir);
+    refletir();
+  })();
+
+  /* ═══ menu do celular ═════════════════════════════════════════════════
+     Abre, fecha, fecha com Esc, trava o fundo, prende o Tab dentro do
+     painel e devolve o foco ao botão. O resto da página fica inert. */
+  (function menu() {
+    var botao = document.getElementById("menu-btn");
+    var painel = document.getElementById("nav");
+    if (!botao || !painel) return;
+    var fundo = [document.getElementById("conteudo"), document.querySelector(".site-foot"), document.getElementById("barra-zap")];
+    var desktop = window.matchMedia("(min-width: 1000px)");
+
+    function aberto() { return painel.hasAttribute("data-open"); }
+
+    function focaveis() {
+      return [botao].concat(Array.prototype.slice.call(painel.querySelectorAll("a[href], button:not([disabled])")));
+    }
+
+    function tecla(e) {
+      if (e.key === "Escape") { e.preventDefault(); fechar(true); return; }
+      if (e.key !== "Tab") return;
+      var itens = focaveis();
+      var i = itens.indexOf(document.activeElement);
+      var proximo = e.shiftKey ? i - 1 : i + 1;
+      if (proximo < 0) proximo = itens.length - 1;
+      if (proximo >= itens.length) proximo = 0;
+      e.preventDefault();
+      itens[proximo].focus();
+    }
+
+    function abrir() {
+      painel.setAttribute("data-open", "");
+      botao.setAttribute("aria-expanded", "true");
+      botao.setAttribute("aria-label", "Fechar menu");
+      doc.classList.add("menu-aberto");
+      fundo.forEach(function (el) { if (el) el.inert = true; });
+      document.addEventListener("keydown", tecla);
+      var primeiro = painel.querySelector("a[href]");
+      if (primeiro) primeiro.focus();
+    }
+
+    function fechar(devolverFoco) {
+      if (!aberto()) return;
+      painel.removeAttribute("data-open");
+      botao.setAttribute("aria-expanded", "false");
+      botao.setAttribute("aria-label", "Abrir menu");
+      doc.classList.remove("menu-aberto");
+      fundo.forEach(function (el) { if (el) el.inert = false; });
+      document.removeEventListener("keydown", tecla);
+      if (devolverFoco) botao.focus();
+    }
+
+    botao.addEventListener("click", function () { if (aberto()) fechar(true); else abrir(); });
+    /* tocar num link fecha antes de rolar, senão a trava de rolagem segura a âncora */
+    painel.addEventListener("click", function (e) {
+      if (e.target.closest && e.target.closest("a[href]")) fechar(false);
+    });
+    aoMudar(desktop, function () { if (desktop.matches) fechar(false); });
+  })();
+
+  /* ═══ comparador antes e depois ═══════════════════════════════════════
+     O range é o controle de verdade (mouse, dedo e teclado). O CSS lê --p
+     e corta o lado "depois" com clip-path. */
+  (function comparador() {
+    var area = document.getElementById("ba-stage");
+    var faixa = document.getElementById("comparar");
+    if (!area || !faixa) return;
+
+    function aplicar() {
+      var v = Number(faixa.value);
+      area.style.setProperty("--p", String(v / 100));
+      var texto;
+      if (v <= 5) texto = "Só o depois: a loja arrumada";
+      else if (v >= 95) texto = "Só o antes: a venda pelo direct";
+      else texto = "Linha em " + v + " por cento: antes à esquerda, depois à direita";
+      faixa.setAttribute("aria-valuetext", texto);
+    }
+    faixa.addEventListener("input", aplicar);
+    aplicar();
+  })();
+
+  /* ═══ a conta ═════════════════════════════════════════════════════════
+     Divisão pura, com o número que o visitante mesmo colocou. */
+  (function conta() {
+    var LOJA = 1200, PAGINA = 700, MIN_POR_MSG = 3;
+    var ticket = document.getElementById("cticket");
+    var msg = document.getElementById("cmsg");
+    if (!ticket || !msg) return;
+
+    var el = {
+      vTicket: document.getElementById("cticketv"),
+      vMsg: document.getElementById("cmsgv"),
+      nVendas: document.getElementById("cvendas"),
+      rVendas: document.getElementById("cvendasr"),
+      pVendas: document.getElementById("cvendasp"),
+      horas: document.getElementById("choras")
+    };
+
+    function plural(n, um, varios) { return n === 1 ? um : varios; }
+
+    function recalcular() {
+      var t = Number(ticket.value) || 20;
+      var m = Number(msg.value) || 1;
+      var vLoja = Math.ceil(LOJA / t);
+      var vPag = Math.ceil(PAGINA / t);
+      var horas = m * MIN_POR_MSG * 30 / 60;
+      var horasTxt = horas.toLocaleString("pt-BR", { maximumFractionDigits: 1 }) + " " + plural(horas, "hora", "horas");
+
+      el.vTicket.textContent = "R$ " + t.toLocaleString("pt-BR");
+      el.vMsg.textContent = m;
+      ticket.setAttribute("aria-valuetext", "R$ " + t + " por venda");
+      msg.setAttribute("aria-valuetext", m + " " + plural(m, "mensagem", "mensagens") + " por dia");
+      el.nVendas.textContent = vLoja;
+      el.rVendas.textContent = plural(vLoja, "venda", "vendas");
+      el.pVendas.textContent = vPag + " " + plural(vPag, "venda", "vendas");
+      el.horas.textContent = horasTxt;
+    }
+
+    ticket.addEventListener("input", recalcular);
+    msg.addEventListener("input", recalcular);
+    recalcular();
+  })();
+
+  /* ═══ formulário → WhatsApp ═══════════════════════════════════════════
+     Monta a mensagem enquanto a pessoa digita. Se ela editar o texto na
+     mão, o texto dela manda. Valida nome e "o que vende" com mensagem de
+     erro presa ao campo, e abre o wa.me com tudo preenchido. */
+  (function formulario() {
+    var form = document.getElementById("form-zap");
+    if (!form) return;
+    var nome = document.getElementById("f-nome");
+    var vende = document.getElementById("f-vende");
+    var servico = document.getElementById("f-servico");
+    var insta = document.getElementById("f-insta");
+    var msg = document.getElementById("f-msg");
+    var enviar = document.getElementById("f-enviar");
+    var status = document.getElementById("f-status");
+    var rotuloEnviar = enviar.innerHTML;
+    var editadaAMao = false;
+
+    var assunto = {
+      "nao-sei": "entender se o meu caso é página ou loja",
+      "loja": "a loja completa",
+      "landing": "a landing page",
+      "automacao": "uma automação"
+    };
+
+    function montar() {
+      var linhas = ["Oi Gabriel, vi seu site."];
+      var n = nome.value.trim(), v = vende.value.trim(), i = insta.value.trim();
+      linhas.push((n ? "Sou " + n + ". " : "") + "Eu vendo " + (v || "[o quê]") + ".");
+      linhas.push("Queria saber sobre " + (assunto[servico.value] || assunto["nao-sei"]) + ".");
+      if (i) linhas.push("Meu Instagram/site: " + i);
+      return linhas.join("\n");
+    }
+
+    function atualizar() {
+      if (!editadaAMao) msg.value = montar();
+    }
+
+    /* o id do erro só entra no aria-describedby enquanto o erro existe:
+       texto escondido referenciado ali seria lido mesmo assim */
+    function marcarErro(campo, invalido) {
+      var idErro = campo.id + "-erro";
+      var aviso = document.getElementById(idErro);
+      var descricao = (campo.getAttribute("aria-describedby") || "").split(" ").filter(function (id) {
+        return id && id !== idErro;
+      });
+      if (invalido) { campo.setAttribute("aria-invalid", "true"); descricao.push(idErro); }
+      else campo.removeAttribute("aria-invalid");
+      if (descricao.length) campo.setAttribute("aria-describedby", descricao.join(" "));
+      else campo.removeAttribute("aria-describedby");
+      if (aviso) aviso.hidden = !invalido;
+    }
+
+    [nome, vende, insta].forEach(function (c) { c.addEventListener("input", atualizar); });
+    servico.addEventListener("change", atualizar);
+    msg.addEventListener("input", function () { editadaAMao = msg.value.trim() !== ""; });
+
+    /* o erro some assim que o campo fica certo, não só no próximo envio */
+    [nome, vende].forEach(function (c) {
+      c.addEventListener("input", function () {
+        if (c.getAttribute("aria-invalid") === "true" && c.value.trim()) marcarErro(c, false);
+      });
+    });
+
+    /* "Quero esta" e "Falar sobre isso" já chegam com o serviço marcado */
+    document.addEventListener("click", function (e) {
+      var alvo = e.target && e.target.closest ? e.target.closest("[data-servico]") : null;
+      if (!alvo) return;
+      var s = alvo.getAttribute("data-servico");
+      if (assunto[s]) { servico.value = s; atualizar(); }
+    });
+
+    function mostrarStatus(texto, url, erro) {
+      status.textContent = "";
+      status.className = "form-status" + (erro ? " form-status--erro" : "");
+      status.appendChild(document.createTextNode(texto));
+      if (url) {
+        status.appendChild(document.createTextNode(" "));
+        var a = document.createElement("a");
+        a.href = url; a.target = "_blank"; a.rel = "noopener";
+        a.textContent = "Não abriu? Toque aqui.";
+        status.appendChild(a);
       }
     }
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-  }
 
-  /* Contact: clique no WhatsApp — evento de otimização da Fase 1 */
-  document.addEventListener("click", function (ev) {
-    var t = ev.target;
-    if (!t || typeof t.closest !== "function") return;
-    var el = t.closest("[data-evt]");
-    if (!el) return;
-    var kind = el.getAttribute("data-evt");
-    if (kind === "whatsapp") track("Contact", { content_name: "whatsapp" });
-    else track("ViewContent", { content_name: kind });
-  });
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var faltando = [nome, vende].filter(function (c) { return !c.value.trim(); });
+      marcarErro(nome, faltando.indexOf(nome) > -1);
+      marcarErro(vende, faltando.indexOf(vende) > -1);
+      if (faltando.length) {
+        mostrarStatus(faltando.length === 2 ? "Faltou o seu nome e o que você vende."
+          : faltando[0] === nome ? "Faltou o seu nome." : "Faltou dizer o que você vende.", null, true);
+        faltando[0].focus();
+        return;
+      }
 
-  document.getElementById("allow").addEventListener("click", enable);
-  document.getElementById("deny").addEventListener("click", disable);
-  document.getElementById("reconsent").addEventListener("click", function (ev) {
-    ev.preventDefault();
-    try { localStorage.removeItem(KEY); } catch (e) {}
-    showBanner();
-  });
+      var texto = msg.value.trim() || montar();
+      var url = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(texto);
 
-  /* estado inicial */
-  var stored = null;
-  try { stored = localStorage.getItem(KEY); } catch (e) {}
-  if (stored === "1") { loadPixel(); armScrollEvent(); }
-  else if (stored !== "0") { showBanner(); }
+      enviar.disabled = true;
+      enviar.setAttribute("aria-busy", "true");
+      enviar.textContent = "Abrindo o WhatsApp…";
+      rastrear("Contact", { content_name: "formulario" });
+
+      /* abre dentro do clique, senão o bloqueador de pop-up segura */
+      var janela = window.open(url, "_blank");
+      if (janela) { try { janela.opener = null; } catch (err) {} }
+      else { location.href = url; }
+
+      mostrarStatus("Pronto: o WhatsApp abriu com a sua mensagem. É só tocar em enviar.", url, false);
+      setTimeout(function () {
+        enviar.disabled = false;
+        enviar.removeAttribute("aria-busy");
+        enviar.innerHTML = rotuloEnviar;
+      }, 1500);
+    });
+
+    atualizar();
+  })();
+
+  /* ═══ barra do WhatsApp no celular ════════════════════════════════════
+     Aparece depois que o herói sai da tela e some quando a chamada final
+     entra — dois botões iguais na mesma tela só atrapalham. */
+  (function barra() {
+    var barraZap = document.getElementById("barra-zap");
+    var heroi = document.querySelector(".hero");
+    var fim = document.getElementById("contato");
+    var aviso = document.getElementById("consent");
+    if (!barraZap || !heroi || !fim || !("IntersectionObserver" in window)) return;
+
+    var passouDoHeroi = false, noFim = false;
+    function decidir() {
+      var avisoAberto = aviso && !aviso.hidden;
+      if (passouDoHeroi && !noFim && !avisoAberto) barraZap.setAttribute("data-on", "");
+      else barraZap.removeAttribute("data-on");
+    }
+    new IntersectionObserver(function (e) { passouDoHeroi = !e[0].isIntersecting; decidir(); },
+      { rootMargin: "-40px 0px 0px 0px" }).observe(heroi);
+    new IntersectionObserver(function (e) { noFim = e[0].isIntersecting; decidir(); }).observe(fim);
+    if (aviso && "MutationObserver" in window) {
+      new MutationObserver(decidir).observe(aviso, { attributes: true, attributeFilter: ["hidden"] });
+    }
+  })();
 })();
 </script>
-
 </body>
 </html>

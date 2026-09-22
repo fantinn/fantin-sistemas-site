@@ -1,0 +1,98 @@
+/* =========================================================
+   FANTIN — TOKENS OFICIAIS  (v2 — papel)
+   Esta é a ÚNICA fonte de verdade de cor, tipografia,
+   espaçamento, raio e sombra do site.
+
+   PROIBIDO escrever cor, raio, sombra ou espaçamento
+   solto no CSS. Sempre var(--...).
+
+   Contraste conferido por cálculo: 0 falhas nos dois modos.
+   ========================================================= */
+
+:root{
+  /* --- fundo: papel claro (mesmo tom de fundo da Anthropic) --- */
+  --papel:        #f0eee6;  /* fundo da página */
+  --papel-2:      #ffffff;  /* card, superfície elevada */
+  --papel-3:      #e7e4da;  /* faixa alternada, campo de input */
+
+  /* --- banda escura (seções invertidas, rodapé) --- */
+  --banda:        #1a1c19;
+  --banda-tinta:  #f4f4f0;
+  --banda-tinta-2:#a8aaa2;
+
+  /* --- texto --- */
+  --tinta:        #131414;  /* título e texto principal */
+  --tinta-2:      #565853;  /* texto de apoio */
+  --tinta-3:      #646055;  /* legenda, meta, eyebrow */
+
+  /* --- linhas --- */
+  --linha:        #dcd9cd;  /* divisória, borda de card */
+  --linha-2:      #8a8676;  /* borda de input/botão (>=3:1, obrigatório) */
+
+  /* --- marca --- */
+  --marca:        #f5441a;  /* laranja: botão, detalhe, número */
+  --marca-tinta:  #131414;  /* texto EM CIMA do laranja (5.03:1) */
+  --marca-texto:  #c42c06;  /* laranja para TEXTO sobre papel (4.87:1) */
+  --marca-tint:   #ffe9e2;  /* fundo suave de etiqueta */
+
+  /* --- estado --- */
+  --sucesso:      #0f7b5a;
+  --atencao:      #8a4b04;
+
+  /* --- tipografia --- */
+  --f-display: Archivo, system-ui, sans-serif;        /* títulos */
+  --f-sans:    "Instrument Sans", Inter, system-ui, sans-serif; /* texto */
+  --f-mono:    "JetBrains Mono", ui-monospace, monospace;       /* preço, meta, etiqueta */
+
+  --t-xs:  .8125rem;
+  --t-sm:  .9375rem;
+  --t-md:  1.0625rem;
+  --t-lg:  1.25rem;
+  --t-xl:  1.75rem;
+  --t-2xl: 2.25rem;
+  --t-3xl: clamp(2.1rem, 5.5vw, 3.6rem);
+
+  /* --- espaçamento --- */
+  --s-1: .5rem;  --s-2: .875rem; --s-3: 1.25rem; --s-4: 2rem;
+  --s-5: 3rem;   --s-6: 4.5rem;  --s-7: 7rem;
+
+  /* --- raio: cantos discretos, nada de pílula gorda --- */
+  --r-0:    0;
+  --r-sm:   6px;
+  --r-md:   10px;
+  --r-lg:   16px;
+  --r-pill: 999px;   /* só botão e etiqueta */
+
+  /* --- sombra: quase nada. o sistema é de papel, não de vidro --- */
+  --sh-1: 0 1px 2px rgba(19,20,20,.06);
+  --sh-2: 0 8px 24px -14px rgba(19,20,20,.22);
+  --sh-3: 0 24px 60px -30px rgba(19,20,20,.3);
+
+  --maxw: 1120px;
+}
+
+/* --- modo escuro: mesmo sistema, luz apagada --- */
+:root[data-theme="dark"]{
+  --papel:#121311; --papel-2:#1b1c19; --papel-3:#191b17;
+  --banda:#24261f; --banda-tinta:#f4f4f0; --banda-tinta-2:#a8aaa2;
+  --tinta:#f2f2ee; --tinta-2:#a3a59e; --tinta-3:#8b8d86;
+  --linha:#2c2e29; --linha-2:#6f6a5c;
+  --marca:#ff5c31; --marca-tinta:#131414; --marca-texto:#ff8a66; --marca-tint:#2e1a13;
+  --sucesso:#35b98c; --atencao:#f0a44a;
+  --sh-1: 0 1px 2px rgba(0,0,0,.4);
+  --sh-2: 0 8px 24px -14px rgba(0,0,0,.6);
+  --sh-3: 0 24px 60px -30px rgba(0,0,0,.75);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --papel:#121311; --papel-2:#1b1c19; --papel-3:#191b17;
+    --banda:#24261f; --banda-tinta:#f4f4f0; --banda-tinta-2:#a8aaa2;
+    --tinta:#f2f2ee; --tinta-2:#a3a59e; --tinta-3:#8b8d86;
+    --linha:#2c2e29; --linha-2:#6f6a5c;
+    --marca:#ff5c31; --marca-tinta:#131414; --marca-texto:#ff8a66; --marca-tint:#2e1a13;
+    --sucesso:#35b98c; --atencao:#f0a44a;
+    --sh-1: 0 1px 2px rgba(0,0,0,.4);
+    --sh-2: 0 8px 24px -14px rgba(0,0,0,.6);
+    --sh-3: 0 24px 60px -30px rgba(0,0,0,.75);
+  }
+}

@@ -31,16 +31,14 @@
 -->
 
 
-<link rel="canonical" href="https://fantinn.github.io/fantin-sistemas-site/checklist-documentos/">
+<link rel="canonical" href="https://fantin.tech/checklist-documentos/">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 
 <link rel="stylesheet" href="../sistema/tokens.css">
 <link rel="stylesheet" href="../sistema/motion.css">
+<link rel="stylesheet" href="../ponte.css">
 
 <style>
 /* Paleta e movimento vêm de sistema/. Aqui só o que é desta página. */
@@ -49,7 +47,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{
   background:var(--fundo); color:var(--texto);
-  font-family:"Public Sans",system-ui,"Segoe UI",Roboto,sans-serif;
+  font-family:var(--f-sans);
   font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;
   overflow-wrap:anywhere;
 }
@@ -63,13 +61,13 @@ a{color:var(--acento);text-underline-offset:2px}
 /* ── marca ──────────────────────────────────────────────────────── */
 .mark{display:inline-flex;align-items:baseline;gap:9px;text-decoration:none;color:var(--texto)}
 .mark svg{flex:none}
-.mark .wordmark{font-family:"Zilla Slab",Georgia,serif;font-weight:600;font-size:17px;letter-spacing:-.01em}
+.mark .wordmark{font-family:var(--f-display);font-weight:600;font-size:17px;letter-spacing:-.01em}
 .mark .sub{font-size:9.5px;color:var(--texto-2)}
 
 /* ── tipografia ─────────────────────────────────────────────────── */
 .eyebrow{font-size:15.5px;color:var(--texto-2)}
-h1{font-family:"Zilla Slab",Georgia,serif;font-weight:600;font-size:clamp(27px,4.4vw,40px);line-height:1.08;letter-spacing:-.022em;text-wrap:balance;max-width:20ch}
-h2{font-family:"Zilla Slab",Georgia,serif;font-weight:600;font-size:clamp(21px,2.8vw,26px);line-height:1.2;letter-spacing:-.016em}
+h1{font-family:var(--f-display);font-weight:600;font-size:clamp(27px,4.4vw,40px);line-height:1.08;letter-spacing:-.022em;text-wrap:balance;max-width:20ch}
+h2{font-family:var(--f-display);font-weight:600;font-size:clamp(21px,2.8vw,26px);line-height:1.2;letter-spacing:-.016em}
 h3{font-size:16.5px;font-weight:600;letter-spacing:-.005em;line-height:1.35}
 .lede{font-size:16.5px;line-height:1.55;color:var(--texto-2);max-width:60ch}
 p{max-width:64ch}
@@ -93,7 +91,7 @@ p{max-width:64ch}
 .campo input:focus-visible{outline:2px solid var(--acento);outline-offset:1px}
 
 /* ── botões ─────────────────────────────────────────────────────── */
-.btn{display:inline-flex;align-items:center;gap:8px;font-family:"Public Sans",sans-serif;font-size:15px;font-weight:600;line-height:1;padding:12px 18px;border-radius:var(--raio-2);text-decoration:none;border:1px solid transparent;cursor:pointer;transition:background .16s var(--curva-saida),border-color .16s var(--curva-saida);color:var(--texto);background:transparent}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--f-sans);font-size:15px;font-weight:600;line-height:1;padding:12px 18px;border-radius:var(--raio-2);text-decoration:none;border:1px solid transparent;cursor:pointer;transition:background .16s var(--curva-saida),border-color .16s var(--curva-saida);color:var(--texto);background:transparent}
 .btn-primary{background:var(--acento);color:var(--texto-sobre-acento)}
 .btn-primary:hover{background:var(--acento-hover)}
 .btn-ghost{border-color:var(--linha-forte)}
@@ -153,31 +151,18 @@ footer a{color:var(--texto-2)}
 
 /* paleta e tipografia da pagina de venda, para o site falar uma lingua so.
    Fica no fim do bloco de propósito: vence por ordem, sem !important. */
-:root{
-  --fundo:#EDF0F4; --fundo-2:#E5EAF1; --fundo-3:#DBE2EA; --fundo-alto:#FFFFFF;
-  --texto:#0E1B2E; --texto-2:#55647C; --texto-3:#8291A7;
-  --texto-sobre-acento:#FFFFFF;
-  --linha:#DBE2EA; --linha-forte:#C3CDDA;
-  --acento:#1B43A8; --acento-hover:#2450C4; --acento-suave:#E7ECF8;
-  --etiqueta:#FFC531; --verde:#12934F; --verde-hover:#0E7C42;
-  --raio-1:3px; --raio-2:6px; --raio-3:10px;
-  --elev-1:0 2px 0 #DBE2EA;
-  --elev-2:0 18px 40px -22px rgba(14,27,46,.38),0 2px 0 rgba(14,27,46,.05);
-  --anel-foco:0 0 0 3px rgba(27,67,168,.30);
-  color-scheme:light;
-}
-body{font-family:"IBM Plex Sans",system-ui,"Segoe UI",Roboto,sans-serif}
-h1,h2,h3{font-family:"Archivo",system-ui,sans-serif;font-variation-settings:"wdth" 108;letter-spacing:-.025em;line-height:1.1}
-h1{font-weight:800}
+body{font-family:var(--f-sans)}
+h1,h2,h3{font-family:var(--f-display);letter-spacing:-.025em;line-height:1.1}
+h1{font-weight:700}
 h2,h3{font-weight:700}
 h3{letter-spacing:-.015em;line-height:1.25}
 .mark svg{color:var(--acento)}
 .mark{align-items:center;gap:10px}
-.mark .wordmark{font-family:"Archivo",system-ui,sans-serif;font-variation-settings:"wdth" 112;font-weight:700;letter-spacing:.1em}
-header{background:#fff}
+.mark .wordmark{font-family:var(--f-display);font-weight:700;letter-spacing:.1em}
+header{background:var(--papel-2)}
 
 .btn:hover{background:var(--fundo-2)}
-.folha{background:#fff}
+.folha{background:var(--papel-2)}
 
 @media print{
   /* tokens voltam ao claro: papel escuro gasta tinta e não lê */
@@ -479,7 +464,7 @@ header{background:#fff}
        href="https://wa.me/5527992864820?text=Oi%20Gabriel%2C%20usei%20o%20checklist%20de%20documentos%20e%20queria%20ver%20a%20vers%C3%A3o%20que%20cobra%20sozinha."
        target="_blank" rel="noopener">Ver funcionando no WhatsApp</a>
     <p style="font-size:13.5px">
-      Gabriel Fantin &middot; desenvolvedor em Jacare&iacute;/SP &middot;
+      Gabriel Fantin &middot; desenvolvedor, atendo o Brasil todo pelo WhatsApp &middot;
       <a href="mailto:gabriel@fantin.tech">gabriel@fantin.tech</a>
     </p>
   </aside>
@@ -490,7 +475,7 @@ header{background:#fff}
 <footer class="no-print">
   <div class="wrap">
     <span>Checklist de documentos do m&ecirc;s &middot; use, imprima e repasse &agrave; vontade.</span>
-    <span>Fantin Sistemas &middot; fantin.tech &middot; Jacare&iacute;/SP &middot; <a href="mailto:gabriel@fantin.tech">gabriel@fantin.tech</a></span>
+    <span>Fantin Sistemas &middot; fantin.tech &middot; <a href="mailto:gabriel@fantin.tech">gabriel@fantin.tech</a></span>
   </div>
 </footer>
 

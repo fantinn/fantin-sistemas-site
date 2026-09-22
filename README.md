@@ -1,7 +1,7 @@
 # Fantin Sistemas
 
 Site e demonstrações da Fantin Sistemas — software sob medida para escritórios de
-contabilidade e distribuidoras, em Jacareí e no Vale do Paraíba.
+contabilidade e distribuidoras. Atendimento remoto para todo o Brasil, pelo WhatsApp.
 
 ## O que tem aqui
 
@@ -28,8 +28,18 @@ banco nem login: é uma demonstração de interface e de fluxo, não um sistema 
 
 ## Stack
 
-HTML, CSS e JavaScript, sem build e sem dependência de runtime. As únicas requisições
-externas são as fontes do Google Fonts (Archivo, Public Sans, JetBrains Mono).
+HTML, CSS e JavaScript, sem build e sem dependência de runtime, publicado no GitHub
+Pages (o `CNAME` aponta para fantin.tech). Nenhuma requisição externa: as três fontes
+(Archivo, Instrument Sans, JetBrains Mono) são servidas de `assets/fontes/`.
+
+| Arquivo | Papel |
+|---|---|
+| `tokens.css` | Única fonte de cor, tipografia, espaço, raio e sombra (cópia do design system) |
+| `style.css` | CSS da página principal; importa `tokens.css` e só usa `var(--...)` |
+| `ponte.css` | Liga as variáveis antigas das páginas secundárias aos tokens novos |
+| `<script>` no fim do `index.html` | Tema, menu do celular, comparador, a conta e o formulário para o WhatsApp |
+| `tools/contraste-pares.mjs` | Confere o contraste de todos os pares usados, nos dois modos |
+| `tools/checar-tokens.mjs` | Acusa cor, espaço, raio ou sombra escritos à mão no `style.css` |
 
 Tudo funciona abrindo o arquivo direto no navegador, mas para rodar servido:
 

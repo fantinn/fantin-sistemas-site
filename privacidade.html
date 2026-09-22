@@ -8,21 +8,19 @@
 <meta name="description" content="Como a Fantin Sistemas trata dados pessoais: o que coleta, por quê, por quanto tempo e como você exclui.">
 
 
-<link rel="canonical" href="https://fantinn.github.io/fantin-sistemas-site/privacidade.html">
+<link rel="canonical" href="https://fantin.tech/privacidade.html">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 
 <link rel="stylesheet" href="sistema/tokens.css">
 <link rel="stylesheet" href="sistema/motion.css">
+<link rel="stylesheet" href="ponte.css">
 
 <style>
 /* Paleta e movimento vêm de sistema/. Aqui só o que é desta página. */
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--fundo);color:var(--texto);font-family:"Public Sans",system-ui,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+body{background:var(--fundo);color:var(--texto);font-family:var(--f-sans);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
 a{color:var(--acento);text-underline-offset:2px}
 :focus-visible{outline:2px solid var(--acento);outline-offset:3px;border-radius:var(--raio-1)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -40,9 +38,9 @@ header .wrap{display:flex;align-items:center;justify-content:space-between;gap:1
 
 main{padding:clamp(40px,6vw,72px) 0 80px}
 .eyebrow{font-size:15.5px;color:var(--texto-2);margin-bottom:12px}
-h1{font-family:"Zilla Slab",Georgia,serif;font-weight:600;font-size:clamp(30px,4.4vw,42px);line-height:1.1;letter-spacing:-.022em;margin-bottom:14px;text-wrap:balance}
+h1{font-family:var(--f-display);font-weight:600;font-size:clamp(30px,4.4vw,42px);line-height:1.1;letter-spacing:-.022em;margin-bottom:14px;text-wrap:balance}
 .lede{font-size:17.5px;color:var(--texto-2);line-height:1.55;margin-bottom:34px}
-h2{font-family:"Zilla Slab",Georgia,serif;font-weight:600;font-size:21px;letter-spacing:-.012em;margin:42px 0 12px;padding-top:22px;border-top:1px solid var(--linha)}
+h2{font-family:var(--f-display);font-weight:600;font-size:21px;letter-spacing:-.012em;margin:42px 0 12px;padding-top:22px;border-top:1px solid var(--linha)}
 h3{font-size:16px;font-weight:600;margin:22px 0 8px}
 p{margin-bottom:13px}
 ul,ol{margin:0 0 14px;padding-left:20px}
@@ -73,28 +71,20 @@ footer a{color:var(--texto-2)}
 .upd{font-size:12px;color:var(--texto-2);margin-top:30px;padding-top:16px;border-top:1px solid var(--linha)}
 
 /* paleta e tipografia da pagina de venda, para o site falar uma lingua so */
-:root{
-  --fundo:#EDF0F4; --fundo-2:#E5EAF1; --fundo-3:#DBE2EA; --fundo-alto:#FFFFFF;
-  --texto:#0E1B2E; --texto-2:#55647C; --texto-3:#8291A7;
-  --linha:#DBE2EA; --linha-forte:#C3CDDA;
-  --acento:#1B43A8; --acento-hover:#2450C4; --acento-suave:#E7ECF8;
-  --raio-1:3px; --raio-2:6px; --raio-3:10px;
-  color-scheme:light;
-}
-body{font-family:"IBM Plex Sans",system-ui,"Segoe UI",Roboto,sans-serif;font-size:17px}
-h1,h2,h3,.mark .wordmark{font-family:"Archivo",system-ui,sans-serif;font-variation-settings:"wdth" 108;letter-spacing:-.025em}
-h1{font-weight:800}
+body{font-family:var(--f-sans);font-size:17px}
+h1,h2,h3,.mark .wordmark{font-family:var(--f-display);letter-spacing:-.025em}
+h1{font-weight:700}
 h2{font-weight:700;font-size:23px}
 h3{font-weight:700;letter-spacing:-.015em}
-header{background:#fff;border-bottom:1px solid var(--linha)}
+header{background:var(--papel-2);border-bottom:1px solid var(--linha)}
 .mark .wordmark{letter-spacing:.1em}
 .mark svg{color:var(--acento)}
 .mark{align-items:center;gap:10px}
 .btn{border-radius:6px;min-height:44px;border-color:var(--linha-forte)}
-.btn:hover{background:#fff;border-color:var(--texto-3)}
+.btn:hover{background:var(--papel-2);border-color:var(--texto-3)}
 .note{border-left:3px solid var(--acento);background:var(--acento-suave);border-radius:0 6px 6px 0}
-.box{background:#fff;border-radius:10px}
-.tw{background:#fff}
+.box{background:var(--papel-2);border-radius:10px}
+.tw{background:var(--papel-2)}
 </style>
 </head>
 <body>
@@ -125,7 +115,7 @@ header{background:#fff;border-bottom:1px solid var(--linha)}
 
 <h2>1. Quem é responsável pelos seus dados</h2>
 <p>
-  <strong>Gabriel Fantin</strong> — Fantin Sistemas, com sede em Jacareí/SP.
+  <strong>Gabriel Fantin</strong> — Fantin Sistemas. Atendo o Brasil todo pelo WhatsApp.
 </p>
 <p>
   Sou o <strong>controlador</strong> dos dados coletados neste site, e também atuo como
@@ -249,7 +239,7 @@ clientes contratados.</li>
 
 <footer>
   <div class="wrap">
-    <span>Fantin Sistemas &middot; Jacareí/SP &middot; <a href="mailto:gabriel@fantin.tech">gabriel@fantin.tech</a></span>
+    <span>Fantin Sistemas &middot; atendo o Brasil todo pelo WhatsApp &middot; <a href="mailto:gabriel@fantin.tech">gabriel@fantin.tech</a></span>
     <span><a href="index.html">Início</a></span>
   </div>
 </footer>

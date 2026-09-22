@@ -7,28 +7,26 @@
 <meta name="description" content="A folha que diz ao cliente exatamente o que mandar todo mês, por regime tributário. Imprima, personalize com o nome do seu escritório e repasse. Sem cadastro.">
 
 
-<link rel="canonical" href="https://fantinn.github.io/fantin-sistemas-site/checklist.html">
+<link rel="canonical" href="https://fantin.tech/checklist.html">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Fantin Sistemas">
 <meta property="og:locale" content="pt_BR">
-<meta property="og:url" content="https://fantinn.github.io/fantin-sistemas-site/checklist.html">
+<meta property="og:url" content="https://fantin.tech/checklist.html">
 <meta property="og:title" content="Checklist de documentos do mês, por regime tributário">
 <meta property="og:description" content="A folha que diz ao cliente exatamente o que mandar todo mês. Simples Nacional, Lucro Presumido e MEI. Sem cadastro.">
-<meta property="og:image" content="https://fantinn.github.io/fantin-sistemas-site/og.png">
+<meta property="og:image" content="https://fantin.tech/og.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Fantin Sistemas: a tela de um portal de documentos com o mês fechado e o protocolo carimbado.">
 <meta name="twitter:card" content="summary_large_image">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 
 <link rel="stylesheet" href="sistema/tokens.css">
 <link rel="stylesheet" href="sistema/motion.css">
+<link rel="stylesheet" href="ponte.css">
 
 <style>
 /* Paleta e movimento vêm de sistema/. Aqui só o que é desta página. */
@@ -38,7 +36,7 @@
 html{scroll-behavior:smooth}
 body{
   background:var(--fundo); color:var(--texto);
-  font-family:"Public Sans",system-ui,"Segoe UI",Roboto,sans-serif;
+  font-family:var(--f-sans);
   font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;
   overflow-wrap:anywhere;
 }
@@ -63,8 +61,8 @@ header .volta:hover{color:var(--texto)}
 
 /* ── tipografia ─────────────────────────────────────────────────── */
 .eyebrow{font-size:15.5px;color:var(--texto-2)}
-h1{font-family:"Zilla Slab",Georgia,serif;font-weight:600;font-size:clamp(31px,4.9vw,52px);line-height:1.05;letter-spacing:-.025em;text-wrap:balance;max-width:18ch}
-h2{font-family:"Zilla Slab",Georgia,serif;font-weight:600;font-size:clamp(23px,3vw,31px);line-height:1.18;letter-spacing:-.018em;text-wrap:balance}
+h1{font-family:var(--f-display);font-weight:600;font-size:clamp(31px,4.9vw,52px);line-height:1.05;letter-spacing:-.025em;text-wrap:balance;max-width:18ch}
+h2{font-family:var(--f-display);font-weight:600;font-size:clamp(23px,3vw,31px);line-height:1.18;letter-spacing:-.018em;text-wrap:balance}
 h3{font-size:18px;font-weight:600;letter-spacing:-.005em;line-height:1.35}
 .lede{font-size:clamp(16.5px,2vw,18.5px);line-height:1.55;color:var(--texto-2);max-width:56ch}
 p{max-width:64ch}
@@ -79,7 +77,7 @@ section.alt{background:var(--fundo-2)}
 .hl{color:var(--texto);box-shadow:inset 0 -.1em 0 var(--acento)}
 
 /* ── botões ─────────────────────────────────────────────────────── */
-.btn{display:inline-flex;align-items:center;gap:9px;font-family:"Public Sans",sans-serif;font-size:16px;font-weight:600;line-height:1;padding:15px 22px;border-radius:var(--raio-2);text-decoration:none;border:1px solid transparent;cursor:pointer;transition:background .16s var(--curva-saida),border-color .16s var(--curva-saida)}
+.btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--f-sans);font-size:16px;font-weight:600;line-height:1;padding:15px 22px;border-radius:var(--raio-2);text-decoration:none;border:1px solid transparent;cursor:pointer;transition:background .16s var(--curva-saida),border-color .16s var(--curva-saida)}
 .btn-primary{background:var(--acento);color:var(--texto-sobre-acento)}
 .btn-primary:hover{background:var(--acento-hover)}
 .btn-primary:focus-visible{box-shadow:var(--anel-foco);outline:none}
@@ -101,7 +99,7 @@ section.alt{background:var(--fundo-2)}
 /* ── prévia visual do checklist (decorativa) ────────────────────── */
 .previa{border:1px solid var(--linha);border-radius:var(--raio-3);background:var(--fundo);box-shadow:var(--elev-2);overflow:hidden;max-width:100%}
 .previa .barra{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid var(--linha);background:var(--fundo-2)}
-.previa .barra strong{font-family:"Zilla Slab",Georgia,serif;font-size:16px;font-weight:600}
+.previa .barra strong{font-family:var(--f-display);font-size:16px;font-weight:600}
 .previa .barra em{font-style:normal;font-size:11px;color:var(--texto-2)}
 .previa .campos{display:flex;flex-wrap:wrap;gap:6px 18px;padding:13px 18px;border-bottom:1px solid var(--linha)}
 .previa .campos span{font-size:10px;letter-spacing:.1em;color:var(--texto-2);display:flex;align-items:baseline;gap:6px;flex:1 1 40%;min-width:0}
@@ -139,41 +137,28 @@ footer a{color:var(--texto-2)}
 
 /* paleta e tipografia da pagina de venda, para o site falar uma lingua so.
    Fica no fim do bloco de propósito: vence por ordem, sem !important. */
-:root{
-  --fundo:#EDF0F4; --fundo-2:#E5EAF1; --fundo-3:#DBE2EA; --fundo-alto:#FFFFFF;
-  --texto:#0E1B2E; --texto-2:#55647C; --texto-3:#8291A7;
-  --texto-sobre-acento:#FFFFFF;
-  --linha:#DBE2EA; --linha-forte:#C3CDDA;
-  --acento:#1B43A8; --acento-hover:#2450C4; --acento-suave:#E7ECF8;
-  --etiqueta:#FFC531; --verde:#12934F; --verde-hover:#0E7C42;
-  --raio-1:3px; --raio-2:6px; --raio-3:10px;
-  --elev-1:0 2px 0 #DBE2EA;
-  --elev-2:0 18px 40px -22px rgba(14,27,46,.38),0 2px 0 rgba(14,27,46,.05);
-  --anel-foco:0 0 0 3px rgba(27,67,168,.30);
-  color-scheme:light;
-}
-body{font-family:"IBM Plex Sans",system-ui,"Segoe UI",Roboto,sans-serif}
-h1,h2,h3{font-family:"Archivo",system-ui,sans-serif;font-variation-settings:"wdth" 108;letter-spacing:-.025em;line-height:1.1}
-h1{font-weight:800}
+body{font-family:var(--f-sans)}
+h1,h2,h3{font-family:var(--f-display);letter-spacing:-.025em;line-height:1.1}
+h1{font-weight:700}
 h2,h3{font-weight:700}
 h3{letter-spacing:-.015em;line-height:1.25}
 .mark svg{color:var(--acento)}
 .mark{align-items:center;gap:10px}
-.mark .wordmark{font-family:"Archivo",system-ui,sans-serif;font-variation-settings:"wdth" 112;font-weight:700;letter-spacing:.1em}
-header{background:#fff}
+.mark .wordmark{font-family:var(--f-display);font-weight:700;letter-spacing:.1em}
+header{background:var(--papel-2)}
 
 body{font-size:17px}
 .hl{color:var(--texto);box-shadow:none;font-weight:600}
 .btn{border-radius:6px;min-height:50px;padding:0 24px;font-family:inherit}
-.btn-primary{background:var(--acento);color:#fff}
+.btn-primary{background:var(--acento);color:var(--texto-sobre-acento)}
 .btn-primary:hover{background:var(--acento-hover)}
 .btn-ghost{border-color:var(--linha-forte)}
-.btn-ghost:hover{background:#fff;border-color:var(--texto-3)}
-.previa{background:#fff;border-radius:10px}
-.previa .barra strong{font-family:"Archivo",system-ui,sans-serif;font-variation-settings:"wdth" 108;font-weight:700}
+.btn-ghost:hover{background:var(--papel-2);border-color:var(--texto-3)}
+.previa{background:var(--papel-2);border-radius:10px}
+.previa .barra strong{font-family:var(--f-display);font-weight:700}
 .previa .cx.on{background:var(--verde);border-color:var(--verde)}
 .leva .n{border-radius:4px;font-weight:600}
-#consent{background:#fff;border-top:2px solid var(--texto)}
+#consent{background:var(--papel-2);border-top:2px solid var(--texto)}
 </style>
 </head>
 <body>
@@ -287,10 +272,10 @@ body{font-size:17px}
     </div>
     <div class="quem">
       <p>
-        Sou <strong>Gabriel Fantin</strong>, desenvolvedor em Jacare&iacute;. Construo sistemas sob
+        Sou <strong>Gabriel Fantin</strong>, desenvolvedor. Atendo o Brasil todo pelo WhatsApp. Construo sistemas sob
         medida para a parte do processo que o sistema cont&aacute;bil n&atilde;o cobre — e a coleta
         mensal de documento &eacute; o caso mais repetido que eu encontrei ouvindo escrit&oacute;rio
-        daqui e de S&atilde;o Jos&eacute; dos Campos.
+        de contabilidade.
       </p>
       <p>
         Enquanto eu montava esse portal, a lista de documentos por regime teve que ser
@@ -335,7 +320,7 @@ body{font-size:17px}
 
 <footer>
   <div class="wrap">
-    <span>Fantin Sistemas &middot; Jacare&iacute;/SP &middot; atendo S&atilde;o Jos&eacute; dos Campos e o Vale do Para&iacute;ba</span>
+    <span>Fantin Sistemas &middot; atendo o Brasil todo pelo WhatsApp</span>
     <span><a href="privacidade.html">Pol&iacute;tica de privacidade</a> &middot; <a href="#" id="reconsent">Prefer&ecirc;ncias de cookies</a></span>
   </div>
 </footer>
