@@ -9,31 +9,12 @@
    ========================================================================== */
 
 @import url("tokens.css");
-
-@font-face {
-  font-family: "Archivo";
-  src: url("assets/fontes/archivo.woff2") format("woff2");
-  font-weight: 600 700;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Instrument Sans";
-  src: url("assets/fontes/instrument-sans.woff2") format("woff2");
-  font-weight: 400 600;
-  font-display: swap;
-}
-@font-face {
-  font-family: "JetBrains Mono";
-  src: url("assets/fontes/jetbrains-mono.woff2") format("woff2");
-  /* arquivo fixo no peso 500 (só rótulos e preços): serve 400 e 500 */
-  font-weight: 400 500;
-  font-display: swap;
-}
+@import url("fontes.css");
 
 :root,
 :root[data-tema],
 :root[data-theme] {
-  color-scheme: light dark;
+  color-scheme: light;
 
   /* fundo */
   --fundo: var(--papel);
@@ -85,3 +66,6 @@
   --fonte-titulo: var(--f-display);
   --fonte-texto: var(--f-sans);
 }
+
+/* escolha de tema feita no site (salva no navegador) */
+:root[data-theme="dark"] { color-scheme: dark; }

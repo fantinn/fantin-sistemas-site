@@ -1,0 +1,30 @@
+/* ==========================================================================
+   Fantin Sistemas — fontes.css
+
+   As três famílias do design system, servidas pelo próprio site (sem
+   conexão com terceiro) e cortadas nos caracteres que o site usa.
+   Importado por style.css (página principal) e ponte.css (secundárias).
+   ========================================================================== */
+
+@font-face {
+  font-family: "Archivo";
+  src: url("assets/fontes/archivo.woff2") format("woff2");
+  font-weight: 600 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Instrument Sans";
+  src: url("assets/fontes/instrument-sans.woff2") format("woff2");
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("assets/fontes/jetbrains-mono.woff2") format("woff2");
+  /* arquivo fixo no peso 500 (só rótulos e preços): serve 400 e 500 */
+  font-weight: 400 500;
+  font-style: normal;
+  font-display: swap;
+}

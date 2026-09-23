@@ -35,7 +35,8 @@ Pages (o `CNAME` aponta para fantin.tech). Nenhuma requisição externa: as trê
 | Arquivo | Papel |
 |---|---|
 | `tokens.css` | Única fonte de cor, tipografia, espaço, raio e sombra (cópia do design system) |
-| `style.css` | CSS da página principal; importa `tokens.css` e só usa `var(--...)` |
+| `fontes.css` | As três fontes (`@font-face`), usadas pela página principal e pelas secundárias |
+| `style.css` | CSS da página principal, em `@layer` (tokens → base → componentes → seções → utilitários); só usa `var(--...)` |
 | `ponte.css` | Liga as variáveis antigas das páginas secundárias aos tokens novos |
 | `<script>` no fim do `index.html` | Tema, menu do celular, comparador, a conta e o formulário para o WhatsApp |
 | `tools/contraste-pares.mjs` | Confere o contraste de todos os pares usados, nos dois modos |

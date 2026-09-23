@@ -1,14 +1,13 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Fantin Sistemas — página que vende e loja online para quem vende no Instagram</title>
 <meta name="description" content="Landing page por R$ 700 em 7 dias e loja completa na Nuvemshop por R$ 1.200. Preço fechado antes de começar, e a loja fica no seu nome. Atendimento para todo o Brasil pelo WhatsApp.">
 <link rel="canonical" href="https://fantin.tech/">
-<meta name="theme-color" content="#f0eee6" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#121311" media="(prefers-color-scheme: dark)">
-<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f0eee6">
+<meta name="color-scheme" content="light">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
@@ -25,7 +24,8 @@
 <meta property="og:image:alt" content="Fantin Sistemas: o título Seu cliente te acha no Instagram e não tem onde comprar, ao lado do print de um site publicado.">
 <meta name="twitter:card" content="summary_large_image">
 
-<!-- O tema salvo entra antes da primeira pintura, senão a página pisca. -->
+<!-- Abre sempre no claro (o papel é a cara da marca). Se a pessoa escolheu o
+     escuro no botão, a escolha salva entra antes da primeira pintura. -->
 <script>try{var t=localStorage.getItem("fs_tema");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
 
 <!-- Fontes servidas daqui mesmo (três famílias, um arquivo variável cada).
@@ -33,6 +33,7 @@
 <link rel="preload" href="assets/fontes/archivo.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fontes/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="tokens.css" as="style">
+<link rel="preload" href="fontes.css" as="style">
 <link rel="stylesheet" href="style.css">
 
 <script type="application/ld+json">
@@ -326,7 +327,7 @@
       funcionar — dá para fazer só a página, ou só a loja, ou só a automação.</p>
     </div>
 
-    <div class="frentes">
+    <div class="frentes trilho">
       <article class="card frente">
         <p class="eyebrow">Frente 01</p>
         <h3>Landing page</h3>
@@ -398,7 +399,7 @@
       construí antes de ter cliente, de propósito.</p>
     </div>
 
-    <div class="works">
+    <div class="works trilho">
       <article class="card work">
         <span class="tag"><span class="dot" aria-hidden="true"></span>no ar</span>
         <p class="eyebrow">Página de captação, para cliente</p>
@@ -864,18 +865,22 @@
   });
 
   /* ═══ tema ════════════════════════════════════════════════════════════
-     Sem escolha salva, segue o sistema. O botão grava a escolha e passa a
-     mandar nos dois sentidos. O script no <head> aplica antes de pintar. */
+     Abre sempre no claro, mesmo com o celular no modo escuro: o papel é a
+     cara da marca. O botão grava a escolha (vale para o site todo) e o
+     script no <head> aplica antes de pintar. A barra do navegador pega a
+     cor do papel do tema da vez, lida dos tokens. */
   (function tema() {
     var botao = document.getElementById("tema");
     if (!botao) return;
-    var escuroNoSistema = window.matchMedia("(prefers-color-scheme: dark)");
+    var barra = document.querySelector('meta[name="theme-color"]');
 
     function atual() {
-      return doc.getAttribute("data-theme") || (escuroNoSistema.matches ? "dark" : "light");
+      return doc.getAttribute("data-theme") === "dark" ? "dark" : "light";
     }
     function refletir() {
       botao.setAttribute("aria-pressed", atual() === "dark" ? "true" : "false");
+      var papel = getComputedStyle(doc).getPropertyValue("--papel").trim();
+      if (barra && papel) barra.setAttribute("content", papel);
     }
 
     botao.addEventListener("click", function () {
@@ -884,7 +889,6 @@
       guardar("fs_tema", novo);
       refletir();
     });
-    aoMudar(escuroNoSistema, refletir);
     refletir();
   })();
 
@@ -1127,6 +1131,24 @@
     });
 
     atualizar();
+  })();
+
+  /* ═══ trilhos do celular ══════════════════════════════════════════════
+     O navegador não rola o trilho quando o foco do teclado cai num card
+     que só aparece pela ponta. Aqui o trilho anda na horizontal até o card
+     inteiro ficar à vista — sem mexer na rolagem vertical da página. */
+  (function trilhos() {
+    var calmo = window.matchMedia("(prefers-reduced-motion: reduce)");
+    document.addEventListener("focusin", function (e) {
+      var card = e.target && e.target.closest ? e.target.closest(".trilho > *") : null;
+      if (!card) return;
+      var trilho = card.parentElement;
+      if (trilho.scrollWidth <= trilho.clientWidth) return;
+      var c = card.getBoundingClientRect(), t = trilho.getBoundingClientRect();
+      var folga = parseFloat(getComputedStyle(trilho).scrollPaddingLeft) || 0;
+      if (c.left >= t.left + folga - 1 && c.right <= t.right + 1) return;
+      trilho.scrollBy({ left: c.left - t.left - folga, behavior: calmo.matches ? "auto" : "smooth" });
+    });
   })();
 
   /* ═══ barra do WhatsApp no celular ════════════════════════════════════
