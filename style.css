@@ -494,8 +494,6 @@
   @media (min-width: 760px) {
     .provas { grid-template-columns: repeat(3, 1fr); gap: var(--s-3); }
   }
-  .hero-print { margin: var(--s-5) 0 0; }
-  .hero-print figcaption { margin-top: var(--s-2); }
 
   /* --- as quatro dores --- */
   .dores {
@@ -1077,7 +1075,6 @@
     /* botão que ocupa a linha inteira não precisa de 2rem de cada lado:
        com o respiro largo, rótulo comprido quebra em duas linhas a 320px */
     .hero-cta .btn, .ba-texto .btn { width: 100%; padding-inline: var(--s-2); }
-    .hero-print { margin-top: var(--s-4); }
 
     .lista li { line-height: 1.5; }
 

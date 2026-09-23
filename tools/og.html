@@ -12,20 +12,18 @@
   html, body { width: 1200px; height: 630px; overflow: hidden; }
   .og {
     width: 1200px; height: 630px;
-    display: grid; grid-template-columns: 1.05fr .95fr; gap: var(--s-5); align-items: center;
-    padding: var(--s-6) var(--s-6) var(--s-5);
+    display: flex; flex-direction: column; justify-content: center;
+    padding: var(--s-6);
     background: var(--papel);
   }
-  .og h1 { font-size: var(--t-3xl); max-width: 14ch; }
-  .og .lead { margin-top: var(--s-3); font-size: var(--t-lg); }
-  .og .hero-meta { margin-top: var(--s-4); font-size: var(--t-sm); display: grid; gap: var(--s-1); }
-  .og .brand { margin: 0 0 var(--s-4); }
-  .og .frame { box-shadow: var(--sh-3); }
+  .og h1 { font-size: calc(var(--t-3xl) * 1.45); max-width: 20ch; }
+  .og .lead { margin-top: var(--s-3); font-size: var(--t-xl); max-width: 48ch; }
+  .og .hero-meta { margin-top: var(--s-4); font-size: var(--t-lg); padding-top: var(--s-3); border-top: var(--borda) solid var(--linha); }
+  .og .brand { margin: 0 0 var(--s-3); }
 </style>
 </head>
 <body>
 <div class="og">
-  <div>
     <p class="brand">
       <svg width="20" height="24" viewBox="0 0 22 26" aria-hidden="true"><g fill="currentColor">
         <rect x="0" y="0" width="3" height="26"/><rect x="0" y="0" width="7" height="3"/><rect x="0" y="23" width="7" height="3"/>
@@ -34,20 +32,12 @@
       <span class="brand-nome">FANTIN</span> <span class="brand-sub">Sistemas</span>
     </p>
     <h1>Seu cliente te acha no Instagram e não tem onde <span class="destaque">comprar.</span></h1>
+    <p class="lead">Eu monto a loja onde ele vê o preço, escolhe e paga sozinho, no Pix ou no cartão.</p>
     <p class="hero-meta">
       <span>Landing page · R$ 700 · 7 dias</span>
       <span>Loja completa · R$ 1.200 · 14 dias</span>
       <span>Automação · a partir de R$ 197</span>
     </p>
-  </div>
-  <div class="frame">
-    <span class="frame-bar">
-      <span class="frame-dots"><i></i><i></i><i></i></span>
-      <span class="frame-url">pdrdesign.com.br</span>
-      <span class="tag frame-note"><span class="dot"></span>no ar</span>
-    </span>
-    <img src="../assets/pdrdesign-1200.webp" width="1200" height="750" alt="">
-  </div>
 </div>
 </body>
 </html>

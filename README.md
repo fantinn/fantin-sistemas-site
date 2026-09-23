@@ -45,7 +45,7 @@ Pages (o `CNAME` aponta para fantin.tech). Nenhuma requisição externa: as trê
 | `style.css` | CSS da página principal, em `@layer` (tokens → base → componentes → seções → utilitários); só usa `var(--...)` |
 | `ponte.css` | Liga as variáveis antigas das páginas secundárias aos tokens novos |
 | `sistema/` | O CSS e o JS antigos, ainda usados pelas páginas secundárias e pela demonstração |
-| `assets/` | As três fontes e o print do pdrdesign.com.br (AVIF e WebP, 720 e 1200) |
+| `assets/` | As três fontes e o print do pdrdesign.com.br (AVIF e WebP, 720 e 1200) — o print saiu do herói e hoje não é usado |
 | `<script>` no fim do `index.html` | Tema, menu do celular, comparador, a conta e o formulário para o WhatsApp |
 | `tools/contraste-pares.mjs` | Confere o contraste de todos os pares usados, nos dois modos |
 | `tools/checar-tokens.mjs` | Acusa cor, espaço, raio ou sombra escritos à mão no `style.css` |
