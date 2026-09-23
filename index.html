@@ -24,9 +24,9 @@
 <meta property="og:image:alt" content="Fantin Sistemas: o título Seu cliente te acha no Instagram e não tem onde comprar, ao lado do print de um site publicado.">
 <meta name="twitter:card" content="summary_large_image">
 
-<!-- Abre sempre no claro (o papel é a cara da marca). Se a pessoa escolheu o
-     escuro no botão, a escolha salva entra antes da primeira pintura. -->
-<script>try{var t=localStorage.getItem("fs_tema");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<!-- Toda visita abre no claro (o papel é a cara da marca). O escuro só entra se
+     a pessoa trocou no botão nesta mesma visita; escolha antiga salva é apagada. -->
+<script>try{localStorage.removeItem("fs_tema");if(sessionStorage.getItem("fs_tema")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
 
 <!-- Fontes servidas daqui mesmo (três famílias, um arquivo variável cada).
      As duas da primeira dobra vêm pré-carregadas; nenhuma bloqueia a pintura. -->
@@ -865,10 +865,10 @@
   });
 
   /* ═══ tema ════════════════════════════════════════════════════════════
-     Abre sempre no claro, mesmo com o celular no modo escuro: o papel é a
-     cara da marca. O botão grava a escolha (vale para o site todo) e o
-     script no <head> aplica antes de pintar. A barra do navegador pega a
-     cor do papel do tema da vez, lida dos tokens. */
+     Toda visita abre no claro, mesmo com o celular no modo escuro: o papel
+     é a cara da marca. O botão troca só para esta visita (sessionStorage):
+     vale ao recarregar e nas outras páginas do site, mas a próxima visita
+     volta ao claro. A barra do navegador pega a cor do papel da vez. */
   (function tema() {
     var botao = document.getElementById("tema");
     if (!botao) return;
@@ -886,7 +886,7 @@
     botao.addEventListener("click", function () {
       var novo = atual() === "dark" ? "light" : "dark";
       doc.setAttribute("data-theme", novo);
-      guardar("fs_tema", novo);
+      try { sessionStorage.setItem("fs_tema", novo); } catch (e) { /* aba privada: vale até recarregar */ }
       refletir();
     });
     refletir();

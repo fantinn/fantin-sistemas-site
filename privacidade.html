@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- abre no claro; se a pessoa escolheu o escuro no site, vale aqui também -->
-<script>try{var t=localStorage.getItem("fs_tema");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<!-- toda visita abre no claro; se a pessoa trocou para o escuro nesta visita, vale aqui também -->
+<script>try{localStorage.removeItem("fs_tema");if(sessionStorage.getItem("fs_tema")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
 <title>Política de privacidade — Fantin Sistemas</title>
 <meta name="robots" content="index,follow">
 <meta name="description" content="Como a Fantin Sistemas trata dados pessoais: o que coleta, por quê, por quanto tempo e como você exclui.">
