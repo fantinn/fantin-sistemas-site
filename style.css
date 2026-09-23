@@ -1074,7 +1074,9 @@
     .hero { padding-block: var(--s-5) var(--s-4); }
     .lead, .dores-pe { font-size: var(--t-md); }
     .cabeca .lead, .ba-texto .lead, .contato-texto .lead { margin-top: var(--s-2); }
-    .hero-cta .btn, .ba-texto .btn { width: 100%; }
+    /* botão que ocupa a linha inteira não precisa de 2rem de cada lado:
+       com o respiro largo, rótulo comprido quebra em duas linhas a 320px */
+    .hero-cta .btn, .ba-texto .btn { width: 100%; padding-inline: var(--s-2); }
     .hero-print { margin-top: var(--s-4); }
 
     .lista li { line-height: 1.5; }

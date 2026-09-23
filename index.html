@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fantin Sistemas — página que vende e loja online para quem vende no Instagram</title>
-<meta name="description" content="Landing page por R$ 700 em 7 dias e loja completa na Nuvemshop por R$ 1.200. Preço fechado antes de começar, e a loja fica no seu nome. Atendimento para todo o Brasil pelo WhatsApp.">
+<title>Loja online e landing page para quem vende no Instagram — Fantin Sistemas</title>
+<meta name="description" content="Landing page por R$ 700 em 7 dias e loja completa na Nuvemshop por R$ 1.200. Preço fechado antes de começar, a loja fica no seu nome. Atendo o Brasil todo.">
 <link rel="canonical" href="https://fantin.tech/">
 <meta name="theme-color" content="#f0eee6">
 <meta name="color-scheme" content="light">
@@ -29,9 +29,12 @@
 <script>try{localStorage.removeItem("fs_tema");if(sessionStorage.getItem("fs_tema")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
 
 <!-- Fontes servidas daqui mesmo (três famílias, um arquivo variável cada).
-     As duas da primeira dobra vêm pré-carregadas; nenhuma bloqueia a pintura. -->
+     As três da primeira dobra vêm pré-carregadas; nenhuma bloqueia a pintura.
+     A mono entra aqui porque a linha de preços do herói é escrita nela: sem
+     o preload ela troca depois da pintura e a linha se mexe. -->
 <link rel="preload" href="assets/fontes/archivo.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fontes/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fontes/jetbrains-mono.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="tokens.css" as="style">
 <link rel="preload" href="fontes.css" as="style">
 <link rel="stylesheet" href="style.css">
@@ -73,6 +76,49 @@
   }
 }
 </script>
+<!-- As mesmas seis perguntas da seção #perguntas, em dado estruturado.
+     ELAS TÊM QUE CASAR: se você mudar uma resposta lá embaixo, mude aqui
+     também — marcar pergunta que não está na página é o que derruba o
+     rich result. Texto puro, sem marcação. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": "https://fantin.tech/#perguntas",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Preciso pagar mensalidade?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Para a landing page, não: só o domínio, uns R$ 40 por ano. Para a loja, a plataforma tem mensalidade — mas a Nuvemshop tem plano gratuito, então dá para começar pagando só o meu trabalho e o domínio. Essa mensalidade é sua e vai direto para eles; não passa por mim e eu não ganho comissão nela." }
+    },
+    {
+      "@type": "Question",
+      "name": "E se você sumir?",
+      "acceptedAnswer": { "@type": "Answer", "text": "A loja é criada na sua conta e o domínio no seu nome, com a sua senha. Se eu sumir amanhã, nada para de funcionar e qualquer outra pessoa consegue mexer. É por isso que eu faço assim, e não no meu login." }
+    },
+    {
+      "@type": "Question",
+      "name": "Eu tenho mais de 60 produtos. E aí?",
+      "acceptedAnswer": { "@type": "Answer", "text": "O pacote cobre 60 cadastrados por mim. Acima disso a gente combina: ou eu cadastro o resto e isso entra como valor à parte, ou eu cadastro os 60 principais e te ensino a cadastrar os outros — o treino gravado cobre exatamente isso." }
+    },
+    {
+      "@type": "Question",
+      "name": "Não entendo nada de computador. Vou conseguir mexer?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Quem mexe no dia a dia é você, e por isso a entrega inclui 1 hora de treino gravada com a sua loja na tela, não um manual genérico. Você reassiste quando esquecer. E o meu WhatsApp continua o mesmo depois de você pagar." }
+    },
+    {
+      "@type": "Question",
+      "name": "Quanto tempo leva?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Landing page em 7 dias, loja completa em 14, contando a partir do dia em que você me manda fotos e preços. O que costuma atrasar não é o meu lado: é o material chegando em pedaços." }
+    },
+    {
+      "@type": "Question",
+      "name": "Por que eu não deveria fazer sozinho num criador de sites?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Você deveria, se tiver tempo e paciência. O que você paga aqui não é o site em si — é não gastar três fins de semana descobrindo por que o Pix não aparece no carrinho, e receber tudo testado com uma compra de verdade antes de ir ao ar." }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -100,7 +146,7 @@
         <li><a href="#precos">Preços</a></li>
         <li><a href="#perguntas">Perguntas</a></li>
       </ul>
-      <a class="btn btn--primary" href="#contato">Solicitar orçamento <span class="seta" aria-hidden="true">&rarr;</span></a>
+      <a class="btn btn--primary" href="#contato">Falar comigo <span class="seta" aria-hidden="true">&rarr;</span></a>
     </nav>
 
     <a class="btn btn--ghost head-zap" href="https://wa.me/5527992864820?text=Oi%20Gabriel%2C%20vi%20seu%20site." target="_blank" rel="noopener" data-evt="whatsapp">Falar no WhatsApp</a>
@@ -125,7 +171,7 @@
     <p class="lead">Eu monto a loja onde ele vê o preço, escolhe e paga sozinho — no Pix ou
     no cartão, até às 23h de domingo, sem esperar você responder o direct.</p>
     <div class="hero-cta">
-      <a class="btn btn--primary btn--g" href="#contato">Solicitar orçamento <span class="seta" aria-hidden="true">&rarr;</span></a>
+      <a class="btn btn--primary btn--g" href="#contato">Me conta o que você vende <span class="seta" aria-hidden="true">&rarr;</span></a>
       <a class="btn btn--ghost btn--g" href="#trabalhos">Ver trabalhos</a>
     </div>
     <p class="hero-meta">
@@ -573,16 +619,18 @@
         no domingo, sem mensalidade minha e sem você responder nada.</p>
         <ul class="lista">
           <li>A <b>landing page</b> se paga em <b id="cvendasp">5 vendas</b>.</li>
-          <li>Você deixa de gastar <b id="choras">12 horas</b> por mês repetindo o mesmo preço.</li>
+          <li>Hoje você gasta <b id="choras">12 horas</b> por mês repetindo o mesmo preço,
+          contando três minutos por conversa.</li>
           <li>E quem tem vergonha de perguntar o preço passa a comprar sem falar com ninguém.</li>
         </ul>
       </div>
     </div>
 
-    <p class="conta-pe">É divisão, não previsão. Não existe aqui nenhuma promessa de
-    faturamento, porque eu não sei quanto você vai vender e quem te diz um número redondo
-    também não sabe. <b>O que eu prometo é a entrega:</b> no ar, no seu nome, na data
-    combinada, com tudo ligado e testado.</p>
+    <p class="conta-pe">É divisão, não previsão &mdash; e é sobre o <b>preço de venda</b>, não
+    sobre a sua margem: se sobra metade para você em cada venda, dobre o número. Não
+    existe aqui nenhuma promessa de faturamento, porque eu não sei quanto você vai
+    vender e quem te diz um número redondo também não sabe. <b>O que eu prometo é a
+    entrega:</b> no ar, no seu nome, na data combinada, com tudo ligado e testado.</p>
   </div>
 </section>
 
