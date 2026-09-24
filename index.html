@@ -1173,6 +1173,54 @@
      inteiro ficar à vista — sem mexer na rolagem vertical da página. */
   (function trilhos() {
     var calmo = window.matchMedia("(prefers-reduced-motion: reduce)");
+    document.querySelectorAll(".trilho").forEach(function (trilho, numero) {
+      var cards = Array.from(trilho.children);
+      if (cards.length < 2) return;
+      if (!trilho.id) trilho.id = "trilho-" + numero;
+      var controles = document.createElement("div");
+      controles.className = "trilho-controles";
+      controles.setAttribute("role", "group");
+      var secao = trilho.closest("section");
+      controles.setAttribute("aria-label", secao.id === "frentes" ? "Navegar pelos serviços" : "Navegar pelos trabalhos");
+      var posicao = document.createElement("span");
+      posicao.className = "trilho-posicao";
+      controles.appendChild(posicao);
+      var atual = 0;
+      function criarBotao(passo, rotulo, seta) {
+        var botao = document.createElement("button");
+        botao.type = "button";
+        botao.className = "icon-btn";
+        botao.setAttribute("aria-label", rotulo);
+        botao.setAttribute("aria-controls", trilho.id);
+        botao.textContent = seta;
+        botao.addEventListener("click", function () {
+          if (botao.getAttribute("aria-disabled") === "true") return;
+          atual = Math.max(0, Math.min(cards.length - 1, atual + passo));
+          var folga = parseFloat(getComputedStyle(trilho).scrollPaddingLeft) || 0;
+          trilho.scrollBy({ left: cards[atual].getBoundingClientRect().left - trilho.getBoundingClientRect().left - folga,
+            behavior: calmo.matches ? "auto" : "smooth" });
+        });
+        controles.appendChild(botao);
+        return botao;
+      }
+      var anterior = criarBotao(-1, "Cartão anterior", "←");
+      var proximo = criarBotao(1, "Próximo cartão", "→");
+      function sincronizar() {
+        var inicio = trilho.getBoundingClientRect().left + (parseFloat(getComputedStyle(trilho).scrollPaddingLeft) || 0);
+        var distancia = Infinity;
+        cards.forEach(function (card, i) {
+          var d = Math.abs(card.getBoundingClientRect().left - inicio);
+          if (d < distancia) { distancia = d; atual = i; }
+        });
+        posicao.textContent = (atual + 1) + " / " + cards.length;
+        anterior.setAttribute("aria-disabled", String(atual === 0));
+        proximo.setAttribute("aria-disabled", String(atual === cards.length - 1));
+      }
+      trilho.before(controles);
+      trilho.addEventListener("scroll", sincronizar, { passive: true });
+      window.addEventListener("resize", sincronizar);
+      sincronizar();
+    });
     document.addEventListener("focusin", function (e) {
       var card = e.target && e.target.closest ? e.target.closest(".trilho > *") : null;
       if (!card) return;

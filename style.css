@@ -328,7 +328,22 @@
     grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--col-min)), 1fr));
     gap: var(--s-3);
   }
+  .trilho-controles { display: none; }
   @media (max-width: 759px) {
+    .trilho-controles {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: var(--s-1);
+      margin-top: var(--s-4);
+    }
+    .trilho-posicao {
+      margin-right: auto;
+      color: var(--tinta-2);
+      font-family: var(--f-mono);
+      font-size: var(--t-xs);
+    }
+    .trilho-controles .icon-btn[aria-disabled="true"] { color: var(--tinta-3); border-color: var(--linha); cursor: default; }
     .trilho {
       grid-template-columns: none;
       grid-auto-flow: column;
@@ -493,6 +508,22 @@
   .provas dd { margin: 0; font-weight: 600; }
   @media (min-width: 760px) {
     .provas { grid-template-columns: repeat(3, 1fr); gap: var(--s-3); }
+  }
+  @media (min-width: 1000px) {
+    .hero > .wrap {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      column-gap: var(--s-5);
+      align-items: start;
+    }
+    .hero .eyebrow { grid-column: 1 / -1; margin-bottom: var(--s-4); }
+    .hero h1 { grid-column: 1; grid-row: 2 / 4; }
+    .hero .lead { grid-column: 2; margin-top: 0; }
+    .hero-cta { grid-column: 2; gap: var(--s-2); margin-top: var(--s-3); }
+    .hero-cta .btn { width: 100%; }
+    .hero-meta { grid-column: 1 / -1; margin-top: var(--s-5); }
+    .provas { grid-column: 1 / -1; }
+    .provas > div + div { padding-left: var(--s-3); border-left: var(--borda) solid var(--linha); }
   }
 
   /* --- as quatro dores --- */
@@ -1020,6 +1051,7 @@
   /* --- barra fixa do WhatsApp (celular) --- */
   .barra-zap { display: none; }
   @media (max-width: 899px) {
+    html { scroll-padding-bottom: calc(var(--alvo) * 2 + var(--s-3) + env(safe-area-inset-bottom, 0px)); }
     .barra-zap {
       position: fixed;
       inset: auto 0 0 0;
@@ -1075,10 +1107,21 @@
     /* botão que ocupa a linha inteira não precisa de 2rem de cada lado:
        com o respiro largo, rótulo comprido quebra em duas linhas a 320px */
     .hero-cta .btn, .ba-texto .btn { width: 100%; padding-inline: var(--s-2); }
+    .provas { gap: 0; padding-top: 0; }
+    .provas > div {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+      align-items: baseline;
+      gap: var(--s-2);
+      padding-block: var(--s-2);
+      border-bottom: var(--borda) solid var(--linha);
+    }
+    .provas dd { font-size: var(--t-sm); }
 
     .lista li { line-height: 1.5; }
 
     .dores, .frentes, .works, .garantias, .prices, .conta { margin-top: var(--s-4); }
+    .trilho-controles + .trilho { margin-top: var(--s-2); }
     .dores { gap: 0; }
     .dor {
       display: grid;
@@ -1107,6 +1150,20 @@
     .faq summary { padding: var(--s-2) 0; font-size: var(--t-md); }
     .form-zap { gap: var(--s-2); }
     .contato-grade { gap: var(--s-4); }
+  }
+  @media (max-width: 559px) {
+    .site-head .wrap { gap: var(--s-1); }
+    .steps { gap: 0; }
+    .step {
+      padding: 0 0 var(--s-4) var(--s-5);
+      border-top: 0;
+      border-left: var(--borda) solid var(--linha-2);
+      margin-left: var(--s-2);
+    }
+    .step:last-child { padding-bottom: 0; border-left-color: transparent; }
+    .step::before { top: 0; left: calc(var(--s-2) * -1); padding: var(--s-1) 0; line-height: 1; }
+    .step .recebe { margin-top: 0; padding-top: var(--s-1); }
+    .recebe span { margin-top: var(--s-1); }
   }
 }
 
