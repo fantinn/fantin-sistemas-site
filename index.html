@@ -35,9 +35,9 @@
 <link rel="preload" href="assets/fontes/archivo.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fontes/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fontes/jetbrains-mono.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="tokens.css?v=202609242328" as="style">
+<link rel="preload" href="tokens.css?v=202609242342" as="style">
 <link rel="preload" href="fontes.css" as="style">
-<link rel="stylesheet" href="style.css?v=202609242328">
+<link rel="stylesheet" href="style.css?v=202609242342">
 
 <script type="application/ld+json">
 {
@@ -88,33 +88,38 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Preciso pagar mensalidade?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Para a landing page, não: só o domínio, uns R$ 40 por ano. Para a loja, sim: para ela abrir no seu endereço (sualoja.com.br), o plano mais barato da Nuvemshop é o Essencial, R$ 59 por mês, mais os R$ 40 por ano do domínio." }
+      "name": "Tem mensalidade?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Na landing page, não: você paga só o domínio, uns R$ 40 por ano. Na loja, sim: para abrir no seu endereço (sualoja.com.br), o plano mais barato da Nuvemshop é o Essencial, R$ 59 por mês, mais o domínio." }
     },
     {
       "@type": "Question",
-      "name": "E se você sumir?",
-      "acceptedAnswer": { "@type": "Answer", "text": "A loja é criada na sua conta e o domínio no seu nome, com a sua senha. Se eu sumir amanhã, nada para de funcionar e qualquer outra pessoa consegue mexer. É por isso que eu faço assim, e não no meu login." }
+      "name": "Landing page ou loja: qual é a minha?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Se você vende serviço ou poucos produtos e fecha a venda no WhatsApp, a landing page resolve. Se tem catálogo com tamanhos, cores e estoque e quer que o cliente compre sozinho, com Pix, cartão e frete calculado, é a loja. Na dúvida, me chama: em quinze minutos eu te digo qual e quanto custa." }
     },
     {
       "@type": "Question",
-      "name": "Eu tenho mais de 60 produtos. E aí?",
-      "acceptedAnswer": { "@type": "Answer", "text": "O pacote cobre 60 cadastrados por mim. Acima disso a gente combina: ou eu cadastro o resto e isso entra como valor à parte, ou eu cadastro os 60 principais e te ensino a cadastrar os outros — o treino gravado cobre exatamente isso." }
+      "name": "Como funciona o pagamento?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Metade para começar, quando você me manda fotos, preços e textos. A outra metade na entrega, com o site no ar e o domínio, as senhas e o treino gravado na sua mão. Escopo e valor ficam combinados por escrito antes de eu começar." }
     },
     {
       "@type": "Question",
-      "name": "Não entendo nada de computador. Vou conseguir mexer?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Quem mexe no dia a dia é você, e por isso a entrega inclui 1 hora de treino gravada com a sua loja na tela, não um manual genérico. Você reassiste quando esquecer. E o meu WhatsApp continua o mesmo depois de você pagar." }
+      "name": "Em quanto tempo fica pronto?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Landing page em 7 dias e loja completa em 14, contando do dia em que o material chega. O que mais atrasa um projeto é foto e preço chegando aos pedaços, então quanto antes vier tudo junto, antes vai ao ar." }
     },
     {
       "@type": "Question",
-      "name": "Quanto tempo leva?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Landing page em 7 dias, loja completa em 14, contando a partir do dia em que você me manda fotos e preços. O que costuma atrasar não é o meu lado: é o material chegando em pedaços." }
+      "name": "Tenho mais de 60 produtos. E agora?",
+      "acceptedAnswer": { "@type": "Answer", "text": "O pacote da loja inclui 60 produtos cadastrados por mim. Acima disso a gente combina: ou eu cadastro o resto como valor à parte, ou cadastro os 60 principais e você cadastra os outros com o que aprendeu no treino gravado, que cobre exatamente isso." }
     },
     {
       "@type": "Question",
-      "name": "Por que eu não deveria fazer sozinho num criador de sites?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Você deveria, se tiver tempo e paciência. O que você paga aqui não é o site em si — é não gastar três fins de semana descobrindo por que o Pix não aparece no carrinho, e receber tudo testado com uma compra de verdade antes de ir ao ar." }
+      "name": "Vou conseguir mexer sozinho?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Vai. A entrega inclui 1 hora de treino gravado com a sua loja na tela: trocar preço, cadastrar produto, ver pedido. Não é manual genérico, e você reassiste quando esquecer." }
+    },
+    {
+      "@type": "Question",
+      "name": "E depois da entrega, se der algum problema?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Você tem 30 dias para me chamar se algo que eu entreguei estiver errado, e eu corrijo. A loja e o domínio ficam na sua conta e no seu nome, com a sua senha, então o que é seu continua seu." }
     }
   ]
 }
@@ -715,41 +720,47 @@
       <h2 id="perguntas-titulo">O que perguntam antes de fechar.</h2>
     </div>
     <div class="faq">
-      <details open>
-        <summary>Preciso pagar mensalidade?</summary>
-        <p class="faq-resp">Para a landing page, não: só o domínio, uns R$ 40 por ano. Para a loja,
-        sim: para ela abrir no seu endereço (sualoja.com.br), o plano mais barato da Nuvemshop
-        é o Essencial, <b>R$ 59 por mês</b>, mais os R$ 40 por ano do domínio.</p>
+      <details name="faq" open>
+        <summary>Tem mensalidade?</summary>
+        <p class="faq-resp">Na landing page, não: você paga só o domínio, uns R$ 40 por ano. Na loja,
+        sim: para abrir no seu endereço (sualoja.com.br), o plano mais barato da Nuvemshop é o
+        Essencial, <b>R$ 59 por mês</b>, mais o domínio.</p>
       </details>
-      <details>
-        <summary>E se você sumir?</summary>
-        <p class="faq-resp">A loja é criada <b>na sua conta</b> e o domínio no seu nome, com a sua
-        senha. Se eu sumir amanhã, nada para de funcionar e qualquer outra pessoa consegue mexer.
-        É por isso que eu faço assim, e não no meu login.</p>
+      <details name="faq">
+        <summary>Landing page ou loja: qual é a minha?</summary>
+        <p class="faq-resp">Se você vende serviço ou poucos produtos e fecha a venda no WhatsApp, a <b>landing page</b>
+        resolve. Se tem catálogo com tamanhos, cores e estoque e quer que o cliente compre sozinho,
+        com Pix, cartão e frete calculado, é a <b>loja</b>. Na dúvida, me chama: em quinze minutos
+        eu te digo qual e quanto custa.</p>
       </details>
-      <details>
-        <summary>Eu tenho mais de 60 produtos. E aí?</summary>
-        <p class="faq-resp">O pacote cobre 60 cadastrados por mim. Acima disso a gente combina: ou
-        eu cadastro o resto e isso entra como valor à parte, ou eu cadastro os 60 principais e
-        te ensino a cadastrar os outros — o treino gravado cobre exatamente isso.</p>
+      <details name="faq">
+        <summary>Como funciona o pagamento?</summary>
+        <p class="faq-resp"><b>Metade para começar</b>, quando você me manda fotos, preços e textos. <b>A outra metade
+        na entrega</b>, com o site no ar e o domínio, as senhas e o treino gravado na sua mão.
+        Escopo e valor ficam combinados por escrito antes de eu começar.</p>
       </details>
-      <details>
-        <summary>Não entendo nada de computador. Vou conseguir mexer?</summary>
-        <p class="faq-resp">Quem mexe no dia a dia é você, e por isso a entrega inclui <b>1 hora de
-        treino gravada</b> com a sua loja na tela, não um manual genérico. Você reassiste quando
-        esquecer. E o meu WhatsApp continua o mesmo depois de você pagar.</p>
+      <details name="faq">
+        <summary>Em quanto tempo fica pronto?</summary>
+        <p class="faq-resp">Landing page em <b>7 dias</b> e loja completa em <b>14</b>, contando do dia em que o
+        material chega. O que mais atrasa um projeto é foto e preço chegando aos pedaços, então
+        quanto antes vier tudo junto, antes vai ao ar.</p>
       </details>
-      <details>
-        <summary>Quanto tempo leva?</summary>
-        <p class="faq-resp">Landing page em 7 dias, loja completa em 14, contando a partir do dia em
-        que você me manda fotos e preços. O que costuma atrasar não é o meu lado: é o material
-        chegando em pedaços.</p>
+      <details name="faq">
+        <summary>Tenho mais de 60 produtos. E agora?</summary>
+        <p class="faq-resp">O pacote da loja inclui 60 produtos cadastrados por mim. Acima disso a gente combina: ou eu
+        cadastro o resto como valor à parte, ou cadastro os 60 principais e você cadastra os outros
+        com o que aprendeu no treino gravado, que cobre exatamente isso.</p>
       </details>
-      <details>
-        <summary>Por que eu não deveria fazer sozinho num criador de sites?</summary>
-        <p class="faq-resp">Você deveria, se tiver tempo e paciência. O que você paga aqui não é o
-        site em si — é não gastar três fins de semana descobrindo por que o Pix não aparece no
-        carrinho, e receber tudo <b>testado com uma compra de verdade</b> antes de ir ao ar.</p>
+      <details name="faq">
+        <summary>Vou conseguir mexer sozinho?</summary>
+        <p class="faq-resp">Vai. A entrega inclui <b>1 hora de treino gravado</b> com a sua loja na tela: trocar preço,
+        cadastrar produto, ver pedido. Não é manual genérico, e você reassiste quando esquecer.</p>
+      </details>
+      <details name="faq">
+        <summary>E depois da entrega, se der algum problema?</summary>
+        <p class="faq-resp">Você tem <b>30 dias</b> para me chamar se algo que eu entreguei estiver errado, e eu
+        corrijo. A loja e o domínio ficam <b>na sua conta e no seu nome</b>, com a sua senha, então
+        o que é seu continua seu.</p>
       </details>
     </div>
   </div>
@@ -1523,6 +1534,17 @@
      como um hodômetro até o valor: o texto real fica no lugar, só
      transparente enquanto gira, e o que gira é uma cópia que o leitor de
      tela não lê. Sem movimento pedido, nada disso liga. */
+  /* perguntas: abrir uma fecha a que estava aberta */
+  (function perguntas() {
+    var itens = Array.from(document.querySelectorAll(".faq details"));
+    itens.forEach(function (d) {
+      d.addEventListener("toggle", function () {
+        if (!d.open) return;
+        itens.forEach(function (o) { if (o !== d && o.open) o.open = false; });
+      });
+    });
+  })();
+
   (function vitrine() {
     var calmo = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (calmo.matches || !("IntersectionObserver" in window)) return;
