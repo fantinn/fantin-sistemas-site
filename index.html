@@ -348,8 +348,6 @@
       <p class="lead">À esquerda, o que o seu cliente encontra hoje: preço só no direct, tabela
       em print, frete &ldquo;a combinar&rdquo; e ninguém respondendo depois das 18h. À direita, a
       mesma venda numa loja: preço na tela, frete calculado, Pix e cartão, aberta a qualquer hora.</p>
-      <p class="aviso"><span class="tag">Exemplo</span> Montei os dois lados
-      para mostrar a diferença. Não é loja de cliente, e os números são fictícios.</p>
       <a class="btn btn--primary btn--g" href="#contato" data-servico="loja">Quero a minha do lado direito <span class="seta" aria-hidden="true">&rarr;</span></a>
     </div>
 
@@ -395,7 +393,6 @@
                  aria-describedby="ba-desc" aria-valuetext="Linha no meio: metade antes, metade depois">
         </div>
       </div>
-      <figcaption class="muted">Tela de demonstração. Os números são fictícios. Exemplo ilustrativo, não é caso de cliente.</figcaption>
       <p class="visually-hidden" id="ba-desc">Antes: uma página de link na bio com o preço
       só no direct, catálogo em PDF, tabela em print, frete e pagamento a combinar, e atendimento
       só das 9h às 18h. Depois: a página do produto com preço, parcelamento, desconto no Pix,
@@ -657,7 +654,7 @@
         <div class="price-topo"><h3>Loja completa</h3></div>
         <span class="tag price-selo">Para quem vende produto</span>
         <p class="eyebrow">Investimento</p>
-        <p class="amount"><span class="amount-moeda">R$ </span><span class="amount-valor" data-de="5000">1.200</span></p>
+        <p class="amount"><span class="amount-moeda">R$ </span><span class="amount-valor" data-de="3200">1.200</span></p>
         <p class="amount-nota">ou 10x de R$ 120 no cartão</p>
         <p class="amount-nota">pronta em 14 dias</p>
         <ul class="lista">
@@ -1614,7 +1611,7 @@
     function girar(valor) {
       var fim = Number(valor.textContent.replace(/\D/g, "")), de = Number(valor.dataset.de);
       if (!de || !fim) return;
-      var texto = valor.textContent, inicio = null, DURA = 1400;
+      var texto = valor.textContent, inicio = null, DURA = 2600;
       function quadro(t) {
         if (inicio === null) inicio = t;
         var p = Math.min(1, (t - inicio) / DURA), e = 1 - Math.pow(1 - p, 3);
