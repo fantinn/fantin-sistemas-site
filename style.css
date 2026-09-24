@@ -12,7 +12,7 @@
 
 @layer tokens, base, componentes, secoes, utilitarios;
 
-@import url("tokens.css?v=202609242048") layer(tokens);
+@import url("tokens.css?v=202609242050") layer(tokens);
 @import url("fontes.css") layer(tokens);
 
 /* ═══ TOKENS: medidas de peça (não são cor, espaço, raio nem sombra) ════════ */
@@ -2185,12 +2185,11 @@
     place-items: center;
     width: var(--alvo);
     height: var(--alvo);
-    border-radius: 50%;
     color: var(--banda-tinta-2);
-    transition: color var(--dur) ease, background var(--dur) ease;
+    transition: color var(--dur) ease, transform var(--dur) ease;
   }
   .rede svg { width: 1.25em; height: 1.25em; }
-  .rede:hover, .rede:focus-visible { color: var(--banda-tinta); background: color-mix(in srgb, var(--banda-tinta) 8%, transparent); }
+  .rede:hover, .rede:focus-visible { color: var(--banda-tinta); transform: scale(1.15); }
   .site-foot :focus-visible { outline-color: var(--marca); }
   .foot-links { list-style: none; display: flex; gap: var(--s-3); margin-inline-end: auto; }
   .foot-links a { display: inline-block; padding-block: var(--s-1); color: var(--banda-tinta-2); }
@@ -2398,19 +2397,6 @@
       }
       :is(.frente, .price:not([data-featured="true"]), .work, .dor):hover::before { opacity: 1; }
 
-      /* reflexo que atravessa o botão principal */
-      .btn--primary { position: relative; isolation: isolate; overflow: hidden; }
-      .btn--primary::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        z-index: -1;
-        pointer-events: none;
-        background: linear-gradient(105deg, transparent 30%,
-                    color-mix(in srgb, var(--banda-tinta) 55%, transparent) 50%, transparent 70%);
-        translate: -110% 0;
-      }
-      .btn--primary:hover::after { translate: 110% 0; transition: translate .8s var(--motion-ease); }
     }
 
     /* herói: o título fica imediato; o resto entra em cascata e o
