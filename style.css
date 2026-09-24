@@ -2392,7 +2392,8 @@
       /* borda que acende perto do mouse (--mx/--my vêm do JS). Só a borda:
          tingir o fundo do card derrubava o contraste do texto e dos botões */
       :is(.frente, .price, .dor) { position: relative; }
-      :is(.frente, .price, .work, .dor)::before {
+      /* o preço em destaque já tem aro próprio, com brilho (bloco dos preços) */
+      :is(.frente, .price:not([data-featured="true"]), .work, .dor)::before {
         content: "";
         position: absolute;
         inset: calc(var(--borda) * -1);
@@ -2406,7 +2407,7 @@
         opacity: 0;
         transition: opacity var(--motion-ui) var(--motion-ease);
       }
-      :is(.frente, .price, .work, .dor):hover::before { opacity: 1; }
+      :is(.frente, .price:not([data-featured="true"]), .work, .dor):hover::before { opacity: 1; }
 
       /* reflexo que atravessa o botão principal */
       .btn--primary { position: relative; isolation: isolate; overflow: hidden; }
