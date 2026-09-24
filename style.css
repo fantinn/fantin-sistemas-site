@@ -2180,45 +2180,12 @@
   .foot-links { list-style: none; display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-3); }
   .foot-links a { display: inline-block; padding-block: var(--s-1); }
 
-  /* redes: dois cartõezinhos com ícone num círculo que acende no toque */
-  .foot-redes { list-style: none; display: flex; flex-wrap: wrap; gap: var(--s-2); }
-  .rede {
-    display: flex;
-    align-items: center;
-    gap: var(--s-2);
-    padding: var(--s-1) var(--s-3) var(--s-1) var(--s-1);
-    border: var(--borda) solid var(--linha);
-    border-radius: var(--r-pill);
-    background: var(--papel-2);
-    color: var(--tinta);
-    font-weight: 600;
-    text-decoration: none;
-    box-shadow: var(--sh-1);
-    transition: border-color var(--dur) ease, box-shadow var(--dur) ease, transform var(--dur) ease;
-  }
-  .rede-icone {
-    display: grid;
-    place-items: center;
-    width: 2.5em;
-    height: 2.5em;
-    border-radius: 50%;
-    background: var(--marca-tint);
-    color: var(--marca-texto);
-    transition: background var(--dur) ease, color var(--dur) ease;
-  }
-  .rede-icone svg { width: 1.25em; height: 1.25em; }
-  .rede-txt { display: grid; line-height: 1.2; }
-  .rede-txt small { color: var(--tinta-3); font-size: var(--t-xs); font-weight: 500; letter-spacing: .06em; text-transform: uppercase; }
-  .rede .seta { color: var(--tinta-3); transition: transform var(--dur) ease, color var(--dur) ease; }
-  .rede:hover, .rede:focus-visible { border-color: var(--marca); box-shadow: var(--sh-2); }
-  .rede:hover .rede-icone, .rede:focus-visible .rede-icone { background: var(--marca); color: var(--marca-tinta); }
-  .rede:hover .seta, .rede:focus-visible .seta { color: var(--marca-texto); transform: translateX(.2em); }
-  @media (prefers-reduced-motion: no-preference) {
-    .rede:hover { transform: translateY(-2px); }
-  }
-  @media (forced-colors: active) {
-    .rede, .rede-icone { border: var(--borda) solid CanvasText; }
-  }
+  /* redes: ícone pequeno ao lado do contato, acende no laranja */
+  .foot-redes { list-style: none; display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-3); }
+  .rede { display: inline-flex; align-items: center; gap: var(--s-1); padding-block: var(--s-1); color: var(--tinta); text-decoration: none; }
+  .rede-icone { display: inline-flex; color: var(--marca-texto); }
+  .rede-icone svg { width: 1.15em; height: 1.15em; }
+  .rede:hover span:last-child { text-decoration: underline; text-underline-offset: .2em; }
 
   /* --- barra fixa do WhatsApp (celular) --- */
   .barra-zap { display: none; }
