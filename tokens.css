@@ -74,6 +74,7 @@
   --motion-ui: .24s;
   --motion-enter: .48s;
   --motion-ease: cubic-bezier(.22, 1, .36, 1);
+  --motion-mola: cubic-bezier(.34, 1.56, .64, 1); /* passa um pouco e volta: só em chegadas */
 }
 
 /* --- modo escuro: mesmo sistema, luz apagada --- */

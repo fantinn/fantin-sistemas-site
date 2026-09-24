@@ -33,6 +33,12 @@
     --tela-ex: 380px;     /* largura da tela do comparador */
     --trilho-card: 85%;   /* card no trilho do celular: sobra a ponta do próximo */
     --foto: 160px;        /* foto quadrada em "quem sou eu" */
+    --celular-h: 600px;   /* altura do celular do filme no computador */
+    --passo-h: 70svh;     /* altura de cada etapa do filme: é o "tempo" de cada cena */
+    --cel-1: .5em;        /* espaço dentro do celular do filme, em em: */
+    --cel-2: .875em;      /*   encolhe junto com a tela, que escala pela */
+    --cel-3: 1.25em;      /*   largura do aparelho (cqw) */
+    --luz-r: 320px;       /* raio da luz que segue o mouse */
     --dur: .18s;          /* duração das transições (só transform e opacity) */
   }
 }
@@ -482,7 +488,32 @@
   }
 
   /* --- herói --- */
-  .hero { padding-block: var(--s-6) var(--s-5); }
+  .hero { position: relative; isolation: isolate; padding-block: var(--s-6) var(--s-5); }
+  /* grade de pontos no fundo do herói: some nas bordas; no computador, os
+     pontos em volta do mouse acendem na cor da marca (--mx/--my vêm do JS) */
+  .hero::before, .hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: radial-gradient(circle, var(--linha-2) 0 var(--borda), transparent calc(var(--borda) * 1.5));
+    background-size: var(--s-4) var(--s-4);
+    background-position: center top;
+  }
+  .hero::before {
+    opacity: .6;
+    mask-image: radial-gradient(ellipse 60% 80% at 90% 25%, var(--tinta), transparent);
+  }
+  .hero::after {
+    background-image: radial-gradient(circle, var(--marca) 0 var(--borda-2), transparent calc(var(--borda-2) * 1.3));
+    mask-image: radial-gradient(circle var(--luz-r) at var(--mx, 50%) var(--my, 50%), var(--tinta), transparent);
+    opacity: 0;
+    transition: opacity var(--motion-enter) var(--motion-ease);
+  }
+  .hero .destaque {
+    background: linear-gradient(var(--marca-tint), var(--marca-tint)) 0 90% / 100% .3em no-repeat;
+  }
   .hero h1 { max-width: 18ch; }
   .hero .lead { max-width: 58ch; margin-top: var(--s-3); }
   .hero-cta {
@@ -552,6 +583,329 @@
     line-height: 1.5;
   }
   .dores-pe b { color: var(--tinta); }
+
+  /* --- filme: uma venda às 23h (scrollytelling) ---
+     Celular: a lista vem primeiro e o celular fica preso no topo, na frente
+     das etapas que passam por baixo. Computador: duas colunas, o celular
+     preso no meio da tela. A etapa ativa (aria-current) acende. */
+  .filme-corpo { display: flex; flex-direction: column; margin-top: var(--s-4); }
+  .filme-passos { list-style: none; }
+  .filme-passo {
+    padding: var(--s-4) 0 var(--s-4) var(--s-4);
+    border-left: var(--borda-2) solid color-mix(in srgb, var(--banda-tinta) 18%, transparent);
+  }
+  .filme-passo h3 { margin: var(--s-1) 0; font-size: var(--t-xl); }
+  .filme-passo p { max-width: 44ch; color: var(--banda-tinta-2); }
+  .filme-hora { font-family: var(--f-mono); font-size: var(--t-xs); font-weight: 500; color: var(--marca); }
+  .filme--vivo .filme-passo {
+    min-height: calc(var(--passo-h) * .52);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: var(--s-3);
+    transition: border-color var(--motion-ui) var(--motion-ease);
+  }
+  .filme--vivo .filme-passo :is(h3, p, .filme-hora) {
+    color: var(--banda-tinta-2);
+    transition: color var(--motion-ui) var(--motion-ease);
+  }
+  .filme--vivo .filme-passo[aria-current] :is(h3, p) { color: var(--banda-tinta); }
+  .filme--vivo .filme-passo[aria-current] .filme-hora { color: var(--marca); }
+  .filme--vivo .filme-passo:is([aria-current], [data-feito]) { border-left-color: var(--marca); }
+
+  .filme-palco {
+    position: sticky;
+    top: var(--topo-h);
+    z-index: 1;
+    order: -1;
+    isolation: isolate;
+    display: grid;
+    place-items: center;
+    padding-block: var(--s-2);
+    background: var(--banda);
+  }
+  /* a luz da tela no quarto escuro */
+  .filme-palco::before {
+    content: "";
+    position: absolute;
+    inset: 4% 10%;
+    z-index: -1;
+    background: radial-gradient(closest-side, color-mix(in srgb, var(--marca) 42%, transparent), transparent);
+  }
+  @media (min-width: 1000px) {
+    .filme-corpo {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: var(--s-5);
+      margin-top: var(--s-5);
+    }
+    .filme-passos { grid-column: 1; grid-row: 1; }
+    /* sobra embaixo para o celular continuar preso enquanto a última etapa passa */
+    .filme--vivo .filme-passos { padding-bottom: calc(var(--passo-h) * .3); }
+    .filme--vivo .filme-passo { min-height: var(--passo-h); padding-block: var(--s-4); }
+    .filme-palco {
+      grid-column: 2;
+      grid-row: 1;
+      align-self: start;
+      height: calc(100svh - var(--topo-h));
+      padding-block: var(--s-4);
+      background: none;
+    }
+  }
+
+  .celular {
+    position: relative;
+    height: min(44svh, var(--celular-h));
+    aspect-ratio: 9 / 19;
+    padding: calc(var(--s-1) * .8);
+    border: var(--borda) solid color-mix(in srgb, var(--banda-tinta) 26%, transparent);
+    border-radius: calc(var(--r-lg) * 2.4);
+    background: color-mix(in srgb, var(--banda-tinta) 6%, var(--banda));
+    box-shadow: var(--sh-3);
+    container-type: inline-size;
+  }
+  @media (min-width: 1000px) {
+    .celular { height: min(var(--celular-h), calc(100svh - var(--topo-h) - var(--s-6))); }
+  }
+  .tela {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    border-radius: calc(var(--r-lg) * 2);
+    background: var(--papel-2);
+    color: var(--tinta);
+    font-size: 4.4cqw;
+    line-height: 1.35;
+  }
+  .tela::before {
+    content: "";
+    position: absolute;
+    top: calc(var(--cel-1) * 1.2);
+    left: 50%;
+    z-index: 4;
+    width: 30%;
+    height: 1.5em;
+    translate: -50% 0;
+    border-radius: var(--r-pill);
+    background: var(--banda);
+  }
+  .tela-status {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 2.8em;
+    padding: var(--cel-1) var(--cel-3) 0;
+    font-size: .9em;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .tela-icones { display: flex; align-items: flex-end; gap: calc(var(--cel-1) * .4); }
+  .tela-icones i { width: .3em; height: .45em; background: currentColor; }
+  .tela-icones i:nth-child(2) { height: .65em; }
+  .tela-icones i:nth-child(3) { height: .85em; }
+  .tela-barras { display: flex; gap: calc(var(--cel-1) * .5); padding: calc(var(--cel-1) * .6) var(--cel-2) 0; }
+  .tela-barras i {
+    position: relative;
+    flex: 1;
+    height: var(--borda-2);
+    overflow: hidden;
+    border-radius: var(--r-pill);
+    background: color-mix(in srgb, var(--tinta) 16%, transparent);
+  }
+  .tela-barras i::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--marca);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--motion-enter) var(--motion-ease);
+  }
+  .tela-barras i:is([data-ativa], :has(~ [data-ativa]))::after { transform: none; }
+  .tela-tag {
+    position: absolute;
+    left: 50%;
+    bottom: var(--cel-1);
+    z-index: 5;
+    padding: calc(var(--cel-1) * .6) var(--cel-2);
+    translate: -50% 0;
+    font-size: .75em;
+  }
+
+  /* cada cena ocupa a tela inteira; só a ativa aparece, a anterior sai por cima */
+  .cena {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--cel-1);
+    padding: calc(var(--cel-3) * 3) var(--cel-2) calc(var(--cel-3) * 2.2);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(var(--cel-3));
+    transition: opacity var(--motion-enter) var(--motion-ease),
+                transform var(--motion-enter) var(--motion-ease),
+                visibility 0s linear var(--motion-enter);
+  }
+  .cena[data-ativa] { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+  .cena:has(~ .cena[data-ativa]) { transform: translateY(calc(var(--cel-3) * -1)); }
+
+  .ig-topo, .cel-topo { display: flex; align-items: center; gap: var(--cel-1); }
+  .ig-avatar {
+    width: 1.9em;
+    height: 1.9em;
+    flex: none;
+    border: var(--borda-2) solid var(--marca);
+    border-radius: var(--r-pill);
+    background: var(--marca-tint);
+  }
+  .ig-seguir { margin-left: auto; color: var(--marca-texto); font-size: .9em; font-weight: 600; }
+  .cel-foto {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    place-items: center;
+    border-radius: var(--r-md);
+    background: var(--papel-3);
+  }
+  /* a camiseta: um recorte, sem imagem */
+  .cel-produto {
+    width: 58%;
+    aspect-ratio: 1;
+    background: radial-gradient(circle at 50% 0, var(--papel-3) 0 13%, transparent 13.5%), var(--marca-tint);
+    clip-path: polygon(32% 4%, 68% 4%, 100% 20%, 88% 42%, 77% 36%, 77% 100%, 23% 100%, 23% 36%, 12% 42%, 0 20%);
+  }
+  .cena-post .cel-foto { flex: none; aspect-ratio: 4 / 5; }
+  .ig-acoes { display: flex; gap: var(--cel-1); }
+  .ig-acoes i { width: 1.3em; height: 1.3em; border: var(--borda-2) solid var(--tinta); border-radius: var(--r-pill); }
+  .ig-acoes i:first-child { border-color: var(--marca); background: var(--marca); }
+  .ig-legenda { color: var(--tinta-2); font-size: .9em; }
+  .ig-legenda b { color: var(--tinta); }
+  .ig-link {
+    position: relative;
+    align-self: flex-start;
+    padding: calc(var(--cel-1) * .7) var(--cel-2);
+    border-radius: var(--r-pill);
+    background: var(--marca-tint);
+    font-size: .9em;
+    font-weight: 600;
+  }
+  .toque {
+    position: absolute;
+    top: 50%;
+    left: 72%;
+    width: 2.6em;
+    height: 2.6em;
+    translate: -50% -50%;
+    border-radius: var(--r-pill);
+    background: color-mix(in srgb, var(--tinta) 30%, transparent);
+    opacity: 0;
+  }
+
+  .cel-topo b { font-family: var(--f-display); }
+  .cel-topo span { margin-left: auto; color: var(--tinta-2); font-size: .85em; }
+  .loja-nome { font-family: var(--f-display); font-weight: 600; }
+  .loja-preco b, .pix-valor b {
+    display: block;
+    font-family: var(--f-display);
+    font-size: 1.5em;
+    letter-spacing: -.02em;
+    line-height: 1.1;
+  }
+  .loja-preco span { color: var(--tinta-2); font-size: .85em; }
+  .loja-tam { display: flex; gap: calc(var(--cel-1) * .8); }
+  .loja-tam span {
+    flex: 1;
+    padding: calc(var(--cel-1) * .7) 0;
+    border: var(--borda) solid var(--linha-2);
+    border-radius: var(--r-sm);
+    font-size: .9em;
+    font-weight: 600;
+    text-align: center;
+  }
+  .loja-tam .loja-m { border-color: var(--tinta); background: var(--tinta); color: var(--papel-2); }
+  .loja-frete { color: var(--sucesso); font-size: .85em; font-weight: 600; }
+  .cel-botao {
+    padding: var(--cel-2) var(--cel-1);
+    border-radius: var(--r-pill);
+    background: var(--marca);
+    color: var(--marca-tinta);
+    font-size: .95em;
+    font-weight: 600;
+    line-height: 1;
+    text-align: center;
+  }
+  .cel-botao--linha { border: var(--borda) solid var(--linha-2); background: none; color: var(--tinta); }
+
+  .pix-rot { font-family: var(--f-display); font-size: 1.2em; font-weight: 700; }
+  .pix-qr {
+    align-self: center;
+    width: 62%;
+    aspect-ratio: 1;
+    padding: var(--cel-1);
+    border: var(--borda) solid var(--linha);
+    border-radius: var(--r-md);
+  }
+  .pix-qr svg { display: block; width: 100%; height: 100%; fill: currentColor; }
+  .pix-valor { text-align: center; }
+  .pix-resumo { display: grid; gap: calc(var(--cel-1) * .5); padding-top: var(--cel-1); border-top: var(--borda) solid var(--linha); font-size: .85em; }
+  .pix-resumo p { display: flex; justify-content: space-between; gap: var(--cel-1); color: var(--tinta-2); }
+  .pix-resumo b { color: var(--tinta); font-weight: 600; }
+  .cena-pix .cel-botao--linha { margin-top: auto; }
+  .pix-valor span { color: var(--sucesso); font-size: .85em; font-weight: 600; }
+  .pix-ok {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: calc(var(--cel-1) * .8);
+    padding: var(--cel-1);
+    border: var(--borda) solid var(--sucesso);
+    border-radius: var(--r-pill);
+    color: var(--sucesso);
+    font-weight: 700;
+  }
+
+  /* tela de bloqueio: a notificação que o dono vê */
+  .cena-aviso {
+    z-index: 3;
+    align-items: center;
+    padding-top: calc(var(--cel-3) * 3.4);
+    background: radial-gradient(120% 70% at 50% 0, color-mix(in srgb, var(--marca) 24%, var(--banda)), var(--banda));
+    color: var(--banda-tinta);
+  }
+  .bloq-dia { color: var(--banda-tinta-2); font-weight: 500; }
+  .bloq-hora {
+    font-family: var(--f-display);
+    font-size: 4.2em;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -.03em;
+    line-height: 1;
+  }
+  .notif {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--cel-1);
+    width: 100%;
+    padding: var(--cel-2);
+    border-radius: var(--r-lg);
+    background: var(--papel-2);
+    color: var(--tinta);
+    box-shadow: var(--sh-2);
+    font-size: .88em;
+  }
+  .notif-icone { width: 2.2em; height: 2.2em; flex: none; border-radius: var(--r-md); background: var(--marca); }
+  .notif-topo { display: flex; justify-content: space-between; gap: var(--cel-1); color: var(--tinta-2); font-size: .9em; }
+  .notif-topo b { color: var(--tinta); }
+  .notif-titulo { font-weight: 700; }
+  .cena-aviso .notif { margin-block: auto; }
+  .bloq-atalhos { display: flex; justify-content: space-between; width: 100%; padding-inline: var(--cel-1); }
+  .bloq-atalhos i {
+    width: 2.6em;
+    height: 2.6em;
+    border-radius: var(--r-pill);
+    background: color-mix(in srgb, var(--banda-tinta) 16%, transparent);
+  }
 
   /* --- antes e depois --- */
   .ba-grade {
@@ -1226,7 +1580,72 @@
         transition: transform var(--motion-ui) var(--motion-ease);
       }
       .nav-lista a:is(:hover, :focus-visible)::after { transform: scaleX(1); }
+
+      /* pontos do herói acendendo em volta do mouse */
+      .hero:hover::after { opacity: .7; }
+
+      /* luz que segue o mouse dentro dos cards (--mx/--my vêm do JS) */
+      :is(.frente, .price, .dor) { position: relative; }
+      :is(.frente, .price, .work, .dor) { isolation: isolate; }
+      :is(.frente, .price, .work, .dor)::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        border-radius: inherit;
+        pointer-events: none;
+        background: radial-gradient(circle var(--luz-r) at var(--mx, 50%) var(--my, 0%),
+                    color-mix(in srgb, var(--marca) 16%, transparent), transparent);
+        opacity: 0;
+        transition: opacity var(--motion-ui) var(--motion-ease);
+      }
+      :is(.frente, .price, .work, .dor):hover::before { opacity: 1; }
+
+      /* reflexo que atravessa o botão principal */
+      .btn--primary { position: relative; isolation: isolate; overflow: hidden; }
+      .btn--primary::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        background: linear-gradient(105deg, transparent 30%,
+                    color-mix(in srgb, var(--banda-tinta) 55%, transparent) 50%, transparent 70%);
+        translate: -110% 0;
+      }
+      .btn--primary:hover::after { translate: 110% 0; transition: translate .8s var(--motion-ease); }
     }
+
+    /* herói: o título fica imediato; o resto entra em cascata e o
+       "comprar." ganha o grifo depois */
+    .hero :is(.lead, .hero-cta, .hero-meta, .provas) {
+      animation: revela var(--motion-enter) var(--motion-ease) both;
+    }
+    .hero .lead { animation-delay: .1s; }
+    .hero-cta { animation-delay: .18s; }
+    .hero-meta { animation-delay: .26s; }
+    .hero .provas { animation-delay: .34s; }
+    @keyframes grifa { from { background-size: 0% .3em; } }
+    .hero .destaque { animation: grifa .9s var(--motion-ease) .45s both; }
+
+    /* filme: o que acontece dentro de cada cena quando ela entra. O estado
+       final é o normal do CSS; a animação só parte de "antes" até ele. */
+    @keyframes toque {
+      0% { opacity: 0; transform: scale(.2); }
+      20% { opacity: .9; }
+      100% { opacity: 0; transform: scale(1.7); }
+    }
+    @keyframes escolhe { from { border-color: var(--linha-2); background: transparent; color: var(--tinta); } }
+    @keyframes aperta { 50% { transform: scale(.94); } }
+    @keyframes desenha { from { clip-path: inset(0 0 100% 0); } }
+    @keyframes surge { from { opacity: 0; transform: scale(.8); } }
+    @keyframes chega { from { opacity: 0; transform: translateY(-160%); } }
+    .cena[data-ativa] .toque { animation: toque .9s var(--motion-ease) .7s both; }
+    .cena[data-ativa] .loja-m { animation: escolhe var(--motion-ui) var(--motion-ease) .8s both; }
+    .cena[data-ativa] .loja-comprar { animation: aperta .32s var(--motion-ease) 1.4s; }
+    .cena[data-ativa] .pix-qr svg { animation: desenha .8s var(--motion-ease) .2s both; }
+    .cena[data-ativa] .pix-ok { animation: surge var(--motion-enter) var(--motion-mola) 1.1s both; }
+    .cena[data-ativa] .notif { animation: chega .7s var(--motion-mola) .4s both; }
   }
 
   /* entrada suave ao rolar: só transform e opacity, só onde o navegador
@@ -1237,6 +1656,58 @@
         animation: revela linear both;
         animation-timeline: view();
         animation-range: entry 0% entry 70%;
+      }
+
+      /* frase que acende palavra por palavra enquanto passa pela tela
+         (o JS embrulha cada palavra e numera em --i, de --n) */
+      @keyframes acende { from { color: var(--tinta-3); } to { color: var(--tinta); } }
+      .frase-acende { view-timeline: --frase block; }
+      .frase-acende .palavra {
+        animation: acende linear both;
+        animation-timeline: --frase;
+        animation-range: cover calc(12% + var(--i) / var(--n) * 38%) cover calc(20% + var(--i) / var(--n) * 38%);
+      }
+
+      /* o fio do método se desenha, etapa por etapa, ao rolar */
+      @keyframes risca { from { transform: scaleX(0); } }
+      @media (min-width: 560px) {
+        .steps { view-timeline: --passos block; }
+        .step:not(:first-child)::after {
+          content: "";
+          position: absolute;
+          top: calc(var(--borda-2) * -1);
+          right: 0;
+          left: 0;
+          height: var(--borda-2);
+          background: var(--marca);
+          transform-origin: left;
+          animation: risca linear both;
+          animation-timeline: --passos;
+        }
+        .step:nth-child(2)::after { animation-range: cover 22% cover 32%; }
+        .step:nth-child(3)::after { animation-range: cover 30% cover 40%; }
+        .step:nth-child(4)::after { animation-range: cover 38% cover 48%; }
+        .step::before { z-index: 1; }
+      }
+    }
+  }
+
+  /* barra de leitura: um fio da marca embaixo do cabeçalho, que enche
+     conforme a página rola */
+  @supports (animation-timeline: scroll()) {
+    @media (prefers-reduced-motion: no-preference) {
+      @keyframes progresso { from { transform: scaleX(0); } }
+      .site-head::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        bottom: calc(var(--borda) * -1);
+        left: 0;
+        height: var(--borda-2);
+        background: var(--marca);
+        transform-origin: left;
+        animation: progresso linear both;
+        animation-timeline: scroll(root);
       }
     }
   }

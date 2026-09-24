@@ -51,6 +51,8 @@ const pares = [
   ["marca", "papel-2", G, "contorno de foco em card, borda do destaque"],
   ["tinta", "papel-3", G, "contorno de foco na faixa alternada"],
   ["marca", "banda", G, "contorno de foco e fio na faixa escura"],
+  ["marca", "banda", T, "hora da etapa no filme (faixa escura)"],
+  ["marca-texto", "marca-tint", T, "grifo do \"comprar.\" no título"],
   ["marca-texto", "papel-2", G, "borda de campo com erro"],
 ];
 
