@@ -1183,13 +1183,53 @@
   [hidden] { display: none !important; }
   html.menu-aberto { overflow: hidden; }
 
+  /* A mesma entrada serve às respostas do FAQ e às revelações da página.
+     O título inicial permanece imediato; nenhum movimento fica em loop. */
+  @media (prefers-reduced-motion: no-preference) {
+    @keyframes revela {
+      from { opacity: 0; transform: translateY(var(--s-2)); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .faq details[open] .faq-resp {
+      animation: revela var(--motion-enter) var(--motion-ease) both;
+    }
+    .btn, .icon-btn, .seta, .work, .ba-knob {
+      transition-duration: var(--motion-ui);
+      transition-timing-function: var(--motion-ease);
+    }
+    .btn:is(:hover, :focus-visible) .seta { transform: translateX(var(--s-1)); }
+    .work-link span {
+      display: inline-block;
+      transition: transform var(--motion-ui) var(--motion-ease);
+    }
+    .work:is(:hover, :focus-within) .work-link span {
+      transform: translate(var(--borda-2), calc(var(--borda-2) * -1));
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .frente, .price {
+        transition: translate var(--motion-ui) var(--motion-ease);
+      }
+      .frente:hover, .price:hover { translate: 0 calc(var(--s-1) * -1); }
+      .work:hover { transform: translateY(calc(var(--s-1) * -1)); }
+      .nav-lista a { position: relative; }
+      .nav-lista a::after {
+        content: "";
+        position: absolute;
+        inset: auto 0 calc(var(--s-1) * -1);
+        height: var(--borda-2);
+        background: var(--marca);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform var(--motion-ui) var(--motion-ease);
+      }
+      .nav-lista a:is(:hover, :focus-visible)::after { transform: scaleX(1); }
+    }
+  }
+
   /* entrada suave ao rolar: só transform e opacity, só onde o navegador
      sabe ligar a animação à rolagem, e nunca para quem pediu menos movimento */
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
-      @keyframes revela {
-        from { opacity: 0; transform: translateY(var(--s-3)); }
-      }
       main > section:not(.hero) :is(.cabeca, .dores > li, .ba, .step, .garantia, .price, .entrega, .conta > .card, .faq, .quem, .form-zap) {
         animation: revela linear both;
         animation-timeline: view();

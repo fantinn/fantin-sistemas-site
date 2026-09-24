@@ -69,6 +69,11 @@
   --sh-3: 0 24px 60px -30px rgba(19,20,20,.3);
 
   --maxw: 1120px;
+
+  /* --- movimento: resposta curta e entrada com desaceleração --- */
+  --motion-ui: .24s;
+  --motion-enter: .48s;
+  --motion-ease: cubic-bezier(.22, 1, .36, 1);
 }
 
 /* --- modo escuro: mesmo sistema, luz apagada --- */
