@@ -48,7 +48,7 @@ Pages (o `CNAME` aponta para fantin.tech). Nenhuma requisição externa: as trê
 | `style.css` | CSS da página principal, em `@layer` (tokens → base → componentes → seções → utilitários); só usa `var(--...)` |
 | `ponte.css` | Liga as variáveis antigas das páginas secundárias aos tokens novos |
 | `sistema/` | O CSS e o JS antigos, ainda usados pelas páginas secundárias e pela demonstração |
-| `assets/` | As três fontes, a foto de "quem sou eu" (AVIF e WebP, 320 e 480) e o print do pdrdesign.com.br (AVIF e WebP, 720 e 1200), usado no card do Pedro Design em "trabalhos" |
+| `assets/` | As três fontes, a foto de "quem sou eu" (AVIF e WebP, 320 e 480) e o print do pdrdesign.com.br (AVIF e WebP, 720 e 1200), usado no card do Pedro Design em "trabalhos", e as duas telas do antes e depois (`ba-antes`, `ba-depois`; AVIF e WebP, 480 e 760) |
 | `<script>` no fim do `index.html` | Tema, menu do celular, comparador, a conta, o formulário para o WhatsApp, a vitrine dos trabalhos e dos preços (entrada ao aparecer na tela), o filme das 23h (troca de cena ao rolar), a frase que acende e a luz que segue o mouse |
 | `tools/contraste-pares.mjs` | Confere o contraste de todos os pares usados, nos dois modos |
 | `tools/checar-tokens.mjs` | Acusa cor, espaço, raio ou sombra escritos à mão no `style.css` |

@@ -12,7 +12,7 @@
 
 @layer tokens, base, componentes, secoes, utilitarios;
 
-@import url("tokens.css?v=202609242100") layer(tokens);
+@import url("tokens.css?v=202609242307") layer(tokens);
 @import url("fontes.css") layer(tokens);
 
 /* ═══ TOKENS: medidas de peça (não são cor, espaço, raio nem sombra) ════════ */
@@ -168,7 +168,7 @@
     line-height: 1;
     letter-spacing: -.03em;
   }
-  .amount, .medida-leitura, .conta-num, .hero-meta, .amount-nota, .reguas, .ex-d-preco {
+  .amount, .medida-leitura, .conta-num, .hero-meta, .amount-nota, .reguas {
     font-variant-numeric: tabular-nums;
   }
 
@@ -961,7 +961,7 @@
     --corte: calc(var(--alvo) / 2 + (100% - var(--alvo)) * var(--p));
     position: relative;
     container-type: inline-size;
-    aspect-ratio: 9 / 15;
+    aspect-ratio: 2 / 3;
     overflow: hidden;
     background: var(--papel-2);
     font-size: var(--t-xs);
@@ -971,94 +971,16 @@
     outline: var(--foco) solid var(--marca);
     outline-offset: calc(var(--foco) * -2);
   }
-  .ba-pane {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--s-2);
-    padding: var(--s-5) var(--s-3) var(--s-3);
-    color: var(--tinta);
-  }
+  .ba-pane { position: absolute; inset: 0; }
   .ba-before { clip-path: inset(0 calc(100% - var(--corte)) 0 0); background: var(--papel-3); }
   .ba-after { clip-path: inset(0 0 0 var(--corte)); background: var(--papel-2); }
 
-  /* "antes": a página do link na bio, apertada e gritando */
-  .ex-a-perfil { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-1); }
-  .ex-a-avatar {
-    width: var(--alvo);
-    height: var(--alvo);
-    flex: none;
-    border: var(--borda-2) dashed var(--linha-2);
-    border-radius: var(--r-pill);
-  }
-  .ex-a-nome { font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
-  .ex-a-arroba { width: 100%; color: var(--tinta-2); }
-  .ex-a-grito { color: var(--atencao); font-size: var(--t-md); font-weight: 700; text-transform: uppercase; }
-  .ex-a-texto { color: var(--tinta-2); }
-  .ex-a-botoes { display: grid; gap: var(--s-1); }
-  .ex-a-botoes span {
-    padding: var(--s-1);
-    border: var(--borda) dashed var(--linha-2);
-    border-radius: var(--r-0);
-    text-align: center;
-    text-decoration: underline;
-  }
-  .ex-a-pe { margin-top: auto; color: var(--tinta-2); font-style: italic; }
-
-  /* "depois": a página do produto */
-  .ex-d-topo {
-    display: flex;
-    justify-content: space-between;
-    gap: var(--s-1);
-    font-family: var(--f-display);
-    font-size: var(--t-sm);
-    font-weight: 700;
-  }
-  .ex-d-topo span { color: var(--tinta-2); font-family: var(--f-sans); font-size: var(--t-xs); font-weight: 500; }
-  .ex-d-foto {
-    flex: 1;
-    min-height: 0;
-    display: grid;
-    place-items: center;
-    border-radius: var(--r-md);
-    background: var(--papel-3);
-  }
-  .ex-d-produto {
-    width: 45%;
-    aspect-ratio: 4 / 5;
-    border: var(--borda) solid var(--linha);
-    border-radius: var(--r-md) var(--r-md) var(--r-sm) var(--r-sm);
-    background: var(--marca-tint);
-  }
-  .ex-d-nome { font-family: var(--f-display); font-size: var(--t-md); font-weight: 600; }
-  .ex-d-preco b { display: block; font-family: var(--f-display); font-size: var(--t-lg); letter-spacing: -.02em; }
-  .ex-d-preco span { color: var(--tinta-2); }
-  .ex-d-tamanhos { display: flex; gap: var(--s-1); }
-  .ex-d-tamanhos span {
-    min-width: calc(var(--alvo) * .7);
-    padding: var(--s-1) 0;
-    border: var(--borda) solid var(--linha-2);
-    border-radius: var(--r-sm);
-    font-weight: 600;
-    text-align: center;
-  }
-  .ex-d-tamanhos .sel { border-color: var(--tinta); background: var(--tinta); color: var(--papel-2); }
-  .ex-d-frete { color: var(--sucesso); font-weight: 600; }
-  .ex-d-comprar {
-    padding: var(--s-2);
-    border-radius: var(--r-pill);
-    background: var(--marca);
-    color: var(--marca-tinta);
-    font-size: var(--t-sm);
-    font-weight: 600;
-    text-align: center;
-  }
-  .ex-d-pagamento { color: var(--tinta-2); text-align: center; }
+  /* os dois lados são imagens do mesmo tamanho (2:3), uma sobre a outra */
+  .ba-pane img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
   .ba-label {
     position: absolute;
-    top: var(--s-2);
+    bottom: var(--s-2);
     z-index: 2;
     padding: var(--s-1) var(--s-2);
     border-radius: var(--r-pill);

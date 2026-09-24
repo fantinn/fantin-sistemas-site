@@ -35,9 +35,9 @@
 <link rel="preload" href="assets/fontes/archivo.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fontes/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fontes/jetbrains-mono.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="tokens.css?v=202609242100" as="style">
+<link rel="preload" href="tokens.css?v=202609242307" as="style">
 <link rel="preload" href="fontes.css" as="style">
-<link rel="stylesheet" href="style.css?v=202609242100">
+<link rel="stylesheet" href="style.css?v=202609242307">
 
 <script type="application/ld+json">
 {
@@ -361,30 +361,18 @@
         </div>
         <div class="ba-stage" id="ba-stage">
           <div class="ba-pane ba-before" aria-hidden="true">
-            <div class="ex-a-perfil">
-              <span class="ex-a-avatar"></span>
-              <span class="ex-a-nome">LOJA EXEMPLO</span>
-              <span class="ex-a-arroba">@lojaexemplo &middot; link na bio</span>
-            </div>
-            <p class="ex-a-grito">PROMOÇÃO!!! CHAMA NO DIRECT</p>
-            <p class="ex-a-texto">Preço? Me chama no direct que eu passo :)</p>
-            <div class="ex-a-botoes">
-              <span>Catálogo (PDF de 18 MB)</span>
-              <span>Tabela de preços (print de março)</span>
-              <span>Frete: a combinar</span>
-              <span>Pagamento: a combinar</span>
-            </div>
-            <p class="ex-a-pe">Respondo das 9h às 18h. Depois disso, só amanhã.</p>
+            <picture>
+              <source type="image/avif" srcset="assets/ba-antes-480.avif 480w, assets/ba-antes-760.avif 760w" sizes="(min-width: 420px) 380px, 100vw">
+              <img src="assets/ba-antes-480.webp" srcset="assets/ba-antes-480.webp 480w, assets/ba-antes-760.webp 760w" sizes="(min-width: 420px) 380px, 100vw"
+                   width="760" height="1140" loading="lazy" decoding="async" alt="">
+            </picture>
           </div>
           <div class="ba-pane ba-after" aria-hidden="true">
-            <div class="ex-d-topo">Loja Exemplo <span>Sacola (0)</span></div>
-            <div class="ex-d-foto"><span class="ex-d-produto"></span></div>
-            <p class="ex-d-nome">Camiseta de algodão, cor areia</p>
-            <p class="ex-d-preco"><b>R$ 89,90</b> <span>ou 3x sem juros &middot; 5% off no Pix</span></p>
-            <div class="ex-d-tamanhos"><span>P</span><span class="sel">M</span><span>G</span><span>GG</span></div>
-            <p class="ex-d-frete">Frete calculado: chega em 3 dias úteis</p>
-            <div class="ex-d-comprar">Comprar agora</div>
-            <p class="ex-d-pagamento">Pix &middot; cartão &middot; boleto &middot; aberta 24 horas</p>
+            <picture>
+              <source type="image/avif" srcset="assets/ba-depois-480.avif 480w, assets/ba-depois-760.avif 760w" sizes="(min-width: 420px) 380px, 100vw">
+              <img src="assets/ba-depois-480.webp" srcset="assets/ba-depois-480.webp 480w, assets/ba-depois-760.webp 760w" sizes="(min-width: 420px) 380px, 100vw"
+                   width="760" height="1140" loading="lazy" decoding="async" alt="">
+            </picture>
           </div>
           <span class="ba-label ba-label--l" aria-hidden="true">Antes</span>
           <span class="ba-label ba-label--r" aria-hidden="true">Depois</span>
@@ -393,10 +381,10 @@
                  aria-describedby="ba-desc" aria-valuetext="Linha no meio: metade antes, metade depois">
         </div>
       </div>
-      <p class="visually-hidden" id="ba-desc">Antes: uma página de link na bio com o preço
-      só no direct, catálogo em PDF, tabela em print, frete e pagamento a combinar, e atendimento
-      só das 9h às 18h. Depois: a página do produto com preço, parcelamento, desconto no Pix,
-      escolha de tamanho, frete calculado e o botão de comprar, aberta 24 horas.</p>
+      <p class="visually-hidden" id="ba-desc">Antes: uma página de link na bio com a foto da
+      camiseta no cabide, preço e tamanhos só pelo direct, catálogo em PDF, tabela de preços, frete a
+      combinar e atendimento só das 9h às 18h. Depois: a página do produto com fotos, preço de R$ 89,90
+      em 3x sem juros, escolha de cor e tamanho, cálculo de frete, botão de comprar e Pix, cartão ou boleto.</p>
     </figure>
   </div>
 </section>
