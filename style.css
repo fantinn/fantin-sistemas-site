@@ -12,7 +12,7 @@
 
 @layer tokens, base, componentes, secoes, utilitarios;
 
-@import url("tokens.css?v=202609242314") layer(tokens);
+@import url("tokens.css?v=202609242328") layer(tokens);
 @import url("fontes.css") layer(tokens);
 
 /* ═══ TOKENS: medidas de peça (não são cor, espaço, raio nem sombra) ════════ */
@@ -961,7 +961,7 @@
     --corte: calc(var(--alvo) / 2 + (100% - var(--alvo)) * var(--p));
     position: relative;
     container-type: inline-size;
-    aspect-ratio: 2 / 3;
+    aspect-ratio: 4 / 7;
     overflow: hidden;
     background: var(--papel-2);
     font-size: var(--t-xs);
@@ -975,7 +975,7 @@
   .ba-before { clip-path: inset(0 calc(100% - var(--corte)) 0 0); background: var(--papel-3); }
   .ba-after { clip-path: inset(0 0 0 var(--corte)); background: var(--papel-2); }
 
-  /* os dois lados são imagens do mesmo tamanho (2:3), uma sobre a outra */
+  /* os dois lados são imagens do mesmo tamanho (4:7), uma sobre a outra */
   .ba-pane img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
   .ba-label {
