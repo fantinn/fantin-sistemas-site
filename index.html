@@ -165,6 +165,7 @@
 
 <!-- ═══ herói ══════════════════════════════════════════════════════════ -->
 <section class="hero" id="topo" aria-labelledby="hero-titulo">
+  <div class="hero-luz" aria-hidden="true"></div>
   <div class="wrap">
     <p class="eyebrow">Landing pages, lojas online e automação</p>
     <h1 id="hero-titulo">Seu cliente te acha no Instagram e não tem onde <span class="destaque">comprar.</span></h1>
@@ -1392,8 +1393,9 @@
     var barras = Array.from(secao.querySelectorAll(".tela-barras i"));
     var hora = secao.querySelector(".tela-hora");
     if (passos.length !== cenas.length) return;
-    var celular = window.matchMedia("(max-width: 999px)");
+    var computador = window.matchMedia("(min-width: 1000px)");
     var observador = null, atual = -1;
+    function linha() { return window.innerHeight * (computador.matches ? .505 : .745); }
 
     function mostrar(n) {
       if (n === atual) return;
@@ -1409,15 +1411,23 @@
     }
     function observar() {
       if (observador) observador.disconnect();
-      observador = new IntersectionObserver(function (entradas) {
-        entradas.forEach(function (e) { if (e.isIntersecting) mostrar(passos.indexOf(e.target)); });
-      }, { rootMargin: celular.matches ? "-74% 0px -25% 0px" : "-50% 0px -49% 0px" });
+      observador = new IntersectionObserver(recalcular,
+        { rootMargin: computador.matches ? "-50% 0px -49% 0px" : "-74% 0px -25% 0px" });
       passos.forEach(function (passo) { observador.observe(passo); });
+    }
+    // os observadores só avisam que algo mudou; quem decide a etapa é a
+    // posição: a última cujo topo já passou da linha de leitura
+    function recalcular() {
+      var y = linha(), n = 0;
+      passos.forEach(function (passo, i) { if (passo.getBoundingClientRect().top <= y) n = i; });
+      mostrar(n);
     }
     secao.classList.add("filme--vivo");
     mostrar(0);
     observar();
-    aoMudar(celular, observar);
+    // voltando à seção depois de um salto (topo, âncora), a cena já chega certa
+    new IntersectionObserver(recalcular).observe(secao);
+    aoMudar(computador, observar);
   })();
 
   /* ═══ frase que acende ════════════════════════════════════════════════
@@ -1427,6 +1437,14 @@
     var el = document.querySelector(".dores-pe");
     if (!el || !window.CSS || !CSS.supports("animation-timeline: view()")) return;
     var palavras = [];
+    var leitura = document.createElement("span");
+    leitura.className = "visually-hidden";
+    leitura.textContent = el.textContent.replace(/\s+/g, " ").trim();
+    var vista = document.createElement("span");
+    vista.setAttribute("aria-hidden", "true");
+    while (el.firstChild) vista.appendChild(el.firstChild);
+    el.appendChild(leitura);
+    el.appendChild(vista);
     (function quebrar(no) {
       Array.from(no.childNodes).forEach(function (filho) {
         if (filho.nodeType === 1) { quebrar(filho); return; }
@@ -1443,7 +1461,7 @@
         });
         no.replaceChild(pedacos, filho);
       });
-    })(el);
+    })(vista);
     palavras.forEach(function (span, i) { span.style.setProperty("--i", String(i)); });
     el.style.setProperty("--n", String(palavras.length));
     el.classList.add("frase-acende");
@@ -1453,7 +1471,7 @@
      Só com mouse de verdade. Grava a posição do ponteiro no card (ou no
      herói) em --mx/--my; o CSS desenha a luz. Um quadro por movimento. */
   (function luz() {
-    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    if (!window.matchMedia("(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)").matches) return;
     var alvos = ".frente, .price, .work, .dor, .hero";
     var ultimo = null, pedido = false;
     document.addEventListener("pointermove", function (e) {
@@ -1464,6 +1482,7 @@
         pedido = false;
         var el = ultimo.target && ultimo.target.closest ? ultimo.target.closest(alvos) : null;
         if (!el) return;
+        if (el.classList.contains("hero")) el = el.querySelector(".hero-luz") || el;
         var r = el.getBoundingClientRect();
         el.style.setProperty("--mx", (ultimo.clientX - r.left) + "px");
         el.style.setProperty("--my", (ultimo.clientY - r.top) + "px");
