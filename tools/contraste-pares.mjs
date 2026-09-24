@@ -42,6 +42,7 @@ const pares = [
   ["tinta", "marca-tint", T, "etiqueta"],
   ["papel-2", "tinta", T, "tamanho selecionado (exemplo)"],
   ["sucesso", "papel-2", T, "frete calculado (exemplo)"],
+  ["linha-2", "marca-tint", G, "borda do balão da mensagem no formulário"],
   ["atencao", "papel-3", T, "grito da tela 'antes' (exemplo)"],
   ["banda-tinta", "banda", T, "título na faixa escura, etiqueta Antes"],
   ["banda-tinta-2", "banda", T, "texto de apoio na faixa escura"],

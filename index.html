@@ -702,9 +702,18 @@
         <p class="muted conta-dica">Arraste as duas barras. A conta do lado muda junto, na hora.</p>
       </div>
 
-      <div class="card conta-saida" aria-live="polite">
+      <!-- Os números aqui correm até o valor novo (ver conta() no script), por
+           isso o cartão não é aria-live: quem avisa o leitor de tela é o
+           #conta-anuncio, com uma frase só, quando a barra para. -->
+      <div class="card conta-saida">
         <p class="conta-topo">Com esse preço, montar a loja completa custa o mesmo que</p>
         <p class="conta-num"><b id="cvendas">8</b> <span id="cvendasr">vendas</span></p>
+        <!-- um ponto por venda, até 60 (a conta com o menor preço, R$ 20).
+             Só enfeite: o número já está escrito em cima. Sem JS fica escondido. -->
+        <figure class="conta-grafico" id="cgrafico" aria-hidden="true" hidden>
+          <div class="conta-pontos" id="cpontos"></div>
+          <figcaption class="conta-legenda"><i></i> = uma venda de <span id="cpontosv">R$ 150</span></figcaption>
+        </figure>
         <p class="conta-exp">Isso é o <b>preço de venda</b>, não a sua margem: se sobra metade para
         você em cada venda, dobre o número.</p>
         <ul class="lista">
@@ -713,6 +722,7 @@
           contando três minutos por conversa.</li>
           <li>Na loja, quem tem vergonha de perguntar o preço vê na tela e pode comprar sem falar com ninguém.</li>
         </ul>
+        <p class="visually-hidden" id="conta-anuncio" role="status" aria-live="polite"></p>
       </div>
     </div>
 
@@ -850,9 +860,24 @@
         <label for="f-insta">Seu Instagram ou site <span class="campo-opcional">(opcional)</span></label>
         <input class="campo-controle" id="f-insta" type="text" autocapitalize="none" spellcheck="false" placeholder="@sualoja">
       </div>
+      <!-- A mensagem já aparece como vai chegar: o campo é o balão da conversa.
+           O cabeçalho repete o que está ao lado, por isso é aria-hidden; a
+           foto é a mesma de "quem sou eu" (mesmo arquivo, já no cache). -->
       <div class="campo">
         <label for="f-msg">Sua mensagem <span class="campo-opcional">(dá para editar antes de enviar)</span></label>
-        <textarea class="campo-controle" id="f-msg" name="text" rows="5">Oi Gabriel, vi seu site. Eu vendo [o quê] e queria saber sobre [página ou loja].</textarea>
+        <div class="zap">
+          <div class="zap-topo" aria-hidden="true">
+            <picture>
+              <source type="image/avif" srcset="assets/gabriel-fantin-320.avif 2x, assets/gabriel-fantin-480.avif 3x">
+              <img class="zap-foto" src="assets/gabriel-fantin-320.webp" srcset="assets/gabriel-fantin-480.webp 3x"
+                   width="36" height="36" loading="lazy" decoding="async" alt="">
+            </picture>
+            <p class="zap-quem"><b>Gabriel Fantin</b> <small>WhatsApp · (27) 99286-4820</small></p>
+          </div>
+          <div class="zap-balao">
+            <textarea class="campo-controle" id="f-msg" name="text" rows="5">Oi Gabriel, vi seu site. Eu vendo [o quê] e queria saber sobre [página ou loja].</textarea>
+          </div>
+        </div>
       </div>
       <button class="btn btn--primary btn--g btn--bloco" type="submit" id="f-enviar">Abrir no WhatsApp <span class="seta" aria-hidden="true">&rarr;</span></button>
       <p class="form-nota">Nada é enviado daqui. O WhatsApp abre com a mensagem pronta e você decide se envia.</p>
@@ -1124,12 +1149,19 @@
   })();
 
   /* ═══ a conta ═════════════════════════════════════════════════════════
-     Divisão pura, com o número que o visitante mesmo colocou. */
+     Divisão pura, com o número que o visitante mesmo colocou.
+     A barra pinta a parte cheia (--fracao, de 0 a 1) e o resultado corre
+     até o número novo em um terço de segundo: um tween curto, que para
+     sozinho e sempre termina no número exato. Quem pediu menos movimento
+     vê o número direto. O leitor de tela ouve o valor da barra na hora
+     e, quando ela para, uma frase só com o resultado (#conta-anuncio). */
   (function conta() {
-    var LOJA = 1200, PAGINA = 700, MIN_POR_MSG = 3;
+    var LOJA = 1200, PAGINA = 700, MIN_POR_MSG = 3, TEMPO = 320, TEMPO_ENTRADA = 900;
+    var bloco = document.querySelector(".conta");
     var ticket = document.getElementById("cticket");
     var msg = document.getElementById("cmsg");
-    if (!ticket || !msg) return;
+    if (!bloco || !ticket || !msg) return;
+    var calmo = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     var el = {
       vTicket: document.getElementById("cticketv"),
@@ -1137,32 +1169,153 @@
       nVendas: document.getElementById("cvendas"),
       rVendas: document.getElementById("cvendasr"),
       pVendas: document.getElementById("cvendasp"),
-      horas: document.getElementById("choras")
+      horas: document.getElementById("choras"),
+      grafico: document.getElementById("cgrafico"),
+      pontos: document.getElementById("cpontos"),
+      pontosV: document.getElementById("cpontosv"),
+      anuncio: document.getElementById("conta-anuncio")
     };
 
     function plural(n, um, varios) { return n === 1 ? um : varios; }
+    function reais(n) { return "R$ " + n.toLocaleString("pt-BR"); }
+    function vendas(n) { return n + " " + plural(n, "venda", "vendas"); }
+    function horas(h) { return h.toLocaleString("pt-BR", { maximumFractionDigits: 1 }) + " " + plural(h, "hora", "horas"); }
 
-    function recalcular() {
+    /* um ponto por venda; cabem todos os da conta com o menor preço */
+    var pontos = [];
+    if (el.grafico && el.pontos) {
+      var total = Math.ceil(LOJA / (Number(ticket.min) || 20));
+      for (var i = 0; i < total; i++) pontos.push(el.pontos.appendChild(document.createElement("i")));
+      el.grafico.hidden = false;
+    }
+
+    /* o que está na tela (pode estar no meio do caminho) e para onde vai */
+    var mostrado = null, alvo = null, de = null;
+    var pedido = 0, inicio = 0, duracao = TEMPO;
+
+    function desenhar(v, final) {
+      var loja = final ? v.loja : Math.round(v.loja);
+      var pag = final ? v.pag : Math.round(v.pag);
+      var h = final ? v.horas : Math.round(v.horas * 2) / 2;
+      el.nVendas.textContent = loja;
+      el.rVendas.textContent = plural(loja, "venda", "vendas");
+      el.pVendas.textContent = vendas(pag);
+      el.horas.textContent = horas(h);
+      pontos.forEach(function (ponto, i) {
+        var cheio = i < loja;
+        if (ponto.hasAttribute("data-cheio") !== cheio) ponto.toggleAttribute("data-cheio", cheio);
+      });
+    }
+
+    function iguais(a, b) { return a.loja === b.loja && a.pag === b.pag && a.horas === b.horas; }
+    function suave(t) { return 1 - Math.pow(1 - t, 3); }
+
+    function passo(agora) {
+      if (!inicio) inicio = agora;
+      var t = Math.min(1, (agora - inicio) / duracao);
+      if (t < 1) {
+        var k = suave(t);
+        mostrado = {
+          loja: de.loja + (alvo.loja - de.loja) * k,
+          pag: de.pag + (alvo.pag - de.pag) * k,
+          horas: de.horas + (alvo.horas - de.horas) * k
+        };
+        desenhar(mostrado, false);
+        pedido = requestAnimationFrame(passo);
+      } else {
+        pedido = 0;
+        mostrado = alvo;
+        desenhar(alvo, true);
+      }
+    }
+
+    function ir(novo, tempo) {
+      if (pedido && iguais(novo, alvo)) return;           // já está indo para lá
+      alvo = novo;
+      if (pedido) { cancelAnimationFrame(pedido); pedido = 0; }
+      if (!mostrado || calmo.matches || !window.requestAnimationFrame || iguais(mostrado, novo)) {
+        mostrado = novo;
+        desenhar(novo, true);
+        return;
+      }
+      de = mostrado; inicio = 0; duracao = tempo || TEMPO;
+      pedido = requestAnimationFrame(passo);
+    }
+
+    /* uma frase só, quando a pessoa para de mexer na barra */
+    var espera = 0, dito = "";
+    function anunciar(texto) {
+      if (!el.anuncio) return;
+      clearTimeout(espera);
+      espera = setTimeout(function () {
+        if (texto === dito) return;
+        dito = texto;
+        el.anuncio.textContent = texto;
+      }, 800);
+    }
+
+    function pintar(faixa) {
+      var min = Number(faixa.min), max = Number(faixa.max);
+      faixa.style.setProperty("--fracao", String((Number(faixa.value) - min) / (max - min)));
+    }
+
+    var mexeu = false;
+    function recalcular(e) {
       var t = Number(ticket.value) || 20;
       var m = Number(msg.value) || 1;
-      var vLoja = Math.ceil(LOJA / t);
-      var vPag = Math.ceil(PAGINA / t);
-      var horas = m * MIN_POR_MSG * 30 / 60;
-      var horasTxt = horas.toLocaleString("pt-BR", { maximumFractionDigits: 1 }) + " " + plural(horas, "hora", "horas");
+      var novo = { loja: Math.ceil(LOJA / t), pag: Math.ceil(PAGINA / t), horas: m * MIN_POR_MSG * 30 / 60 };
 
-      el.vTicket.textContent = "R$ " + t.toLocaleString("pt-BR");
+      el.vTicket.textContent = reais(t);
       el.vMsg.textContent = m;
+      if (el.pontosV) el.pontosV.textContent = reais(t);
       ticket.setAttribute("aria-valuetext", "R$ " + t + " por venda");
       msg.setAttribute("aria-valuetext", m + " " + plural(m, "mensagem", "mensagens") + " por dia");
-      el.nVendas.textContent = vLoja;
-      el.rVendas.textContent = plural(vLoja, "venda", "vendas");
-      el.pVendas.textContent = vPag + " " + plural(vPag, "venda", "vendas");
-      el.horas.textContent = horasTxt;
+      pintar(ticket);
+      pintar(msg);
+      ir(novo);
+
+      if (!e) return;
+      mexeu = true;
+      anunciar(e.target === msg
+        ? "Com " + m + " " + plural(m, "mensagem", "mensagens") + " por dia, são " + horas(novo.horas) + " por mês respondendo preço no direct."
+        : "Com " + reais(t) + " por venda, a loja completa custa o mesmo que " + vendas(novo.loja) + ", e a landing page, " + vendas(novo.pag) + ".");
     }
 
     ticket.addEventListener("input", recalcular);
     msg.addEventListener("input", recalcular);
+
+    /* dedo ou mouse na barra: o CSS cresce a bolinha, acende o halo e o
+       número de cima. É atributo, e não :active, porque no toque do iPhone
+       o :active não pega. Solta em qualquer lugar da página. */
+    function soltar() {
+      ticket.removeAttribute("data-arrastando");
+      msg.removeAttribute("data-arrastando");
+    }
+    [ticket, msg].forEach(function (faixa) {
+      faixa.addEventListener("pointerdown", function () { faixa.setAttribute("data-arrastando", ""); });
+      faixa.addEventListener("change", soltar);
+      faixa.addEventListener("blur", soltar);
+    });
+    document.addEventListener("pointerup", soltar);
+    document.addEventListener("pointercancel", soltar);
+
+    bloco.classList.add("conta--viva");
     recalcular();
+
+    /* na primeira vez que o resultado aparece, os pontos enchem até o
+       número, uma vez só. Se a pessoa já mexeu, fica como está. */
+    var saida = bloco.querySelector(".conta-saida");
+    if (saida && pontos.length && !calmo.matches && "IntersectionObserver" in window) {
+      var vigia = new IntersectionObserver(function (entradas) {
+        if (!entradas[0].isIntersecting) return;
+        vigia.disconnect();
+        if (mexeu) return;
+        var final = mostrado;
+        mostrado = { loja: 0, pag: 0, horas: 0 };
+        ir(final, TEMPO_ENTRADA);
+      }, { threshold: 0.5 });
+      vigia.observe(saida);
+    }
   })();
 
   /* ═══ formulário → WhatsApp ═══════════════════════════════════════════
@@ -1221,11 +1374,22 @@
     servico.addEventListener("change", atualizar);
     msg.addEventListener("input", function () { editadaAMao = msg.value.trim() !== ""; });
 
-    /* o erro some assim que o campo fica certo, não só no próximo envio */
+    /* o erro some assim que o campo fica certo, não só no próximo envio.
+       Campo obrigatório preenchido ganha o sinal de pronto (data-ok). */
+    function marcarPronto(c) {
+      var campo = c.closest(".campo");
+      if (campo) campo.toggleAttribute("data-ok", c.value.trim() !== "");
+    }
     [nome, vende].forEach(function (c) {
       c.addEventListener("input", function () {
-        if (c.getAttribute("aria-invalid") === "true" && c.value.trim()) marcarErro(c, false);
+        if (c.getAttribute("aria-invalid") === "true" && c.value.trim()) {
+          marcarErro(c, false);
+          /* tudo certo agora: o aviso de "faltou" sai também */
+          if (!form.querySelector('[aria-invalid="true"]') && status.classList.contains("form-status--erro")) status.textContent = "";
+        }
+        marcarPronto(c);
       });
+      marcarPronto(c);
     });
 
     /* "Quero esta" e "Falar sobre isso" já chegam com o serviço marcado */
@@ -1238,6 +1402,7 @@
 
     function mostrarStatus(texto, url, erro) {
       status.textContent = "";
+      void status.offsetWidth;   // vazio de verdade por um instante: a entrada do aviso recomeça
       status.className = "form-status" + (erro ? " form-status--erro" : "");
       status.appendChild(document.createTextNode(texto));
       if (url) {
@@ -1267,6 +1432,7 @@
       enviar.disabled = true;
       enviar.setAttribute("aria-busy", "true");
       enviar.textContent = "Abrindo o WhatsApp…";
+      form.setAttribute("data-enviando", "");      // o CSS faz o balão "sair", uma vez
       rastrear("Contact", { content_name: "formulario" });
 
       /* abre dentro do clique, senão o bloqueador de pop-up segura */
@@ -1279,6 +1445,7 @@
         enviar.disabled = false;
         enviar.removeAttribute("aria-busy");
         enviar.innerHTML = rotuloEnviar;
+        form.removeAttribute("data-enviando");
       }, 1500);
     });
 

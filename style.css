@@ -31,6 +31,8 @@
     --url-max: 340px;     /* endereço na moldura */
     --aviso-max: 640px;   /* aviso de cookies */
     --tela-ex: 380px;     /* largura da tela do comparador */
+    --polegar: 26px;      /* bolinha das barras da conta (o que aparece; o toque é --alvo) */
+    --regua-h: 6px;       /* espessura da trilha das barras da conta */
     --trilho-card: 85%;   /* card no trilho do celular: sobra a ponta do próximo */
     --foto: 160px;        /* foto quadrada em "quem sou eu" */
     --celular-h: 600px;   /* altura do celular do filme no computador */
@@ -1279,11 +1281,139 @@
     cursor: pointer;
   }
   .reguas { display: flex; justify-content: space-between; color: var(--tinta-3); }
+
+  /* com JS a barra vira instrumento: trilha fina, a parte cheia segue o
+     valor (--fracao, de 0 a 1, vem do JS) e a régua ganha traços. Sem JS
+     fica a barra nativa, que já pinta sozinha.
+     A bolinha tem o tamanho do alvo de toque (--alvo) para o dedo achar,
+     mas só --polegar aparece: o resto é borda transparente, que vira halo
+     quando a barra está na mão. A parte cheia e os traços miram o centro
+     dela, que anda de meio alvo até 100% menos meio alvo. */
+  .conta--viva .faixa-range {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .conta--viva .faixa-range::-webkit-slider-runnable-track {
+    height: var(--regua-h);
+    border-radius: var(--r-pill);
+    background:
+      linear-gradient(var(--marca), var(--marca)) 0 0 / calc(var(--alvo) / 2 + (100% - var(--alvo)) * var(--fracao, 0)) 100% no-repeat,
+      var(--linha);
+    background:
+      linear-gradient(var(--marca), var(--marca)) 0 0 / calc(var(--alvo) / 2 + (100% - var(--alvo)) * var(--fracao, 0)) 100% no-repeat,
+      color-mix(in srgb, var(--linha-2) 40%, transparent);
+  }
+  .conta--viva .faixa-range::-moz-range-track {
+    height: var(--regua-h);
+    border-radius: var(--r-pill);
+    background: var(--linha);
+    background: color-mix(in srgb, var(--linha-2) 40%, transparent);
+  }
+  .conta--viva .faixa-range::-moz-range-progress {
+    height: var(--regua-h);
+    border-radius: var(--r-pill);
+    background: var(--marca);
+  }
+  .conta--viva .faixa-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    box-sizing: border-box;
+    width: var(--alvo);
+    height: var(--alvo);
+    margin-top: calc((var(--regua-h) - var(--alvo)) / 2);
+    border: calc((var(--alvo) - var(--polegar)) / 2) solid transparent;
+    border-radius: var(--r-pill);
+    background: var(--papel-2) padding-box;
+    box-shadow: inset 0 0 0 var(--borda-2) var(--marca);
+    filter: drop-shadow(var(--sh-1));
+  }
+  .conta--viva .faixa-range::-moz-range-thumb {
+    box-sizing: border-box;
+    width: var(--alvo);
+    height: var(--alvo);
+    border: calc((var(--alvo) - var(--polegar)) / 2) solid transparent;
+    border-radius: var(--r-pill);
+    background: var(--papel-2) padding-box;
+    box-shadow: inset 0 0 0 var(--borda-2) var(--marca);
+  }
+  /* na mão (dedo ou mouse, data-arrastando vem do JS) ou no foco: o halo
+     acende. O foco de teclado também mantém o contorno de sempre */
+  .conta--viva .faixa-range:is([data-arrastando], :focus-visible)::-webkit-slider-thumb {
+    border-color: color-mix(in srgb, var(--marca) 20%, transparent);
+  }
+  .conta--viva .faixa-range:is([data-arrastando], :focus-visible)::-moz-range-thumb {
+    border-color: color-mix(in srgb, var(--marca) 20%, transparent);
+  }
+  @media (hover: hover) {
+    .conta--viva .faixa-range:hover::-webkit-slider-thumb {
+      border-color: color-mix(in srgb, var(--marca) 12%, transparent);
+    }
+    .conta--viva .faixa-range:hover::-moz-range-thumb {
+      border-color: color-mix(in srgb, var(--marca) 12%, transparent);
+    }
+  }
+  /* o número de cima acende enquanto a barra dele está na mão */
+  .medida:has(.faixa-range:is([data-arrastando], :focus-visible)) .medida-leitura > span { color: var(--marca-texto); }
+
+  /* traços da régua: um a cada décimo, alinhados com o caminho da bolinha */
+  .conta--viva .reguas {
+    position: relative;
+    margin-top: calc(var(--s-2) * -1);
+    padding-top: var(--s-2);
+  }
+  .conta--viva .reguas::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: calc(var(--alvo) / 2 - var(--borda) / 2);
+    width: calc(100% - var(--alvo) + var(--borda));
+    height: var(--s-1);
+    background: linear-gradient(to right, var(--linha-2) var(--borda), transparent 0) 0 0 / calc((100% - var(--borda)) / 10) 100% repeat-x;
+    opacity: .6;
+  }
+
   .conta-dica { margin-top: var(--s-4); }
   .conta-saida { display: flex; flex-direction: column; gap: var(--s-2); }
   .conta-topo { color: var(--tinta-2); }
   .conta-num { font-size: var(--t-3xl); }
   .conta-num b { color: var(--marca-texto); font-weight: 700; }
+
+  /* um ponto por venda: 60 lugares (a conta com R$ 20), os da loja acesos */
+  .conta-grafico { display: grid; gap: var(--s-1); margin: 0 0 var(--s-1); }
+  .conta-pontos {
+    display: grid;
+    grid-template-columns: repeat(20, 1fr);
+    gap: calc(var(--s-1) / 2);
+    max-width: calc(var(--alvo) * 8);
+  }
+  .conta-pontos i, .conta-legenda i {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: var(--r-pill);
+    background: var(--linha);
+    background: color-mix(in srgb, var(--linha-2) 26%, transparent);
+  }
+  .conta-pontos i::after, .conta-legenda i::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--marca);
+    transform: scale(0);
+  }
+  .conta-pontos i[data-cheio]::after, .conta-legenda i::after { transform: scale(1); }
+  .conta-legenda {
+    display: flex;
+    align-items: center;
+    gap: var(--s-1);
+    color: var(--tinta-3);
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+  }
+  .conta-legenda i { width: calc(var(--s-1) * 1.5); flex: none; }
   .conta-exp { color: var(--tinta-2); }
   .conta-saida .lista { margin-top: var(--s-2); }
   .conta-pe { max-width: var(--texto-max); margin-top: var(--s-4); color: var(--tinta-2); font-size: var(--t-sm); }
@@ -1311,17 +1441,45 @@
     cursor: pointer;
   }
   .faq summary::-webkit-details-marker { display: none; }
-  .faq summary::after {
-    content: "+";
-    flex: none;
-    margin-left: auto;
-    color: var(--marca-texto);
-    font-family: var(--f-mono);
-    font-weight: 500;
-    transition: transform var(--dur) ease;
+  /* a linha da pergunta sai um pouco para os lados, para o fundo do hover
+     e o contorno do foco terem respiro; o texto fica alinhado com o resto */
+  .faq details > summary {
+    margin-inline: calc(var(--s-2) * -1);
+    padding-inline: var(--s-2);
+    border-radius: var(--r-md);
+    -webkit-tap-highlight-color: transparent;
   }
-  .faq details[open] summary::after { content: "−"; }
-  .faq summary:hover::after { transform: scale(1.25); }
+  /* no toque, o fundo acende enquanto o dedo está em cima; com mouse, no hover */
+  .faq summary:active { background: color-mix(in srgb, var(--papel-2) 70%, transparent); }
+  @media (hover: hover) {
+    .faq summary:hover { background: color-mix(in srgb, var(--papel-2) 55%, transparent); }
+  }
+  /* o sinal: um + desenhado em dois traços dentro de um círculo. Aberto,
+     o traço de pé encolhe (vira −) e o círculo enche de laranja */
+  .faq summary::after {
+    content: "";
+    flex: none;
+    width: calc(var(--alvo) * .68);
+    aspect-ratio: 1;
+    margin-left: auto;
+    border: var(--borda) solid var(--linha-2);
+    border-radius: var(--r-pill);
+    color: var(--marca-texto);
+    background:
+      linear-gradient(currentColor, currentColor) center / 36% var(--borda-2) no-repeat,
+      linear-gradient(currentColor, currentColor) center / var(--borda-2) 36% no-repeat;
+  }
+  .faq summary:active::after { border-color: var(--marca-texto); background-color: var(--marca-tint); }
+  @media (hover: hover) {
+    .faq summary:hover::after { border-color: var(--marca-texto); background-color: var(--marca-tint); }
+  }
+  .faq details[open] > summary::after {
+    border-color: var(--marca);
+    background-color: var(--marca);
+    background-size: 36% var(--borda-2), var(--borda-2) 0%;
+    color: var(--marca-tinta);
+    transform: rotate(180deg);
+  }
   .faq-resp { max-width: var(--texto-max); padding-bottom: var(--s-3); color: var(--tinta-2); }
   .faq-resp b { color: var(--tinta); }
 
@@ -1368,12 +1526,35 @@
   .contato-canais span { min-width: 11ch; }
   .contato-canais a { color: var(--tinta); font-size: var(--t-lg); font-weight: 600; }
   .contato-tempo { margin-top: var(--s-3); }
+  /* no computador o texto acompanha o formulário, que é mais comprido */
+  @media (min-width: 1000px) {
+    .contato-texto { position: sticky; top: calc(var(--topo-h) + var(--s-4)); }
+  }
 
   .form-zap { display: grid; gap: var(--s-3); }
   .form-zap h3 { font-size: var(--t-xl); }
   .campo { display: grid; gap: var(--s-1); }
   .campo label { font-size: var(--t-sm); font-weight: 600; }
+  .campo:focus-within > label { color: var(--marca-texto); }
   .campo-opcional { color: var(--tinta-2); font-weight: 400; }
+  /* campo obrigatório preenchido: um ✓ dentro do campo, à direita. O campo
+     e o sinal dividem a mesma célula da grade (linha 2) */
+  .campo > .campo-controle { grid-row: 2; grid-column: 1; }
+  .campo[data-ok] > .campo-controle { padding-right: calc(var(--s-3) * 2); }
+  .campo[data-ok]::after {
+    content: "✓";
+    content: "✓" / "";
+    grid-row: 2;
+    grid-column: 1;
+    align-self: center;
+    justify-self: end;
+    margin-right: var(--s-3);
+    color: var(--sucesso);
+    font-weight: 700;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .campo[data-ok]:has(> [aria-invalid="true"])::after { content: none; }
   .campo-controle {
     width: 100%;
     min-height: calc(var(--alvo) + var(--s-1));
@@ -1388,15 +1569,184 @@
   .campo-controle::placeholder { color: var(--tinta-3); opacity: 1; }
   .campo-controle:hover { border-color: var(--tinta-2); }
   .campo-controle:focus-visible { border-color: var(--marca); outline-offset: 0; }
+  /* no formulário o foco é anel laranja (borda + sombra) com um halo claro
+     em volta. O contorno fica transparente: no alto contraste ele volta */
+  .form-zap .campo-controle:focus-visible {
+    outline-color: transparent;
+    box-shadow: 0 0 0 var(--borda) var(--marca), 0 0 0 calc(var(--foco) * 3) color-mix(in srgb, var(--marca) 18%, transparent);
+  }
   .campo-controle[aria-invalid="true"] { border: var(--borda-2) solid var(--marca-texto); }
   textarea.campo-controle { min-height: calc(var(--alvo) * 3); resize: vertical; }
   select.campo-controle { cursor: pointer; }
+
+  /* a mensagem como conversa: cabeçalho com quem recebe, fundo pontilhado
+     e o campo feito balão de quem manda (à direita, com a pontinha) */
+  .zap {
+    overflow: hidden;
+    border: var(--borda) solid var(--linha);
+    border-radius: var(--r-md);
+    background: var(--papel);
+    background:
+      radial-gradient(circle, color-mix(in srgb, var(--linha-2) 30%, transparent) var(--borda), transparent calc(var(--borda) * 1.6)) 0 0 / var(--s-2) var(--s-2),
+      var(--papel);
+  }
+  .zap-topo {
+    display: flex;
+    align-items: center;
+    gap: var(--s-1);
+    padding: var(--s-1) var(--s-2);
+    border-bottom: var(--borda) solid var(--linha);
+    background: var(--papel-2);
+  }
+  .zap-foto {
+    width: calc(var(--alvo) * .8);
+    height: calc(var(--alvo) * .8);
+    object-fit: cover;
+    border-radius: var(--r-pill);
+    background: var(--papel-3);
+  }
+  .zap-quem { display: grid; font-size: var(--t-sm); line-height: 1.3; }
+  .zap-quem small { color: var(--tinta-2); font-size: var(--t-xs); }
+  .zap-balao {
+    position: relative;
+    margin: var(--s-2) var(--s-2) var(--s-2) var(--s-5);
+  }
+  .zap .campo-controle {
+    display: block;
+    min-height: calc(var(--alvo) * 2.5);
+    border-radius: var(--r-md) 0 var(--r-md) var(--r-md);
+    background: var(--marca-tint);
+    box-shadow: var(--sh-1);
+  }
+  @supports (field-sizing: content) {
+    .zap .campo-controle { field-sizing: content; resize: none; }
+  }
+  /* a pontinha: um triângulo da cor da borda com outro da cor do balão por
+     cima, deslocado uma borda para dentro */
+  .zap-balao::before, .zap-balao::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: calc(100% - var(--borda));
+    width: var(--s-1);
+    height: var(--s-2);
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+    background: var(--linha-2);
+    pointer-events: none;
+  }
+  .zap-balao::after {
+    top: var(--borda);
+    left: calc(100% - var(--borda) * 2);
+    background: var(--marca-tint);
+  }
+  @media (hover: hover) {
+    .zap-balao:has(> .campo-controle:hover)::before { background: var(--tinta-2); }
+  }
+  .zap-balao:focus-within::before { background: var(--marca); }
+  .zap-balao:has(> [aria-invalid="true"])::before { background: var(--marca-texto); }
+
   .campo-ajuda, .form-nota { color: var(--tinta-2); font-size: var(--t-sm); }
   .campo-erro, .form-status--erro { color: var(--marca-texto); font-size: var(--t-sm); font-weight: 600; }
   :is(.campo-erro, .form-status--erro)::before { content: "! "; font-family: var(--f-mono); }
   .form-status { font-size: var(--t-sm); }
   .form-status:empty { display: none; }
   .form-status a { color: var(--marca-texto); font-weight: 600; }
+  .form-status:not(.form-status--erro)::before {
+    content: "✓ ";
+    content: "✓ " / "";
+    color: var(--sucesso);
+    font-weight: 700;
+  }
+  /* o botão de enviar guarda uma camada para a faixa de "abrindo" */
+  .form-zap > .btn--primary { position: relative; isolation: isolate; overflow: hidden; }
+
+  /* --- movimento da conta, das perguntas e do contato ---
+     Só para quem não pediu menos movimento, e nada fica em loop: cada
+     coisa mexe uma vez, quando a pessoa mexe. Sem este bloco o estado
+     final é o mesmo, só que chega parado. */
+  @media (prefers-reduced-motion: no-preference) {
+    /* a conta: a bolinha cresce sob o dedo e os pontos acendem com mola */
+    .conta--viva .faixa-range::-webkit-slider-thumb {
+      transition: transform var(--motion-ui) var(--motion-mola), border-color var(--motion-ui) var(--motion-ease);
+    }
+    .conta--viva .faixa-range::-moz-range-thumb {
+      transition: transform var(--motion-ui) var(--motion-mola), border-color var(--motion-ui) var(--motion-ease);
+    }
+    .conta--viva .faixa-range[data-arrastando]::-webkit-slider-thumb { transform: scale(1.18); }
+    .conta--viva .faixa-range[data-arrastando]::-moz-range-thumb { transform: scale(1.18); }
+    .medida-leitura > span { transition: color var(--motion-ui) var(--motion-ease); }
+    .conta-pontos i::after { transition: transform var(--motion-ui) var(--motion-mola); }
+
+    /* perguntas: o sinal gira e vira −; a resposta abre e fecha pela altura
+       onde o navegador sabe animar até "auto" (nos outros, abre na hora e
+       a resposta entra com a "revela" dos utilitários) */
+    .faq summary { transition: background-color var(--motion-ui) var(--motion-ease); }
+    .faq summary::after {
+      transition: transform var(--motion-enter) var(--motion-ease),
+                  background-size var(--motion-enter) var(--motion-ease),
+                  background-color var(--motion-ui) var(--motion-ease),
+                  border-color var(--motion-ui) var(--motion-ease),
+                  color var(--motion-ui) var(--motion-ease);
+    }
+    @supports (interpolate-size: allow-keywords) and selector(::details-content) {
+      .faq { interpolate-size: allow-keywords; }
+      .faq details::details-content {
+        block-size: 0;
+        overflow-y: clip;
+        transition: block-size var(--motion-enter) var(--motion-ease),
+                    content-visibility var(--motion-enter) allow-discrete;
+      }
+      .faq details[open]::details-content { block-size: auto; }
+    }
+
+    /* contato: rótulo e anel de foco acendem; o ✓ chega com mola; o erro
+       desce e o campo dá um tremido curto; ao abrir o WhatsApp o balão
+       "sai" e uma faixa clara atravessa o botão, uma vez */
+    .campo > label, .campo-controle {
+      transition: color var(--motion-ui) var(--motion-ease),
+                  border-color var(--motion-ui) var(--motion-ease),
+                  box-shadow var(--motion-ui) var(--motion-ease);
+    }
+    @keyframes zap-marca { from { opacity: 0; transform: scale(.3) rotate(-30deg); } }
+    @keyframes zap-desce { from { opacity: 0; transform: translateY(calc(var(--s-1) * -1)); } }
+    @keyframes zap-treme {
+      20%, 60% { translate: calc(var(--s-1) * -.5) 0; }
+      40%, 80% { translate: calc(var(--s-1) * .5) 0; }
+    }
+    @keyframes zap-sai {
+      40% { transform: translateY(calc(var(--s-1) * -1)) scale(.98); }
+    }
+    @keyframes zap-faixa { from { transform: scaleX(0); } }
+    .campo[data-ok]::after { animation: zap-marca var(--motion-enter) var(--motion-mola) both; }
+    .campo-erro, .form-status { animation: zap-desce var(--motion-ui) var(--motion-ease) both; }
+    .campo-controle[aria-invalid="true"] { animation: zap-treme .36s var(--motion-ease); }
+    .form-zap[data-enviando] .zap-balao { animation: zap-sai .6s var(--motion-ease); }
+    .form-zap[data-enviando] > .btn--primary::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: color-mix(in srgb, var(--banda-tinta) 30%, transparent);
+      transform-origin: left;
+      animation: zap-faixa 1.4s var(--motion-ease) both;
+    }
+
+    /* ao rolar até o formulário, o balão chega como mensagem nova, do
+       canto da pontinha. Só onde a animação liga à rolagem */
+    @supports (animation-timeline: view()) {
+      @keyframes zap-chega { from { opacity: 0; transform: translateY(var(--s-2)) scale(.92); } }
+      .zap-balao {
+        transform-origin: top right;
+        animation: zap-chega linear both;
+        animation-timeline: view();
+        animation-range: entry 10% entry 90%;
+      }
+      .form-zap[data-enviando] .zap-balao {
+        animation: zap-sai .6s var(--motion-ease);
+        animation-timeline: auto;
+      }
+    }
+  }
 
   /* --- rodapé --- */
   .site-foot {
