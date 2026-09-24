@@ -35,9 +35,9 @@
 <link rel="preload" href="assets/fontes/archivo.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fontes/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fontes/jetbrains-mono.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="tokens.css?v=202609242307" as="style">
+<link rel="preload" href="tokens.css?v=202609242314" as="style">
 <link rel="preload" href="fontes.css" as="style">
-<link rel="stylesheet" href="style.css?v=202609242307">
+<link rel="stylesheet" href="style.css?v=202609242314">
 
 <script type="application/ld+json">
 {
@@ -750,7 +750,7 @@
            isso o cartão não é aria-live: quem avisa o leitor de tela é o
            #conta-anuncio, com uma frase só, quando a barra para. -->
       <div class="card conta-saida">
-        <p class="conta-topo">Com esse preço, montar a loja completa custa o mesmo que</p>
+        <p class="conta-topo">Com esse preço, a loja completa se paga com cerca de</p>
         <p class="conta-num"><b id="cvendas">8</b> <span id="cvendasr">vendas</span></p>
         <!-- um ponto por venda, até 60 (a conta com o menor preço, R$ 20).
              Só enfeite: o número já está escrito em cima. Sem JS fica escondido. -->
@@ -761,7 +761,7 @@
         <p class="conta-exp">Isso é o <b>preço de venda</b>, não a sua margem: se sobra metade para
         você em cada venda, dobre o número.</p>
         <ul class="lista">
-          <li>A <b>landing page</b> custa o mesmo que <b id="cvendasp">5 vendas</b>.</li>
+          <li>A <b>landing page</b> se paga com cerca de <b id="cvendasp">3 vendas</b>.</li>
           <li>Respondendo preço no direct, são <b id="choras">12 horas</b> por mês,
           contando três minutos por conversa.</li>
           <li>Na loja, quem tem vergonha de perguntar o preço vê na tela e pode comprar sem falar com ninguém.</li>
@@ -770,10 +770,6 @@
       </div>
     </div>
 
-    <p class="conta-pe">É divisão, não previsão, arredondada para cima. Não existe aqui nenhuma
-    promessa de faturamento, porque eu não sei quanto você vai vender e quem te diz um número
-    redondo também não sabe. <b>O que eu prometo é a entrega:</b> no ar, no seu nome, na data
-    combinada, com tudo ligado e testado.</p>
   </div>
 </section>
 
@@ -1226,7 +1222,7 @@
     /* um ponto por venda; cabem todos os da conta com o menor preço */
     var pontos = [];
     if (el.grafico && el.pontos) {
-      var total = Math.ceil(LOJA / (Number(ticket.min) || 20));
+      var total = Math.floor(LOJA / (Number(ticket.min) || 20));
       for (var i = 0; i < total; i++) pontos.push(el.pontos.appendChild(document.createElement("i")));
       el.grafico.hidden = false;
     }
@@ -1305,7 +1301,7 @@
     function recalcular(e) {
       var t = Number(ticket.value) || 20;
       var m = Number(msg.value) || 1;
-      var novo = { loja: Math.ceil(LOJA / t), pag: Math.ceil(PAGINA / t), horas: m * MIN_POR_MSG * 30 / 60 };
+      var novo = { loja: Math.max(1, Math.floor(LOJA / t)), pag: Math.max(1, Math.floor(PAGINA / t)), horas: m * MIN_POR_MSG * 30 / 60 };
 
       el.vTicket.textContent = reais(t);
       el.vMsg.textContent = m;
@@ -1320,7 +1316,7 @@
       mexeu = true;
       anunciar(e.target === msg
         ? "Com " + m + " " + plural(m, "mensagem", "mensagens") + " por dia, são " + horas(novo.horas) + " por mês respondendo preço no direct."
-        : "Com " + reais(t) + " por venda, a loja completa custa o mesmo que " + vendas(novo.loja) + ", e a landing page, " + vendas(novo.pag) + ".");
+        : "Com " + reais(t) + " por venda, a loja completa se paga com cerca de " + vendas(novo.loja) + ", e a landing page, com " + vendas(novo.pag) + ".");
     }
 
     ticket.addEventListener("input", recalcular);

@@ -12,7 +12,7 @@
 
 @layer tokens, base, componentes, secoes, utilitarios;
 
-@import url("tokens.css?v=202609242307") layer(tokens);
+@import url("tokens.css?v=202609242314") layer(tokens);
 @import url("fontes.css") layer(tokens);
 
 /* ═══ TOKENS: medidas de peça (não são cor, espaço, raio nem sombra) ════════ */
@@ -1775,8 +1775,7 @@
   .conta-legenda i { width: calc(var(--s-1) * 1.5); flex: none; }
   .conta-exp { color: var(--tinta-2); }
   .conta-saida .lista { margin-top: var(--s-2); }
-  .conta-pe { max-width: var(--texto-max); margin-top: var(--s-4); color: var(--tinta-2); font-size: var(--t-sm); }
-  :is(.conta-exp, .conta-pe) b { color: var(--tinta); }
+  .conta-exp b { color: var(--tinta); }
 
   /* --- perguntas --- */
   .faq {
