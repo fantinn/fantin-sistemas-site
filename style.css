@@ -12,7 +12,7 @@
 
 @layer tokens, base, componentes, secoes, utilitarios;
 
-@import url("tokens.css?v=202609242050") layer(tokens);
+@import url("tokens.css?v=202609242100") layer(tokens);
 @import url("fontes.css") layer(tokens);
 
 /* ═══ TOKENS: medidas de peça (não são cor, espaço, raio nem sombra) ════════ */
@@ -37,6 +37,9 @@
     --foto: 160px;        /* foto quadrada em "quem sou eu" */
     --celular-h: 600px;   /* altura do celular do filme no computador */
     --passo-h: 70svh;     /* altura de cada etapa do filme: é o "tempo" de cada cena */
+    --celular-m: 52svh;   /* altura do celular do filme no celular (preso no topo) */
+    --cel-raio: 14% / 6.6%;    /* cantos do aparelho em %: acompanham o tamanho */
+    --tela-raio: 11.5% / 5.2%; /*   (largura / altura, proporção 9:19) */
     --cel-1: .5em;        /* espaço dentro do celular do filme, em em: */
     --cel-2: .875em;      /*   encolhe junto com a tela, que escala pela */
     --cel-3: 1.25em;      /*   largura do aparelho (cqw) */
@@ -642,7 +645,7 @@
   }
   /* busca na página e leitor de tela: a etapa não para embaixo do celular preso */
   @media (max-width: 999px) and (min-height: 601px) {
-    .filme-passo { scroll-margin-top: calc(var(--topo-h) + 44svh + var(--s-4)); }
+    .filme-passo { scroll-margin-top: calc(var(--topo-h) + var(--celular-m) + var(--s-4)); }
   }
   @media (min-width: 1000px) {
     .filme-corpo {
@@ -667,11 +670,11 @@
 
   .celular {
     position: relative;
-    height: min(44svh, var(--celular-h));
+    height: min(var(--celular-m), var(--celular-h));
     aspect-ratio: 9 / 19;
     padding: calc(var(--s-1) * .8);
     border: var(--borda) solid color-mix(in srgb, var(--banda-tinta) 26%, transparent);
-    border-radius: calc(var(--r-lg) * 2.4);
+    border-radius: var(--cel-raio);
     background: color-mix(in srgb, var(--banda-tinta) 6%, var(--banda));
     box-shadow: var(--sh-3);
     container-type: inline-size;
@@ -683,7 +686,7 @@
     position: relative;
     height: 100%;
     overflow: hidden;
-    border-radius: calc(var(--r-lg) * 2);
+    border-radius: var(--tela-raio);
     background: var(--papel-2);
     color: var(--tinta);
     font-size: var(--t-xs);
@@ -752,7 +755,7 @@
     display: flex;
     flex-direction: column;
     gap: var(--cel-1);
-    padding: calc(var(--cel-3) * 3) var(--cel-2) calc(var(--cel-3) * 2.2);
+    padding: calc(var(--cel-3) * 3) var(--cel-2) calc(var(--cel-3) * 2.8);
     opacity: 0;
     visibility: hidden;
     transform: translateY(var(--cel-3));
