@@ -18,6 +18,9 @@ porque continuam servindo de prova e de isca, mas não é o que a página inicia
 | `checklist-documentos/` | O checklist em si, por regime tributário, feito para imprimir |
 | `privacidade.html` | Política de privacidade (LGPD) |
 | `tools/og.html` | A fonte do `og.png`, o cartão de link |
+| `favicon.svg` | Ícone da aba: laranja da marca com o símbolo em tinta escura. Sem `--` nos comentários (invalida o SVG) |
+| `tools/icone.html` | A fonte do `apple-touch-icon.png` (180×180, sem raio: o iOS arredonda) |
+| `404.html` | Página de endereço inexistente. O Pages serve ela em qualquer profundidade, por isso os caminhos são absolutos (`/style.css`) |
 
 ## A demonstração
 
