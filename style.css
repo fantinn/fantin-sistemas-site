@@ -32,7 +32,6 @@
     --aviso-max: 640px;   /* aviso de cookies */
     --tela-ex: 380px;     /* largura da tela do comparador */
     --trilho-card: 85%;   /* card no trilho do celular: sobra a ponta do próximo */
-    --foto-w: 320px;      /* largura do retrato em "quem sou eu" */
     --dur: .18s;          /* duração das transições (só transform e opacity) */
   }
 }
@@ -961,42 +960,18 @@
   .faq-resp b { color: var(--tinta); }
 
   /* --- quem faz --- */
-  .quem { display: grid; align-items: center; gap: var(--s-5); }
+  .quem { display: grid; align-items: start; gap: var(--s-4); }
   @media (min-width: 760px) {
-    .quem { grid-template-columns: var(--foto-w) minmax(0, 1fr); gap: var(--s-6); }
-  }
-  .quem-foto {
-    position: relative;
-    isolation: isolate;
-    width: min(calc(100% - var(--s-3)), var(--foto-w));
-    margin: 0 0 var(--s-3);
-  }
-  /* bloco da marca atrás da foto, deslocado para baixo e para a direita */
-  .quem-foto::before {
-    content: "";
-    position: absolute;
-    inset: var(--s-3) calc(var(--s-3) * -1) calc(var(--s-3) * -1) var(--s-3);
-    z-index: -1;
-    border-radius: var(--r-lg);
-    background: var(--marca);
+    .quem { grid-template-columns: auto 1fr; gap: var(--s-5); }
   }
   .quem-foto img {
     display: block;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 4 / 5;
+    width: calc(var(--alvo) * 2);
+    height: calc(var(--alvo) * 2);
     object-fit: cover;
-    border: var(--borda) solid var(--linha);
-    border-radius: var(--r-lg);
+    border: var(--borda) solid var(--linha-2);
+    border-radius: var(--r-md);
     background: var(--papel-3);
-    box-shadow: var(--sh-2);
-  }
-  .quem-foto figcaption {
-    position: absolute;
-    left: calc(var(--s-2) * -1);
-    bottom: var(--s-4);
-    background: var(--papel-2);
-    box-shadow: var(--sh-2);
   }
   .quem-texto { max-width: var(--texto-max); }
   .quem-texto p:not(.eyebrow) { margin-top: var(--s-3); color: var(--tinta-2); }
@@ -1237,11 +1212,6 @@
         transition: translate var(--motion-ui) var(--motion-ease);
       }
       .frente:hover, .price:hover { translate: 0 calc(var(--s-1) * -1); }
-      .quem-foto img, .quem-foto::before {
-        transition: transform var(--motion-enter) var(--motion-ease);
-      }
-      .quem-foto:hover img { transform: rotate(-1.5deg) translateY(calc(var(--s-1) * -1)); }
-      .quem-foto:hover::before { transform: translate(var(--s-1), var(--s-1)) rotate(1.5deg); }
       .work:hover { transform: translateY(calc(var(--s-1) * -1)); }
       .nav-lista a { position: relative; }
       .nav-lista a::after {
