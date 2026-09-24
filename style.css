@@ -32,6 +32,7 @@
     --aviso-max: 640px;   /* aviso de cookies */
     --tela-ex: 380px;     /* largura da tela do comparador */
     --trilho-card: 85%;   /* card no trilho do celular: sobra a ponta do próximo */
+    --foto: 160px;        /* foto quadrada em "quem sou eu" */
     --dur: .18s;          /* duração das transições (só transform e opacity) */
   }
 }
@@ -966,11 +967,11 @@
   }
   .quem-foto img {
     display: block;
-    width: calc(var(--alvo) * 2);
-    height: calc(var(--alvo) * 2);
+    width: var(--foto);
+    height: var(--foto);
     object-fit: cover;
     border: var(--borda) solid var(--linha-2);
-    border-radius: var(--r-md);
+    border-radius: var(--r-lg);
     background: var(--papel-3);
   }
   .quem-texto { max-width: var(--texto-max); }
