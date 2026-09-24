@@ -2162,11 +2162,11 @@
     }
   }
 
-  /* --- rodapé --- */
+  /* --- rodapé: sempre escuro, marca à esquerda e redes só com ícone --- */
   .site-foot {
     padding-block: var(--s-4);
-    border-top: var(--borda) solid var(--linha);
-    color: var(--tinta-2);
+    background: var(--banda);
+    color: var(--banda-tinta-2);
     font-size: var(--t-sm);
   }
   .site-foot .wrap {
@@ -2176,16 +2176,28 @@
     justify-content: space-between;
     gap: var(--s-3);
   }
-  .site-foot b { color: var(--tinta); }
-  .foot-links { list-style: none; display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-3); }
-  .foot-links a { display: inline-block; padding-block: var(--s-1); }
-
-  /* redes: ícone pequeno ao lado do contato, acende no laranja */
-  .foot-redes { list-style: none; display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-3); }
-  .rede { display: inline-flex; align-items: center; gap: var(--s-1); padding-block: var(--s-1); color: var(--tinta); text-decoration: none; }
-  .rede-icone { display: inline-flex; color: var(--marca-texto); }
-  .rede-icone svg { width: 1.15em; height: 1.15em; }
-  .rede:hover span:last-child { text-decoration: underline; text-underline-offset: .2em; }
+  .foot-marca { display: flex; align-items: center; gap: var(--s-2); color: var(--banda-tinta); letter-spacing: .02em; }
+  .foot-marca svg { width: 1em; height: 1.2em; }
+  .foot-ponto { fill: var(--marca); }
+  .foot-redes { list-style: none; display: flex; gap: var(--s-1); order: 1; }
+  .rede {
+    display: grid;
+    place-items: center;
+    width: var(--alvo);
+    height: var(--alvo);
+    border-radius: 50%;
+    color: var(--banda-tinta-2);
+    transition: color var(--dur) ease, background var(--dur) ease;
+  }
+  .rede svg { width: 1.25em; height: 1.25em; }
+  .rede:hover, .rede:focus-visible { color: var(--banda-tinta); background: color-mix(in srgb, var(--banda-tinta) 8%, transparent); }
+  .site-foot :focus-visible { outline-color: var(--marca); }
+  .foot-links { list-style: none; display: flex; gap: var(--s-3); margin-inline-end: auto; }
+  .foot-links a { display: inline-block; padding-block: var(--s-1); color: var(--banda-tinta-2); }
+  .foot-links a:hover { color: var(--banda-tinta); }
+  @media (forced-colors: active) {
+    .foot-ponto { fill: CanvasText; }
+  }
 
   /* --- barra fixa do WhatsApp (celular) --- */
   .barra-zap { display: none; }
