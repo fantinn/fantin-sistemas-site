@@ -200,7 +200,7 @@
   .btn:hover { transform: translateY(calc(var(--borda) * -1)); }
   .btn:active { transform: translateY(0) scale(.98); }
   .btn--primary { background: var(--marca); color: var(--marca-tinta); }
-  .btn--primary:hover { box-shadow: var(--sh-2); }
+  .btn--primary:hover { }
   .btn--ghost { background: transparent; color: var(--tinta); border-color: var(--linha-2); }
   .btn--ghost:hover { background: var(--papel-3); border-color: var(--tinta-2); }
   .btn--g { min-height: calc(var(--alvo) + var(--s-1)); font-size: var(--t-md); }
@@ -2391,7 +2391,6 @@
                     color-mix(in srgb, var(--banda-tinta) 55%, transparent) 50%, transparent 70%);
         translate: -110% 0;
       }
-      .btn--primary:hover::after { translate: 110% 0; transition: translate .8s var(--motion-ease); }
     }
 
     /* herói: o título fica imediato; o resto entra em cascata e o
