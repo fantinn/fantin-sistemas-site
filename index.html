@@ -51,7 +51,7 @@
   "telephone": "+55 27 99286-4820",
   "areaServed": { "@type": "Country", "name": "Brasil" },
   "availableLanguage": "pt-BR",
-  "founder": { "@type": "Person", "name": "Gabriel Fantin" },
+  "founder": { "@type": "Person", "name": "Gabriel Fantin", "jobTitle": "Desenvolvedor", "image": "https://fantin.tech/assets/gabriel-fantin-800.webp", "sameAs": ["https://www.linkedin.com/in/fantinn/"] },
   "sameAs": ["https://www.instagram.com/fantinsi/"],
   "contactPoint": {
     "@type": "ContactPoint",
@@ -673,17 +673,36 @@
      O monograma sai quando houver uma foto de verdade. -->
 <section id="quem" aria-labelledby="quem-titulo">
   <div class="wrap quem">
-    <span class="quem-sigla" aria-hidden="true">GF</span>
+    <figure class="quem-foto">
+      <picture>
+        <source type="image/avif"
+                srcset="assets/gabriel-fantin-400.avif 400w, assets/gabriel-fantin-800.avif 800w"
+                sizes="(min-width: 760px) 320px, 300px">
+        <img src="assets/gabriel-fantin-400.webp"
+             srcset="assets/gabriel-fantin-400.webp 400w, assets/gabriel-fantin-800.webp 800w"
+             sizes="(min-width: 760px) 320px, 300px"
+             width="400" height="500" loading="lazy" decoding="async"
+             alt="Gabriel Fantin, de camiseta preta, olhando para a câmera.">
+      </picture>
+      <figcaption class="tag"><span class="dot" aria-hidden="true"></span>Eu mesmo respondo o WhatsApp</figcaption>
+    </figure>
     <div class="quem-texto">
-      <h2 id="quem-titulo">Quem vai te atender sou eu.</h2>
-      <p><b>Gabriel Fantin.</b> Trabalho sozinho: quem responde o primeiro
-      WhatsApp é a mesma pessoa que monta a loja e a mesma que te ensina a mexer. Você não
-      passa por atendimento, nem por gerente de conta, nem repete o seu problema para três
-      pessoas diferentes.</p>
+      <p class="eyebrow">Quem sou eu</p>
+      <h2 id="quem-titulo">Quem vai te atender sou eu, do primeiro oi até a loja no ar.</h2>
+      <p class="quem-lead">Sou <b>Gabriel Fantin</b>, desenvolvedor. Escrevo o texto, desenho a
+      página, monto a loja e faço uma compra de verdade nela antes de ir ao ar. Quando o que
+      trava é o trabalho repetido, eu automatizo.</p>
+      <p>Não tem agência no meio, nem gerente de conta, nem projeto repassado para outra
+      pessoa. Quem lê a sua primeira mensagem é quem vai mexer no seu projeto, e é quem te
+      ensina a cuidar dele depois. Você explica o seu negócio uma vez só, para uma pessoa só.</p>
       <p>Isso tem um lado ruim, e prefiro dizer agora: <b>fornecedor de uma pessoa só é um
-      risco</b>. É exatamente por isso que a loja é criada na sua conta e o domínio fica
-      registrado no seu nome. Se eu sumir, você não perde nada, e qualquer outra pessoa
+      risco.</b> Por isso a loja nasce na sua conta e o domínio fica no seu nome desde o
+      primeiro dia. Se eu sumir amanhã, você não perde nada, e qualquer outro profissional
       continua de onde eu parei.</p>
+      <div class="quem-acoes">
+        <a class="btn btn--primary" href="https://wa.me/5527992864820?text=Oi%20Gabriel%2C%20vi%20seu%20site." target="_blank" rel="noopener" data-evt="whatsapp">Falar comigo no WhatsApp <span class="seta" aria-hidden="true">&rarr;</span></a>
+        <a class="btn btn--ghost" href="https://www.linkedin.com/in/fantinn/" target="_blank" rel="noopener">Meu LinkedIn <span aria-hidden="true">&nearr;</span></a>
+      </div>
     </div>
   </div>
 </section>
