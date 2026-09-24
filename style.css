@@ -138,7 +138,7 @@
   /* --- papéis de texto: cada padrão escrito uma vez só --- */
 
   /* rótulo: mono, pequeno, em maiúsculas */
-  .eyebrow, .provas dt, .recebe span, .contato-canais span {
+  .eyebrow, .provas dt, .recebe span {
     font-family: var(--f-mono);
     font-size: var(--t-xs);
     font-weight: 500;
@@ -1515,12 +1515,7 @@
     .price-selo { left: var(--s-3); }
   }
 
-  /* hodômetro do preço (montado pelo JS, só com movimento): o texto real
-     fica no lugar, transparente, e uma cópia muda gira por cima dele */
-  .amount-valor[data-girando] { color: transparent; }
-  .giro { position: absolute; inset: 0; display: flex; color: var(--tinta); }
-  .giro > span { display: block; height: 1em; overflow: hidden; }
-  .giro-fita { display: block; white-space: pre; transform: translateY(var(--fim, 0)); }
+  .amount-valor { font-variant-numeric: tabular-nums; }
 
   .preco-pe {
     max-width: var(--texto-max);
@@ -1563,7 +1558,6 @@
       15% { opacity: 1; }
       to { stroke-dasharray: 1; stroke-dashoffset: 0; }
     }
-    @keyframes vitrine-gira { from { transform: translateY(0); } }
     @keyframes vitrine-visto { from { opacity: 0; scale: .2; } }
     @keyframes vitrine-onda {
       from { opacity: .55; transform: scale(1); }
@@ -1676,10 +1670,6 @@
     .price[data-visto] > * {
       animation: vitrine-sobe var(--motion-enter) var(--motion-ease) both;
       animation-delay: calc(var(--ordem, 0) * .12s + var(--filho, 0) * .04s);
-    }
-    .giro-fita {
-      animation: vitrine-gira 1.3s var(--motion-ease) both;
-      animation-delay: calc(var(--ordem, 0) * .12s + .12s + var(--casa, 0) * .09s);
     }
     .garantia[data-visto]::before {
       animation: vitrine-risca .9s var(--motion-ease) both;
@@ -1953,30 +1943,10 @@
   }
 
   /* --- contato --- */
-  .contato-grade { display: grid; gap: var(--s-5); }
-  @media (min-width: 1000px) {
-    .contato-grade { grid-template-columns: 1fr 1fr; align-items: start; gap: var(--s-6); }
-  }
-  .contato-texto .lead { margin-top: var(--s-3); }
-  .contato-canais {
-    list-style: none;
-    display: grid;
-    gap: var(--s-2);
-    margin-top: var(--s-4);
-    padding-top: var(--s-3);
-    border-top: var(--borda) solid var(--linha);
-  }
-  .contato-canais li { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-1) var(--s-2); }
-  .contato-canais span { min-width: 11ch; }
-  .contato-canais a { color: var(--tinta); font-size: var(--t-lg); font-weight: 600; }
-  .contato-tempo { margin-top: var(--s-3); }
-  /* no computador o texto acompanha o formulário, que é mais comprido */
-  @media (min-width: 1000px) {
-    .contato-texto { position: sticky; top: calc(var(--topo-h) + var(--s-4)); }
-  }
+  .contato-grade { display: grid; gap: var(--s-5); max-width: var(--texto-max); margin-inline: auto; }
 
   .form-zap { display: grid; gap: var(--s-3); }
-  .form-zap h3 { font-size: var(--t-xl); }
+  .form-zap h2 { font-size: var(--t-xl); }
   .campo { display: grid; gap: var(--s-1); }
   .campo label { font-size: var(--t-sm); font-weight: 600; }
   .campo:focus-within > label { color: var(--marca-texto); }
@@ -2089,7 +2059,7 @@
   .zap-balao:focus-within::before { background: var(--marca); }
   .zap-balao:has(> [aria-invalid="true"])::before { background: var(--marca-texto); }
 
-  .campo-ajuda, .form-nota { color: var(--tinta-2); font-size: var(--t-sm); }
+  .campo-ajuda { color: var(--tinta-2); font-size: var(--t-sm); }
   .campo-erro, .form-status--erro { color: var(--marca-texto); font-size: var(--t-sm); font-weight: 600; }
   :is(.campo-erro, .form-status--erro)::before { content: "! "; font-family: var(--f-mono); }
   .form-status { font-size: var(--t-sm); }
@@ -2265,7 +2235,7 @@
     main > section { padding-block: var(--s-5); }
     .hero { padding-block: var(--s-5) var(--s-4); }
     .lead, .dores-pe { font-size: var(--t-md); }
-    .cabeca .lead, .ba-texto .lead, .contato-texto .lead { margin-top: var(--s-2); }
+    .cabeca .lead, .ba-texto .lead { margin-top: var(--s-2); }
     /* botão que ocupa a linha inteira não precisa de 2rem de cada lado:
        com o respiro largo, rótulo comprido quebra em duas linhas a 320px */
     .hero-cta .btn, .ba-texto .btn { width: 100%; padding-inline: var(--s-2); }

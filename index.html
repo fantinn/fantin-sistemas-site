@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Loja online e landing page para quem vende no Instagram — Fantin Sistemas</title>
-<meta name="description" content="Landing page por R$ 700 em 7 dias e loja completa na Nuvemshop por R$ 1.200. Preço fechado antes de começar, a loja fica no seu nome. Atendo o Brasil todo.">
+<meta name="description" content="Landing page por R$ 500 em 7 dias e loja completa na Nuvemshop por R$ 1.200. Preço fechado antes de começar, a loja fica no seu nome. Atendo o Brasil todo.">
 <link rel="canonical" href="https://fantin.tech/">
 <meta name="theme-color" content="#f0eee6">
 <meta name="color-scheme" content="light">
@@ -65,7 +65,7 @@
     "@type": "OfferCatalog",
     "name": "Serviços",
     "itemListElement": [
-      { "@type": "Offer", "price": "700", "priceCurrency": "BRL",
+      { "@type": "Offer", "price": "500", "priceCurrency": "BRL",
         "itemOffered": { "@type": "Service", "name": "Landing page", "description": "Página de vendas pronta em 7 dias." } },
       { "@type": "Offer", "price": "1200", "priceCurrency": "BRL",
         "itemOffered": { "@type": "Service", "name": "Loja completa na Nuvemshop", "description": "Loja criada na conta do cliente, pronta em 14 dias. Ou 10x de R$ 120 no cartão." } },
@@ -176,7 +176,7 @@
       <a class="btn btn--ghost btn--g" href="#trabalhos">Veja dois trabalhos no ar</a>
     </div>
     <p class="hero-meta">
-      <span>Landing page · R$ 700 · 7 dias</span>
+      <span>Landing page · R$ 500 · 7 dias</span>
       <span>Loja completa · R$ 1.200 · 14 dias</span>
       <span>Automação · a partir de R$ 197</span>
     </p>
@@ -657,7 +657,7 @@
         <div class="price-topo"><h3>Loja completa</h3></div>
         <span class="tag price-selo">Para quem vende produto</span>
         <p class="eyebrow">Investimento</p>
-        <p class="amount"><span class="amount-moeda">R$ </span><span class="amount-valor">1.200</span></p>
+        <p class="amount"><span class="amount-moeda">R$ </span><span class="amount-valor" data-de="5000">1.200</span></p>
         <p class="amount-nota">ou 10x de R$ 120 no cartão</p>
         <p class="amount-nota">pronta em 14 dias</p>
         <ul class="lista">
@@ -676,7 +676,7 @@
       <article class="card price">
         <div class="price-topo"><h3>Landing page</h3></div>
         <p class="eyebrow">Investimento</p>
-        <p class="amount"><span class="amount-moeda">R$ </span><span class="amount-valor">700</span></p>
+        <p class="amount"><span class="amount-moeda">R$ </span><span class="amount-valor" data-de="2000">500</span></p>
         <p class="amount-nota">pronta em 7 dias</p>
         <ul class="lista">
           <li><b>O texto escrito por mim</b>, do título ao botão</li>
@@ -692,7 +692,7 @@
       <article class="card price">
         <div class="price-topo"><h3>Automação</h3></div>
         <p class="eyebrow">A partir de</p>
-        <p class="amount"><span class="amount-moeda">R$ </span><span class="amount-valor">197</span></p>
+        <p class="amount"><span class="amount-moeda">R$ </span><span class="amount-valor" data-de="800">197</span></p>
         <p class="amount-nota">valor fechado antes, sem cobrança por hora</p>
         <ul class="lista">
           <li>Resposta automática no WhatsApp</li>
@@ -881,20 +881,8 @@
      (a mensagem editável) direto para o wa.me. -->
 <section class="alt" id="contato" aria-labelledby="contato-titulo">
   <div class="wrap contato-grade">
-    <div class="contato-texto">
-      <p class="eyebrow">Começar</p>
-      <h2 id="contato-titulo">Quinze minutos, e você sai sabendo o preço.</h2>
-      <p class="lead">Me conta o que você vende. Eu te digo na hora se o seu caso é página ou loja, quanto
-      custa e em quanto tempo fica pronto — mesmo que você decida não fechar comigo.</p>
-      <ul class="contato-canais">
-        <li><span>WhatsApp</span> <a href="https://wa.me/5527992864820?text=Oi%20Gabriel%2C%20vi%20seu%20site." target="_blank" rel="noopener" data-evt="whatsapp">(27) 99286-4820</a></li>
-        <li><span>Instagram</span> <a href="https://www.instagram.com/fantinsi/" target="_blank" rel="noopener">@fantinsi</a></li>
-      </ul>
-      <p class="muted contato-tempo">Resposta em até 4 horas úteis, de segunda a sexta. Atendo o Brasil todo pelo WhatsApp.</p>
-    </div>
-
     <form class="card form-zap" id="form-zap" action="https://wa.me/5527992864820" method="get" target="_blank" novalidate>
-      <h3>Monte sua mensagem</h3>
+      <h2 id="contato-titulo">Monte sua mensagem</h2>
       <div class="campo">
         <label for="f-nome">Seu nome</label>
         <input class="campo-controle" id="f-nome" type="text" autocomplete="name" required>
@@ -902,8 +890,7 @@
       </div>
       <div class="campo">
         <label for="f-vende">O que você vende?</label>
-        <input class="campo-controle" id="f-vende" type="text" required placeholder="Ex.: roupa feminina, doces, consultoria" aria-describedby="f-vende-ajuda">
-        <p class="campo-ajuda" id="f-vende-ajuda">Em poucas palavras. Não precisa caprichar.</p>
+        <input class="campo-controle" id="f-vende" type="text" required placeholder="Ex.: roupa feminina, doces, consultoria">
         <p class="campo-erro" id="f-vende-erro" hidden>Conte em poucas palavras o que você vende.</p>
       </div>
       <div class="campo">
@@ -911,7 +898,7 @@
         <select class="campo-controle" id="f-servico">
           <option value="nao-sei">Ainda não sei, me ajuda a decidir</option>
           <option value="loja">Loja completa (R$ 1.200)</option>
-          <option value="landing">Landing page (R$ 700)</option>
+          <option value="landing">Landing page (R$ 500)</option>
           <option value="automacao">Automação (a partir de R$ 197)</option>
         </select>
       </div>
@@ -939,7 +926,6 @@
         </div>
       </div>
       <button class="btn btn--primary btn--g btn--bloco" type="submit" id="f-enviar">Abrir no WhatsApp <span class="seta" aria-hidden="true">&rarr;</span></button>
-      <p class="form-nota">Nada é enviado daqui. O WhatsApp abre com a mensagem pronta e você decide se envia.</p>
       <p class="form-status" id="f-status" role="status" aria-live="polite"></p>
     </form>
   </div>
@@ -1215,7 +1201,7 @@
      vê o número direto. O leitor de tela ouve o valor da barra na hora
      e, quando ela para, uma frase só com o resultado (#conta-anuncio). */
   (function conta() {
-    var LOJA = 1200, PAGINA = 700, MIN_POR_MSG = 3, TEMPO = 320, TEMPO_ENTRADA = 900;
+    var LOJA = 1200, PAGINA = 500, MIN_POR_MSG = 3, TEMPO = 320, TEMPO_ENTRADA = 900;
     var bloco = document.querySelector(".conta");
     var ticket = document.getElementById("cticket");
     var msg = document.getElementById("cmsg");
@@ -1624,35 +1610,18 @@
       Array.from(itens).forEach(function (item, i) { item.style.setProperty("--filho", String(i)); });
     }
 
+    // o preço desce de um valor alto até o de verdade, uma vez só
     function girar(valor) {
-      var giro = document.createElement("span");
-      var casa = 0, ultima = null;
-      giro.className = "giro";
-      giro.setAttribute("aria-hidden", "true");
-      valor.textContent.trim().split("").forEach(function (c) {
-        var pedaco = document.createElement("span");
-        if (!/\d/.test(c)) { pedaco.textContent = c; giro.appendChild(pedaco); return; }
-        var d = Number(c), linhas = [];
-        for (var i = 0; i <= 10 + d; i++) linhas.push(i % 10);   // uma volta inteira e para no algarismo
-        var fita = document.createElement("span");
-        fita.className = "giro-fita";
-        fita.textContent = linhas.join("\n");
-        fita.style.setProperty("--fim", (-(10 + d) / (11 + d) * 100) + "%");
-        fita.style.setProperty("--casa", String(casa++));
-        pedaco.appendChild(fita);
-        giro.appendChild(pedaco);
-        ultima = fita;
-      });
-      if (!ultima) return;
-      function pronto() {
-        if (!giro.parentNode) return;
-        giro.remove();
-        valor.removeAttribute("data-girando");
+      var fim = Number(valor.textContent.replace(/\D/g, "")), de = Number(valor.dataset.de);
+      if (!de || !fim) return;
+      var texto = valor.textContent, inicio = null, DURA = 1400;
+      function quadro(t) {
+        if (inicio === null) inicio = t;
+        var p = Math.min(1, (t - inicio) / DURA), e = 1 - Math.pow(1 - p, 3);
+        valor.textContent = p < 1 ? Math.round(de + (fim - de) * e).toLocaleString("pt-BR") : texto;
+        if (p < 1) requestAnimationFrame(quadro);
       }
-      valor.setAttribute("data-girando", "");
-      valor.appendChild(giro);
-      ultima.addEventListener("animationend", pronto);
-      setTimeout(pronto, 4000);
+      requestAnimationFrame(quadro);
     }
 
     function vigiar(pecas, limite, margem) {
