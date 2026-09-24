@@ -147,7 +147,7 @@
     text-transform: uppercase;
     color: var(--tinta-3);
   }
-  .eyebrow { margin-bottom: var(--s-2); }
+  .eyebrow { margin-bottom: var(--s-2); white-space: nowrap; }
 
   /* dado: mono, pequeno, sem maiúsculas */
   .tag, .hero-meta, .frame-url, .num, .step::before, .amount-nota,
