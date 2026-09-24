@@ -12,7 +12,7 @@
 
 @layer tokens, base, componentes, secoes, utilitarios;
 
-@import url("tokens.css?v=202609242344") layer(tokens);
+@import url("tokens.css?v=202609242358") layer(tokens);
 @import url("fontes.css") layer(tokens);
 
 /* ═══ TOKENS: medidas de peça (não são cor, espaço, raio nem sombra) ════════ */
@@ -1441,14 +1441,6 @@
   }
 
   .amount-valor { font-variant-numeric: tabular-nums; }
-
-  .preco-pe {
-    max-width: var(--texto-max);
-    margin-top: var(--s-4);
-    color: var(--banda-tinta-2);
-    font-size: var(--t-sm);
-  }
-  .preco-pe b { color: var(--banda-tinta); }
 
   .entrega { margin-top: var(--s-5); }
   .entrega > p { max-width: var(--texto-max); margin-top: var(--s-1); color: var(--tinta-2); }
