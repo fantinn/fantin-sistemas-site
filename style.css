@@ -1187,11 +1187,13 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: var(--s-2);
+    gap: var(--s-4);
     transition: transform var(--dur) ease;
   }
   .work:hover { border-color: var(--linha-2); transform: translateY(calc(var(--borda-2) * -1.5)); }
+  .work-texto { display: flex; flex: 1; flex-direction: column; gap: var(--s-2); }
   .work .tag { align-self: start; }
+  .work .dot { position: relative; }
   .work .eyebrow { margin: 0; }
   .work-link {
     margin-top: auto;
@@ -1207,6 +1209,203 @@
   .work-link::after { content: ""; position: absolute; inset: 0; border-radius: var(--r-lg); }
   .work-link:focus-visible { outline: none; }
   .work:has(.work-link:focus-visible) { outline: var(--foco) solid var(--marca); outline-offset: var(--foco); }
+  /* do tablet para cima, o trabalho que tem print ocupa a linha inteira
+     (texto de um lado, tela do outro) e os dois esquemas dividem a de baixo.
+     No celular continua o trilho, cada card com a tela em cima. */
+  @media (min-width: 760px) {
+    .works { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .work--destaque {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+      align-items: center;
+      gap: var(--s-5);
+    }
+    .work--destaque .work-tela { order: 0; }
+    .work--destaque h3 { font-size: var(--t-xl); }
+  }
+  @media (min-width: 1000px) {
+    .work--destaque { grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: var(--s-6); padding: var(--s-5); }
+  }
+
+  /* a tela do card: moldura de navegador com o endereço de verdade na barra */
+  .work-tela { order: -1; border-radius: var(--r-md); box-shadow: var(--sh-2); }
+  .work-tela .frame-bar { position: relative; gap: var(--s-1); padding-inline: var(--s-2); }
+  .work-tela .frame-url { max-width: none; }
+  .work-print { display: block; aspect-ratio: 16 / 9; overflow: hidden; background: var(--banda); }
+  .work-print img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; transform-origin: 50% 20%; }
+
+  /* esquema: o desenho da página em traço, no lugar do print que não existe */
+  .esquema {
+    display: grid;
+    align-content: center;
+    gap: var(--s-2);
+    aspect-ratio: 16 / 9;
+    padding: var(--s-3);
+    background: var(--papel);
+    color: var(--tinta-3);
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    line-height: 1.2;
+  }
+  @media (min-width: 760px) {
+    .esquema { aspect-ratio: 16 / 7; }
+  }
+  .esq-traco {
+    display: block;
+    height: var(--s-1);
+    border-radius: var(--r-pill);
+    background: color-mix(in srgb, var(--tinta) 12%, transparent);
+  }
+
+  /* ListaJota: as três partes da página, na ordem em que o cliente passa */
+  .esquema--mapa { grid-auto-rows: 1fr; }
+  .esq-bloco {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 12ch minmax(0, 1fr);
+    align-items: center;
+    gap: var(--s-2);
+  }
+  .esq-num {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: calc(var(--s-3) * 1.3);
+    aspect-ratio: 1;
+    border: var(--borda) solid var(--linha-2);
+    border-radius: var(--r-pill);
+    background: var(--papel);
+    letter-spacing: 0;
+  }
+  /* o fio que liga uma parte à outra: apagado, e o laranja por cima */
+  .esq-bloco:not(:last-child)::before,
+  .esq-bloco:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: calc(var(--s-3) * .65 - var(--borda));
+    width: var(--borda-2);
+    height: calc(100% + var(--s-2));
+    background: var(--linha);
+  }
+  .esq-bloco:not(:last-child)::after { background: var(--marca); transform: scaleY(0); transform-origin: top; }
+  .esq-corpo { display: grid; gap: calc(var(--s-1) * .75); }
+  .esq-traco--forte { width: 85%; height: calc(var(--s-1) * 1.5); }
+  .esq-corpo > .esq-traco:not(.esq-traco--forte) { width: 55%; }
+  .esq-corpo--itens { display: flex; gap: var(--s-1); }
+  .esq-item { display: flex; flex: 1; align-items: center; gap: calc(var(--s-1) * .5); }
+  .esq-item::before {
+    content: "";
+    flex: none;
+    width: var(--s-1);
+    aspect-ratio: 1;
+    border: var(--borda-2) solid var(--marca);
+    border-radius: var(--r-pill);
+  }
+  .esq-item::after {
+    content: "";
+    flex: 1;
+    height: calc(var(--s-1) * .75);
+    border-radius: var(--r-pill);
+    background: color-mix(in srgb, var(--tinta) 12%, transparent);
+  }
+  .esq-botao {
+    display: block;
+    width: min(100%, calc(var(--s-6) + var(--s-3)));
+    height: var(--s-3);
+    border: var(--borda) solid var(--marca);
+    border-radius: var(--r-pill);
+  }
+
+  /* Portal: as duas visões da demonstração, trocadas pela mesma chave do topo dela */
+  .esquema--visoes { align-content: start; }
+  .esq-abas {
+    position: relative;
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr;
+    justify-self: start;
+    padding: var(--borda-2);
+    border: var(--borda) solid var(--linha);
+    border-radius: var(--r-pill);
+    background: var(--papel-3);
+  }
+  .esq-abas::before {
+    content: "";
+    position: absolute;
+    top: var(--borda-2);
+    bottom: var(--borda-2);
+    left: var(--borda-2);
+    width: calc(50% - var(--borda-2));
+    border-radius: var(--r-pill);
+    background: var(--tinta);
+  }
+  .esq-abas > span {
+    position: relative;
+    padding: calc(var(--s-1) * .5) var(--s-2);
+    color: var(--tinta-2);
+    text-align: center;
+  }
+  .esq-abas > span:first-child { color: var(--papel-2); }
+  .esq-visoes { display: grid; }
+  .esq-visao { display: grid; grid-area: 1 / 1; gap: var(--s-1); }
+  .esq-visao--cliente { opacity: 0; }
+  .esq-fila {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+    padding: calc(var(--s-1) * .9) var(--s-2);
+    border: var(--borda) solid var(--linha);
+    border-radius: var(--r-sm);
+    background: var(--papel-2);
+  }
+  .esq-fila .esq-traco { width: 45%; }
+  .esq-fila:nth-child(2) .esq-traco { width: 35%; }
+  .esq-selo {
+    width: calc(var(--s-4) + var(--s-1));
+    height: calc(var(--s-1) * 1.25);
+    margin-left: auto;
+    border-radius: var(--r-pill);
+    background: color-mix(in srgb, var(--sucesso) 40%, transparent);
+  }
+  .esq-selo--falta { background: color-mix(in srgb, var(--marca) 55%, transparent); }
+  .esq-caixa {
+    flex: none;
+    width: var(--s-2);
+    aspect-ratio: 1;
+    border: var(--borda) solid var(--linha-2);
+    border-radius: calc(var(--r-sm) / 2);
+  }
+  .esq-caixa--ok { border-color: var(--sucesso); background: var(--sucesso); }
+  .esq-enviar {
+    width: calc(var(--s-4) + var(--s-1));
+    height: calc(var(--s-1) * 1.5);
+    margin-left: auto;
+    border-radius: var(--r-pill);
+    background: var(--marca);
+  }
+
+  /* com o mouse em cima (ou o foco no card): o caminho da ListaJota acende
+     parte por parte, e o Portal troca para a visão do cliente */
+  .work:focus-within .esq-num { border-color: var(--marca); background: var(--marca); color: var(--marca-tinta); }
+  .work:focus-within .esq-bloco::after { transform: scaleY(1); }
+  .work:focus-within .esq-botao { background: var(--marca); }
+  .work:focus-within .esq-abas::before { transform: translateX(100%); }
+  .work:focus-within .esq-abas > span:first-child { color: var(--tinta-2); }
+  .work:focus-within .esq-abas > span:last-child { color: var(--papel-2); }
+  .work:focus-within .esq-visao--escritorio { opacity: 0; }
+  .work:focus-within .esq-visao--cliente { opacity: 1; }
+  @media (hover: hover) and (pointer: fine) {
+    .work:hover .esq-num { border-color: var(--marca); background: var(--marca); color: var(--marca-tinta); }
+    .work:hover .esq-bloco::after { transform: scaleY(1); }
+    .work:hover .esq-botao { background: var(--marca); }
+    .work:hover .esq-abas::before { transform: translateX(100%); }
+    .work:hover .esq-abas > span:first-child { color: var(--tinta-2); }
+    .work:hover .esq-abas > span:last-child { color: var(--papel-2); }
+    .work:hover .esq-visao--escritorio { opacity: 0; }
+    .work:hover .esq-visao--cliente { opacity: 1; }
+  }
 
   /* --- preços (na faixa escura) --- */
   .garantias {
@@ -1218,7 +1417,33 @@
   @media (min-width: 760px) {
     .garantias { grid-template-columns: repeat(3, 1fr); }
   }
-  .garantia { padding-top: var(--s-3); border-top: var(--borda-2) solid var(--marca); }
+  /* o fio laranja fica por cima de uma linha apagada: parado, é o mesmo fio
+     de sempre; com movimento, ele se risca quando a garantia entra */
+  .garantia {
+    position: relative;
+    padding-top: var(--s-3);
+    border-top: var(--borda-2) solid color-mix(in srgb, var(--banda-tinta) 14%, transparent);
+  }
+  .garantia::before {
+    content: "";
+    position: absolute;
+    top: calc(var(--borda-2) * -1);
+    right: 0;
+    left: 0;
+    height: var(--borda-2);
+    background: var(--marca);
+    transform-origin: left;
+  }
+  .garantia-icone {
+    width: calc(var(--s-4) + var(--s-2));
+    height: calc(var(--s-4) + var(--s-2));
+    margin-bottom: var(--s-2);
+    padding: calc(var(--s-1) * 1.25);
+    border: var(--borda) solid color-mix(in srgb, var(--marca) 45%, transparent);
+    border-radius: var(--r-md);
+    background: color-mix(in srgb, var(--marca) 8%, transparent);
+    color: var(--marca);
+  }
   .garantia h3 { margin-bottom: var(--s-1); }
   .garantia p { color: var(--banda-tinta-2); font-size: var(--t-sm); }
 
@@ -1228,8 +1453,45 @@
     gap: var(--s-3);
     margin-top: var(--s-5);
   }
-  .price { display: flex; flex-direction: column; gap: var(--s-2); }
-  .price[data-featured="true"] { box-shadow: var(--sh-3); }
+  .price { position: relative; display: flex; flex-direction: column; gap: var(--s-2); }
+  /* o destaque sobe um pouco acima dos outros, com um halo quente na banda */
+  .price[data-featured="true"] {
+    isolation: isolate;
+    box-shadow: var(--sh-3),
+                0 var(--s-3) var(--s-6) calc(var(--s-3) * -1) color-mix(in srgb, var(--marca) 32%, transparent);
+  }
+  @media (min-width: 1000px) {
+    .price[data-featured="true"] { margin-top: calc(var(--s-3) * -1); }
+  }
+  /* aro em degradê por cima da borda (que fica como reserva); com mouse, um
+     brilho corre pelo aro atrás do ponteiro (--mx/--my, do bloco "luz") */
+  @supports (mask-composite: exclude) {
+    .price[data-featured="true"]::after {
+      content: "";
+      position: absolute;
+      inset: calc(var(--borda-2) * -1);
+      z-index: 1;
+      padding: var(--borda-2);
+      border-radius: inherit;
+      background:
+        radial-gradient(circle calc(var(--luz-r) * .4) at var(--mx, 50%) var(--my, 0%),
+          color-mix(in srgb, var(--marca) 40%, var(--banda-tinta)), transparent),
+        linear-gradient(160deg, color-mix(in srgb, var(--marca) 65%, var(--banda-tinta)), var(--marca) 35%);
+      mask: linear-gradient(var(--marca) 0 0) content-box exclude, linear-gradient(var(--marca) 0 0);
+      pointer-events: none;
+    }
+  }
+  .price-selo {
+    position: absolute;
+    top: 0;
+    left: var(--s-4);
+    z-index: 2;
+    border-color: var(--marca);
+    background: var(--marca);
+    color: var(--marca-tinta);
+    font-weight: 600;
+    transform: translateY(-50%);
+  }
   .price-topo {
     display: flex;
     flex-wrap: wrap;
@@ -1238,10 +1500,27 @@
     gap: var(--s-1);
   }
   .price .eyebrow { margin: var(--s-2) 0 0; }
-  .amount { font-size: var(--t-2xl); }
+  .amount { font-size: calc(var(--t-2xl) * 1.35); white-space: nowrap; }
+  .amount-moeda {
+    color: var(--tinta-2);
+    font-size: .42em;
+    letter-spacing: 0;
+    vertical-align: top;
+  }
+  .amount-valor { position: relative; display: inline-block; }
   .amount-nota { color: var(--tinta-2); }
   .price .lista { margin-block: var(--s-2); }
   .price .btn { margin-top: auto; }
+  @media (max-width: 559px) {
+    .price-selo { left: var(--s-3); }
+  }
+
+  /* hodômetro do preço (montado pelo JS, só com movimento): o texto real
+     fica no lugar, transparente, e uma cópia muda gira por cima dele */
+  .amount-valor[data-girando] { color: transparent; }
+  .giro { position: absolute; inset: 0; display: flex; color: var(--tinta); }
+  .giro > span { display: block; height: 1em; overflow: hidden; }
+  .giro-fita { display: block; white-space: pre; transform: translateY(var(--fim, 0)); }
 
   .preco-pe {
     max-width: var(--texto-max);
@@ -1256,6 +1535,171 @@
   .entrega .lista { margin-top: var(--s-3); }
   @media (min-width: 760px) {
     .entrega .lista { grid-template-columns: repeat(2, 1fr); column-gap: var(--s-4); }
+  }
+  /* o que chega no dia da entrega leva um visto, não uma seta */
+  .entrega .lista li::before {
+    content: "";
+    top: calc(var(--s-1) * .35);
+    left: calc(var(--s-1) * .5);
+    width: calc(var(--s-1) * .75);
+    height: calc(var(--s-2) * .95);
+    border: solid var(--marca-texto);
+    border-width: 0 var(--borda-2) var(--borda-2) 0;
+    transform: rotate(45deg);
+  }
+
+  /* --- trabalhos e preços: movimento ---
+     Pensado primeiro para o celular: cada efeito dispara quando a peça
+     entra na tela (o bloco "vitrine" do JS marca [data-visto]); o mouse é
+     um bônus no computador. Tudo parte de um "antes" e termina no estado
+     escrito acima: sem movimento pedido, sem JS ou em navegador antigo, a
+     página é a de cima, inteira. --ordem escalona as peças que entram
+     juntas e --filho, os itens de dentro. Nada repete para sempre. */
+  @media (prefers-reduced-motion: no-preference) {
+    @keyframes vitrine-sobe { from { opacity: 0; translate: 0 var(--s-3); } }
+    @keyframes vitrine-risca { from { transform: scaleX(0); } }
+    @keyframes vitrine-traca {
+      from { opacity: 0; stroke-dasharray: 1; stroke-dashoffset: 1; }
+      15% { opacity: 1; }
+      to { stroke-dasharray: 1; stroke-dashoffset: 0; }
+    }
+    @keyframes vitrine-gira { from { transform: translateY(0); } }
+    @keyframes vitrine-visto { from { opacity: 0; scale: .2; } }
+    @keyframes vitrine-onda {
+      from { opacity: .55; transform: scale(1); }
+      to { opacity: 0; transform: scale(3.4); }
+    }
+    @keyframes vitrine-foco { from { transform: scale(1.14); } }
+    @keyframes vitrine-carrega {
+      from { opacity: 1; transform: scaleX(0); }
+      70% { opacity: 1; transform: scaleX(1); }
+      to { opacity: 0; transform: scaleX(1); }
+    }
+    /* a mesma barra, com outro nome: é o que faz o mouse carregar de novo */
+    @keyframes vitrine-recarrega {
+      from { opacity: 1; transform: scaleX(0); }
+      70% { opacity: 1; transform: scaleX(1); }
+      to { opacity: 0; transform: scaleX(1); }
+    }
+    /* Portal: vai para a visão do cliente, mostra, e volta ao escritório */
+    @keyframes vitrine-aba { 0%, 100% { transform: none; } 16%, 70% { transform: translateX(100%); } }
+    @keyframes vitrine-aba-sai { 0%, 100% { color: var(--papel-2); } 16%, 70% { color: var(--tinta-2); } }
+    @keyframes vitrine-aba-entra { 0%, 100% { color: var(--tinta-2); } 16%, 70% { color: var(--papel-2); } }
+    @keyframes vitrine-visao-sai { 0%, 100% { opacity: 1; } 16%, 70% { opacity: 0; } }
+    @keyframes vitrine-visao-entra { 0%, 100% { opacity: 0; translate: var(--s-1) 0; } 16%, 70% { opacity: 1; translate: 0 0; } }
+
+    /* antes de entrar (só com o JS ligado, e só na tela: a impressão sai inteira) */
+    @media screen {
+      .price[data-entra]:not([data-visto]) > *,
+      .garantia[data-entra]:not([data-visto]) .garantia-icone path,
+      .entrega[data-entra]:not([data-visto]) .lista li::before { opacity: 0; }
+      .garantia[data-entra]:not([data-visto])::before { transform: scaleX(0); }
+    }
+
+    /* trabalhos: cada card, quando aparece (no trilho do celular, quando é
+     arrastado para a vista), mostra o que a página dele faz */
+    .work[data-visto] .dot::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: var(--sucesso);
+      opacity: 0;
+      animation: vitrine-onda 1.6s var(--motion-ease) 2;
+      animation-delay: calc(var(--ordem, 0) * .12s + .4s);
+    }
+    .work-tela .frame-bar::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      bottom: calc(var(--borda) * -1);
+      left: 0;
+      height: var(--borda-2);
+      background: var(--marca);
+      opacity: 0;
+      transform-origin: left;
+      pointer-events: none;
+    }
+    .work[data-visto] .work-tela .frame-bar::after {
+      animation: vitrine-carrega 1.2s var(--motion-ease) both;
+      animation-delay: calc(var(--ordem, 0) * .12s + .1s);
+    }
+    .work-print img { transition: transform 1.4s var(--motion-ease); }
+    .work[data-visto] .work-print img {
+      animation: vitrine-foco 2s var(--motion-ease) backwards;
+      animation-delay: calc(var(--ordem, 0) * .12s);
+    }
+    /* ListaJota: o caminho acende parte por parte e fica aceso */
+    .esq-num { transition: color var(--motion-ui) var(--motion-ease), background-color var(--motion-ui) var(--motion-ease), border-color var(--motion-ui) var(--motion-ease); }
+    .esq-bloco::after { transition: transform .3s var(--motion-ease); }
+    .esq-botao { transition: background-color var(--motion-ui) var(--motion-ease); }
+    .work[data-visto] .esq-num { border-color: var(--marca); background: var(--marca); color: var(--marca-tinta); }
+    .work[data-visto] .esq-bloco::after { transform: scaleY(1); }
+    .work[data-visto] .esq-botao { background: var(--marca); }
+    .work:is([data-visto], :focus-within) .esq-bloco:nth-child(1) .esq-num { transition-delay: .3s; }
+    .work:is([data-visto], :focus-within) .esq-bloco:nth-child(1)::after { transition-delay: .42s; }
+    .work:is([data-visto], :focus-within) .esq-bloco:nth-child(2) .esq-num { transition-delay: .66s; }
+    .work:is([data-visto], :focus-within) .esq-bloco:nth-child(2)::after { transition-delay: .78s; }
+    .work:is([data-visto], :focus-within) .esq-bloco:nth-child(3) .esq-num { transition-delay: 1.02s; }
+    .work:is([data-visto], :focus-within) .esq-botao { transition-delay: 1.16s; }
+    /* Portal: a chave passa para o cliente e volta, uma vez */
+    .esq-abas::before { transition: transform var(--motion-enter) var(--motion-mola); }
+    .esq-abas > span { transition: color var(--motion-ui) var(--motion-ease); }
+    .esq-visao { transition: opacity var(--motion-ui) var(--motion-ease), translate var(--motion-enter) var(--motion-ease); }
+    .esq-visao--cliente { translate: var(--s-1) 0; }
+    .work:focus-within .esq-visao--cliente { translate: 0 0; }
+    .work[data-visto] .esq-abas::before,
+    .work[data-visto] :is(.esq-abas > span, .esq-visao) {
+      animation-duration: 3.4s;
+      animation-timing-function: var(--motion-ease);
+      animation-delay: calc(var(--ordem, 0) * .12s + .7s);
+    }
+    .work[data-visto] .esq-abas::before { animation-name: vitrine-aba; }
+    .work[data-visto] .esq-abas > span:first-child { animation-name: vitrine-aba-sai; }
+    .work[data-visto] .esq-abas > span:last-child { animation-name: vitrine-aba-entra; }
+    .work[data-visto] .esq-visao--escritorio { animation-name: vitrine-visao-sai; }
+    .work[data-visto] .esq-visao--cliente { animation-name: vitrine-visao-entra; }
+    .work:focus-within .work-print img { transform: scale(1.06); }
+
+    /* no computador, o card maior e os dois de baixo sobem ao rolar */
+    @supports (animation-timeline: view()) {
+      @media (min-width: 760px) {
+        .work {
+          animation: vitrine-sobe linear both;
+          animation-timeline: view();
+          animation-range: entry 0% entry 55%;
+        }
+      }
+    }
+
+    /* preços: as peças entram em cascata e o número gira até o valor */
+    .price[data-visto] > * {
+      animation: vitrine-sobe var(--motion-enter) var(--motion-ease) both;
+      animation-delay: calc(var(--ordem, 0) * .12s + var(--filho, 0) * .04s);
+    }
+    .giro-fita {
+      animation: vitrine-gira 1.3s var(--motion-ease) both;
+      animation-delay: calc(var(--ordem, 0) * .12s + .12s + var(--casa, 0) * .09s);
+    }
+    .garantia[data-visto]::before {
+      animation: vitrine-risca .9s var(--motion-ease) both;
+      animation-delay: calc(var(--ordem, 0) * .15s);
+    }
+    .garantia[data-visto] .garantia-icone path {
+      animation: vitrine-traca 1.1s var(--motion-ease) backwards;
+      animation-delay: calc(var(--ordem, 0) * .15s + .2s);
+    }
+    .entrega[data-visto] .lista li::before {
+      animation: vitrine-visto .5s var(--motion-mola) both;
+      animation-delay: calc(.2s + var(--filho, 0) * .07s);
+    }
+
+    /* bônus do mouse: o print aproxima devagar e a barra carrega de novo */
+    @media (hover: hover) and (pointer: fine) {
+      .work:hover .work-print img { transform: scale(1.06); }
+      .work:hover .work-tela .frame-bar::after { animation: vitrine-recarrega 1s var(--motion-ease) both; }
+      .work:hover .esq-visao--cliente { translate: 0 0; }
+    }
   }
 
   /* --- a conta --- */

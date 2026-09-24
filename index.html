@@ -533,33 +533,88 @@
       construí antes de ter cliente, de propósito.</p>
     </div>
 
+    <!-- Só o Pedro Design tem print (o de verdade, do topo da página dele).
+         Os outros dois ganham um esquema desenhado em CSS, com o endereço
+         real na barra: é mapa do que a copy descreve, não print inventado. -->
     <div class="works trilho">
-      <article class="card work">
-        <span class="tag"><span class="dot" aria-hidden="true"></span>no ar</span>
-        <p class="eyebrow">Página de captação, para cliente</p>
-        <h3>Pedro Design</h3>
-        <p class="muted">Página de um rolo só para um designer: o problema que ele resolve, três planos de
-        assinatura com escopo escrito, projetos em destaque e conversa direta no WhatsApp.</p>
-        <a class="work-link" href="https://pdrdesign.com.br" target="_blank" rel="noopener">pdrdesign.com.br <span aria-hidden="true">&nearr;</span></a>
+      <article class="card work work--destaque">
+        <div class="work-texto">
+          <span class="tag"><span class="dot" aria-hidden="true"></span>no ar</span>
+          <p class="eyebrow">Página de captação, para cliente</p>
+          <h3>Pedro Design</h3>
+          <p class="muted">Página de um rolo só para um designer: o problema que ele resolve, três planos de
+          assinatura com escopo escrito, projetos em destaque e conversa direta no WhatsApp.</p>
+          <a class="work-link" href="https://pdrdesign.com.br" target="_blank" rel="noopener">pdrdesign.com.br <span aria-hidden="true">&nearr;</span></a>
+        </div>
+        <div class="frame work-tela">
+          <div class="frame-bar" aria-hidden="true">
+            <span class="frame-dots"><i></i><i></i><i></i></span>
+            <span class="frame-url">pdrdesign.com.br</span>
+          </div>
+          <picture class="work-print">
+            <source type="image/avif" srcset="assets/pdrdesign-720.avif 720w, assets/pdrdesign-1200.avif 1200w"
+                    sizes="(min-width: 1000px) 560px, (min-width: 760px) 50vw, 80vw">
+            <img src="assets/pdrdesign-720.webp" srcset="assets/pdrdesign-720.webp 720w, assets/pdrdesign-1200.webp 1200w"
+                 sizes="(min-width: 1000px) 560px, (min-width: 760px) 50vw, 80vw"
+                 width="1200" height="750" loading="lazy" decoding="async"
+                 alt="Topo da página pdrdesign.com.br no computador: o título Design estratégico, os botões de contato e de portfólio e um retrato sobre um círculo laranja">
+          </picture>
+        </div>
       </article>
 
       <article class="card work">
-        <span class="tag"><span class="dot" aria-hidden="true"></span>no ar</span>
-        <p class="eyebrow">Página de vendas, para cliente</p>
-        <h3>ListaJota</h3>
-        <p class="muted">Página de vendas com a oferta, a lista do que entra e o caminho até o fechamento,
-        montada para ser mandada por link no WhatsApp.</p>
-        <a class="work-link" href="https://fantinn.github.io/ListaJota/" target="_blank" rel="noopener">fantinn.github.io/ListaJota <span aria-hidden="true">&nearr;</span></a>
+        <div class="work-texto">
+          <span class="tag"><span class="dot" aria-hidden="true"></span>no ar</span>
+          <p class="eyebrow">Página de vendas, para cliente</p>
+          <h3>ListaJota</h3>
+          <p class="muted">Página de vendas com a oferta, a lista do que entra e o caminho até o fechamento,
+          montada para ser mandada por link no WhatsApp.</p>
+          <a class="work-link" href="https://fantinn.github.io/ListaJota/" target="_blank" rel="noopener">fantinn.github.io/ListaJota <span aria-hidden="true">&nearr;</span></a>
+        </div>
+        <div class="frame work-tela" aria-hidden="true">
+          <div class="frame-bar">
+            <span class="frame-dots"><i></i><i></i><i></i></span>
+            <span class="frame-url">fantinn.github.io/ListaJota</span>
+          </div>
+          <div class="esquema esquema--mapa">
+            <span class="esq-bloco"><span class="esq-num">01</span><span class="esq-nome">a oferta</span><span class="esq-corpo"><span class="esq-traco esq-traco--forte"></span><span class="esq-traco"></span></span></span>
+            <span class="esq-bloco"><span class="esq-num">02</span><span class="esq-nome">o que entra</span><span class="esq-corpo esq-corpo--itens"><span class="esq-item"></span><span class="esq-item"></span><span class="esq-item"></span></span></span>
+            <span class="esq-bloco"><span class="esq-num">03</span><span class="esq-nome">o fechamento</span><span class="esq-corpo"><span class="esq-botao"></span></span></span>
+          </div>
+        </div>
       </article>
 
       <article class="card work">
-        <span class="tag">duas visões</span>
-        <p class="eyebrow">Sistema sob medida, demonstração minha</p>
-        <h3>Portal de documentos</h3>
-        <p class="muted">Exemplo do que entra na faixa de sob medida, quando a loja pronta não
-        resolve: coleta mensal de documentos, cobrança automática do que falta e
-        trilha com data e hora. Construído antes de existir cliente, de propósito.</p>
-        <a class="work-link" href="demo/portal-contabil/">abrir a demonstração <span aria-hidden="true">&rarr;</span></a>
+        <div class="work-texto">
+          <span class="tag">duas visões</span>
+          <p class="eyebrow">Sistema sob medida, demonstração minha</p>
+          <h3>Portal de documentos</h3>
+          <p class="muted">Exemplo do que entra na faixa de sob medida, quando a loja pronta não
+          resolve: coleta mensal de documentos, cobrança automática do que falta e
+          trilha com data e hora. Construído antes de existir cliente, de propósito.</p>
+          <a class="work-link" href="demo/portal-contabil/">abrir a demonstração <span aria-hidden="true">&rarr;</span></a>
+        </div>
+        <div class="frame work-tela" aria-hidden="true">
+          <div class="frame-bar">
+            <span class="frame-dots"><i></i><i></i><i></i></span>
+            <span class="frame-url">fantin.tech/demo/portal-contabil</span>
+          </div>
+          <div class="esquema esquema--visoes">
+            <span class="esq-abas"><span>Escritório</span><span>Cliente</span></span>
+            <span class="esq-visoes">
+              <span class="esq-visao esq-visao--escritorio">
+                <span class="esq-fila"><span class="esq-traco"></span><span class="esq-selo"></span></span>
+                <span class="esq-fila"><span class="esq-traco"></span><span class="esq-selo esq-selo--falta"></span></span>
+                <span class="esq-fila"><span class="esq-traco"></span><span class="esq-selo"></span></span>
+              </span>
+              <span class="esq-visao esq-visao--cliente">
+                <span class="esq-fila"><span class="esq-caixa esq-caixa--ok"></span><span class="esq-traco"></span></span>
+                <span class="esq-fila"><span class="esq-caixa esq-caixa--ok"></span><span class="esq-traco"></span></span>
+                <span class="esq-fila"><span class="esq-caixa"></span><span class="esq-traco"></span><span class="esq-enviar"></span></span>
+              </span>
+            </span>
+          </div>
+        </div>
       </article>
     </div>
   </div>
@@ -578,16 +633,19 @@
     <!-- Ordem importa: derruba as três objeções e só então mostra o número. -->
     <ul class="garantias">
       <li class="garantia">
+        <svg class="garantia-icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M7 10.5h10a2.5 2.5 0 0 1 2.5 2.5v5a2.5 2.5 0 0 1-2.5 2.5H7a2.5 2.5 0 0 1-2.5-2.5v-5A2.5 2.5 0 0 1 7 10.5z"/><path pathLength="1" d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><path pathLength="1" d="M12 14.5v2.5"/></svg>
         <h3>Preço fechado antes de começar</h3>
         <p>Escopo e valor no papel antes da primeira linha. Metade para começar, metade quando
         vai ao ar. Não existe conta que cresce no meio do caminho.</p>
       </li>
       <li class="garantia">
+        <svg class="garantia-icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M3.5 15.5a4.5 4.5 0 1 0 9 0a4.5 4.5 0 1 0-9 0z"/><path pathLength="1" d="M11.2 12.3L20 3.5"/><path pathLength="1" d="M16.5 7l2.5 2.5M14 9.5l2 2"/></svg>
         <h3>A loja e o domínio ficam no seu nome</h3>
         <p>Criados na sua conta, com a sua senha. Se amanhã você quiser me trocar, leva tudo
         e não me pede nada.</p>
       </li>
       <li class="garantia">
+        <svg class="garantia-icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><path pathLength="1" d="M9 12a3 3 0 1 0 6 0a3 3 0 1 0-6 0z"/></svg>
         <h3>Você vê antes de ir ao ar</h3>
         <p>Eu monto, te mando o link da prévia e você aponta o que quer diferente. O site só
         sobe depois que você disse que está bom.</p>
@@ -596,9 +654,10 @@
 
     <div class="prices">
       <article class="card price" data-featured="true">
-        <div class="price-topo"><h3>Loja completa</h3><span class="tag">Para quem vende produto</span></div>
+        <div class="price-topo"><h3>Loja completa</h3></div>
+        <span class="tag price-selo">Para quem vende produto</span>
         <p class="eyebrow">Investimento</p>
-        <p class="amount">R$ 1.200</p>
+        <p class="amount"><span class="amount-moeda">R$ </span><span class="amount-valor">1.200</span></p>
         <p class="amount-nota">ou 10x de R$ 120 no cartão</p>
         <p class="amount-nota">pronta em 14 dias</p>
         <ul class="lista">
@@ -617,7 +676,7 @@
       <article class="card price">
         <div class="price-topo"><h3>Landing page</h3></div>
         <p class="eyebrow">Investimento</p>
-        <p class="amount">R$ 700</p>
+        <p class="amount"><span class="amount-moeda">R$ </span><span class="amount-valor">700</span></p>
         <p class="amount-nota">pronta em 7 dias</p>
         <ul class="lista">
           <li><b>O texto escrito por mim</b>, do título ao botão</li>
@@ -633,7 +692,7 @@
       <article class="card price">
         <div class="price-topo"><h3>Automação</h3></div>
         <p class="eyebrow">A partir de</p>
-        <p class="amount">R$ 197</p>
+        <p class="amount"><span class="amount-moeda">R$ </span><span class="amount-valor">197</span></p>
         <p class="amount-nota">valor fechado antes, sem cobrança por hora</p>
         <ul class="lista">
           <li>Resposta automática no WhatsApp</li>
@@ -1545,6 +1604,81 @@
     if (aviso && "MutationObserver" in window) {
       new MutationObserver(decidir).observe(aviso, { attributes: true, attributeFilter: ["hidden"] });
     }
+  })();
+
+  /* ═══ vitrine: trabalhos e preços ═════════════════════════════════════
+     Marca cada peça com data-visto na primeira vez que ela aparece; o CSS
+     faz o resto. Os cards de trabalho só contam quando metade está à vista
+     (no trilho do celular, quando são arrastados para dentro). O preço gira
+     como um hodômetro até o valor: o texto real fica no lugar, só
+     transparente enquanto gira, e o que gira é uma cópia que o leitor de
+     tela não lê. Sem movimento pedido, nada disso liga. */
+  (function vitrine() {
+    var calmo = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (calmo.matches || !("IntersectionObserver" in window)) return;
+    var trabalhos = Array.from(document.querySelectorAll("#trabalhos .work"));
+    var precos = Array.from(document.querySelectorAll("#precos .garantia, #precos .price, #precos .entrega"));
+    if (!trabalhos.length && !precos.length) return;
+
+    function numerar(itens) {
+      Array.from(itens).forEach(function (item, i) { item.style.setProperty("--filho", String(i)); });
+    }
+
+    function girar(valor) {
+      var giro = document.createElement("span");
+      var casa = 0, ultima = null;
+      giro.className = "giro";
+      giro.setAttribute("aria-hidden", "true");
+      valor.textContent.trim().split("").forEach(function (c) {
+        var pedaco = document.createElement("span");
+        if (!/\d/.test(c)) { pedaco.textContent = c; giro.appendChild(pedaco); return; }
+        var d = Number(c), linhas = [];
+        for (var i = 0; i <= 10 + d; i++) linhas.push(i % 10);   // uma volta inteira e para no algarismo
+        var fita = document.createElement("span");
+        fita.className = "giro-fita";
+        fita.textContent = linhas.join("\n");
+        fita.style.setProperty("--fim", (-(10 + d) / (11 + d) * 100) + "%");
+        fita.style.setProperty("--casa", String(casa++));
+        pedaco.appendChild(fita);
+        giro.appendChild(pedaco);
+        ultima = fita;
+      });
+      if (!ultima) return;
+      function pronto() {
+        if (!giro.parentNode) return;
+        giro.remove();
+        valor.removeAttribute("data-girando");
+      }
+      valor.setAttribute("data-girando", "");
+      valor.appendChild(giro);
+      ultima.addEventListener("animationend", pronto);
+      setTimeout(pronto, 4000);
+    }
+
+    function vigiar(pecas, limite, margem) {
+      if (!pecas.length) return;
+      var observador = new IntersectionObserver(function (entradas) {
+        var ordem = 0;
+        entradas.forEach(function (e) {
+          if (!e.isIntersecting || e.intersectionRatio < limite - 0.01) return;
+          var peca = e.target;
+          observador.unobserve(peca);
+          peca.style.setProperty("--ordem", String(ordem++));
+          peca.setAttribute("data-visto", "");
+          var valor = peca.querySelector(".amount-valor");
+          if (valor && !calmo.matches) girar(valor);
+        });
+      }, { threshold: limite, rootMargin: margem });
+      pecas.forEach(function (peca) {
+        if (peca.classList.contains("price")) numerar(peca.children);
+        if (peca.classList.contains("entrega")) numerar(peca.querySelectorAll(".lista li"));
+        peca.setAttribute("data-entra", "");
+        observador.observe(peca);
+      });
+    }
+
+    vigiar(trabalhos, 0.5, "0px");
+    vigiar(precos, 0, "0px 0px -18% 0px");
   })();
 
   /* ═══ filme: uma venda às 23h ═════════════════════════════════════════
