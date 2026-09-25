@@ -12,7 +12,7 @@
 
 @layer tokens, base, componentes, secoes, utilitarios;
 
-@import url("tokens.css?v=202609251714") layer(tokens);
+@import url("tokens.css?v=202609251715") layer(tokens);
 @import url("fontes.css") layer(tokens);
 
 /* ═══ TOKENS: medidas de peça (não são cor, espaço, raio nem sombra) ════════ */
@@ -61,6 +61,25 @@
     html { scroll-behavior: smooth; }
   }
 
+  /* brilho da marca no fundo, atrás de tudo: passa pelas faixas e cards de
+     vidro e desliza devagar enquanto a página rola (nunca sozinho) */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: -20%;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(closest-side at 82% 12%, color-mix(in srgb, var(--marca) 22%, transparent), transparent),
+      radial-gradient(closest-side at 12% 58%, color-mix(in srgb, var(--marca) 14%, transparent), transparent),
+      radial-gradient(closest-side at 70% 92%, color-mix(in srgb, var(--marca) 12%, transparent), transparent);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: scroll()) {
+      body::before { animation: deriva linear both; animation-timeline: scroll(root); }
+      @keyframes deriva { to { transform: translate3d(-6%, -14%, 0) rotate(12deg); } }
+    }
+  }
   body {
     margin: 0;
     background: var(--papel);
@@ -143,11 +162,12 @@
       max-width: none;
     }
     .cabeca:has(> .lead) > :not(.lead) { grid-column: 1; }
-    .cabeca:has(> .lead) > .lead { grid-column: 2; grid-row: 2; margin-top: 0; }
+    .cabeca:has(> .lead) > h2 { grid-row: 2; }
+    .cabeca:has(> .lead) > .lead { grid-column: 2; grid-row: 2; align-self: end; margin-top: 0; }
   }
 
   /* faixa alternada: quebra o ritmo sem sombra nem cor nova */
-  .alt { background: var(--papel-3); }
+  .alt { background: color-mix(in srgb, var(--papel-3) 70%, transparent); }
 
   /* faixa escura */
   .faixa { background: var(--banda); color: var(--banda-tinta); }
@@ -218,7 +238,7 @@
   .btn:hover { transform: translateY(calc(var(--borda) * -1)); }
   .btn:active { transform: translateY(0) scale(.98); }
   .btn--primary { background: var(--marca); color: var(--marca-tinta); }
-  .btn--primary:hover { box-shadow: var(--sh-2); }
+  .btn--primary:hover { box-shadow: 0 12px 32px -12px color-mix(in srgb, var(--marca) 70%, transparent); }
   .btn--ghost { background: transparent; color: var(--tinta); border-color: var(--linha-2); }
   .btn--ghost:hover { background: var(--papel-3); border-color: var(--tinta-2); }
   .btn--g { min-height: calc(var(--alvo) + var(--s-1)); font-size: var(--t-md); }
@@ -270,9 +290,11 @@
   /* --- card --- */
   .card {
     padding: var(--s-4);
-    border: var(--borda) solid var(--linha);
+    border: var(--borda) solid color-mix(in srgb, var(--linha) 70%, transparent);
     border-radius: var(--r-lg);
-    background: var(--papel-2);
+    background: color-mix(in srgb, var(--papel-2) 80%, transparent);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
     color: var(--tinta);
     box-shadow: var(--sh-1);
   }
@@ -413,8 +435,10 @@
     position: sticky;
     top: 0;
     z-index: 50;
-    border-bottom: var(--borda) solid var(--linha);
-    background: var(--papel);
+    border-bottom: var(--borda) solid color-mix(in srgb, var(--linha) 60%, transparent);
+    background: color-mix(in srgb, var(--papel) 84%, transparent);
+    -webkit-backdrop-filter: saturate(1.6) blur(16px);
+    backdrop-filter: saturate(1.6) blur(16px);
   }
   .site-head .wrap {
     display: flex;

@@ -56,11 +56,11 @@
   --s-1: .5rem;  --s-2: .875rem; --s-3: 1.25rem; --s-4: 2rem;
   --s-5: 3rem;   --s-6: 4.5rem;  --s-7: 7rem;
 
-  /* --- raio: cantos discretos, nada de pílula gorda --- */
+  /* --- raio: cantos macios, de vidro --- */
   --r-0:    0;
-  --r-sm:   6px;
-  --r-md:   10px;
-  --r-lg:   16px;
+  --r-sm:   10px;
+  --r-md:   16px;
+  --r-lg:   24px;
   --r-pill: 999px;   /* só botão e etiqueta */
 
   /* --- sombra: quase nada. o sistema é de papel, não de vidro --- */
