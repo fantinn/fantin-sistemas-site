@@ -140,7 +140,6 @@
     <nav class="nav" id="nav" aria-label="Seções da página">
       <ul class="nav-lista">
         <li><a href="#problema">O problema</a></li>
-        <li><a href="#metodo">Método</a></li>
         <li><a href="#trabalhos">Trabalhos</a></li>
         <li><a href="#precos">Preços</a></li>
         <li><a href="#perguntas">Perguntas</a></li>
@@ -1231,7 +1230,6 @@
     var nome = document.getElementById("f-nome");
     var vende = document.getElementById("f-vende");
     var servico = document.getElementById("f-servico");
-    var insta = document.getElementById("f-insta");
     var msg = document.getElementById("f-msg");
     var enviar = document.getElementById("f-enviar");
     var status = document.getElementById("f-status");
@@ -1247,10 +1245,9 @@
 
     function montar() {
       var linhas = ["Oi Gabriel, vi seu site."];
-      var n = nome.value.trim(), v = vende.value.trim(), i = insta.value.trim();
+      var n = nome.value.trim(), v = vende.value.trim();
       linhas.push((n ? "Sou " + n + ". " : "") + "Eu vendo " + (v || "[o quê]") + ".");
       linhas.push("Queria saber sobre " + (assunto[servico.value] || assunto["nao-sei"]) + ".");
-      if (i) linhas.push("Meu Instagram/site: " + i);
       return linhas.join("\n");
     }
 
@@ -1273,7 +1270,7 @@
       if (aviso) aviso.hidden = !invalido;
     }
 
-    [nome, vende, insta].forEach(function (c) { c.addEventListener("input", atualizar); });
+    [nome, vende].forEach(function (c) { c.addEventListener("input", atualizar); });
     servico.addEventListener("change", atualizar);
     msg.addEventListener("input", function () { editadaAMao = msg.value.trim() !== ""; });
 
