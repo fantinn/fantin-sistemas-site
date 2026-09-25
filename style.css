@@ -12,7 +12,7 @@
 
 @layer tokens, base, componentes, secoes, utilitarios;
 
-@import url("tokens.css?v=202609251708") layer(tokens);
+@import url("tokens.css?v=202609251714") layer(tokens);
 @import url("fontes.css") layer(tokens);
 
 /* ═══ TOKENS: medidas de peça (não são cor, espaço, raio nem sombra) ════════ */
