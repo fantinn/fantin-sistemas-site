@@ -12,7 +12,7 @@
 
 @layer tokens, base, componentes, secoes, utilitarios;
 
-@import url("tokens.css?v=202609242358") layer(tokens);
+@import url("tokens.css?v=202609251708") layer(tokens);
 @import url("fontes.css") layer(tokens);
 
 /* ═══ TOKENS: medidas de peça (não são cor, espaço, raio nem sombra) ════════ */
@@ -127,9 +127,24 @@
     margin-inline: auto;
     padding-inline: var(--s-3);
   }
+  @media (min-width: 1000px) {
+    .wrap { padding-inline: var(--s-5); }
+  }
   main > section { padding-block: var(--s-6); }
   .cabeca { max-width: var(--cabeca-max); }
   .cabeca .lead { margin-top: var(--s-3); }
+  /* computador: título à esquerda, texto à direita, a tela inteira trabalha */
+  @media (min-width: 1000px) {
+    .cabeca:has(> .lead) {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      column-gap: var(--s-6);
+      align-items: start;
+      max-width: none;
+    }
+    .cabeca:has(> .lead) > :not(.lead) { grid-column: 1; }
+    .cabeca:has(> .lead) > .lead { grid-column: 2; grid-row: 2; margin-top: 0; }
+  }
 
   /* faixa alternada: quebra o ritmo sem sombra nem cor nova */
   .alt { background: var(--papel-3); }
