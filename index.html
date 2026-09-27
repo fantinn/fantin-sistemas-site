@@ -215,57 +215,6 @@
   </div>
 </section>
 
-<!-- ═══ antes e depois ═════════════════════════════════════════════════
-     Exemplo montado em HTML/CSS, marcado como ilustrativo em quatro
-     lugares (rótulo, aviso, moldura e legenda). Quando houver print real
-     de um projeto, troque os dois painéis por imagens. -->
-<section class="alt" id="antes-depois" aria-labelledby="ad-titulo">
-  <div class="wrap ba-grade">
-    <div class="ba-texto">
-      <p class="eyebrow">Exemplo ilustrativo</p>
-      <h2 id="ad-titulo">Arraste a linha: a mesma venda, no direct e na loja.</h2>
-      <p class="lead">À esquerda, o que o seu cliente vê hoje. À direita, a mesma venda numa loja aberta 24 horas.</p>
-      <a class="btn btn--primary btn--g" href="#contato" data-servico="loja">Quero a minha do lado direito <span class="seta" aria-hidden="true">&rarr;</span></a>
-    </div>
-
-    <figure class="ba">
-      <label class="ba-rotulo" for="comparar">Arraste para comparar, ou use as setas do teclado</label>
-      <div class="frame">
-        <div class="frame-bar">
-          <span class="frame-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-          <span class="frame-url">lojaexemplo.com.br</span>
-          <span class="tag frame-note">exemplo</span>
-        </div>
-        <div class="ba-stage" id="ba-stage">
-          <div class="ba-pane ba-before" aria-hidden="true">
-            <picture>
-              <source type="image/avif" srcset="assets/ba-antes-480.avif 480w, assets/ba-antes-760.avif 760w" sizes="(min-width: 420px) 380px, 100vw">
-              <img src="assets/ba-antes-480.webp" srcset="assets/ba-antes-480.webp 480w, assets/ba-antes-760.webp 760w" sizes="(min-width: 420px) 380px, 100vw"
-                   width="760" height="1330" loading="lazy" decoding="async" alt="">
-            </picture>
-          </div>
-          <div class="ba-pane ba-after" aria-hidden="true">
-            <picture>
-              <source type="image/avif" srcset="assets/ba-depois-480.avif 480w, assets/ba-depois-760.avif 760w" sizes="(min-width: 420px) 380px, 100vw">
-              <img src="assets/ba-depois-480.webp" srcset="assets/ba-depois-480.webp 480w, assets/ba-depois-760.webp 760w" sizes="(min-width: 420px) 380px, 100vw"
-                   width="760" height="1330" loading="lazy" decoding="async" alt="">
-            </picture>
-          </div>
-          <span class="ba-label ba-label--l" aria-hidden="true">Antes</span>
-          <span class="ba-label ba-label--r" aria-hidden="true">Depois</span>
-          <div class="ba-handle" aria-hidden="true"><span class="ba-knob">‹ ›</span></div>
-          <input class="ba-range" id="comparar" type="range" min="0" max="100" step="1" value="50"
-                 aria-describedby="ba-desc" aria-valuetext="Linha no meio: metade antes, metade depois">
-        </div>
-      </div>
-      <p class="visually-hidden" id="ba-desc">Antes: uma página de link na bio com a foto da
-      camiseta no cabide, preço e tamanhos só pelo direct, catálogo em PDF, tabela de preços, frete a
-      combinar e atendimento só das 9h às 18h. Depois: a página do produto com fotos, preço de R$ 89,90
-      em 3x, escolha de cor, tamanho e quantidade, botão de comprar, cálculo de frete, descrição e trocas.</p>
-    </figure>
-  </div>
-</section>
-
 <!-- ═══ trabalhos ══════════════════════════════════════════════════════
      Dois trabalhos no ar e uma demonstração. NÃO acrescente estatística
      nem logo de cliente aqui sem fonte. -->
@@ -880,27 +829,6 @@
       if (e.target.closest && e.target.closest("a[href]")) fechar(false);
     });
     aoMudar(desktop, function () { if (desktop.matches) fechar(false); });
-  })();
-
-  /* ═══ comparador antes e depois ═══════════════════════════════════════
-     O range é o controle de verdade (mouse, dedo e teclado). O CSS lê --p
-     e corta o lado "depois" com clip-path. */
-  (function comparador() {
-    var area = document.getElementById("ba-stage");
-    var faixa = document.getElementById("comparar");
-    if (!area || !faixa) return;
-
-    function aplicar() {
-      var v = Number(faixa.value);
-      area.style.setProperty("--p", String(v / 100));
-      var texto;
-      if (v <= 5) texto = "Só o depois: a loja arrumada";
-      else if (v >= 95) texto = "Só o antes: a venda pelo direct";
-      else texto = "Linha em " + v + " por cento: antes à esquerda, depois à direita";
-      faixa.setAttribute("aria-valuetext", texto);
-    }
-    faixa.addEventListener("input", aplicar);
-    aplicar();
   })();
 
   /* ═══ a conta ═════════════════════════════════════════════════════════
