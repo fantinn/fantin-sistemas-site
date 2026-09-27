@@ -1811,7 +1811,7 @@
   /* --- perguntas --- */
   .faq {
     max-width: var(--faq-max);
-    margin-top: var(--s-4);
+    margin: var(--s-4) auto 0;
     border-top: var(--borda) solid var(--linha);
   }
   .faq details { border-bottom: var(--borda) solid var(--linha); }
