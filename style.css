@@ -12,7 +12,7 @@
 
 @layer tokens, base, componentes, secoes, utilitarios;
 
-@import url("tokens.css") layer(tokens);
+@import url("tokens.css?v=202609251715") layer(tokens);
 @import url("fontes.css") layer(tokens);
 
 /* ═══ TOKENS: medidas de peça (não são cor, espaço, raio nem sombra) ════════ */
@@ -30,9 +30,11 @@
     --faq-max: 820px;     /* coluna das perguntas */
     --url-max: 340px;     /* endereço na moldura */
     --aviso-max: 640px;   /* aviso de cookies */
-    --tela-ex: 380px;     /* largura da tela do comparador */
+    --polegar: 26px;      /* bolinha das barras da conta (o que aparece; o toque é --alvo) */
+    --regua-h: 6px;       /* espessura da trilha das barras da conta */
     --trilho-card: 85%;   /* card no trilho do celular: sobra a ponta do próximo */
-    --foto-w: 320px;      /* largura do retrato em "quem sou eu" */
+    --foto: 160px;        /* foto quadrada em "quem sou eu" */
+    --luz-r: 320px;       /* raio da luz que segue o mouse */
     --dur: .18s;          /* duração das transições (só transform e opacity) */
   }
 }
@@ -50,6 +52,25 @@
     html { scroll-behavior: smooth; }
   }
 
+  /* brilho da marca no fundo, atrás de tudo: passa pelas faixas e cards de
+     vidro e desliza devagar enquanto a página rola (nunca sozinho) */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: -20%;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(closest-side at 82% 12%, color-mix(in srgb, var(--marca) 22%, transparent), transparent),
+      radial-gradient(closest-side at 12% 58%, color-mix(in srgb, var(--marca) 14%, transparent), transparent),
+      radial-gradient(closest-side at 70% 92%, color-mix(in srgb, var(--marca) 12%, transparent), transparent);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: scroll()) {
+      body::before { animation: deriva linear both; animation-timeline: scroll(root); }
+      @keyframes deriva { to { transform: translate3d(-6%, -14%, 0) rotate(12deg); } }
+    }
+  }
   body {
     margin: 0;
     background: var(--papel);
@@ -116,12 +137,28 @@
     margin-inline: auto;
     padding-inline: var(--s-3);
   }
+  @media (min-width: 1000px) {
+    .wrap { padding-inline: var(--s-5); }
+  }
   main > section { padding-block: var(--s-6); }
   .cabeca { max-width: var(--cabeca-max); }
   .cabeca .lead { margin-top: var(--s-3); }
+  /* computador: título à esquerda, texto à direita, a tela inteira trabalha */
+  @media (min-width: 1000px) {
+    .cabeca:has(> .lead) {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      column-gap: var(--s-6);
+      align-items: start;
+      max-width: none;
+    }
+    .cabeca:has(> .lead) > :not(.lead) { grid-column: 1; }
+    .cabeca:has(> .lead) > h2 { grid-row: 2; }
+    .cabeca:has(> .lead) > .lead { grid-column: 2; grid-row: 2; align-self: end; margin-top: 0; }
+  }
 
   /* faixa alternada: quebra o ritmo sem sombra nem cor nova */
-  .alt { background: var(--papel-3); }
+  .alt { background: color-mix(in srgb, var(--papel-3) 70%, transparent); }
 
   /* faixa escura */
   .faixa { background: var(--banda); color: var(--banda-tinta); }
@@ -130,7 +167,7 @@
   /* --- papéis de texto: cada padrão escrito uma vez só --- */
 
   /* rótulo: mono, pequeno, em maiúsculas */
-  .eyebrow, .provas dt, .recebe span, .contato-canais span {
+  .eyebrow, .provas dt, .recebe span {
     font-family: var(--f-mono);
     font-size: var(--t-xs);
     font-weight: 500;
@@ -143,7 +180,7 @@
 
   /* dado: mono, pequeno, sem maiúsculas */
   .tag, .hero-meta, .frame-url, .num, .step::before, .amount-nota,
-  .reguas, .medida-leitura small, .ba-label {
+  .reguas, .medida-leitura small {
     font-family: var(--f-mono);
     font-size: var(--t-xs);
     font-weight: 500;
@@ -157,7 +194,7 @@
     line-height: 1;
     letter-spacing: -.03em;
   }
-  .amount, .medida-leitura, .conta-num, .hero-meta, .amount-nota, .reguas, .ex-d-preco {
+  .amount, .medida-leitura, .conta-num, .hero-meta, .amount-nota, .reguas {
     font-variant-numeric: tabular-nums;
   }
 
@@ -192,7 +229,7 @@
   .btn:hover { transform: translateY(calc(var(--borda) * -1)); }
   .btn:active { transform: translateY(0) scale(.98); }
   .btn--primary { background: var(--marca); color: var(--marca-tinta); }
-  .btn--primary:hover { box-shadow: var(--sh-2); }
+  .btn--primary:hover { box-shadow: 0 12px 32px -12px color-mix(in srgb, var(--marca) 70%, transparent); }
   .btn--ghost { background: transparent; color: var(--tinta); border-color: var(--linha-2); }
   .btn--ghost:hover { background: var(--papel-3); border-color: var(--tinta-2); }
   .btn--g { min-height: calc(var(--alvo) + var(--s-1)); font-size: var(--t-md); }
@@ -244,9 +281,11 @@
   /* --- card --- */
   .card {
     padding: var(--s-4);
-    border: var(--borda) solid var(--linha);
+    border: var(--borda) solid color-mix(in srgb, var(--linha) 70%, transparent);
     border-radius: var(--r-lg);
-    background: var(--papel-2);
+    background: color-mix(in srgb, var(--papel-2) 80%, transparent);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
     color: var(--tinta);
     box-shadow: var(--sh-1);
   }
@@ -387,8 +426,10 @@
     position: sticky;
     top: 0;
     z-index: 50;
-    border-bottom: var(--borda) solid var(--linha);
-    background: var(--papel);
+    border-bottom: var(--borda) solid color-mix(in srgb, var(--linha) 60%, transparent);
+    background: color-mix(in srgb, var(--papel) 84%, transparent);
+    -webkit-backdrop-filter: saturate(1.6) blur(16px);
+    backdrop-filter: saturate(1.6) blur(16px);
   }
   .site-head .wrap {
     display: flex;
@@ -482,7 +523,35 @@
   }
 
   /* --- herói --- */
-  .hero { padding-block: var(--s-6) var(--s-5); }
+  .hero { position: relative; isolation: isolate; padding-block: var(--s-6) var(--s-5); }
+  /* grade de pontos no fundo do herói: some nas bordas; no computador, os
+     pontos em volta do mouse acendem na cor da marca (--mx/--my vêm do JS) */
+  .hero::before, .hero-luz {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: radial-gradient(circle, var(--linha-2) 0 var(--borda), transparent calc(var(--borda) * 1.5));
+    background-size: var(--s-4) var(--s-4);
+    background-position: center top;
+  }
+  .hero::before {
+    opacity: .6;
+    -webkit-mask-image: radial-gradient(ellipse 60% 80% at 90% 25%, var(--tinta), transparent);
+    mask-image: radial-gradient(ellipse 60% 80% at 90% 25%, var(--tinta), transparent);
+  }
+  /* elemento só da luz: o JS grava --mx/--my nele e o recálculo fica nele */
+  .hero-luz {
+    background-image: radial-gradient(circle, var(--marca) 0 var(--borda-2), transparent calc(var(--borda-2) * 1.3));
+    -webkit-mask-image: radial-gradient(circle var(--luz-r) at var(--mx, 50%) var(--my, 50%), var(--tinta), transparent);
+    mask-image: radial-gradient(circle var(--luz-r) at var(--mx, 50%) var(--my, 50%), var(--tinta), transparent);
+    opacity: 0;
+    transition: opacity var(--motion-enter) var(--motion-ease);
+  }
+  .hero .destaque {
+    background: linear-gradient(var(--marca-tint), var(--marca-tint)) 0 90% / 100% .3em no-repeat;
+  }
   .hero h1 { max-width: 18ch; }
   .hero .lead { max-width: 58ch; margin-top: var(--s-3); }
   .hero-cta {
@@ -553,204 +622,6 @@
   }
   .dores-pe b { color: var(--tinta); }
 
-  /* --- antes e depois --- */
-  .ba-grade {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    align-items: center;
-    gap: var(--s-5);
-  }
-  @media (min-width: 1000px) {
-    .ba-grade { grid-template-columns: minmax(0, 1fr) var(--tela-ex); gap: var(--s-6); }
-  }
-  .ba-texto .lead { margin-top: var(--s-3); }
-  .ba-texto .btn { margin-top: var(--s-4); }
-  .aviso {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: var(--s-1);
-    max-width: 56ch;
-    margin-top: var(--s-3);
-    color: var(--tinta-2);
-    font-size: var(--t-sm);
-  }
-
-  .ba { width: 100%; max-width: var(--tela-ex); margin: 0 auto; }
-  .ba .frame { box-shadow: var(--sh-2); }
-  .ba figcaption { margin-top: var(--s-2); }
-  .ba-rotulo {
-    display: block;
-    margin-bottom: var(--s-2);
-    color: var(--tinta-2);
-    font-size: var(--t-sm);
-    font-weight: 600;
-  }
-  .ba-stage {
-    --p: .5;
-    --corte: calc(var(--alvo) / 2 + (100% - var(--alvo)) * var(--p));
-    position: relative;
-    container-type: inline-size;
-    aspect-ratio: 9 / 15;
-    overflow: hidden;
-    background: var(--papel-2);
-    font-size: var(--t-xs);
-    line-height: 1.4;
-  }
-  .ba-stage:has(.ba-range:focus-visible) {
-    outline: var(--foco) solid var(--marca);
-    outline-offset: calc(var(--foco) * -2);
-  }
-  .ba-pane {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--s-2);
-    padding: var(--s-5) var(--s-3) var(--s-3);
-    color: var(--tinta);
-  }
-  .ba-before { clip-path: inset(0 calc(100% - var(--corte)) 0 0); background: var(--papel-3); }
-  .ba-after { clip-path: inset(0 0 0 var(--corte)); background: var(--papel-2); }
-
-  /* "antes": a página do link na bio, apertada e gritando */
-  .ex-a-perfil { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-1); }
-  .ex-a-avatar {
-    width: var(--alvo);
-    height: var(--alvo);
-    flex: none;
-    border: var(--borda-2) dashed var(--linha-2);
-    border-radius: var(--r-pill);
-  }
-  .ex-a-nome { font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
-  .ex-a-arroba { width: 100%; color: var(--tinta-2); }
-  .ex-a-grito { color: var(--atencao); font-size: var(--t-md); font-weight: 700; text-transform: uppercase; }
-  .ex-a-texto { color: var(--tinta-2); }
-  .ex-a-botoes { display: grid; gap: var(--s-1); }
-  .ex-a-botoes span {
-    padding: var(--s-1);
-    border: var(--borda) dashed var(--linha-2);
-    border-radius: var(--r-0);
-    text-align: center;
-    text-decoration: underline;
-  }
-  .ex-a-pe { margin-top: auto; color: var(--tinta-2); font-style: italic; }
-
-  /* "depois": a página do produto */
-  .ex-d-topo {
-    display: flex;
-    justify-content: space-between;
-    gap: var(--s-1);
-    font-family: var(--f-display);
-    font-size: var(--t-sm);
-    font-weight: 700;
-  }
-  .ex-d-topo span { color: var(--tinta-2); font-family: var(--f-sans); font-size: var(--t-xs); font-weight: 500; }
-  .ex-d-foto {
-    flex: 1;
-    min-height: 0;
-    display: grid;
-    place-items: center;
-    border-radius: var(--r-md);
-    background: var(--papel-3);
-  }
-  .ex-d-produto {
-    width: 45%;
-    aspect-ratio: 4 / 5;
-    border: var(--borda) solid var(--linha);
-    border-radius: var(--r-md) var(--r-md) var(--r-sm) var(--r-sm);
-    background: var(--marca-tint);
-  }
-  .ex-d-nome { font-family: var(--f-display); font-size: var(--t-md); font-weight: 600; }
-  .ex-d-preco b { display: block; font-family: var(--f-display); font-size: var(--t-lg); letter-spacing: -.02em; }
-  .ex-d-preco span { color: var(--tinta-2); }
-  .ex-d-tamanhos { display: flex; gap: var(--s-1); }
-  .ex-d-tamanhos span {
-    min-width: calc(var(--alvo) * .7);
-    padding: var(--s-1) 0;
-    border: var(--borda) solid var(--linha-2);
-    border-radius: var(--r-sm);
-    font-weight: 600;
-    text-align: center;
-  }
-  .ex-d-tamanhos .sel { border-color: var(--tinta); background: var(--tinta); color: var(--papel-2); }
-  .ex-d-frete { color: var(--sucesso); font-weight: 600; }
-  .ex-d-comprar {
-    padding: var(--s-2);
-    border-radius: var(--r-pill);
-    background: var(--marca);
-    color: var(--marca-tinta);
-    font-size: var(--t-sm);
-    font-weight: 600;
-    text-align: center;
-  }
-  .ex-d-pagamento { color: var(--tinta-2); text-align: center; }
-
-  .ba-label {
-    position: absolute;
-    top: var(--s-2);
-    z-index: 2;
-    padding: var(--s-1) var(--s-2);
-    border-radius: var(--r-pill);
-    line-height: 1;
-    pointer-events: none;
-  }
-  .ba-label--l { left: var(--s-2); background: var(--banda); color: var(--banda-tinta); }
-  .ba-label--r { right: var(--s-2); background: var(--marca); color: var(--marca-tinta); }
-  .ba-handle {
-    position: absolute;
-    inset: 0 auto 0 0;
-    z-index: 2;
-    width: var(--borda-2);
-    background: var(--marca);
-    /* 100cqw = largura da tela do comparador (container): o fio anda junto
-       com o polegar do range nativo */
-    transform: translateX(calc(var(--alvo) / 2 + (100cqw - var(--alvo)) * var(--p) - var(--borda)));
-    pointer-events: none;
-  }
-  .ba-knob {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: var(--alvo);
-    height: var(--alvo);
-    display: grid;
-    place-items: center;
-    border-radius: var(--r-pill);
-    background: var(--marca);
-    color: var(--marca-tinta);
-    box-shadow: var(--sh-2);
-    font-size: var(--t-sm);
-    font-weight: 600;
-    letter-spacing: .1em;
-    transform: translate(-50%, -50%);
-    transition: transform var(--dur) ease;
-  }
-  .ba-stage:hover .ba-knob,
-  .ba-stage:active .ba-knob { transform: translate(-50%, -50%) scale(1.08); }
-  /* o controle de verdade: range invisível por cima da tela toda */
-  .ba-range {
-    position: absolute;
-    inset: 0;
-    z-index: 3;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    opacity: 0;
-    background: transparent;
-    cursor: ew-resize;
-    touch-action: pan-y;
-    -webkit-appearance: none;
-    appearance: none;
-  }
-  .ba-range::-webkit-slider-thumb {
-    width: var(--alvo);
-    height: var(--alvo);
-    -webkit-appearance: none;
-    appearance: none;
-  }
-  .ba-range::-moz-range-thumb { width: var(--alvo); height: var(--alvo); border: 0; }
-
   /* --- método --- */
   .metodo-lista { max-width: var(--cabeca-max); margin-top: var(--s-4); }
   @media (min-width: 760px) {
@@ -820,11 +691,13 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: var(--s-2);
+    gap: var(--s-4);
     transition: transform var(--dur) ease;
   }
   .work:hover { border-color: var(--linha-2); transform: translateY(calc(var(--borda-2) * -1.5)); }
+  .work-texto { display: flex; flex: 1; flex-direction: column; gap: var(--s-2); }
   .work .tag { align-self: start; }
+  .work .dot { position: relative; }
   .work .eyebrow { margin: 0; }
   .work-link {
     margin-top: auto;
@@ -840,6 +713,203 @@
   .work-link::after { content: ""; position: absolute; inset: 0; border-radius: var(--r-lg); }
   .work-link:focus-visible { outline: none; }
   .work:has(.work-link:focus-visible) { outline: var(--foco) solid var(--marca); outline-offset: var(--foco); }
+  /* do tablet para cima, o trabalho que tem print ocupa a linha inteira
+     (texto de um lado, tela do outro) e os dois esquemas dividem a de baixo.
+     No celular continua o trilho, cada card com a tela em cima. */
+  @media (min-width: 760px) {
+    .works { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .work--destaque {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+      align-items: center;
+      gap: var(--s-5);
+    }
+    .work--destaque .work-tela { order: 0; }
+    .work--destaque h3 { font-size: var(--t-xl); }
+  }
+  @media (min-width: 1000px) {
+    .work--destaque { grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: var(--s-6); padding: var(--s-5); }
+  }
+
+  /* a tela do card: moldura de navegador com o endereço de verdade na barra */
+  .work-tela { order: -1; border-radius: var(--r-md); box-shadow: var(--sh-2); }
+  .work-tela .frame-bar { position: relative; gap: var(--s-1); padding-inline: var(--s-2); }
+  .work-tela .frame-url { max-width: none; }
+  .work-print { display: block; aspect-ratio: 16 / 9; overflow: hidden; background: var(--banda); }
+  .work-print img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; transform-origin: 50% 20%; }
+
+  /* esquema: o desenho da página em traço, no lugar do print que não existe */
+  .esquema {
+    display: grid;
+    align-content: center;
+    gap: var(--s-2);
+    aspect-ratio: 16 / 9;
+    padding: var(--s-3);
+    background: var(--papel);
+    color: var(--tinta-3);
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+    line-height: 1.2;
+  }
+  @media (min-width: 760px) {
+    .esquema { aspect-ratio: 16 / 7; }
+  }
+  .esq-traco {
+    display: block;
+    height: var(--s-1);
+    border-radius: var(--r-pill);
+    background: color-mix(in srgb, var(--tinta) 12%, transparent);
+  }
+
+  /* ListaJota: as três partes da página, na ordem em que o cliente passa */
+  .esquema--mapa { grid-auto-rows: 1fr; }
+  .esq-bloco {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 12ch minmax(0, 1fr);
+    align-items: center;
+    gap: var(--s-2);
+  }
+  .esq-num {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: calc(var(--s-3) * 1.3);
+    aspect-ratio: 1;
+    border: var(--borda) solid var(--linha-2);
+    border-radius: var(--r-pill);
+    background: var(--papel);
+    letter-spacing: 0;
+  }
+  /* o fio que liga uma parte à outra: apagado, e o laranja por cima */
+  .esq-bloco:not(:last-child)::before,
+  .esq-bloco:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: calc(var(--s-3) * .65 - var(--borda));
+    width: var(--borda-2);
+    height: calc(100% + var(--s-2));
+    background: var(--linha);
+  }
+  .esq-bloco:not(:last-child)::after { background: var(--marca); transform: scaleY(0); transform-origin: top; }
+  .esq-corpo { display: grid; gap: calc(var(--s-1) * .75); }
+  .esq-traco--forte { width: 85%; height: calc(var(--s-1) * 1.5); }
+  .esq-corpo > .esq-traco:not(.esq-traco--forte) { width: 55%; }
+  .esq-corpo--itens { display: flex; gap: var(--s-1); }
+  .esq-item { display: flex; flex: 1; align-items: center; gap: calc(var(--s-1) * .5); }
+  .esq-item::before {
+    content: "";
+    flex: none;
+    width: var(--s-1);
+    aspect-ratio: 1;
+    border: var(--borda-2) solid var(--marca);
+    border-radius: var(--r-pill);
+  }
+  .esq-item::after {
+    content: "";
+    flex: 1;
+    height: calc(var(--s-1) * .75);
+    border-radius: var(--r-pill);
+    background: color-mix(in srgb, var(--tinta) 12%, transparent);
+  }
+  .esq-botao {
+    display: block;
+    width: min(100%, calc(var(--s-6) + var(--s-3)));
+    height: var(--s-3);
+    border: var(--borda) solid var(--marca);
+    border-radius: var(--r-pill);
+  }
+
+  /* Portal: as duas visões da demonstração, trocadas pela mesma chave do topo dela */
+  .esquema--visoes { align-content: start; }
+  .esq-abas {
+    position: relative;
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr;
+    justify-self: start;
+    padding: var(--borda-2);
+    border: var(--borda) solid var(--linha);
+    border-radius: var(--r-pill);
+    background: var(--papel-3);
+  }
+  .esq-abas::before {
+    content: "";
+    position: absolute;
+    top: var(--borda-2);
+    bottom: var(--borda-2);
+    left: var(--borda-2);
+    width: calc(50% - var(--borda-2));
+    border-radius: var(--r-pill);
+    background: var(--tinta);
+  }
+  .esq-abas > span {
+    position: relative;
+    padding: calc(var(--s-1) * .5) var(--s-2);
+    color: var(--tinta-2);
+    text-align: center;
+  }
+  .esq-abas > span:first-child { color: var(--papel-2); }
+  .esq-visoes { display: grid; }
+  .esq-visao { display: grid; grid-area: 1 / 1; gap: var(--s-1); }
+  .esq-visao--cliente { opacity: 0; }
+  .esq-fila {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+    padding: calc(var(--s-1) * .9) var(--s-2);
+    border: var(--borda) solid var(--linha);
+    border-radius: var(--r-sm);
+    background: var(--papel-2);
+  }
+  .esq-fila .esq-traco { width: 45%; }
+  .esq-fila:nth-child(2) .esq-traco { width: 35%; }
+  .esq-selo {
+    width: calc(var(--s-4) + var(--s-1));
+    height: calc(var(--s-1) * 1.25);
+    margin-left: auto;
+    border-radius: var(--r-pill);
+    background: color-mix(in srgb, var(--sucesso) 40%, transparent);
+  }
+  .esq-selo--falta { background: color-mix(in srgb, var(--marca) 55%, transparent); }
+  .esq-caixa {
+    flex: none;
+    width: var(--s-2);
+    aspect-ratio: 1;
+    border: var(--borda) solid var(--linha-2);
+    border-radius: calc(var(--r-sm) / 2);
+  }
+  .esq-caixa--ok { border-color: var(--sucesso); background: var(--sucesso); }
+  .esq-enviar {
+    width: calc(var(--s-4) + var(--s-1));
+    height: calc(var(--s-1) * 1.5);
+    margin-left: auto;
+    border-radius: var(--r-pill);
+    background: var(--marca);
+  }
+
+  /* com o mouse em cima (ou o foco no card): o caminho da ListaJota acende
+     parte por parte, e o Portal troca para a visão do cliente */
+  .work:focus-within .esq-num { border-color: var(--marca); background: var(--marca); color: var(--marca-tinta); }
+  .work:focus-within .esq-bloco::after { transform: scaleY(1); }
+  .work:focus-within .esq-botao { background: var(--marca); }
+  .work:focus-within .esq-abas::before { transform: translateX(100%); }
+  .work:focus-within .esq-abas > span:first-child { color: var(--tinta-2); }
+  .work:focus-within .esq-abas > span:last-child { color: var(--papel-2); }
+  .work:focus-within .esq-visao--escritorio { opacity: 0; }
+  .work:focus-within .esq-visao--cliente { opacity: 1; }
+  @media (hover: hover) and (pointer: fine) {
+    .work:hover .esq-num { border-color: var(--marca); background: var(--marca); color: var(--marca-tinta); }
+    .work:hover .esq-bloco::after { transform: scaleY(1); }
+    .work:hover .esq-botao { background: var(--marca); }
+    .work:hover .esq-abas::before { transform: translateX(100%); }
+    .work:hover .esq-abas > span:first-child { color: var(--tinta-2); }
+    .work:hover .esq-abas > span:last-child { color: var(--papel-2); }
+    .work:hover .esq-visao--escritorio { opacity: 0; }
+    .work:hover .esq-visao--cliente { opacity: 1; }
+  }
 
   /* --- preços (na faixa escura) --- */
   .garantias {
@@ -851,7 +921,33 @@
   @media (min-width: 760px) {
     .garantias { grid-template-columns: repeat(3, 1fr); }
   }
-  .garantia { padding-top: var(--s-3); border-top: var(--borda-2) solid var(--marca); }
+  /* o fio laranja fica por cima de uma linha apagada: parado, é o mesmo fio
+     de sempre; com movimento, ele se risca quando a garantia entra */
+  .garantia {
+    position: relative;
+    padding-top: var(--s-3);
+    border-top: var(--borda-2) solid color-mix(in srgb, var(--banda-tinta) 14%, transparent);
+  }
+  .garantia::before {
+    content: "";
+    position: absolute;
+    top: calc(var(--borda-2) * -1);
+    right: 0;
+    left: 0;
+    height: var(--borda-2);
+    background: var(--marca);
+    transform-origin: left;
+  }
+  .garantia-icone {
+    width: calc(var(--s-4) + var(--s-2));
+    height: calc(var(--s-4) + var(--s-2));
+    margin-bottom: var(--s-2);
+    padding: calc(var(--s-1) * 1.25);
+    border: var(--borda) solid color-mix(in srgb, var(--marca) 45%, transparent);
+    border-radius: var(--r-md);
+    background: color-mix(in srgb, var(--marca) 8%, transparent);
+    color: var(--marca);
+  }
   .garantia h3 { margin-bottom: var(--s-1); }
   .garantia p { color: var(--banda-tinta-2); font-size: var(--t-sm); }
 
@@ -861,8 +957,45 @@
     gap: var(--s-3);
     margin-top: var(--s-5);
   }
-  .price { display: flex; flex-direction: column; gap: var(--s-2); }
-  .price[data-featured="true"] { box-shadow: var(--sh-3); }
+  .price { position: relative; display: flex; flex-direction: column; gap: var(--s-2); }
+  /* o destaque sobe um pouco acima dos outros, com um halo quente na banda */
+  .price[data-featured="true"] {
+    isolation: isolate;
+    box-shadow: var(--sh-3),
+                0 var(--s-3) var(--s-6) calc(var(--s-3) * -1) color-mix(in srgb, var(--marca) 32%, transparent);
+  }
+  @media (min-width: 1000px) {
+    .price[data-featured="true"] { margin-top: calc(var(--s-3) * -1); }
+  }
+  /* aro em degradê por cima da borda (que fica como reserva); com mouse, um
+     brilho corre pelo aro atrás do ponteiro (--mx/--my, do bloco "luz") */
+  @supports (mask-composite: exclude) {
+    .price[data-featured="true"]::after {
+      content: "";
+      position: absolute;
+      inset: calc(var(--borda-2) * -1);
+      z-index: 1;
+      padding: var(--borda-2);
+      border-radius: inherit;
+      background:
+        radial-gradient(circle calc(var(--luz-r) * .4) at var(--mx, 50%) var(--my, 0%),
+          color-mix(in srgb, var(--marca) 40%, var(--banda-tinta)), transparent),
+        linear-gradient(160deg, color-mix(in srgb, var(--marca) 65%, var(--banda-tinta)), var(--marca) 35%);
+      mask: linear-gradient(var(--marca) 0 0) content-box exclude, linear-gradient(var(--marca) 0 0);
+      pointer-events: none;
+    }
+  }
+  .price-selo {
+    position: absolute;
+    top: 0;
+    left: var(--s-4);
+    z-index: 2;
+    border-color: var(--marca);
+    background: var(--marca);
+    color: var(--marca-tinta);
+    font-weight: 600;
+    transform: translateY(-50%);
+  }
   .price-topo {
     display: flex;
     flex-wrap: wrap;
@@ -871,24 +1004,188 @@
     gap: var(--s-1);
   }
   .price .eyebrow { margin: var(--s-2) 0 0; }
-  .amount { font-size: var(--t-2xl); }
+  .amount { font-size: calc(var(--t-2xl) * 1.35); white-space: nowrap; }
+  .amount-moeda {
+    color: var(--tinta-2);
+    font-size: .42em;
+    letter-spacing: 0;
+    vertical-align: top;
+  }
+  .amount-valor { position: relative; display: inline-block; }
   .amount-nota { color: var(--tinta-2); }
   .price .lista { margin-block: var(--s-2); }
   .price .btn { margin-top: auto; }
-
-  .preco-pe {
-    max-width: var(--texto-max);
-    margin-top: var(--s-4);
-    color: var(--banda-tinta-2);
-    font-size: var(--t-sm);
+  @media (max-width: 559px) {
+    .price-selo { left: var(--s-3); }
   }
-  .preco-pe b { color: var(--banda-tinta); }
+
+  .amount-valor { font-variant-numeric: tabular-nums; }
 
   .entrega { margin-top: var(--s-5); }
   .entrega > p { max-width: var(--texto-max); margin-top: var(--s-1); color: var(--tinta-2); }
   .entrega .lista { margin-top: var(--s-3); }
   @media (min-width: 760px) {
     .entrega .lista { grid-template-columns: repeat(2, 1fr); column-gap: var(--s-4); }
+  }
+  /* o que chega no dia da entrega leva um visto, não uma seta */
+  .entrega .lista li::before {
+    content: "";
+    top: calc(var(--s-1) * .35);
+    left: calc(var(--s-1) * .5);
+    width: calc(var(--s-1) * .75);
+    height: calc(var(--s-2) * .95);
+    border: solid var(--marca-texto);
+    border-width: 0 var(--borda-2) var(--borda-2) 0;
+    transform: rotate(45deg);
+  }
+
+  /* --- trabalhos e preços: movimento ---
+     Pensado primeiro para o celular: cada efeito dispara quando a peça
+     entra na tela (o bloco "vitrine" do JS marca [data-visto]); o mouse é
+     um bônus no computador. Tudo parte de um "antes" e termina no estado
+     escrito acima: sem movimento pedido, sem JS ou em navegador antigo, a
+     página é a de cima, inteira. --ordem escalona as peças que entram
+     juntas e --filho, os itens de dentro. Nada repete para sempre. */
+  @media (prefers-reduced-motion: no-preference) {
+    @keyframes vitrine-sobe { from { opacity: 0; translate: 0 var(--s-3); } }
+    @keyframes vitrine-risca { from { transform: scaleX(0); } }
+    @keyframes vitrine-traca {
+      from { opacity: 0; stroke-dasharray: 1; stroke-dashoffset: 1; }
+      15% { opacity: 1; }
+      to { stroke-dasharray: 1; stroke-dashoffset: 0; }
+    }
+    @keyframes vitrine-visto { from { opacity: 0; scale: .2; } }
+    @keyframes vitrine-onda {
+      from { opacity: .55; transform: scale(1); }
+      to { opacity: 0; transform: scale(3.4); }
+    }
+    @keyframes vitrine-foco { from { transform: scale(1.14); } }
+    @keyframes vitrine-carrega {
+      from { opacity: 1; transform: scaleX(0); }
+      70% { opacity: 1; transform: scaleX(1); }
+      to { opacity: 0; transform: scaleX(1); }
+    }
+    /* a mesma barra, com outro nome: é o que faz o mouse carregar de novo */
+    @keyframes vitrine-recarrega {
+      from { opacity: 1; transform: scaleX(0); }
+      70% { opacity: 1; transform: scaleX(1); }
+      to { opacity: 0; transform: scaleX(1); }
+    }
+    /* Portal: vai para a visão do cliente, mostra, e volta ao escritório */
+    @keyframes vitrine-aba { 0%, 100% { transform: none; } 16%, 70% { transform: translateX(100%); } }
+    @keyframes vitrine-aba-sai { 0%, 100% { color: var(--papel-2); } 16%, 70% { color: var(--tinta-2); } }
+    @keyframes vitrine-aba-entra { 0%, 100% { color: var(--tinta-2); } 16%, 70% { color: var(--papel-2); } }
+    @keyframes vitrine-visao-sai { 0%, 100% { opacity: 1; } 16%, 70% { opacity: 0; } }
+    @keyframes vitrine-visao-entra { 0%, 100% { opacity: 0; translate: var(--s-1) 0; } 16%, 70% { opacity: 1; translate: 0 0; } }
+
+    /* antes de entrar (só com o JS ligado, e só na tela: a impressão sai inteira) */
+    @media screen {
+      .price[data-entra]:not([data-visto]) > *,
+      .garantia[data-entra]:not([data-visto]) .garantia-icone path,
+      .entrega[data-entra]:not([data-visto]) .lista li::before { opacity: 0; }
+      .garantia[data-entra]:not([data-visto])::before { transform: scaleX(0); }
+    }
+
+    /* trabalhos: cada card, quando aparece (no trilho do celular, quando é
+     arrastado para a vista), mostra o que a página dele faz */
+    .work[data-visto] .dot::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: var(--sucesso);
+      opacity: 0;
+      animation: vitrine-onda 1.6s var(--motion-ease) 2;
+      animation-delay: calc(var(--ordem, 0) * .12s + .4s);
+    }
+    .work-tela .frame-bar::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      bottom: calc(var(--borda) * -1);
+      left: 0;
+      height: var(--borda-2);
+      background: var(--marca);
+      opacity: 0;
+      transform-origin: left;
+      pointer-events: none;
+    }
+    .work[data-visto] .work-tela .frame-bar::after {
+      animation: vitrine-carrega 1.2s var(--motion-ease) both;
+      animation-delay: calc(var(--ordem, 0) * .12s + .1s);
+    }
+    .work-print img { transition: transform 1.4s var(--motion-ease); }
+    .work[data-visto] .work-print img {
+      animation: vitrine-foco 2s var(--motion-ease) backwards;
+      animation-delay: calc(var(--ordem, 0) * .12s);
+    }
+    /* ListaJota: o caminho acende parte por parte e fica aceso */
+    .esq-num { transition: color var(--motion-ui) var(--motion-ease), background-color var(--motion-ui) var(--motion-ease), border-color var(--motion-ui) var(--motion-ease); }
+    .esq-bloco::after { transition: transform .3s var(--motion-ease); }
+    .esq-botao { transition: background-color var(--motion-ui) var(--motion-ease); }
+    .work[data-visto] .esq-num { border-color: var(--marca); background: var(--marca); color: var(--marca-tinta); }
+    .work[data-visto] .esq-bloco::after { transform: scaleY(1); }
+    .work[data-visto] .esq-botao { background: var(--marca); }
+    .work:is([data-visto], :focus-within) .esq-bloco:nth-child(1) .esq-num { transition-delay: .3s; }
+    .work:is([data-visto], :focus-within) .esq-bloco:nth-child(1)::after { transition-delay: .42s; }
+    .work:is([data-visto], :focus-within) .esq-bloco:nth-child(2) .esq-num { transition-delay: .66s; }
+    .work:is([data-visto], :focus-within) .esq-bloco:nth-child(2)::after { transition-delay: .78s; }
+    .work:is([data-visto], :focus-within) .esq-bloco:nth-child(3) .esq-num { transition-delay: 1.02s; }
+    .work:is([data-visto], :focus-within) .esq-botao { transition-delay: 1.16s; }
+    /* Portal: a chave passa para o cliente e volta, uma vez */
+    .esq-abas::before { transition: transform var(--motion-enter) var(--motion-mola); }
+    .esq-abas > span { transition: color var(--motion-ui) var(--motion-ease); }
+    .esq-visao { transition: opacity var(--motion-ui) var(--motion-ease), translate var(--motion-enter) var(--motion-ease); }
+    .esq-visao--cliente { translate: var(--s-1) 0; }
+    .work:focus-within .esq-visao--cliente { translate: 0 0; }
+    .work[data-visto] .esq-abas::before,
+    .work[data-visto] :is(.esq-abas > span, .esq-visao) {
+      animation-duration: 3.4s;
+      animation-timing-function: var(--motion-ease);
+      animation-delay: calc(var(--ordem, 0) * .12s + .7s);
+    }
+    .work[data-visto] .esq-abas::before { animation-name: vitrine-aba; }
+    .work[data-visto] .esq-abas > span:first-child { animation-name: vitrine-aba-sai; }
+    .work[data-visto] .esq-abas > span:last-child { animation-name: vitrine-aba-entra; }
+    .work[data-visto] .esq-visao--escritorio { animation-name: vitrine-visao-sai; }
+    .work[data-visto] .esq-visao--cliente { animation-name: vitrine-visao-entra; }
+    .work:focus-within .work-print img { transform: scale(1.06); }
+
+    /* no computador, o card maior e os dois de baixo sobem ao rolar */
+    @supports (animation-timeline: view()) {
+      @media (min-width: 760px) {
+        .work {
+          animation: vitrine-sobe linear both;
+          animation-timeline: view();
+          animation-range: entry 0% entry 55%;
+        }
+      }
+    }
+
+    /* preços: as peças entram em cascata e o número gira até o valor */
+    .price[data-visto] > * {
+      animation: vitrine-sobe var(--motion-enter) var(--motion-ease) both;
+      animation-delay: calc(var(--ordem, 0) * .12s + var(--filho, 0) * .04s);
+    }
+    .garantia[data-visto]::before {
+      animation: vitrine-risca .9s var(--motion-ease) both;
+      animation-delay: calc(var(--ordem, 0) * .15s);
+    }
+    .garantia[data-visto] .garantia-icone path {
+      animation: vitrine-traca 1.1s var(--motion-ease) backwards;
+      animation-delay: calc(var(--ordem, 0) * .15s + .2s);
+    }
+    .entrega[data-visto] .lista li::before {
+      animation: vitrine-visto .5s var(--motion-mola) both;
+      animation-delay: calc(.2s + var(--filho, 0) * .07s);
+    }
+
+    /* bônus do mouse: o print aproxima devagar e a barra carrega de novo */
+    @media (hover: hover) and (pointer: fine) {
+      .work:hover .work-print img { transform: scale(1.06); }
+      .work:hover .work-tela .frame-bar::after { animation: vitrine-recarrega 1s var(--motion-ease) both; }
+      .work:hover .esq-visao--cliente { translate: 0 0; }
+    }
   }
 
   /* --- a conta --- */
@@ -914,20 +1211,147 @@
     cursor: pointer;
   }
   .reguas { display: flex; justify-content: space-between; color: var(--tinta-3); }
+
+  /* com JS a barra vira instrumento: trilha fina, a parte cheia segue o
+     valor (--fracao, de 0 a 1, vem do JS) e a régua ganha traços. Sem JS
+     fica a barra nativa, que já pinta sozinha.
+     A bolinha tem o tamanho do alvo de toque (--alvo) para o dedo achar,
+     mas só --polegar aparece: o resto é borda transparente, que vira halo
+     quando a barra está na mão. A parte cheia e os traços miram o centro
+     dela, que anda de meio alvo até 100% menos meio alvo. */
+  .conta--viva .faixa-range {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .conta--viva .faixa-range::-webkit-slider-runnable-track {
+    height: var(--regua-h);
+    border-radius: var(--r-pill);
+    background:
+      linear-gradient(var(--marca), var(--marca)) 0 0 / calc(var(--alvo) / 2 + (100% - var(--alvo)) * var(--fracao, 0)) 100% no-repeat,
+      var(--linha);
+    background:
+      linear-gradient(var(--marca), var(--marca)) 0 0 / calc(var(--alvo) / 2 + (100% - var(--alvo)) * var(--fracao, 0)) 100% no-repeat,
+      color-mix(in srgb, var(--linha-2) 40%, transparent);
+  }
+  .conta--viva .faixa-range::-moz-range-track {
+    height: var(--regua-h);
+    border-radius: var(--r-pill);
+    background: var(--linha);
+    background: color-mix(in srgb, var(--linha-2) 40%, transparent);
+  }
+  .conta--viva .faixa-range::-moz-range-progress {
+    height: var(--regua-h);
+    border-radius: var(--r-pill);
+    background: var(--marca);
+  }
+  .conta--viva .faixa-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    box-sizing: border-box;
+    width: var(--alvo);
+    height: var(--alvo);
+    margin-top: calc((var(--regua-h) - var(--alvo)) / 2);
+    border: calc((var(--alvo) - var(--polegar)) / 2) solid transparent;
+    border-radius: var(--r-pill);
+    background: var(--papel-2) padding-box;
+    box-shadow: inset 0 0 0 var(--borda-2) var(--marca);
+    filter: drop-shadow(var(--sh-1));
+  }
+  .conta--viva .faixa-range::-moz-range-thumb {
+    box-sizing: border-box;
+    width: var(--alvo);
+    height: var(--alvo);
+    border: calc((var(--alvo) - var(--polegar)) / 2) solid transparent;
+    border-radius: var(--r-pill);
+    background: var(--papel-2) padding-box;
+    box-shadow: inset 0 0 0 var(--borda-2) var(--marca);
+  }
+  /* na mão (dedo ou mouse, data-arrastando vem do JS) ou no foco: o halo
+     acende. O foco de teclado também mantém o contorno de sempre */
+  .conta--viva .faixa-range:is([data-arrastando], :focus-visible)::-webkit-slider-thumb {
+    border-color: color-mix(in srgb, var(--marca) 20%, transparent);
+  }
+  .conta--viva .faixa-range:is([data-arrastando], :focus-visible)::-moz-range-thumb {
+    border-color: color-mix(in srgb, var(--marca) 20%, transparent);
+  }
+  @media (hover: hover) {
+    .conta--viva .faixa-range:hover::-webkit-slider-thumb {
+      border-color: color-mix(in srgb, var(--marca) 12%, transparent);
+    }
+    .conta--viva .faixa-range:hover::-moz-range-thumb {
+      border-color: color-mix(in srgb, var(--marca) 12%, transparent);
+    }
+  }
+  /* o número de cima acende enquanto a barra dele está na mão */
+  .medida:has(.faixa-range:is([data-arrastando], :focus-visible)) .medida-leitura > span { color: var(--marca-texto); }
+
+  /* traços da régua: um a cada décimo, alinhados com o caminho da bolinha */
+  .conta--viva .reguas {
+    position: relative;
+    margin-top: calc(var(--s-2) * -1);
+    padding-top: var(--s-2);
+  }
+  .conta--viva .reguas::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: calc(var(--alvo) / 2 - var(--borda) / 2);
+    width: calc(100% - var(--alvo) + var(--borda));
+    height: var(--s-1);
+    background: linear-gradient(to right, var(--linha-2) var(--borda), transparent 0) 0 0 / calc((100% - var(--borda)) / 10) 100% repeat-x;
+    opacity: .6;
+  }
+
   .conta-dica { margin-top: var(--s-4); }
   .conta-saida { display: flex; flex-direction: column; gap: var(--s-2); }
   .conta-topo { color: var(--tinta-2); }
   .conta-num { font-size: var(--t-3xl); }
   .conta-num b { color: var(--marca-texto); font-weight: 700; }
+
+  /* um ponto por venda: 60 lugares (a conta com R$ 20), os da loja acesos */
+  .conta-grafico { display: grid; gap: var(--s-1); margin: 0 0 var(--s-1); }
+  .conta-pontos {
+    display: grid;
+    grid-template-columns: repeat(20, 1fr);
+    gap: calc(var(--s-1) / 2);
+    max-width: calc(var(--alvo) * 8);
+  }
+  .conta-pontos i, .conta-legenda i {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: var(--r-pill);
+    background: var(--linha);
+    background: color-mix(in srgb, var(--linha-2) 26%, transparent);
+  }
+  .conta-pontos i::after, .conta-legenda i::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--marca);
+    transform: scale(0);
+  }
+  .conta-pontos i[data-cheio]::after, .conta-legenda i::after { transform: scale(1); }
+  .conta-legenda {
+    display: flex;
+    align-items: center;
+    gap: var(--s-1);
+    color: var(--tinta-3);
+    font-family: var(--f-mono);
+    font-size: var(--t-xs);
+  }
+  .conta-legenda i { width: calc(var(--s-1) * 1.5); flex: none; }
   .conta-exp { color: var(--tinta-2); }
   .conta-saida .lista { margin-top: var(--s-2); }
-  .conta-pe { max-width: var(--texto-max); margin-top: var(--s-4); color: var(--tinta-2); font-size: var(--t-sm); }
-  :is(.conta-exp, .conta-pe) b { color: var(--tinta); }
+  .conta-exp b { color: var(--tinta); }
 
   /* --- perguntas --- */
   .faq {
     max-width: var(--faq-max);
-    margin-top: var(--s-4);
+    margin: var(--s-4) auto 0;
     border-top: var(--borda) solid var(--linha);
   }
   .faq details { border-bottom: var(--borda) solid var(--linha); }
@@ -946,17 +1370,45 @@
     cursor: pointer;
   }
   .faq summary::-webkit-details-marker { display: none; }
-  .faq summary::after {
-    content: "+";
-    flex: none;
-    margin-left: auto;
-    color: var(--marca-texto);
-    font-family: var(--f-mono);
-    font-weight: 500;
-    transition: transform var(--dur) ease;
+  /* a linha da pergunta sai um pouco para os lados, para o fundo do hover
+     e o contorno do foco terem respiro; o texto fica alinhado com o resto */
+  .faq details > summary {
+    margin-inline: calc(var(--s-2) * -1);
+    padding-inline: var(--s-2);
+    border-radius: var(--r-md);
+    -webkit-tap-highlight-color: transparent;
   }
-  .faq details[open] summary::after { content: "−"; }
-  .faq summary:hover::after { transform: scale(1.25); }
+  /* no toque, o fundo acende enquanto o dedo está em cima; com mouse, no hover */
+  .faq summary:active { background: color-mix(in srgb, var(--papel-2) 70%, transparent); }
+  @media (hover: hover) {
+    .faq summary:hover { background: color-mix(in srgb, var(--papel-2) 55%, transparent); }
+  }
+  /* o sinal: um + desenhado em dois traços dentro de um círculo. Aberto,
+     o traço de pé encolhe (vira −) e o círculo enche de laranja */
+  .faq summary::after {
+    content: "";
+    flex: none;
+    width: calc(var(--alvo) * .68);
+    aspect-ratio: 1;
+    margin-left: auto;
+    border: var(--borda) solid var(--linha-2);
+    border-radius: var(--r-pill);
+    color: var(--marca-texto);
+    background:
+      linear-gradient(currentColor, currentColor) center / 36% var(--borda-2) no-repeat,
+      linear-gradient(currentColor, currentColor) center / var(--borda-2) 36% no-repeat;
+  }
+  .faq summary:active::after { border-color: var(--marca-texto); background-color: var(--marca-tint); }
+  @media (hover: hover) {
+    .faq summary:hover::after { border-color: var(--marca-texto); background-color: var(--marca-tint); }
+  }
+  .faq details[open] > summary::after {
+    border-color: var(--marca);
+    background-color: var(--marca);
+    background-size: 36% var(--borda-2), var(--borda-2) 0%;
+    color: var(--marca-tinta);
+    transform: rotate(180deg);
+  }
   .faq-resp { max-width: var(--texto-max); padding-bottom: var(--s-3); color: var(--tinta-2); }
   .faq-resp b { color: var(--tinta); }
 
@@ -965,38 +1417,14 @@
   @media (min-width: 760px) {
     .quem { grid-template-columns: var(--foto-w) minmax(0, 1fr); gap: var(--s-6); }
   }
-  .quem-foto {
-    position: relative;
-    isolation: isolate;
-    width: min(calc(100% - var(--s-3)), var(--foto-w));
-    margin: 0 0 var(--s-3);
-  }
-  /* bloco da marca atrás da foto, deslocado para baixo e para a direita */
-  .quem-foto::before {
-    content: "";
-    position: absolute;
-    inset: var(--s-3) calc(var(--s-3) * -1) calc(var(--s-3) * -1) var(--s-3);
-    z-index: -1;
-    border-radius: var(--r-lg);
-    background: var(--marca);
-  }
   .quem-foto img {
     display: block;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 4 / 5;
+    width: var(--foto);
+    height: var(--foto);
     object-fit: cover;
-    border: var(--borda) solid var(--linha);
+    border: var(--borda) solid var(--linha-2);
     border-radius: var(--r-lg);
     background: var(--papel-3);
-    box-shadow: var(--sh-2);
-  }
-  .quem-foto figcaption {
-    position: absolute;
-    left: calc(var(--s-2) * -1);
-    bottom: var(--s-4);
-    background: var(--papel-2);
-    box-shadow: var(--sh-2);
   }
   .quem-texto { max-width: var(--texto-max); }
   .quem-texto p:not(.eyebrow) { margin-top: var(--s-3); color: var(--tinta-2); }
@@ -1010,29 +1438,32 @@
   }
 
   /* --- contato --- */
-  .contato-grade { display: grid; gap: var(--s-5); }
-  @media (min-width: 1000px) {
-    .contato-grade { grid-template-columns: 1fr 1fr; align-items: start; gap: var(--s-6); }
-  }
-  .contato-texto .lead { margin-top: var(--s-3); }
-  .contato-canais {
-    list-style: none;
-    display: grid;
-    gap: var(--s-2);
-    margin-top: var(--s-4);
-    padding-top: var(--s-3);
-    border-top: var(--borda) solid var(--linha);
-  }
-  .contato-canais li { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-1) var(--s-2); }
-  .contato-canais span { min-width: 11ch; }
-  .contato-canais a { color: var(--tinta); font-size: var(--t-lg); font-weight: 600; }
-  .contato-tempo { margin-top: var(--s-3); }
+  .contato-grade { display: grid; gap: var(--s-5); max-width: var(--texto-max); margin-inline: auto; }
 
   .form-zap { display: grid; gap: var(--s-3); }
-  .form-zap h3 { font-size: var(--t-xl); }
+  .form-zap h2 { font-size: var(--t-xl); }
   .campo { display: grid; gap: var(--s-1); }
   .campo label { font-size: var(--t-sm); font-weight: 600; }
+  .campo:focus-within > label { color: var(--marca-texto); }
   .campo-opcional { color: var(--tinta-2); font-weight: 400; }
+  /* campo obrigatório preenchido: um ✓ dentro do campo, à direita. O campo
+     e o sinal dividem a mesma célula da grade (linha 2) */
+  .campo > .campo-controle { grid-row: 2; grid-column: 1; }
+  .campo[data-ok] > .campo-controle { padding-right: calc(var(--s-3) * 2); }
+  .campo[data-ok]::after {
+    content: "✓";
+    content: "✓" / "";
+    grid-row: 2;
+    grid-column: 1;
+    align-self: center;
+    justify-self: end;
+    margin-right: var(--s-3);
+    color: var(--sucesso);
+    font-weight: 700;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .campo[data-ok]:has(> [aria-invalid="true"])::after { content: none; }
   .campo-controle {
     width: 100%;
     min-height: calc(var(--alvo) + var(--s-1));
@@ -1047,21 +1478,190 @@
   .campo-controle::placeholder { color: var(--tinta-3); opacity: 1; }
   .campo-controle:hover { border-color: var(--tinta-2); }
   .campo-controle:focus-visible { border-color: var(--marca); outline-offset: 0; }
+  /* no formulário o foco é anel laranja (borda + sombra) com um halo claro
+     em volta. O contorno fica transparente: no alto contraste ele volta */
+  .form-zap .campo-controle:focus-visible {
+    outline-color: transparent;
+    box-shadow: 0 0 0 var(--borda) var(--marca), 0 0 0 calc(var(--foco) * 3) color-mix(in srgb, var(--marca) 18%, transparent);
+  }
   .campo-controle[aria-invalid="true"] { border: var(--borda-2) solid var(--marca-texto); }
   textarea.campo-controle { min-height: calc(var(--alvo) * 3); resize: vertical; }
   select.campo-controle { cursor: pointer; }
-  .campo-ajuda, .form-nota { color: var(--tinta-2); font-size: var(--t-sm); }
+
+  /* a mensagem como conversa: cabeçalho com quem recebe, fundo pontilhado
+     e o campo feito balão de quem manda (à direita, com a pontinha) */
+  .zap {
+    overflow: hidden;
+    border: var(--borda) solid var(--linha);
+    border-radius: var(--r-md);
+    background: var(--papel);
+    background:
+      radial-gradient(circle, color-mix(in srgb, var(--linha-2) 30%, transparent) var(--borda), transparent calc(var(--borda) * 1.6)) 0 0 / var(--s-2) var(--s-2),
+      var(--papel);
+  }
+  .zap-topo {
+    display: flex;
+    align-items: center;
+    gap: var(--s-1);
+    padding: var(--s-1) var(--s-2);
+    border-bottom: var(--borda) solid var(--linha);
+    background: var(--papel-2);
+  }
+  .zap-foto {
+    width: calc(var(--alvo) * .8);
+    height: calc(var(--alvo) * .8);
+    object-fit: cover;
+    border-radius: var(--r-pill);
+    background: var(--papel-3);
+  }
+  .zap-quem { display: grid; font-size: var(--t-sm); line-height: 1.3; }
+  .zap-quem small { color: var(--tinta-2); font-size: var(--t-xs); }
+  .zap-balao {
+    position: relative;
+    margin: var(--s-2) var(--s-2) var(--s-2) var(--s-5);
+  }
+  .zap .campo-controle {
+    display: block;
+    min-height: calc(var(--alvo) * 2.5);
+    border-radius: var(--r-md) 0 var(--r-md) var(--r-md);
+    background: var(--marca-tint);
+    box-shadow: var(--sh-1);
+  }
+  @supports (field-sizing: content) {
+    .zap .campo-controle { field-sizing: content; resize: none; }
+  }
+  /* a pontinha: um triângulo da cor da borda com outro da cor do balão por
+     cima, deslocado uma borda para dentro */
+  .zap-balao::before, .zap-balao::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: calc(100% - var(--borda));
+    width: var(--s-1);
+    height: var(--s-2);
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+    background: var(--linha-2);
+    pointer-events: none;
+  }
+  .zap-balao::after {
+    top: var(--borda);
+    left: calc(100% - var(--borda) * 2);
+    background: var(--marca-tint);
+  }
+  @media (hover: hover) {
+    .zap-balao:has(> .campo-controle:hover)::before { background: var(--tinta-2); }
+  }
+  .zap-balao:focus-within::before { background: var(--marca); }
+  .zap-balao:has(> [aria-invalid="true"])::before { background: var(--marca-texto); }
+
+  .campo-ajuda { color: var(--tinta-2); font-size: var(--t-sm); }
   .campo-erro, .form-status--erro { color: var(--marca-texto); font-size: var(--t-sm); font-weight: 600; }
   :is(.campo-erro, .form-status--erro)::before { content: "! "; font-family: var(--f-mono); }
   .form-status { font-size: var(--t-sm); }
   .form-status:empty { display: none; }
   .form-status a { color: var(--marca-texto); font-weight: 600; }
+  .form-status:not(.form-status--erro)::before {
+    content: "✓ ";
+    content: "✓ " / "";
+    color: var(--sucesso);
+    font-weight: 700;
+  }
+  /* o botão de enviar guarda uma camada para a faixa de "abrindo" */
+  .form-zap > .btn--primary { position: relative; isolation: isolate; overflow: hidden; }
 
-  /* --- rodapé --- */
+  /* --- movimento da conta, das perguntas e do contato ---
+     Só para quem não pediu menos movimento, e nada fica em loop: cada
+     coisa mexe uma vez, quando a pessoa mexe. Sem este bloco o estado
+     final é o mesmo, só que chega parado. */
+  @media (prefers-reduced-motion: no-preference) {
+    /* a conta: a bolinha cresce sob o dedo e os pontos acendem com mola */
+    .conta--viva .faixa-range::-webkit-slider-thumb {
+      transition: transform var(--motion-ui) var(--motion-mola), border-color var(--motion-ui) var(--motion-ease);
+    }
+    .conta--viva .faixa-range::-moz-range-thumb {
+      transition: transform var(--motion-ui) var(--motion-mola), border-color var(--motion-ui) var(--motion-ease);
+    }
+    .conta--viva .faixa-range[data-arrastando]::-webkit-slider-thumb { transform: scale(1.18); }
+    .conta--viva .faixa-range[data-arrastando]::-moz-range-thumb { transform: scale(1.18); }
+    .medida-leitura > span { transition: color var(--motion-ui) var(--motion-ease); }
+    .conta-pontos i::after { transition: transform var(--motion-ui) var(--motion-mola); }
+
+    /* perguntas: o sinal gira e vira −; a resposta abre e fecha pela altura
+       onde o navegador sabe animar até "auto" (nos outros, abre na hora e
+       a resposta entra com a "revela" dos utilitários) */
+    .faq summary { transition: background-color var(--motion-ui) var(--motion-ease); }
+    .faq summary::after {
+      transition: transform var(--motion-enter) var(--motion-ease),
+                  background-size var(--motion-enter) var(--motion-ease),
+                  background-color var(--motion-ui) var(--motion-ease),
+                  border-color var(--motion-ui) var(--motion-ease),
+                  color var(--motion-ui) var(--motion-ease);
+    }
+    @supports (interpolate-size: allow-keywords) and selector(::details-content) {
+      .faq { interpolate-size: allow-keywords; }
+      .faq details::details-content {
+        block-size: 0;
+        overflow-y: clip;
+        transition: block-size var(--motion-enter) var(--motion-ease),
+                    content-visibility var(--motion-enter) allow-discrete;
+      }
+      .faq details[open]::details-content { block-size: auto; }
+    }
+
+    /* contato: rótulo e anel de foco acendem; o ✓ chega com mola; o erro
+       desce e o campo dá um tremido curto; ao abrir o WhatsApp o balão
+       "sai" e uma faixa clara atravessa o botão, uma vez */
+    .campo > label, .campo-controle {
+      transition: color var(--motion-ui) var(--motion-ease),
+                  border-color var(--motion-ui) var(--motion-ease),
+                  box-shadow var(--motion-ui) var(--motion-ease);
+    }
+    @keyframes zap-marca { from { opacity: 0; transform: scale(.3) rotate(-30deg); } }
+    @keyframes zap-desce { from { opacity: 0; transform: translateY(calc(var(--s-1) * -1)); } }
+    @keyframes zap-treme {
+      20%, 60% { translate: calc(var(--s-1) * -.5) 0; }
+      40%, 80% { translate: calc(var(--s-1) * .5) 0; }
+    }
+    @keyframes zap-sai {
+      40% { transform: translateY(calc(var(--s-1) * -1)) scale(.98); }
+    }
+    @keyframes zap-faixa { from { transform: scaleX(0); } }
+    .campo[data-ok]::after { animation: zap-marca var(--motion-enter) var(--motion-mola) both; }
+    .campo-erro, .form-status { animation: zap-desce var(--motion-ui) var(--motion-ease) both; }
+    .campo-controle[aria-invalid="true"] { animation: zap-treme .36s var(--motion-ease); }
+    .form-zap[data-enviando] .zap-balao { animation: zap-sai .6s var(--motion-ease); }
+    .form-zap[data-enviando] > .btn--primary::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: color-mix(in srgb, var(--banda-tinta) 30%, transparent);
+      transform-origin: left;
+      animation: zap-faixa 1.4s var(--motion-ease) both;
+    }
+
+    /* ao rolar até o formulário, o balão chega como mensagem nova, do
+       canto da pontinha. Só onde a animação liga à rolagem */
+    @supports (animation-timeline: view()) {
+      @keyframes zap-chega { from { opacity: 0; transform: translateY(var(--s-2)) scale(.92); } }
+      .zap-balao {
+        transform-origin: top right;
+        animation: zap-chega linear both;
+        animation-timeline: view();
+        animation-range: entry 10% entry 90%;
+      }
+      .form-zap[data-enviando] .zap-balao {
+        animation: zap-sai .6s var(--motion-ease);
+        animation-timeline: auto;
+      }
+    }
+  }
+
+  /* --- rodapé: sempre escuro, marca à esquerda e redes só com ícone --- */
   .site-foot {
     padding-block: var(--s-4);
-    border-top: var(--borda) solid var(--linha);
-    color: var(--tinta-2);
+    background: var(--banda);
+    color: var(--banda-tinta-2);
     font-size: var(--t-sm);
   }
   .site-foot .wrap {
@@ -1071,9 +1671,27 @@
     justify-content: space-between;
     gap: var(--s-3);
   }
-  .site-foot b { color: var(--tinta); }
-  .foot-links { list-style: none; display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-3); }
-  .foot-links a { display: inline-block; padding-block: var(--s-1); }
+  .foot-marca { display: flex; align-items: center; gap: var(--s-2); color: var(--banda-tinta); letter-spacing: .02em; }
+  .foot-marca svg { width: 1em; height: 1.2em; }
+  .foot-ponto { fill: var(--marca); }
+  .foot-redes { list-style: none; display: flex; gap: var(--s-1); order: 1; }
+  .rede {
+    display: grid;
+    place-items: center;
+    width: var(--alvo);
+    height: var(--alvo);
+    color: var(--banda-tinta-2);
+    transition: color var(--dur) ease, transform var(--dur) ease;
+  }
+  .rede svg { width: 1.25em; height: 1.25em; }
+  .rede:hover, .rede:focus-visible { color: var(--banda-tinta); transform: scale(1.15); }
+  .site-foot :focus-visible { outline-color: var(--marca); }
+  .foot-links { list-style: none; display: flex; gap: var(--s-3); margin-inline-end: auto; }
+  .foot-links a { display: inline-block; padding-block: var(--s-1); color: var(--banda-tinta-2); }
+  .foot-links a:hover { color: var(--banda-tinta); }
+  @media (forced-colors: active) {
+    .foot-ponto { fill: CanvasText; }
+  }
 
   /* --- barra fixa do WhatsApp (celular) --- */
   .barra-zap { display: none; }
@@ -1120,8 +1738,7 @@
 
   /* --- foco por contexto --- */
   /* laranja sobre papel-3 fica abaixo de 3:1: na faixa alternada o foco é tinta */
-  .alt :focus-visible,
-  .alt .ba-stage:has(.ba-range:focus-visible) { outline-color: var(--tinta); }
+  .alt :focus-visible { outline-color: var(--tinta); }
 
   /* ─── CELULAR: a mesma página, mais curta ─────────────────────────────────
      Nenhum texto some. Menos respiro entre seções, lead no tamanho do corpo,
@@ -1130,10 +1747,10 @@
     main > section { padding-block: var(--s-5); }
     .hero { padding-block: var(--s-5) var(--s-4); }
     .lead, .dores-pe { font-size: var(--t-md); }
-    .cabeca .lead, .ba-texto .lead, .contato-texto .lead { margin-top: var(--s-2); }
+    .cabeca .lead { margin-top: var(--s-2); }
     /* botão que ocupa a linha inteira não precisa de 2rem de cada lado:
        com o respiro largo, rótulo comprido quebra em duas linhas a 320px */
-    .hero-cta .btn, .ba-texto .btn { width: 100%; padding-inline: var(--s-2); }
+    .hero-cta .btn { width: 100%; padding-inline: var(--s-2); }
     .provas { gap: 0; padding-top: 0; }
     .provas > div {
       display: grid;
@@ -1220,7 +1837,7 @@
     .faq details[open] .faq-resp {
       animation: revela var(--motion-enter) var(--motion-ease) both;
     }
-    .btn, .icon-btn, .seta, .work, .ba-knob {
+    .btn, .icon-btn, .seta, .work {
       transition-duration: var(--motion-ui);
       transition-timing-function: var(--motion-ease);
     }
@@ -1255,17 +1872,108 @@
         transition: transform var(--motion-ui) var(--motion-ease);
       }
       .nav-lista a:is(:hover, :focus-visible)::after { transform: scaleX(1); }
+
+      /* pontos do herói acendendo em volta do mouse */
+      .hero:hover .hero-luz { opacity: .7; }
+
+      /* borda que acende perto do mouse (--mx/--my vêm do JS). Só a borda:
+         tingir o fundo do card derrubava o contraste do texto e dos botões */
+      :is(.frente, .price, .dor) { position: relative; }
+      /* o preço em destaque já tem aro próprio, com brilho (bloco dos preços) */
+      :is(.frente, .price:not([data-featured="true"]), .work, .dor)::before {
+        content: "";
+        position: absolute;
+        inset: calc(var(--borda) * -1);
+        padding: var(--borda-2);
+        border-radius: inherit;
+        pointer-events: none;
+        background: radial-gradient(circle calc(var(--luz-r) * .6) at var(--mx, 50%) var(--my, 0%), var(--marca), transparent);
+        -webkit-mask: linear-gradient(var(--tinta), var(--tinta)) content-box, linear-gradient(var(--tinta), var(--tinta));
+        -webkit-mask-composite: xor;
+        mask: linear-gradient(var(--tinta), var(--tinta)) content-box exclude, linear-gradient(var(--tinta), var(--tinta));
+        opacity: 0;
+        transition: opacity var(--motion-ui) var(--motion-ease);
+      }
+      :is(.frente, .price:not([data-featured="true"]), .work, .dor):hover::before { opacity: 1; }
+
     }
+
+    /* herói: o título fica imediato; o resto entra em cascata e o
+       "comprar." ganha o grifo depois */
+    .hero :is(.lead, .hero-cta, .hero-meta, .provas) {
+      animation: revela var(--motion-enter) var(--motion-ease) both;
+    }
+    .hero .lead { animation-delay: .1s; }
+    .hero-cta { animation-delay: .18s; }
+    .hero-meta { animation-delay: .26s; }
+    .hero .provas { animation-delay: .34s; }
+    @keyframes grifa { from { background-size: 0% .3em; } }
+    .hero .destaque { animation: grifa .9s var(--motion-ease) .45s both; }
   }
 
   /* entrada suave ao rolar: só transform e opacity, só onde o navegador
      sabe ligar a animação à rolagem, e nunca para quem pediu menos movimento */
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
-      main > section:not(.hero) :is(.cabeca, .dores > li, .ba, .step, .garantia, .price, .entrega, .conta > .card, .faq, .quem, .form-zap) {
+      main > section:not(.hero) :is(.cabeca, .dores > li, .step, .garantia, .price, .entrega, .conta > .card, .faq, .quem, .form-zap) {
         animation: revela linear both;
         animation-timeline: view();
         animation-range: entry 0% entry 70%;
+      }
+
+      /* frase que acende palavra por palavra enquanto passa pela tela
+         (o JS embrulha cada palavra e numera em --i, de --n) */
+      @keyframes acende { from { color: var(--tinta-3); } to { color: var(--tinta); } }
+      .frase-acende { view-timeline: --frase block; }
+      .frase-acende .palavra {
+        animation: acende linear both;
+        animation-timeline: --frase;
+        animation-range: cover calc(12% + var(--i) / var(--n) * 38%) cover calc(20% + var(--i) / var(--n) * 38%);
+      }
+      @keyframes acende-b { from { color: var(--tinta-3); } to { color: var(--marca-texto); } }
+      .frase-acende b .palavra { animation-name: acende-b; }
+
+      /* o fio do método se desenha, etapa por etapa, ao rolar */
+      @keyframes risca { from { transform: scaleX(0); } }
+      @media (min-width: 560px) {
+        .steps { view-timeline: --passos block; }
+        .step:not(:first-child)::after {
+          content: "";
+          position: absolute;
+          top: calc(var(--borda-2) * -1);
+          right: 0;
+          left: 0;
+          height: var(--borda-2);
+          background: var(--marca);
+          transform-origin: left;
+          animation: risca linear both;
+          animation-timeline: --passos;
+        }
+        .step:nth-child(2)::after { animation-range: cover 22% cover 32%; }
+        .step:nth-child(3)::after { animation-range: cover 30% cover 40%; }
+        .step:nth-child(4)::after { animation-range: cover 38% cover 48%; }
+        .step::before { z-index: 1; }
+      }
+    }
+  }
+
+  /* barra de leitura: um fio da marca embaixo do cabeçalho, que enche
+     conforme a página rola */
+  @supports (animation-timeline: scroll()) {
+    @media (prefers-reduced-motion: no-preference) {
+      @keyframes progresso { to { transform: none; } }
+      .site-head::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        bottom: calc(var(--borda) * -1);
+        left: 0;
+        height: var(--borda-2);
+        background: var(--marca);
+        transform: scaleX(0);
+        transform-origin: left;
+        animation: progresso linear both;
+        animation-timeline: scroll(root);
       }
     }
   }
@@ -1282,6 +1990,6 @@
 
   @media (forced-colors: active) {
     .btn, .icon-btn, .tag, .card, .frame, .campo-controle { border: var(--borda) solid CanvasText; }
-    .ba-handle, .ba-knob { background: CanvasText; }
+    .site-head::after, .step:not(:first-child)::after { background: CanvasText; }
   }
 }

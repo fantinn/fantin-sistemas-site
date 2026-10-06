@@ -1,10 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Fantin Sistemas">
-  <rect width="32" height="32" rx="7" fill="#0E1B2E"/>
-  <g transform="translate(5 3)">
-    <g fill="#FFFFFF">
-      <rect x="0" y="0" width="3" height="26"/><rect x="0" y="0" width="7" height="3"/><rect x="0" y="23" width="7" height="3"/>
-      <rect x="19" y="0" width="3" height="26"/><rect x="15" y="0" width="7" height="3"/><rect x="15" y="23" width="7" height="3"/>
-    </g>
-    <rect x="11" y="15" width="8" height="8" fill="#FFC531"/>
+  <!-- Identidade "papel": fundo no laranja da marca (#f5441a) e símbolo na tinta
+       sobre laranja (#131414), a mesma regra do botão laranja (5,03:1).
+       Não use dois hífens seguidos aqui: comentário XML com eles invalida o SVG. -->
+  <rect width="32" height="32" rx="7" fill="#f5441a"/>
+  <g transform="translate(5 3)" fill="#131414">
+    <rect x="0" y="0" width="3" height="26"/><rect x="0" y="0" width="7" height="3"/><rect x="0" y="23" width="7" height="3"/>
+    <rect x="19" y="0" width="3" height="26"/><rect x="15" y="0" width="7" height="3"/><rect x="15" y="23" width="7" height="3"/>
+    <rect x="11" y="15" width="8" height="8"/>
   </g>
 </svg>

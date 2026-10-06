@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<title>Ícone de tela inicial</title>
+<!-- Fonte do apple-touch-icon.png (180x180). O iOS arredonda sozinho, então aqui
+     o fundo vai até a borda, sem raio. Para gerar de novo, com o site servido:
+     chrome --headless --hide-scrollbars --window-size=180,180 --screenshot=apple-touch-icon.png http://127.0.0.1:8082/tools/icone.html
+     As cores são as do favicon.svg: --marca de fundo, --marca-tinta no símbolo. -->
+<style>
+  html, body { margin: 0; width: 180px; height: 180px; overflow: hidden; background: #f5441a; }
+  svg { display: block; width: 180px; height: 180px; }
+</style>
+</head>
+<body>
+<svg viewBox="0 0 32 32" aria-hidden="true">
+  <g transform="translate(7.2 5.6) scale(.8)" fill="#131414">
+    <rect x="0" y="0" width="3" height="26"/><rect x="0" y="0" width="7" height="3"/><rect x="0" y="23" width="7" height="3"/>
+    <rect x="19" y="0" width="3" height="26"/><rect x="15" y="0" width="7" height="3"/><rect x="15" y="23" width="7" height="3"/>
+    <rect x="11" y="15" width="8" height="8"/>
+  </g>
+</svg>
+</body>
+</html>

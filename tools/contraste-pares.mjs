@@ -42,6 +42,7 @@ const pares = [
   ["tinta", "marca-tint", T, "etiqueta"],
   ["papel-2", "tinta", T, "tamanho selecionado (exemplo)"],
   ["sucesso", "papel-2", T, "frete calculado (exemplo)"],
+  ["linha-2", "marca-tint", G, "borda do balão da mensagem no formulário"],
   ["atencao", "papel-3", T, "grito da tela 'antes' (exemplo)"],
   ["banda-tinta", "banda", T, "título na faixa escura, etiqueta Antes"],
   ["banda-tinta-2", "banda", T, "texto de apoio na faixa escura"],
@@ -51,6 +52,8 @@ const pares = [
   ["marca", "papel-2", G, "contorno de foco em card, borda do destaque"],
   ["tinta", "papel-3", G, "contorno de foco na faixa alternada"],
   ["marca", "banda", G, "contorno de foco e fio na faixa escura"],
+  ["marca", "banda", T, "hora da etapa no filme (faixa escura)"],
+  ["marca-texto", "marca-tint", T, "grifo do \"comprar.\" no título"],
   ["marca-texto", "papel-2", G, "borda de campo com erro"],
 ];
 

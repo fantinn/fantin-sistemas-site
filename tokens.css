@@ -44,9 +44,9 @@
   --f-sans:    "Instrument Sans", Inter, system-ui, sans-serif; /* texto */
   --f-mono:    "JetBrains Mono", ui-monospace, monospace;       /* preço, meta, etiqueta */
 
-  --t-xs:  .8125rem;
-  --t-sm:  .9375rem;
-  --t-md:  1.0625rem;
+  --t-xs:  .875rem;   /* menor texto do site: nada de letra miúda */
+  --t-sm:  1rem;
+  --t-md:  1.125rem;
   --t-lg:  1.25rem;
   --t-xl:  1.75rem;
   --t-2xl: 2.25rem;
@@ -56,11 +56,11 @@
   --s-1: .5rem;  --s-2: .875rem; --s-3: 1.25rem; --s-4: 2rem;
   --s-5: 3rem;   --s-6: 4.5rem;  --s-7: 7rem;
 
-  /* --- raio: cantos discretos, nada de pílula gorda --- */
+  /* --- raio: cantos macios, de vidro --- */
   --r-0:    0;
-  --r-sm:   6px;
-  --r-md:   10px;
-  --r-lg:   16px;
+  --r-sm:   10px;
+  --r-md:   16px;
+  --r-lg:   24px;
   --r-pill: 999px;   /* só botão e etiqueta */
 
   /* --- sombra: quase nada. o sistema é de papel, não de vidro --- */
@@ -74,6 +74,22 @@
   --motion-ui: .24s;
   --motion-enter: .48s;
   --motion-ease: cubic-bezier(.22, 1, .36, 1);
+  --motion-mola: cubic-bezier(.34, 1.56, .64, 1); /* passa um pouco e volta: só em chegadas */
+}
+
+/* --- computador: a página ocupa a tela e o texto cresce junto --- */
+@media (min-width: 1000px) {
+  :root {
+    --t-xs:  .9375rem;
+    --t-sm:  1.0625rem;
+    --t-md:  1.25rem;
+    --t-lg:  1.5rem;
+    --t-xl:  2.125rem;
+    --t-2xl: 3rem;
+    --t-3xl: clamp(3.25rem, 5vw, 5rem);
+    --s-5: 3.5rem;  --s-6: 5.5rem;
+    --maxw: 1360px;
+  }
 }
 
 /* --- modo escuro: mesmo sistema, luz apagada --- */
