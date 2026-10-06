@@ -1,80 +1,84 @@
 /* =========================================================
-   FANTIN — TOKENS OFICIAIS  (v2 — papel)
+   FANTIN — TOKENS OFICIAIS  (v3 — breu)
    Esta é a ÚNICA fonte de verdade de cor, tipografia,
-   espaçamento, raio e sombra do site.
+   espaçamento, raio e movimento do site.
+
+   Um modo só: preto. Fundo #000, texto quase branco e o
+   laranja da marca como única cor. Não existe tema claro.
 
    PROIBIDO escrever cor, raio, sombra ou espaçamento
    solto no CSS. Sempre var(--...).
 
-   Contraste conferido por cálculo: 0 falhas nos dois modos.
+   Contraste conferido por cálculo (tools/contraste-pares.mjs).
    ========================================================= */
 
 :root{
-  /* --- fundo: papel claro (mesmo tom de fundo da Anthropic) --- */
-  --papel:        #f0eee6;  /* fundo da página */
-  --papel-2:      #ffffff;  /* card, superfície elevada */
-  --papel-3:      #e7e4da;  /* faixa alternada, campo de input */
+  color-scheme: dark;
 
-  /* --- banda escura (seções invertidas, rodapé) --- */
-  --banda:        #1a1c19;
-  --banda-tinta:  #f4f4f0;
-  --banda-tinta-2:#a8aaa2;
+  /* --- fundo: preto de verdade, e dois degraus quase invisíveis --- */
+  --breu:      #000000;  /* fundo da página */
+  --breu-2:    #0b0b0b;  /* card, superfície */
+  --breu-3:    #161616;  /* campo, hover, balão */
 
   /* --- texto --- */
-  --tinta:        #131414;  /* título e texto principal */
-  --tinta-2:      #565853;  /* texto de apoio */
-  --tinta-3:      #646055;  /* legenda, meta, eyebrow */
+  --luz:       #f5f5f3;  /* título e texto principal */
+  --luz-2:     #a6a6a3;  /* texto de apoio */
+  --luz-3:     #868683;  /* legenda, meta, rótulo */
+  --sombra-texto: #1a1a1a; /* palavra ainda apagada na frase que acende (enfeite) */
+  --eco:       #0c0c0c;  /* letreiro gigante do rodapé: preto no preto, enfeite */
 
   /* --- linhas --- */
-  --linha:        #dcd9cd;  /* divisória, borda de card */
-  --linha-2:      #8a8676;  /* borda de input/botão (>=3:1, obrigatório) */
+  --fio:       #1f1f1f;  /* divisória, borda de card */
+  --fio-2:     #666664;  /* borda de campo e de botão (>= 3:1, obrigatório) */
 
   /* --- marca --- */
-  --marca:        #f5441a;  /* laranja: botão, detalhe, número */
-  --marca-tinta:  #131414;  /* texto EM CIMA do laranja (5.03:1) */
-  --marca-texto:  #c42c06;  /* laranja para TEXTO sobre papel (4.87:1) */
-  --marca-tint:   #ffe9e2;  /* fundo suave de etiqueta */
+  --marca:     #f5441a;  /* laranja: botão, destaque, número (texto ou fundo) */
+  --marca-2:   #ff6a42;  /* laranja do hover */
+  --sobre-marca: #000000;/* texto em cima do laranja */
+  --marca-fundo: #1c0c06;/* fundo de etiqueta e do card em destaque */
 
   /* --- estado --- */
-  --sucesso:      #0f7b5a;
-  --atencao:      #8a4b04;
+  --sucesso:   #3dd68c;  /* "no ar", campo pronto */
+  --atencao:   #f5a524;
+
+  /* --- vidro do topo: o preto com um pouco de transparência --- */
+  --vidro:     rgba(0, 0, 0, .86);
 
   /* --- tipografia --- */
-  --f-display: Archivo, system-ui, sans-serif;        /* títulos */
-  --f-sans:    "Instrument Sans", Inter, system-ui, sans-serif; /* texto */
-  --f-mono:    "JetBrains Mono", ui-monospace, monospace;       /* preço, meta, etiqueta */
+  --f-display: Archivo, system-ui, sans-serif;                   /* títulos */
+  --f-sans:    "Instrument Sans", Inter, system-ui, sans-serif;  /* texto */
+  --f-mono:    "JetBrains Mono", ui-monospace, monospace;        /* preço, rótulo */
 
   --t-xs:  .875rem;   /* menor texto do site: nada de letra miúda */
   --t-sm:  1rem;
   --t-md:  1.125rem;
-  --t-lg:  1.25rem;
-  --t-xl:  1.75rem;
-  --t-2xl: 2.25rem;
-  --t-3xl: clamp(2.1rem, 5.5vw, 3.6rem);
+  --t-lg:  1.375rem;
+  --t-xl:  1.875rem;
+  --t-2xl: clamp(2.125rem, 8.4vw, 2.75rem);
+  --t-3xl: clamp(2.625rem, 11.6vw, 4.25rem);
+  --t-gigante: 26vw;  /* o FANTIN do rodapé */
 
   /* --- espaçamento --- */
-  --s-1: .5rem;  --s-2: .875rem; --s-3: 1.25rem; --s-4: 2rem;
-  --s-5: 3rem;   --s-6: 4.5rem;  --s-7: 7rem;
+  --s-1: .5rem;  --s-2: .75rem; --s-3: 1rem;  --s-4: 1.5rem;
+  --s-5: 2.5rem; --s-6: 4rem;   --s-7: 6rem;  --s-8: 8rem;
 
-  /* --- raio: cantos macios, de vidro --- */
-  --r-0:    0;
-  --r-sm:   10px;
-  --r-md:   16px;
-  --r-lg:   24px;
+  /* --- raio --- */
+  --r-sm:   8px;
+  --r-md:   14px;
+  --r-lg:   22px;
   --r-pill: 999px;   /* só botão e etiqueta */
 
-  /* --- sombra: quase nada. o sistema é de papel, não de vidro --- */
-  --sh-1: 0 1px 2px rgba(19,20,20,.06);
-  --sh-2: 0 8px 24px -14px rgba(19,20,20,.22);
-  --sh-3: 0 24px 60px -30px rgba(19,20,20,.3);
+  /* --- sombra: no preto não aparece; o relevo é feito com fio --- */
+  --sh-1: 0 0 0 1px var(--fio);
+  --sh-2: 0 0 0 1px var(--fio);
+  --sh-3: 0 0 0 1px var(--fio);
 
-  --maxw: 1120px;
+  --maxw: 1180px;
 
-  /* --- movimento: resposta curta e entrada com desaceleração --- */
-  --motion-ui: .24s;
-  --motion-enter: .48s;
+  /* --- movimento --- */
+  --motion-ui: .2s;
+  --motion-enter: .7s;
   --motion-ease: cubic-bezier(.22, 1, .36, 1);
-  --motion-mola: cubic-bezier(.34, 1.56, .64, 1); /* passa um pouco e volta: só em chegadas */
 }
 
 /* --- computador: a página ocupa a tela e o texto cresce junto --- */
@@ -83,37 +87,11 @@
     --t-xs:  .9375rem;
     --t-sm:  1.0625rem;
     --t-md:  1.25rem;
-    --t-lg:  1.5rem;
-    --t-xl:  2.125rem;
-    --t-2xl: 3rem;
-    --t-3xl: clamp(3.25rem, 5vw, 5rem);
-    --s-5: 3.5rem;  --s-6: 5.5rem;
+    --t-lg:  1.625rem;
+    --t-xl:  2.375rem;
+    --t-2xl: clamp(3rem, 4.6vw, 4.25rem);
+    --t-3xl: clamp(4.5rem, 7.4vw, 7.75rem);
+    --s-7: 8rem;  --s-8: 11rem;
     --maxw: 1360px;
-  }
-}
-
-/* --- modo escuro: mesmo sistema, luz apagada --- */
-:root[data-theme="dark"]{
-  --papel:#121311; --papel-2:#1b1c19; --papel-3:#191b17;
-  --banda:#24261f; --banda-tinta:#f4f4f0; --banda-tinta-2:#a8aaa2;
-  --tinta:#f2f2ee; --tinta-2:#a3a59e; --tinta-3:#8b8d86;
-  --linha:#2c2e29; --linha-2:#6f6a5c;
-  --marca:#ff5c31; --marca-tinta:#131414; --marca-texto:#ff8a66; --marca-tint:#2e1a13;
-  --sucesso:#35b98c; --atencao:#f0a44a;
-  --sh-1: 0 1px 2px rgba(0,0,0,.4);
-  --sh-2: 0 8px 24px -14px rgba(0,0,0,.6);
-  --sh-3: 0 24px 60px -30px rgba(0,0,0,.75);
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --papel:#121311; --papel-2:#1b1c19; --papel-3:#191b17;
-    --banda:#24261f; --banda-tinta:#f4f4f0; --banda-tinta-2:#a8aaa2;
-    --tinta:#f2f2ee; --tinta-2:#a3a59e; --tinta-3:#8b8d86;
-    --linha:#2c2e29; --linha-2:#6f6a5c;
-    --marca:#ff5c31; --marca-tinta:#131414; --marca-texto:#ff8a66; --marca-tint:#2e1a13;
-    --sucesso:#35b98c; --atencao:#f0a44a;
-    --sh-1: 0 1px 2px rgba(0,0,0,.4);
-    --sh-2: 0 8px 24px -14px rgba(0,0,0,.6);
-    --sh-3: 0 24px 60px -30px rgba(0,0,0,.75);
   }
 }

@@ -12,7 +12,7 @@ porque continuam servindo de prova e de isca, mas não é o que a página inicia
 
 | Caminho | O que é |
 |---|---|
-| `index.html` | Site principal — problema, método, frentes, trabalhos, preço e a conta |
+| `index.html` | Site principal — o problema, trabalhos, preços, a conta, quem sou eu, contato e perguntas |
 | `demo/portal-contabil/` | Demonstração funcional: portal de coleta de documentos entre escritório de contabilidade e cliente |
 | `checklist.html` | Página do checklist de documentos do mês |
 | `checklist-documentos/` | O checklist em si, por regime tributário, feito para imprimir |
@@ -43,14 +43,14 @@ Pages (o `CNAME` aponta para fantin.tech). Nenhuma requisição externa: as trê
 
 | Arquivo | Papel |
 |---|---|
-| `tokens.css` | Única fonte de cor, tipografia, espaço, raio e sombra (o sistema "papel") |
+| `tokens.css` | Única fonte de cor, tipografia, espaço, raio e movimento (o sistema "breu": preto, texto quase branco e o laranja da marca) |
 | `fontes.css` | As três fontes (`@font-face`), usadas pela página principal e pelas secundárias |
 | `style.css` | CSS da página principal, em `@layer` (tokens → base → componentes → seções → utilitários); só usa `var(--...)` |
-| `ponte.css` | Liga as variáveis antigas das páginas secundárias aos tokens novos |
+| `ponte.css` | Liga as variáveis antigas das páginas secundárias aos tokens novos (e devolve o papel branco na impressão) |
 | `sistema/` | O CSS e o JS antigos, ainda usados pelas páginas secundárias e pela demonstração |
-| `assets/` | As três fontes, a foto de "quem sou eu" (AVIF e WebP, 320 e 480) e o print do pdrdesign.com.br (AVIF e WebP, 720 e 1200), usado no card do Pedro Design em "trabalhos", e as duas telas do antes e depois (`ba-antes`, `ba-depois`; AVIF e WebP, 480 e 760, 4:7) |
-| `<script>` no fim do `index.html` | Tema, menu do celular, comparador, a conta, o formulário para o WhatsApp, a vitrine dos trabalhos e dos preços (entrada ao aparecer na tela), o filme das 23h (troca de cena ao rolar), a frase que acende e a luz que segue o mouse |
-| `tools/contraste-pares.mjs` | Confere o contraste de todos os pares usados, nos dois modos |
+| `assets/` | As três fontes, o retrato de "quem sou eu" (4:5; AVIF e WebP, 400 e 800), a mesma foto quadrada para o balão do formulário e o dado estruturado (320 e 480) e o print do pdrdesign.com.br (AVIF e WebP, 720 e 1200), usado no card do Pedro Design em "trabalhos" |
+| `<script>` no fim do `index.html` | Medição com consentimento, fio do topo ao rolar, menu do celular, a conta, o formulário para o WhatsApp, a barra do WhatsApp no celular, as entradas ao rolar (com o preço que desce até o valor) e a frase que acende |
+| `tools/contraste-pares.mjs` | Confere o contraste de todos os pares usados |
 | `tools/checar-tokens.mjs` | Acusa cor, espaço, raio ou sombra escritos à mão no `style.css` |
 
 Antes de subir mudança de cor ou de CSS, os dois têm que voltar zero:
@@ -80,10 +80,11 @@ chrome --headless --hide-scrollbars --window-size=1200,630 \
 
 ## Acessibilidade e tema
 
-As páginas respeitam `prefers-reduced-motion`, foco visível por teclado e contraste AA
-nos dois modos (conferido por cálculo, zero falhas). Nenhuma cor é definida apenas dentro
-de media query. Toda visita abre no claro — o papel é a cara da marca; o escuro só entra
-se a pessoa trocar no botão, e vale só naquela visita.
+O site é preto, e só preto: fundo `#000`, texto quase branco, o laranja da marca como
+única cor. Não existe tema claro nem botão de trocar. As páginas respeitam
+`prefers-reduced-motion` (sem movimento pedido, nada entra nem gira: tudo já nasce à
+vista), foco visível por teclado e contraste AA (conferido por cálculo, zero falhas).
+A única exceção ao preto é a impressão do checklist, que volta ao papel branco.
 
 ## Rastreamento
 
