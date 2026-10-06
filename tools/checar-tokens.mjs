@@ -21,8 +21,6 @@ css.split("\n").forEach((linha, i) => {
     const m = decl.match(/([a-z-]+)\s*:\s*(.+)$/i);
     if (!m) continue;
     const [, prop, valor] = m;
-    // --p e --corte são o ESTADO do comparador (posição da linha, mexida pelo JS), não token de design
-    if (prop === "--p" || prop === "--corte") continue;
     if (prop.startsWith("--")) { achados.push(`style.css:${i + 1}  token novo fora do tokens.css: ${decl.trim()}`); continue; }
     const semVar = valor.replace(/var\(--[a-z0-9-]+\)/gi, "");
     if (COR.test(semVar)) achados.push(`style.css:${i + 1}  cor à mão: ${decl.trim()}`);

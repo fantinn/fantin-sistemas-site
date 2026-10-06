@@ -1,62 +1,64 @@
 <!doctype html>
-<html lang="pt-BR" data-theme="light">
+<html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Página não encontrada — Fantin Sistemas</title>
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#f0eee6">
-<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#000000">
+<meta name="color-scheme" content="dark">
 <!-- O GitHub Pages serve este arquivo para qualquer endereço que não existe, em
      qualquer profundidade (/a/b/c). Por isso todo caminho aqui é absoluto (/...). -->
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<script>try{if(sessionStorage.getItem("fs_tema")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
 <link rel="preload" href="/assets/fontes/archivo.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fontes/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/style.css?v=202609251715">
+<link rel="preload" href="/assets/fontes/jetbrains-mono.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/style.css?v=202610061800">
 </head>
 <body>
 
-<header class="site-head">
-  <div class="wrap">
-    <a class="brand" href="/">
-      <svg width="20" height="24" viewBox="0 0 22 26" aria-hidden="true" focusable="false">
+<header class="topo">
+  <div class="caixa topo-linha">
+    <a class="marca" href="/">
+      <svg class="marca-simbolo" width="18" height="22" viewBox="0 0 22 26" aria-hidden="true" focusable="false">
         <g fill="currentColor">
           <rect x="0" y="0" width="3" height="26"/><rect x="0" y="0" width="7" height="3"/><rect x="0" y="23" width="7" height="3"/>
           <rect x="19" y="0" width="3" height="26"/><rect x="15" y="0" width="7" height="3"/><rect x="15" y="23" width="7" height="3"/>
-          <rect x="11" y="15" width="8" height="8"/>
         </g>
+        <rect class="marca-ponto" x="11" y="15" width="8" height="8"/>
       </svg>
-      <span class="brand-nome">FANTIN</span> <span class="brand-sub">Sistemas</span>
+      <span class="marca-nome">FANTIN</span><span class="marca-sub">Sistemas</span>
     </a>
   </div>
 </header>
 
 <main id="conteudo">
-  <section class="hero" aria-labelledby="erro-titulo">
-    <div class="wrap">
-      <p class="eyebrow">Erro 404</p>
-      <h1 id="erro-titulo">Essa página não <span class="destaque">existe.</span></h1>
-      <p class="lead">O endereço mudou ou foi digitado errado. O que você procurava
-      provavelmente está na página inicial.</p>
-      <div class="hero-cta">
-        <a class="btn btn--primary btn--g" href="/">Ir para a página inicial <span class="seta" aria-hidden="true">&rarr;</span></a>
-        <a class="btn btn--ghost btn--g" href="https://wa.me/5527992864820?text=Oi%20Gabriel%2C%20vi%20seu%20site." target="_blank" rel="noopener">Falar no WhatsApp</a>
+  <section class="heroi" aria-labelledby="erro-titulo">
+    <div class="caixa">
+      <p class="rotulo"><span class="rotulo-num">404</span>Endereço não encontrado</p>
+      <h1 class="heroi-titulo" id="erro-titulo">Essa página não <span class="destaque">existe</span><span class="ponto-final">.</span></h1>
+      <div class="heroi-base">
+        <p class="heroi-lead">O endereço mudou ou foi digitado errado. O que você procurava
+        provavelmente está na página inicial.</p>
+        <div class="heroi-acoes">
+          <a class="botao botao--marca botao--g" href="/">Ir para a página inicial <span class="seta" aria-hidden="true">&rarr;</span></a>
+          <a class="botao botao--linha botao--g" href="https://wa.me/5527992864820?text=Oi%20Gabriel%2C%20vi%20seu%20site." target="_blank" rel="noopener">Falar no WhatsApp</a>
+        </div>
       </div>
     </div>
   </section>
 </main>
 
-<footer class="site-foot">
-  <div class="wrap">
-    <p><b>Fantin Sistemas</b> &middot; Atendimento remoto para todo o Brasil, pelo WhatsApp.</p>
-    <ul class="foot-links">
-      <li><a href="https://wa.me/5527992864820?text=Oi%20Gabriel%2C%20vi%20seu%20site." target="_blank" rel="noopener">WhatsApp (27) 99286-4820</a></li>
-      <li><a href="https://www.instagram.com/fantinsi/" target="_blank" rel="noopener">Instagram @fantinsi</a></li>
-      <li><a href="/privacidade.html">Política de privacidade</a></li>
+<footer class="rodape rodape--curto">
+  <div class="caixa rodape-linha">
+    <p class="rodape-marca"><span>&copy; 2026 Fantin &middot; Atendimento para todo o Brasil, pelo WhatsApp</span></p>
+    <ul class="rodape-links">
+      <li><a href="https://www.instagram.com/fantinsi/" target="_blank" rel="noopener">Instagram</a></li>
+      <li><a href="/privacidade.html">Privacidade</a></li>
     </ul>
   </div>
+  <p class="rodape-eco" aria-hidden="true">FANTIN</p>
 </footer>
 
 </body>

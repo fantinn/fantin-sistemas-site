@@ -1,38 +1,42 @@
 <!doctype html>
-<html lang="pt-BR" data-theme="light">
+<html lang="pt-BR">
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex">
 <title>Imagem de compartilhamento</title>
-<!-- Fonte da imagem og.png (1200x630). Para gerar de novo:
-     chrome --headless --hide-scrollbars --window-size=1200,630 --screenshot=og.png http://127.0.0.1:8082/tools/og.html
-     (com o site servido na porta 8082) -->
+<!-- Fonte da imagem og.png (1200x630). Para gerar de novo, com o site servido:
+     chrome --headless --hide-scrollbars --window-size=1200,630 --screenshot=og.png http://127.0.0.1:8080/tools/og.html
+     Precisa ficar abaixo de 300 KB (acima disso o WhatsApp não mostra imagem). -->
 <link rel="stylesheet" href="../style.css">
 <style>
   html, body { width: 1200px; height: 630px; overflow: hidden; }
   .og {
-    width: 1200px; height: 630px;
-    display: flex; flex-direction: column; justify-content: center;
-    padding: var(--s-6);
-    background: var(--papel);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 1200px;
+    height: 630px;
+    padding: var(--s-6) var(--s-6) var(--s-5);
+    background: var(--breu);
   }
-  .og h1 { font-size: calc(var(--t-3xl) * 1.45); max-width: 20ch; }
-  .og .lead { margin-top: var(--s-3); font-size: var(--t-xl); max-width: 48ch; }
-  .og .hero-meta { margin-top: var(--s-4); font-size: var(--t-lg); padding-top: var(--s-3); border-top: var(--borda) solid var(--linha); }
-  .og .brand { margin: 0 0 var(--s-3); }
+  .og .heroi-titulo { max-width: 16ch; font-size: 88px; }
+  .og .marca { font-size: 20px; }
+  .og .marca-nome, .og .marca-sub { font-size: 22px; }
+  .og-pe { display: flex; justify-content: space-between; align-items: center; color: var(--luz-2); font-size: 26px; }
+  .og-pe span:last-child { font-family: var(--f-mono); font-size: 22px; color: var(--luz-3); }
 </style>
 </head>
 <body>
 <div class="og">
-    <p class="brand">
-      <svg width="20" height="24" viewBox="0 0 22 26" aria-hidden="true"><g fill="currentColor">
-        <rect x="0" y="0" width="3" height="26"/><rect x="0" y="0" width="7" height="3"/><rect x="0" y="23" width="7" height="3"/>
-        <rect x="19" y="0" width="3" height="26"/><rect x="15" y="0" width="7" height="3"/><rect x="15" y="23" width="7" height="3"/>
-        <rect x="11" y="15" width="8" height="8"/></g></svg>
-      <span class="brand-nome">FANTIN</span> <span class="brand-sub">Sistemas</span>
-    </p>
-    <h1>Seu cliente te acha no Instagram e não tem onde <span class="destaque">comprar.</span></h1>
-    <p class="lead">Eu monto a loja onde ele vê o preço, escolhe e paga sozinho, no Pix ou no cartão.</p>
+  <p class="marca">
+    <svg class="marca-simbolo" width="22" height="26" viewBox="0 0 22 26" aria-hidden="true"><g fill="currentColor">
+      <rect x="0" y="0" width="3" height="26"/><rect x="0" y="0" width="7" height="3"/><rect x="0" y="23" width="7" height="3"/>
+      <rect x="19" y="0" width="3" height="26"/><rect x="15" y="0" width="7" height="3"/><rect x="15" y="23" width="7" height="3"/></g>
+      <rect class="marca-ponto" x="11" y="15" width="8" height="8"/></svg>
+    <span class="marca-nome">FANTIN</span><span class="marca-sub">Sistemas</span>
+  </p>
+  <h1 class="heroi-titulo">Seu cliente te acha no Instagram e não tem onde <span class="destaque">comprar</span><span class="ponto-final">.</span></h1>
+  <p class="og-pe"><span>Loja e landing page, com preço fechado e no seu nome.</span><span>fantin.tech</span></p>
 </div>
 </body>
 </html>

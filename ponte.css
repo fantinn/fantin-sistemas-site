@@ -4,8 +4,10 @@
    As páginas secundárias (privacidade, checklists) foram escritas com as
    variáveis do sistema antigo (sistema/tokens.css). Em vez de reescrever
    cada regra delas, esta ponte aponta cada variável antiga para um token de
-   tokens.css. Resultado: as mesmas páginas, no papel + laranja, com claro e
-   escuro, sem nenhuma cor escrita à mão. Carregue DEPOIS de sistema/tokens.css.
+   tokens.css. Resultado: as mesmas páginas, no preto + laranja do site,
+   sem nenhuma cor escrita à mão. Carregue DEPOIS de sistema/tokens.css.
+
+   Na impressão, o checklist volta para o papel branco (regra própria dele).
    ========================================================================== */
 
 @import url("tokens.css");
@@ -14,50 +16,51 @@
 :root,
 :root[data-tema],
 :root[data-theme] {
-  color-scheme: light;
+  color-scheme: dark;
 
   /* fundo */
-  --fundo: var(--papel);
-  --fundo-2: var(--papel-2);
-  --fundo-3: var(--papel-3);
-  --fundo-alto: var(--papel-2);
-  --fundo-inverso: var(--banda);
+  --fundo: var(--breu);
+  --fundo-2: var(--breu-2);
+  --fundo-3: var(--breu-3);
+  --fundo-alto: var(--breu-2);
+  --fundo-inverso: var(--breu-3);
 
   /* texto */
-  --texto: var(--tinta);
-  --texto-2: var(--tinta-2);
-  --texto-3: var(--tinta-3);
-  --texto-inverso: var(--banda-tinta);
+  --texto: var(--luz);
+  --texto-2: var(--luz-2);
+  --texto-3: var(--luz-3);
+  --texto-inverso: var(--luz);
 
-  /* linhas: --linha já é o token novo */
-  --linha-forte: var(--linha-2);
-  --linha-inversa: var(--banda-tinta-2);
-  --pauta: var(--linha);
+  /* linhas */
+  --linha: var(--fio);
+  --linha-forte: var(--fio-2);
+  --linha-inversa: var(--luz-3);
+  --pauta: var(--fio);
 
-  /* acento: o laranja de texto serve de fundo de botão com texto em papel-2
-     por cima (o mesmo par nos dois modos); no hover, o botão fica tinta */
-  --acento: var(--marca-texto);
-  --acento-hover: var(--tinta);
-  --acento-ativo: var(--tinta);
-  --acento-suave: var(--marca-tint);
-  --texto-sobre-acento: var(--papel-2);
+  /* acento: o laranja serve de texto e de fundo de botão (com preto por
+     cima); no hover, o laranja mais claro */
+  --acento: var(--marca);
+  --acento-hover: var(--marca-2);
+  --acento-ativo: var(--marca-2);
+  --acento-suave: var(--marca-fundo);
+  --texto-sobre-acento: var(--sobre-marca);
 
   /* estado */
   --ok: var(--sucesso);
   --verde: var(--sucesso);
-  --verde-hover: var(--tinta);
+  --verde-hover: var(--luz);
   --aviso: var(--atencao);
-  --erro: var(--marca-texto);
-  --etiqueta: var(--marca-tint);
+  --erro: var(--marca);
+  --etiqueta: var(--marca-fundo);
 
-  /* sombra só neutra, dos tokens; foco é o outline, sem anel colorido */
+  /* no preto não tem sombra: o relevo é o fio; foco é o outline */
   --elev-0: none;
   --elev-1: var(--sh-1);
   --elev-2: var(--sh-2);
   --elev-3: var(--sh-3);
   --anel-foco: none;
 
-  /* raio: cantos discretos do sistema novo */
+  /* raio */
   --raio-1: var(--r-sm);
   --raio-2: var(--r-sm);
   --raio-3: var(--r-md);
@@ -67,5 +70,25 @@
   --fonte-texto: var(--f-sans);
 }
 
-/* escolha de tema feita no site (salva no navegador) */
-:root[data-theme="dark"] { color-scheme: dark; }
+html, body { background: var(--breu); }
+
+/* impressão: papel branco e tinta preta (preto no papel gasta tinta e não lê).
+   Basta trocar os tokens-base: todas as variáveis da ponte apontam para eles. */
+@media print {
+  :root,
+  :root[data-tema],
+  :root[data-theme] {
+    color-scheme: light;
+    --breu: #ffffff;
+    --breu-2: #ffffff;
+    --breu-3: #f2f2f2;
+    --luz: #000000;
+    --luz-2: #333333;
+    --luz-3: #555555;
+    --fio: #cccccc;
+    --fio-2: #999999;
+    --marca: #c42c06;
+    --marca-fundo: #ffffff;
+    --sobre-marca: #ffffff;
+  }
+}
